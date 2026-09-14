@@ -1,0 +1,20 @@
+{
+  "id": "docs-audit-superpowers-20260914-2118",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "idle_timeout": 240,
+  "task_timeout": 1500,
+  "memory_limit_mb": 3072,
+  "commands": [
+    "set -eu; EXPECTED=def317d9485f64e76d1e4e21209dc93455fffcb1; ACTUAL=$(git rev-parse HEAD); echo SOURCE_SHA=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -eu; python3 - <<'PY'\nfrom pathlib import Path\nimport re, sys\nroot=Path('.')\nfiles=[Path('README.md'), Path('AGENTS.md')] + sorted(Path('docs').rglob('*.md')) + [Path('privileged-helper/README.md')]\nmissing=[]\nfor p in files:\n    text=p.read_text(encoding='utf-8')\n    for target in re.findall(r'\\[[^\\]]*\\]\\(([^)]+)\\)', text):\n        if '://' in target or target.startswith('#') or target.startswith('mailto:'):\n            continue\n        target=target.split('#',1)[0]\n        if not target:\n            continue\n        q=(p.parent/target).resolve()\n        try:\n            q.relative_to(root.resolve())\n        except ValueError:\n            continue\n        if not q.exists():\n            missing.append((str(p),target))\nif missing:\n    print('BROKEN_RELATIVE_LINKS')\n    for x in missing: print(x)\n    sys.exit(1)\nprint('MARKDOWN_RELATIVE_LINKS_OK', len(files))\nPY",
+    "set -eu; echo '--- stale status scan ---'; ! grep -R -n -E 'Status: `NEXT`|This is the next implementation task|next code change.*Phase 0\\.5' README.md docs privileged-helper/README.md || { echo STALE_STATUS_FOUND; exit 1; }; echo STALE_STATUS_SCAN_OK",
+    "set -eu; echo '--- required handoff files ---'; test -f docs/S22_BASELINE_2026-09-14.md; test -f docs/DEVELOPMENT_WORKFLOW.md; test -f docs/superpowers/plans/2026-09-14-phase1-live-call-validation.md; test -f AGENTS.md; echo HANDOFF_FILES_OK",
+    "set -eu; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; test -x \"$GRADLE\"; \"$GRADLE\" :app:assembleDebug --stacktrace",
+    "set -eu; test -z \"$(git status --porcelain)\"; echo REPOSITORY_CLEAN_AFTER_AUDIT"
+  ]
+}
