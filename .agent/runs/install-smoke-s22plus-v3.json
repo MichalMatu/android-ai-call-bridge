@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 5,
-  "command": "set -eu; command -v adb; adb start-server >/dev/null; adb devices -l; SERIALS=$(adb devices | awk 'NR>1 && $2==\"device\" {print $1}'); COUNT=$(printf '%s\\n' \"$SERIALS\" | sed '/^$/d' | wc -l | tr -d ' '); test \"$COUNT\" = \"1\"; SERIAL=$(printf '%s\\n' \"$SERIALS\" | head -n1); MANUFACTURER=$(adb -s \"$SERIAL\" shell getprop ro.product.manufacturer | tr -d '\\r'); MODEL=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r'); echo SERIAL=$SERIAL MANUFACTURER=$MANUFACTURER MODEL=$MODEL; case \"$MANUFACTURER\" in samsung|Samsung) ;; *) exit 1;; esac; case \"$MODEL\" in SM-S906*) ;; *) exit 1;; esac",
-  "pid": 60447,
+  "command": "set -eu; if [ -d '/Applications/Android Studio.app/Contents/jbr/Contents/Home' ]; then export JAVA_HOME='/Applications/Android Studio.app/Contents/jbr/Contents/Home'; export PATH=\"$JAVA_HOME/bin:$PATH\"; fi; java -version; SDK_ROOT=${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}; test -d \"$SDK_ROOT\"; export ANDROID_HOME=\"$SDK_ROOT\"; export ANDROID_SDK_ROOT=\"$SDK_ROOT\"; echo ANDROID_SDK_ROOT=$SDK_ROOT; GRADLE=$(command -v gradle || true); if [ -z \"$GRADLE\" ]; then GDIR=\"$HOME/.gradle/local-agent/gradle-9.6.0\"; GRADLE=\"$GDIR/bin/gradle\"; if [ ! -x \"$GRADLE\" ]; then mkdir -p \"$HOME/.gradle/local-agent\"; TMPZIP=$(mktemp /tmp/gradle-9.6.0.XXXXXX.zip); curl -fL --retry 3 -o \"$TMPZIP\" https://services.gradle.org/distributions/gradle-9.6.0-bin.zip; rm -rf \"$GDIR\"; unzip -q \"$TMPZIP\" -d \"$HOME/.gradle/local-agent\"; rm -f \"$TMPZIP\"; fi; fi; \"$GRADLE\" --version; \"$GRADLE\" :app:assembleDebug --stacktrace",
+  "pid": 60527,
   "timeout": 600,
   "idle_timeout": 240,
   "memory_limit_mb": 3072,
-  "started_at": "2026-09-14T15:43:31.187334+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-14T15:43:34.755182+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 5,
   "stage_phase": "commands",
   "task_id": "install-smoke-s22plus-v3",
@@ -18,5 +18,5 @@
   "task_digest": "5ad12fac362da98d4968b47b899b28fe0d1a30c9057cc25200d4114a69ca95f0",
   "daemon_version": "4.18.20",
   "daemon_pid": 60254,
-  "updated_at": "2026-09-14T15:43:31.256583+00:00"
+  "updated_at": "2026-09-14T15:43:34.831485+00:00"
 }
