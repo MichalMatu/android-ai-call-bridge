@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "cleanup-stale-branches-20260914-2117",
+  "task_digest": "a39648d4003e01c7e9e469a7fa3672a1e3075a6ac5a8cc3905c0ff154a5eda26",
+  "idle_timeout": 120,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-14T19:26:04.169866+00:00",
+  "attempt_id": "aa62a98b20b0a3dab17b694f",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 21572,
+  "updated_at": "2026-09-14T19:26:04.169972+00:00",
+  "pid": 21572
+}
