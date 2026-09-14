@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase0.5-shell-audio-probe-s22-20260914-1758-v2",
+  "task_digest": "f6af266ef76f68f77d0541de2f7146d5e1d78053d9de0c47ac8dd33a50bfd5dd",
+  "idle_timeout": 240,
+  "task_timeout": 1200,
+  "memory_limit_mb": 3072,
+  "started_at": "2026-09-14T15:57:45.602839+00:00",
+  "attempt_id": "a7a356b50a12d4d33f0f6011",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 71430,
+  "updated_at": "2026-09-14T15:57:45.602918+00:00",
+  "pid": 71430
+}
