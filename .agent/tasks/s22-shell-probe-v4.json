@@ -1,0 +1,17 @@
+{
+  "id": "s22-shell-probe-v4",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 120,
+  "task_timeout": 900,
+  "memory_limit_mb": 3072,
+  "commands": [
+    "set -eu; test \"$(git rev-parse HEAD)\" = \"a311daade5737dd3a40c32c55b5acfdabc970eb3\"; test -z \"$(git status --porcelain)\"",
+    "set -eu; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; \"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\" :app:assembleDebug",
+    "set -eu; S=$(adb devices | awk 'NR>1 && $2==\"device\" {print $1; exit}'); test -n \"$S\"; adb -s \"$S\" push app/build/outputs/apk/debug/app-debug.apk /data/local/tmp/aicallbridge-shell-probe.apk >/dev/null; adb -s \"$S\" shell 'CLASSPATH=/data/local/tmp/aicallbridge-shell-probe.apk app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe'"
+  ]
+}
