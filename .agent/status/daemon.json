@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.20",
   "state": "idle",
-  "pid": 45657,
-  "updated_at": "2026-09-14T15:24:22.097383+00:00",
+  "pid": 58650,
+  "updated_at": "2026-09-14T15:41:52.398124+00:00",
   "self_revision": "d2c23951456d1e1528e3c52e47bdd104294cf170",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 45657,
-  "supervisor_pid": 37379,
-  "last_task_id": "install-smoke-s22plus-20260914-1717",
-  "execution_variant": "parallel"
+  "worker_pid": 58650,
+  "supervisor_pid": 58371,
+  "control_id": "status-probe-20260914-1728"
 }
