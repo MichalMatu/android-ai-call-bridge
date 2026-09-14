@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 5,
+  "index": 6,
   "total": 6,
-  "command": "set -eu; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; test -x \"$GRADLE\"; \"$GRADLE\" :app:assembleDebug --stacktrace",
-  "pid": 13854,
+  "command": "set -eu; test -z \"$(git status --porcelain)\"; echo REPOSITORY_CLEAN_AFTER_AUDIT",
+  "pid": 13935,
   "timeout": 600,
   "idle_timeout": 240,
   "memory_limit_mb": 3072,
-  "started_at": "2026-09-14T19:14:31.142558+00:00",
-  "stage_name": "command-5",
-  "stage_index": 5,
+  "started_at": "2026-09-14T19:14:35.968993+00:00",
+  "stage_name": "command-6",
+  "stage_index": 6,
   "stage_total": 6,
   "stage_phase": "commands",
   "task_id": "docs-audit-superpowers-20260914-2118",
@@ -18,5 +18,5 @@
   "task_digest": "7ef86ebd4a33c43d5b3e3068afb4bdba21257ae796c8eb724f24bb8c708b762a",
   "daemon_version": "4.18.20",
   "daemon_pid": 13655,
-  "updated_at": "2026-09-14T19:14:31.187339+00:00"
+  "updated_at": "2026-09-14T19:14:36.058274+00:00"
 }
