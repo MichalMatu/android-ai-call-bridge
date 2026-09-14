@@ -1,0 +1,18 @@
+{
+  "id": "phase0.5-shell-audio-probe-s22-20260914-1756",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "idle_timeout": 240,
+  "task_timeout": 1200,
+  "memory_limit_mb": 3072,
+  "commands": [
+    "set -eu; EXPECTED=1abd839b016efacf21b8fe7199260e23fc4ebf07; ACTUAL=$(git rev-parse HEAD); echo SOURCE_SHA=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -eu; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; test -x \"$GRADLE\"; \"$GRADLE\" :app:assembleDebug --stacktrace",
+    "set -eu; adb start-server >/dev/null; SERIALS=$(adb devices | awk 'NR>1 && $2==\"device\" {print $1}'); COUNT=$(printf '%s\\n' \"$SERIALS\" | sed '/^$/d' | wc -l | tr -d ' '); test \"$COUNT\" = \"1\"; SERIAL=$(printf '%s\\n' \"$SERIALS\" | head -n1); MODEL=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r'); test \"$MODEL\" = \"SM-S906B\"; APK=app/build/outputs/apk/debug/app-debug.apk; test -f \"$APK\"; adb -s \"$SERIAL\" push \"$APK\" /data/local/tmp/aicallbridge-shell-probe.apk >/dev/null; adb -s \"$SERIAL\" shell chmod 644 /data/local/tmp/aicallbridge-shell-probe.apk; echo MODEL=$MODEL; adb -s \"$SERIAL\" shell id",
+    "set -eu; SERIAL=$(adb devices | awk 'NR>1 && $2==\"device\" {print $1; exit}'); echo '--- SHELL AUDIO PROBE ---'; adb -s \"$SERIAL\" shell 'CLASSPATH=/data/local/tmp/aicallbridge-shell-probe.apk app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe'; echo '--- END SHELL AUDIO PROBE ---'"
+  ]
+}
