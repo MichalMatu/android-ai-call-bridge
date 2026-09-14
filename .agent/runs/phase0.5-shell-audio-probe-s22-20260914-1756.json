@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 3,
+  "index": 4,
   "total": 4,
-  "command": "set -eu; adb start-server >/dev/null; SERIALS=$(adb devices | awk 'NR>1 && $2==\"device\" {print $1}'); COUNT=$(printf '%s\\n' \"$SERIALS\" | sed '/^$/d' | wc -l | tr -d ' '); test \"$COUNT\" = \"1\"; SERIAL=$(printf '%s\\n' \"$SERIALS\" | head -n1); MODEL=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r'); test \"$MODEL\" = \"SM-S906B\"; APK=app/build/outputs/apk/debug/app-debug.apk; test -f \"$APK\"; adb -s \"$SERIAL\" push \"$APK\" /data/local/tmp/aicallbridge-shell-probe.apk >/dev/null; adb -s \"$SERIAL\" shell chmod 644 /data/local/tmp/aicallbridge-shell-probe.apk; echo MODEL=$MODEL; adb -s \"$SERIAL\" shell id",
-  "pid": 70179,
+  "command": "set -eu; SERIAL=$(adb devices | awk 'NR>1 && $2==\"device\" {print $1; exit}'); echo '--- SHELL AUDIO PROBE ---'; adb -s \"$SERIAL\" shell 'CLASSPATH=/data/local/tmp/aicallbridge-shell-probe.apk app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe'; echo '--- END SHELL AUDIO PROBE ---'",
+  "pid": 70267,
   "timeout": 600,
   "idle_timeout": 240,
   "memory_limit_mb": 3072,
-  "started_at": "2026-09-14T15:56:15.749334+00:00",
-  "stage_name": "command-3",
-  "stage_index": 3,
+  "started_at": "2026-09-14T15:56:19.496688+00:00",
+  "stage_name": "command-4",
+  "stage_index": 4,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase0.5-shell-audio-probe-s22-20260914-1756",
@@ -18,5 +18,5 @@
   "task_digest": "826ca9ecb4965ff4131ba86231bc34380d8bb5fad76d00a1ddcd62ffe12ac849",
   "daemon_version": "4.18.20",
   "daemon_pid": 69980,
-  "updated_at": "2026-09-14T15:56:15.824706+00:00"
+  "updated_at": "2026-09-14T15:56:19.581021+00:00"
 }
