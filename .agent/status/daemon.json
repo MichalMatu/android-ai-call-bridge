@@ -3,7 +3,7 @@
   "daemon_version": "4.18.20",
   "state": "idle",
   "pid": 77861,
-  "updated_at": "2026-09-14T16:05:04.169307+00:00",
+  "updated_at": "2026-09-14T16:05:10.172062+00:00",
   "self_revision": "d2c23951456d1e1528e3c52e47bdd104294cf170",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -25,5 +25,5 @@
   "execution_model": "multi_repository_worker",
   "worker_pid": 77861,
   "supervisor_pid": 77605,
-  "control_id": "status-probe-20260914-1804"
+  "execution_variant": "parallel"
 }
