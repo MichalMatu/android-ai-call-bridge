@@ -1,4 +1,5 @@
 {
-  "id": "status-probe-20260914-1753",
-  "action": "status"
+  "id": "cancel-shell-audio-probe-20260914-1759",
+  "action": "cancel_task",
+  "task_id": "phase0.5-shell-audio-probe-s22-20260914-1758-v2"
 }
