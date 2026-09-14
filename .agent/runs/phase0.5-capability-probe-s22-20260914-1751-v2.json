@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase0.5-capability-probe-s22-20260914-1751-v2",
+  "task_digest": "a22c973b7845ee612f885b0ce9c945dfb5b8657cafb4aee1c8fde37dbc301381",
+  "idle_timeout": 240,
+  "task_timeout": 1500,
+  "memory_limit_mb": 3072,
+  "started_at": "2026-09-14T15:53:06.310505+00:00",
+  "attempt_id": "81db0ecbdc1eaff5ae4eebbc",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 67276,
+  "updated_at": "2026-09-14T15:53:06.310559+00:00",
+  "pid": 67276
+}
