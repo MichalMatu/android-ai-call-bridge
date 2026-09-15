@@ -1,0 +1,14 @@
+{
+  "id": "local-whisper-install-20260915-2310",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "task_timeout": 1800,
+  "commands": [
+    "set -e; brew install whisper-cpp",
+    "set -e; MODEL_DIR=\"$HOME/Library/Caches/android-ai-call-bridge\"; MODEL=\"$MODEL_DIR/ggml-base.bin\"; mkdir -p \"$MODEL_DIR\"; if [ ! -s \"$MODEL\" ]; then curl -L --fail --retry 3 -o \"$MODEL.tmp\" https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin; mv \"$MODEL.tmp\" \"$MODEL\"; fi; ls -lh \"$MODEL\"; command -v whisper-cli || command -v whisper-cpp || true"
+  ]
+}
