@@ -1,0 +1,60 @@
+{
+  "id": "live-call-install-existing-apk-20260915-2218",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:16:49.491265+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; echo BEFORE_CALL; adb shell dumpsys telephony.registry | grep -E 'mCallState=' | head -n 4; adb install -r app/build/outputs/apk/debug/app-debug.apk; APK=$(adb shell pm path pl.michalmatu.aicallbridge | head -n1 | sed 's/^package://'); echo APK=$APK; echo PROBE; adb shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe\"; echo AFTER_CALL; adb shell dumpsys telephony.registry | grep -E 'mCallState=' | head -n 4",
+      "exit_code": 0,
+      "output": "BEFORE_CALL\n    mCallState=2\n    mCallState=0\nPerforming Streamed Install\nSuccess\nAPK=/data/app/~~PtxA7qiv6TSPaU6HD4MnmA==/pl.michalmatu.aicallbridge-euwR_0qfkPQvsWtW1P4Cmg==/base.apk\nPROBE\nprobe=shell-audio-v4\nuid=2000\npid=29697\nrecord_VOICE_CALL=state:1,session:8433,buffer:2560\nrecord_VOICE_DOWNLINK=state:1,session:8441,buffer:2560\nrecord_VOICE_UPLINK=state:1,session:8449,buffer:2560\npermission_CAPTURE_AUDIO_OUTPUT=granted\npermission_MODIFY_AUDIO_ROUTING=granted\npermission_MODIFY_PHONE_STATE=granted\naudio_mode=2\ntelephony_device=id=11,direction=sink,product=SM-S906B\ntelephony_device=id=17,direction=source,product=SM-S906B\ntelephony_sink_present=true\ntelephony_source_present=true\ntrack_MEDIA_MUSIC=error:UnsupportedOperationException:Cannot create AudioTrack\ntrack_VOICE_COMMUNICATION=error:UnsupportedOperationException:Cannot create AudioTrack\nAFTER_CALL\n    mCallState=2\n    mCallState=0\n",
+      "elapsed_seconds": 5.04,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.72,
+      "output_policy": "stream",
+      "captured_output_chars": 901,
+      "output_truncated": false,
+      "current_rss_mb": 9.7,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 5.04
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.067
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "finished_at": "2026-09-15T20:16:56.170126+00:00",
+  "task_digest": "805062b389fce8da695c9082cfaade09250538148705ed34fb470b809422687f",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "91f9b8ef590a0eb443f1ab7e",
+  "daemon_version": "4.18.20"
+}
