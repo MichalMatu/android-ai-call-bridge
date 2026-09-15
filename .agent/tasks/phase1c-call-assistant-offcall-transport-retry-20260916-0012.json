@@ -1,0 +1,13 @@
+{
+  "id": "phase1c-call-assistant-offcall-transport-retry-20260916-0012",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 600,
+  "commands": [
+    "set -e; EXPECTED=c8652aa6eaaf23c07b809c44b0ae98b3c435c555; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; echo '=== ADB DEVICES ==='; adb devices -l; SERIAL=$(python3 -c 'from scripts.s22_call_control import Adb; print(Adb().serial)'); echo selected_serial=$SERIAL; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; python3 scripts/s22_call_control.py --serial \"$SERIAL\" status; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; set +e; OUTPUT=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct\" 2>&1); RC=$?; set -e; echo \"$OUTPUT\"; echo probe_exit=$RC; echo offcall_call_assistant_complete=true"
+  ]
+}
