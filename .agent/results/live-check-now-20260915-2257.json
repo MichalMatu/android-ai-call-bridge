@@ -1,0 +1,88 @@
+{
+  "id": "live-check-now-20260915-2257",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:43:22.281704+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "echo ADB; adb devices -l; echo STATUS; python3 scripts/s22_call_control.py status; echo SPEECH_AUTH; TMP=$(mktemp -d); cat > \"$TMP/check.swift\" <<'SWIFT'\nimport Foundation\nimport Speech\nprint(SFSpeechRecognizer.authorizationStatus().rawValue)\nSWIFT\nswift \"$TMP/check.swift\"; rm -rf \"$TMP\"",
+      "exit_code": 0,
+      "output": "ADB\nList of devices attached\n192.168.0.100:34771    device product:g0sxeea model:SM_S906B device:g0s transport_id:1\n\nSTATUS\ncall_state=0 name=IDLE\nSPEECH_AUTH\n0\n",
+      "elapsed_seconds": 1.65,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.89,
+      "output_policy": "stream",
+      "captured_output_chars": 161,
+      "output_truncated": false,
+      "current_rss_mb": 1.89,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "STATE=$(adb shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9]\\).*/\\1/p' | head -n1); if [ \"$STATE\" = \"2\" ]; then mkdir -p /tmp/aicallbridge-live; python3 scripts/s22_call_control.py capture 3000 /tmp/aicallbridge-live/now.wav; ls -l /tmp/aicallbridge-live/now.wav; swift scripts/transcribe_audio.swift /tmp/aicallbridge-live/now.wav || true; else echo NO_ACTIVE_CALL_CAPTURE_SKIPPED; fi",
+      "exit_code": 0,
+      "output": "NO_ACTIVE_CALL_CAPTURE_SKIPPED\n",
+      "elapsed_seconds": 0.643,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 5.22,
+      "output_policy": "stream",
+      "captured_output_chars": 31,
+      "output_truncated": false,
+      "current_rss_mb": 5.22,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.65
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.643
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.107
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.075
+  },
+  "finished_at": "2026-09-15T20:43:26.346462+00:00",
+  "task_digest": "8da75eda8a9ae0ddec01ade9bb4f6f124f896f8d0904c34143ef9471976e2219",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "2619084b3eded642a9ad0485",
+  "daemon_version": "4.18.20"
+}
