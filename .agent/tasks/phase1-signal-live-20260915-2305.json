@@ -1,0 +1,13 @@
+{
+  "id": "phase1-signal-live-20260915-2305",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "commands": [
+    "mkdir -p /tmp/aicallbridge-live && python3 scripts/autonomous_call_loop.py 510100100 --output /tmp/aicallbridge-live/signal-gated.wav --capture-ms 3000 --signal-timeout 20 --max-call-seconds 45; python3 scripts/s22_call_control.py status; ls -l /tmp/aicallbridge-live/signal-gated.wav"
+  ]
+}
