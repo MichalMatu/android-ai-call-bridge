@@ -1,0 +1,13 @@
+{
+  "id": "speech-transcriber-build-20260915-2254",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 90,
+  "task_timeout": 300,
+  "commands": [
+    "TMP=$(mktemp -d); swiftc scripts/transcribe_audio.swift -o \"$TMP/transcribe_audio\"; file \"$TMP/transcribe_audio\"; rm -rf \"$TMP\""
+  ]
+}
