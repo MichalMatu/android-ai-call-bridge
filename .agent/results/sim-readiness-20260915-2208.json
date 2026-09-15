@@ -1,0 +1,116 @@
+{
+  "id": "sim-readiness-20260915-2208",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:09:35.930929+00:00",
+  "command_timeout": 60,
+  "edits": {},
+  "commands": [
+    {
+      "command": "adb devices -l",
+      "exit_code": 0,
+      "output": "List of devices attached\n192.168.0.100:34771    device product:g0sxeea model:SM_S906B device:g0s transport_id:1\n\n",
+      "elapsed_seconds": 0.383,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 0.67,
+      "output_policy": "stream",
+      "captured_output_chars": 113,
+      "output_truncated": false,
+      "current_rss_mb": 0.67,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "adb shell 'echo SIM_STATE=$(getprop gsm.sim.state); echo OPERATOR=$(getprop gsm.operator.alpha); echo COUNTRY=$(getprop gsm.operator.iso-country); echo NETWORK_TYPE=$(getprop gsm.network.type); echo VOICE_NETWORK_TYPE=$(getprop gsm.voice.network.type)'",
+      "exit_code": 0,
+      "output": "SIM_STATE=LOADED,ABSENT\nOPERATOR=Orange,\nCOUNTRY=pl,\nNETWORK_TYPE=LTE,Unknown\nVOICE_NETWORK_TYPE=\n",
+      "elapsed_seconds": 0.571,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 0.16,
+      "output_policy": "stream",
+      "captured_output_chars": 98,
+      "output_truncated": false,
+      "current_rss_mb": 0.16,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "adb shell dumpsys telephony.registry | grep -E 'mCallState=|mServiceState=' | head -n 12",
+      "exit_code": 0,
+      "output": "    mCallState=0\n    mServiceState={mVoiceRegState=0(IN_SERVICE), mDataRegState=0(IN_SERVICE), mChannelNumber=6200, duplexMode()=1, mCellBandwidths=[10000], mOperatorAlphaLong=Orange, mOperatorAlphaShort=Orange, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=14(LTE), getRilDataRadioTechnology=14(LTE), mCssIndicator=unsupported, mNetworkId=*1, mSystemId=*1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndicator=-1, NonCellular=false, Snap=0, PsOnly=false, SprDisplayRoam=false, OptRadioTech=0, MsimSubmode=0, IsVoiceCallAvailable=true, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN networkRegistrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false isNonTerrestrialNetwork=TERRESTRIAL}, NetworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=HOME networkRegistrationState=HOME roamingType=NOT_ROAMING accessNetworkTechnology=LTE rejectCause=0 emergencyEnabled=false availableServices=[VOICE,SMS,VIDEO] cellIdentity=CellIdentityLte:{ mCi=7*****75 mPci=181 mTac=5***0 mEarfcn=6200 mBands=[20] mBandwidth=2147483647 mMcc=260 mMnc=03 mAlphaLong=Orange mAlphaShort=Orange mAdditionalPlmns={} mCsgInfo=null} voiceSpecificInfo=VoiceSpecificRegistrationInfo { mCssSupported=false mRoamingIndicator=0 mSystemIsInPrl=0 mDefaultRoamingIndicator=0} dataSpecificInfo=null nrState=**** rRplmn=26003 isUsingCarrierAggregation=false isNonTerrestrialNetwork=TERRESTRIAL}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=HOME networkRegistrationState=HOME roamingType=NOT_ROAMING accessNetworkTechnology=LTE rejectCause=0 emergencyEnabled=false availableServices=[DATA,MMS] cellIdentity=CellIdentityLte:{ mCi=7*****75 mPci=181 mTac=5***0 mEarfcn=6200 mBands=[20] mBandwidth=2147483647 mMcc=260 mMnc=03 mAlphaLong=Orange mAlphaShort=Orange mAdditionalPlmns={} mCsgInfo=null} voiceSpecificInfo=null dataSpecificInfo=android.telephony.DataSpecificRegistrationInfo :{ maxDataCalls = 16 isDcNrRestricted = false isNrAvailable = false isEnDcAvailable = false mLteAttachResultType = 0 mLteAttachExtraInfo = 0 LteVopsSupportInfo :  mVopsSupport = 2 mEmcBearerSupport = 2 } nrState=**** rRplmn=26003 isUsingCarrierAggregation=false isNonTerrestrialNetwork=TERRESTRIAL}], mNrFrequencyRange=0, mOperatorAlphaLongRaw=Orange, mOperatorAlphaShortRaw=Orange, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=false, mIsUsingNonTerrestrialNetwork=false}\n    mCallState=0\n    mServiceState={mVoiceRegState=1(OUT_OF_SERVICE), mDataRegState=1(OUT_OF_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=, mOperatorAlphaShort=, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnology=0(Unknown), mCssIndicator=unsupported, mNetworkId=*1, mSystemId=*1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndicator=-1, NonCellular=false, Snap=0, PsOnly=false, SprDisplayRoam=false, OptRadioTech=0, MsimSubmode=0, IsVoiceCallAvailable=false, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN networkRegistrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false isNonTerrestrialNetwork=TERRESTRIAL}, NetworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=NOT_REG_OR_SEARCHING networkRegistrationState=NOT_REG_OR_SEARCHING roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=VoiceSpecificRegistrationInfo { mCssSupported=false mRoamingIndicator=0 mSystemIsInPrl=0 mDefaultRoamingIndicator=0} dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false isNonTerrestrialNetwork=TERRESTRIAL}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=NOT_REG_OR_SEARCHING networkRegistrationState=NOT_REG_OR_SEARCHING roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=android.telephony.DataSpecificRegistrationInfo :{ maxDataCalls = 16 isDcNrRestricted = false isNrAvailable = false isEnDcAvailable = false mLteAttachResultType = 0 mLteAttachExtraInfo = 0 null } nrState=**** rRplmn= isUsingCarrierAggregation=false isNonTerrestrialNetwork=TERRESTRIAL}], mNrFrequencyRange=0, mOperatorAlphaLongRaw=, mOperatorAlphaShortRaw=, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=false, mIsUsingNonTerrestrialNetwork=false}\n",
+      "elapsed_seconds": 0.489,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 4.97,
+      "output_policy": "stream",
+      "captured_output_chars": 5051,
+      "output_truncated": false,
+      "current_rss_mb": 4.97,
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.383
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.571
+    },
+    {
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.489
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.084
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "finished_at": "2026-09-15T20:09:39.054880+00:00",
+  "task_digest": "05b68e58a9266cdb66d4a47338a664b4d83e3dada4882c6a224d8d187fd9d1e5",
+  "idle_timeout": 300,
+  "task_timeout": 180,
+  "memory_limit_mb": 4096,
+  "attempt_id": "56cf46bcb0f0ae826190367f",
+  "daemon_version": "4.18.20"
+}
