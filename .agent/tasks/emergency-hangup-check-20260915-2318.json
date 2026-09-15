@@ -1,0 +1,13 @@
+{
+  "id": "emergency-hangup-check-20260915-2318",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 60,
+  "task_timeout": 180,
+  "commands": [
+    "adb shell input keyevent KEYCODE_ENDCALL || true; sleep 1; adb devices -l; adb shell dumpsys telephony.registry | grep -E 'mCallState=' | head -n 4 || true"
+  ]
+}
