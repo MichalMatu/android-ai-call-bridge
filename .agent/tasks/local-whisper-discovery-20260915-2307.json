@@ -1,0 +1,13 @@
+{
+  "id": "local-whisper-discovery-20260915-2307",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "commands": [
+    "echo BREW=$(command -v brew || true); brew search whisper 2>/dev/null | head -n 40; echo INFO; brew info whisper-cpp 2>/dev/null | head -n 80 || true; echo DISK; df -h / | tail -n 1"
+  ]
+}
