@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "failsafe-green-20260915-2328",
+  "task_digest": "cb222c14d273cec10bfb076085db37d834ecd451bbc7f54e5eedaf66b1b670ba",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T21:08:24.573646+00:00",
+  "attempt_id": "e1d79c643e76b31497db1d83",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 41334,
+  "updated_at": "2026-09-15T21:08:24.573700+00:00",
+  "pid": 41334
+}
