@@ -1,0 +1,13 @@
+{
+  "id": "phase1c-adb-handshake-recover-20260916-0041",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 600,
+  "commands": [
+    "set -e; EXPECTED=835e1b6ee6403c6444347728e4e448c530cd9773; ACTUAL=$(git rev-parse HEAD); echo expected=$EXPECTED actual=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; echo '=== BEFORE ==='; adb devices -l || true; adb disconnect 192.168.0.100:38559 >/dev/null 2>&1 || true; adb disconnect 192.168.0.100:41361 >/dev/null 2>&1 || true; adb kill-server || true; sleep 1; adb start-server; echo '=== CONNECT 38559 ==='; adb connect 192.168.0.100:38559 || true; sleep 2; echo '=== CONNECT 41361 ==='; adb connect 192.168.0.100:41361 || true; sleep 3; adb reconnect offline || true; sleep 2; echo '=== AFTER ==='; adb devices -l; SERIAL=$(adb devices -l | awk '$2==\"device\" && /model:SM_S906B/ {print $1; exit}'); if [ -z \"$SERIAL\" ]; then echo adb_recovered=false; exit 0; fi; echo adb_recovered=true serial=$SERIAL; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo call_state=$STATE; test \"$STATE\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; for RATE in 16000 48000; do echo === construct_$RATE ===; set +e; adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct $RATE\"; RC=$?; set -e; echo construct_${RATE}_exit=$RC; done; echo phase1c_adb_handshake_recover_complete=true"
+  ]
+}
