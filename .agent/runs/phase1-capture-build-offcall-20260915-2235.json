@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 3,
-  "command": "export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug --no-daemon",
-  "pid": 92665,
+  "command": "adb devices -l; adb install -r app/build/outputs/apk/debug/app-debug.apk",
+  "pid": 92930,
   "timeout": 600,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-15T20:33:22.457301+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-15T20:33:33.635390+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "phase1-capture-build-offcall-20260915-2235",
@@ -18,5 +18,5 @@
   "task_digest": "05da3aaa8edaf222699883c18e0b3cf70116369e9a7867bd3a56c43cd46bb9f6",
   "daemon_version": "4.18.20",
   "daemon_pid": 92525,
-  "updated_at": "2026-09-15T20:33:22.457452+00:00"
+  "updated_at": "2026-09-15T20:33:33.650329+00:00"
 }
