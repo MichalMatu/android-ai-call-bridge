@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "explicit-wireless-hangup-20260915-2320",
+  "task_digest": "65523c6a7d0a7d981d6e5873bd96fbff4a31ab8135b0341bb5252e05d46cb502",
+  "idle_timeout": 300,
+  "task_timeout": 180,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T21:05:43.878984+00:00",
+  "attempt_id": "be84496e2647d3d6817af947",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 37960,
+  "updated_at": "2026-09-15T21:05:43.879085+00:00",
+  "pid": 37960
+}
