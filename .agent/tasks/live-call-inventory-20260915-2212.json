@@ -1,0 +1,14 @@
+{
+  "id": "live-call-inventory-20260915-2212",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 90,
+  "task_timeout": 180,
+  "commands": [
+    "adb shell dumpsys telephony.registry | grep -E 'mCallState=' | head -n 4",
+    "APK=$(adb shell pm path pl.michalmatu.aicallbridge | head -n1 | sed 's/^package://'); echo APK=$APK; adb shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe\""
+  ]
+}
