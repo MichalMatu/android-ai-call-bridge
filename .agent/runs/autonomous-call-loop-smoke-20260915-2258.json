@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "autonomous-call-loop-smoke-20260915-2258",
+  "task_digest": "09d5aa6998c0f0b6964cf4805dc2f0df6b7a15e1e288cdf7a4440140de5faca8",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T20:56:31.578825+00:00",
+  "attempt_id": "abf91e4b87929f81112347c5",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 20279,
+  "updated_at": "2026-09-15T20:56:31.578922+00:00",
+  "pid": 20279
+}
