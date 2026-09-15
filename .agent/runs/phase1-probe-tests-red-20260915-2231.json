@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1-probe-tests-red-20260915-2231",
+  "task_digest": "41133ace39c221f3d8e319f9d4a73baf8fd51905cb7718ee36a43ef77fd47b7f",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T20:30:25.115853+00:00",
+  "attempt_id": "2ed74e582c329e9ab1e2712a",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 88895,
+  "updated_at": "2026-09-15T20:30:25.115949+00:00",
+  "pid": 88895
+}
