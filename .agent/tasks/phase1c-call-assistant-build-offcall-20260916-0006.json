@@ -1,0 +1,13 @@
+{
+  "id": "phase1c-call-assistant-build-offcall-20260916-0006",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "task_timeout": 900,
+  "commands": [
+    "set -e; EXPECTED=c8652aa6eaaf23c07b809c44b0ae98b3c435c555; ACTUAL=$(git rev-parse HEAD); echo expected=$EXPECTED actual=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug; SERIAL=192.168.0.100:34771; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; python3 scripts/s22_call_control.py status; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; set +e; OUTPUT=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct\" 2>&1); RC=$?; set -e; echo \"$OUTPUT\"; echo probe_exit=$RC; echo offcall_call_assistant_complete=true"
+  ]
+}
