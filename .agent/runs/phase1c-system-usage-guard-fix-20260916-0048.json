@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-system-usage-guard-fix-20260916-0048",
+  "task_digest": "7b7ef51689f51bc6f8fa08154538870c6e83dd3755e7c1a0dc4fe711fac099ea",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T22:47:53.025166+00:00",
+  "attempt_id": "12ab1a3514a76f685bf300c1",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 62530,
+  "updated_at": "2026-09-15T22:47:53.025309+00:00",
+  "pid": 62530
+}
