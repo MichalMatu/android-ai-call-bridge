@@ -1,0 +1,13 @@
+{
+  "id": "phase1-gradle-discovery-20260915-2225",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 60,
+  "task_timeout": 300,
+  "commands": [
+    "find \"$HOME/.gradle\" -type f -path '*/bin/gradle' 2>/dev/null | tail -n 10; find /Applications -type f -path '*/gradle*/bin/gradle' 2>/dev/null | head -n 10"
+  ]
+}
