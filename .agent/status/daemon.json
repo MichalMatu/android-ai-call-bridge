@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.20",
   "state": "idle",
-  "pid": 7123,
-  "updated_at": "2026-09-15T23:49:38.506119+00:00",
+  "pid": 8716,
+  "updated_at": "2026-09-15T23:50:48.514734+00:00",
   "self_revision": "d2c23951456d1e1528e3c52e47bdd104294cf170",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 7123,
-  "supervisor_pid": 5483,
-  "last_task_id": "phase1c-capture-isolation-20260916-0152",
+  "worker_pid": 8716,
+  "supervisor_pid": 8449,
   "execution_variant": "parallel"
 }
