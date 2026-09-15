@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-audio-policy-audit-20260915-2354",
+  "task_digest": "5c53ba3cb6bda4dd26be6c5d9f2f9d88e3ceccaffafdadf75b31ac428aa28b0a",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T21:43:08.209243+00:00",
+  "attempt_id": "d02d510e128dfc3f4994bb51",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 81728,
+  "updated_at": "2026-09-15T21:43:08.209360+00:00",
+  "pid": 81728
+}
