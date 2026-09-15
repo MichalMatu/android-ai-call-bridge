@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1-gradle-discovery-20260915-2225",
+  "task_digest": "c9508a0d0280bb7a1d1afbdbdc7cd8b43d575188a61924e7bda1acc7f5858f37",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T20:29:00.703034+00:00",
+  "attempt_id": "8174a755dfb1290888ce6598",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 87121,
+  "updated_at": "2026-09-15T20:29:00.703133+00:00",
+  "pid": 87121
+}
