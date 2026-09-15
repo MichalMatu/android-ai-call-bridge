@@ -1,0 +1,14 @@
+{
+  "id": "failsafe-green-20260915-2328",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 600,
+  "commands": [
+    "cd scripts && python3 -m unittest -v test_s22_call_control.py test_autonomous_call_loop.py",
+    "python3 scripts/s22_call_control.py status"
+  ]
+}
