@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "adb-select-red-20260915-2322",
   "task_digest": "6db488f946b1ac68f007297b71fd9776273329932e2da55df58d17f9f8a81cdb",
-  "idle_timeout": 300,
-  "task_timeout": 300,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-15T21:06:12.840781+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-15T21:06:15.041879+00:00",
   "attempt_id": "618a321486a0d4efd0278473",
   "daemon_version": "4.18.20",
   "daemon_pid": 38605,
-  "updated_at": "2026-09-15T21:06:12.840853+00:00",
+  "updated_at": "2026-09-15T21:06:15.293676+00:00",
   "pid": 38605
 }
