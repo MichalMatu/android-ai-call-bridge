@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "live-call-inventory-20260915-2212",
+  "task_digest": "273ddb26b30370350bc0d3f265a7dbef65deaa7d27b93488a4961332bfb3da3d",
+  "idle_timeout": 300,
+  "task_timeout": 180,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T20:13:55.450829+00:00",
+  "attempt_id": "46401375ce8e1f148e9ab1db",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 69152,
+  "updated_at": "2026-09-15T20:13:55.450879+00:00",
+  "pid": 69152
+}
