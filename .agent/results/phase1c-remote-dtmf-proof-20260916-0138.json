@@ -1,0 +1,9 @@
+{
+  "id": "phase1c-remote-dtmf-proof-20260916-0138",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-15T23:39:46.132157+00:00",
+  "daemon_version": "4.18.20",
+  "error": "JSONDecodeError: Expecting ',' delimiter: line 1 column 3830 (char 3829)"
+}
