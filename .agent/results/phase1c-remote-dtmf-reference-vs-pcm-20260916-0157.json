@@ -1,0 +1,89 @@
+{
+  "id": "phase1c-remote-dtmf-reference-vs-pcm-20260916-0157",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T23:54:51.477399+00:00",
+  "command_timeout": 180,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=08fa4028d8eb173401a638ba8daf80d3d8d3503d; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; PRE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo pre_call_state=$PRE; test \"$PRE\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; printf '%s' \"$APK\" >/tmp/phase1c_apk_path; rm -f /tmp/phase1c_ref.wav /tmp/phase1c_pcm.wav",
+      "exit_code": 0,
+      "output": "expected=08fa4028d8eb173401a638ba8daf80d3d8d3503d actual=08fa4028d8eb173401a638ba8daf80d3d8d3503d remote=08fa4028d8eb173401a638ba8daf80d3d8d3503d\n* daemon not running; starting now at tcp:5037\n* daemon started successfully\npre_call_state=0\n",
+      "elapsed_seconds": 4.277,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 10.88,
+      "output_policy": "stream",
+      "captured_output_chars": 240,
+      "output_truncated": false,
+      "current_rss_mb": 10.88,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; }; trap cleanup EXIT; echo '=== REFERENCE CALL: DIALER DTMF 1 ==='; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100; OFF=0; for i in $(seq 1 50); do ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo ref_call_state=$ST; if [ \"$ST\" = \"2\" ]; then OFF=1; break; fi; sleep 0.4; done; test \"$OFF\" = \"1\"; sleep 6; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dtmf 1; sleep 0.35; python3 scripts/s22_call_control.py --serial \"$SERIAL\" capture 2000 /tmp/phase1c_ref.wav; python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup; trap - EXIT; sleep 1; ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo after_ref_state=$ST; test \"$ST\" = \"0\"",
+      "exit_code": 2,
+      "output": "=== REFERENCE CALL: DIALER DTMF 1 ===\nserial=RFCT70L7E8J\ndial_requested=true\nref_call_state=0\nref_call_state=2\nerror=Command '['adb', '-s', 'RFCT70L7E8J', 'shell', 'cat', '/sdcard/aicallbridge-window.xml']' returned non-zero exit status 1.\n",
+      "elapsed_seconds": 22.764,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 33.5,
+      "output_policy": "stream",
+      "captured_output_chars": 240,
+      "output_truncated": false,
+      "current_rss_mb": 33.5,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.277
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 22.764
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.086
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.076
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-15T23:55:20.179630+00:00",
+  "task_digest": "bf68ba2db532bb58d0e29702d7baf7ec2f4a307d7667646ba502b72f8aa3ffb2",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "89dd7b67b9a07f38fa45ab21",
+  "daemon_version": "4.18.20"
+}
