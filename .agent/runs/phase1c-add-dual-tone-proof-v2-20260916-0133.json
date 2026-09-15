@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-add-dual-tone-proof-v2-20260916-0133",
+  "task_digest": "4b879a085b73bfa067d2829897de5bf1b9889e72459491e7be9a9469aa0318b1",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T23:35:14.522449+00:00",
+  "attempt_id": "bde0f7a5a7fd87cac034ebc2",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 96635,
+  "updated_at": "2026-09-15T23:35:14.522564+00:00",
+  "pid": 96635
+}
