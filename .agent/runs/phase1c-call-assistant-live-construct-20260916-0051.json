@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-call-assistant-live-construct-20260916-0051",
+  "task_digest": "4e226c2b5d46d489849da9e54ace98633500fad1de706513c891f6f613ddfa18",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T22:52:40.994142+00:00",
+  "attempt_id": "0fb837e146251aa978c48223",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 66020,
+  "updated_at": "2026-09-15T22:52:40.994235+00:00",
+  "pid": 66020
+}
