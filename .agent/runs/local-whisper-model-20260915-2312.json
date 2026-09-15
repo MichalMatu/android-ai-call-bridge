@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 2,
-  "command": "set -e; echo WHISPER=$(command -v whisper-cli || command -v whisper-cpp); MODEL_DIR=\"$HOME/Library/Caches/android-ai-call-bridge\"; MODEL=\"$MODEL_DIR/ggml-base.bin\"; mkdir -p \"$MODEL_DIR\"; if [ ! -s \"$MODEL\" ]; then curl -L --fail --retry 3 -o \"$MODEL.tmp\" https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin; mv \"$MODEL.tmp\" \"$MODEL\"; fi; ls -lh \"$MODEL\"",
-  "pid": 35209,
+  "command": "set -e; W=$(command -v whisper-cli || command -v whisper-cpp); MODEL=\"$HOME/Library/Caches/android-ai-call-bridge/ggml-base.bin\"; test -f /tmp/aicallbridge-live/signal-gated.wav; \"$W\" -m \"$MODEL\" -l pl -f /tmp/aicallbridge-live/signal-gated.wav -nt -np",
+  "pid": 35359,
   "timeout": 600,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-15T21:03:40.427963+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-15T21:03:45.941763+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 2,
   "stage_phase": "commands",
   "task_id": "local-whisper-model-20260915-2312",
@@ -18,5 +18,5 @@
   "task_digest": "6348fc46999713062a9cfc20c8f6d56db04472ecb260f1a86bb38105ad32ddea",
   "daemon_version": "4.18.20",
   "daemon_pid": 34990,
-  "updated_at": "2026-09-15T21:03:40.428169+00:00"
+  "updated_at": "2026-09-15T21:03:45.975935+00:00"
 }
