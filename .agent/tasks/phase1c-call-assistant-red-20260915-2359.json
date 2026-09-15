@@ -1,0 +1,13 @@
+{
+  "id": "phase1c-call-assistant-red-20260915-2359",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 300,
+  "commands": [
+    "set -e; EXPECTED=228582bb8b46d86d88f005475da26f96acd03ab9; ACTUAL=$(git rev-parse HEAD); echo expected=$EXPECTED actual=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; \"$GRADLE\" :app:testDebugUnitTest --tests '*ProbeArgumentsTest*'"
+  ]
+}
