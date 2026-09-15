@@ -1,0 +1,13 @@
+{
+  "id": "phase1-tone-red-20260915-2334",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 300,
+  "commands": [
+    "set -e; EXPECTED=0096e72a3497e1398d16ac86407ebc3d38cebd91; ACTUAL=$(git rev-parse HEAD); echo expected=$EXPECTED actual=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; GRADLE=$(find \"$HOME/.gradle\" -type f -path '*/gradle-9.6.0/bin/gradle' -perm +111 2>/dev/null | head -n1); test -n \"$GRADLE\"; echo gradle=$GRADLE; ANDROID_HOME=\"$HOME/Library/Android/sdk\" \"$GRADLE\" :app:testDebugUnitTest --tests '*ToneGeneratorTest*'"
+  ]
+}
