@@ -1,0 +1,116 @@
+{
+  "id": "s22-call-control-green-20260915-2242",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:36:24.800562+00:00",
+  "command_timeout": 90,
+  "edits": {},
+  "commands": [
+    {
+      "command": "cd scripts && python3 -m unittest -v test_s22_call_control.py",
+      "exit_code": 0,
+      "output": "test_calculates_bounds_center (test_s22_call_control.CallControlParsingTest.test_calculates_bounds_center) ... ok\ntest_extracts_primary_call_state (test_s22_call_control.CallControlParsingTest.test_extracts_primary_call_state) ... ok\ntest_finds_exact_digit_text (test_s22_call_control.CallControlParsingTest.test_finds_exact_digit_text) ... ok\ntest_finds_polish_keypad_by_content_description (test_s22_call_control.CallControlParsingTest.test_finds_polish_keypad_by_content_description) ... ok\ntest_normalizes_valid_dtmf_sequence (test_s22_call_control.CallControlParsingTest.test_normalizes_valid_dtmf_sequence) ... ok\ntest_rejects_invalid_dtmf_character (test_s22_call_control.CallControlParsingTest.test_rejects_invalid_dtmf_character) ... ok\ntest_returns_none_when_call_state_missing (test_s22_call_control.CallControlParsingTest.test_returns_none_when_call_state_missing) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.001s\n\nOK\n",
+      "elapsed_seconds": 0.489,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.23,
+      "output_policy": "stream",
+      "captured_output_chars": 982,
+      "output_truncated": false,
+      "current_rss_mb": 1.23,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "python3 scripts/s22_call_control.py status",
+      "exit_code": 0,
+      "output": "call_state=0 name=IDLE\n",
+      "elapsed_seconds": 0.731,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 0.23,
+      "output_policy": "stream",
+      "captured_output_chars": 23,
+      "output_truncated": false,
+      "current_rss_mb": 0.23,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "python3 scripts/s22_call_control.py dump-ui | head -c 12000",
+      "exit_code": 0,
+      "output": "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><hierarchy rotation=\"0\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"0\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.LinearLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.FrameLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"2\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/action_bar_root\" class=\"android.widget.LinearLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"android:id/content\" class=\"android.widget.FrameLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"2\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/main_fragment_container\" class=\"android.widget.FrameLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/main_fragment_root\" class=\"android.widget.FrameLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/main_screen_container\" class=\"androidx.drawerlayout.widget.DrawerLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.ViewGroup\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2340]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/main_screen_without_navigation_view\" class=\"android.view.ViewGroup\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2132]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/main_screen_coordinator_layout\" class=\"android.view.ViewGroup\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,0][1080,2132]\" drawing-order=\"2\" hint=\"\" /><node index=\"1\" text=\"\" resource-id=\"com.google.android.dialer:id/tab_fragment_container\" class=\"android.widget.FrameLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,2132]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/dialpad_search_root\" class=\"android.view.ViewGroup\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,2132]\" drawing-order=\"3\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"com.google.android.dialer:id/dialpad_search_search_fragment_view\" class=\"android.widget.FrameLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,1008]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.LinearLayout\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,1008]\" drawing-order=\"1\" hint=\"\"><node index=\"1\" text=\"\" resource-id=\"com.google.android.dialer:id/compose_view\" class=\"androidx.compose.ui.platform.ComposeView\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,1008]\" drawing-order=\"2\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,1008]\" drawing-order=\"0\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"true\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,1008]\" drawing-order=\"0\" hint=\"\"><node index=\"0\" text=\"All contacts\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,74][1080,195]\" drawing-order=\"0\" hint=\"\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[32,200][1048,389]\" drawing-order=\"1\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"true\" password=\"false\" selected=\"false\" bounds=\"[32,200][1048,389]\" drawing-order=\"0\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.widget.Button\" package=\"com.google.android.dialer\" content-desc=\"Quick contact for BIURO OBSLUGI\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[64,232][190,358]\" drawing-order=\"0\" hint=\"\" /><node index=\"1\" text=\"BIURO OBSLUGI\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[221,237][534,300]\" drawing-order=\"1\" hint=\"\" /><node index=\"2\" text=\"Mobile ‪+48510100100‬\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[221,300][582,353]\" drawing-order=\"2\" hint=\"\" /><node index=\"3\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[881,233][1007,359]\" drawing-order=\"3\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"Call\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[912,264][975,327]\" drawing-order=\"0\" hint=\"\" /><node index=\"1\" text=\"\" resource-id=\"\" class=\"android.widget.Button\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[891,243][996,348]\" drawing-order=\"1\" hint=\"\" /></node><node index=\"4\" text=\"\" resource-id=\"\" class=\"android.widget.Button\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[32,200][1048,389]\" drawing-order=\"4\" hint=\"\" /></node></node><node index=\"2\" text=\"Not in your contacts\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[0,394][1080,515]\" drawing-order=\"2\" hint=\"\" /><node index=\"3\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[32,520][1048,709]\" drawing-order=\"3\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"true\" enabled=\"true\" focusable=\"true\" focused=\"false\" scrollable=\"false\" long-clickable=\"true\" password=\"false\" selected=\"false\" bounds=\"[32,520][1048,709]\" drawing-order=\"0\" hint=\"\"><node index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.google.android.dialer\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bou",
+      "elapsed_seconds": 2.881,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 30.52,
+      "output_policy": "stream",
+      "captured_output_chars": 11996,
+      "output_truncated": false,
+      "current_rss_mb": 30.52,
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.489
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.731
+    },
+    {
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.881
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.081
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.069
+  },
+  "finished_at": "2026-09-15T20:36:30.761747+00:00",
+  "task_digest": "2d6c79753f9f6bf082a386484eeabc5b979f70236c67545aa070a0f1cbecf1f6",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "7f0244d076e5d255d9e9647f",
+  "daemon_version": "4.18.20"
+}
