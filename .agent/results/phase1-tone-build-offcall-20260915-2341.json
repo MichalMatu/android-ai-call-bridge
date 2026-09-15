@@ -1,0 +1,9 @@
+{
+  "id": "phase1-tone-build-offcall-20260915-2341",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-15T21:22:55.088523+00:00",
+  "daemon_version": "4.18.20",
+  "error": "JSONDecodeError: Invalid \\escape: line 12 column 441 (char 1137)"
+}
