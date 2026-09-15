@@ -1,0 +1,60 @@
+{
+  "id": "macos-speech-status-20260915-2244",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:37:05.151297+00:00",
+  "command_timeout": 90,
+  "edits": {},
+  "commands": [
+    {
+      "command": "TMP=$(mktemp -d); cat > \"$TMP/check.swift\" <<'SWIFT'\nimport Foundation\nimport Speech\nprint(\"speech_auth=\\(SFSpeechRecognizer.authorizationStatus().rawValue)\")\nprint(\"recognizer_pl=\\(SFSpeechRecognizer(locale: Locale(identifier: \"pl-PL\")) != nil)\")\nprint(\"recognizer_en=\\(SFSpeechRecognizer(locale: Locale(identifier: \"en-US\")) != nil)\")\nSWIFT\nswift \"$TMP/check.swift\"; rm -rf \"$TMP\"",
+      "exit_code": 0,
+      "output": "speech_auth=0\nrecognizer_pl=true\nrecognizer_en=true\n",
+      "elapsed_seconds": 23.868,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 551.84,
+      "output_policy": "stream",
+      "captured_output_chars": 52,
+      "output_truncated": false,
+      "current_rss_mb": 390.97,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 23.868
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.096
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.077
+  },
+  "finished_at": "2026-09-15T20:37:30.549514+00:00",
+  "task_digest": "eca384a5ce3c4fad08254f9e39d2d759caed55bd78c2647c8a714c4092aba1c2",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "d394ea34ee267bf80efdb89c",
+  "daemon_version": "4.18.20"
+}
