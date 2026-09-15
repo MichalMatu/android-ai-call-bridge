@@ -1,0 +1,88 @@
+{
+  "id": "local-whisper-model-20260915-2312",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T21:03:38.836060+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; echo WHISPER=$(command -v whisper-cli || command -v whisper-cpp); MODEL_DIR=\"$HOME/Library/Caches/android-ai-call-bridge\"; MODEL=\"$MODEL_DIR/ggml-base.bin\"; mkdir -p \"$MODEL_DIR\"; if [ ! -s \"$MODEL\" ]; then curl -L --fail --retry 3 -o \"$MODEL.tmp\" https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin; mv \"$MODEL.tmp\" \"$MODEL\"; fi; ls -lh \"$MODEL\"",
+      "exit_code": 0,
+      "output": "WHISPER=/opt/homebrew/bin/whisper-cli\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100  1099  100  1099    0     0   4560      0 --:--:-- --:--:-- --:--:--  4579\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  5  141M    5 7673k    0     0  5656k      0  0:00:25  0:00:01  0:00:24 7750k\n 29  141M   29 42.0M    0     0  17.8M      0  0:00:07  0:00:02  0:00:05 21.0M\n 54  141M   54 77.3M    0     0  23.0M      0  0:00:06  0:00:03  0:00:03 25.8M\n 78  141M   78  110M    0     0  25.2M      0  0:00:05  0:00:04  0:00:01 27.6M\n100  141M  100  141M    0     0  27.0M      0  0:00:05  0:00:05 --:--:-- 29.0M\n-rw-r--r--@ 1 michal  staff   141M Sep 15 23:03 /Users/michal/Library/Caches/android-ai-call-bridge/ggml-base.bin\n",
+      "elapsed_seconds": 5.514,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.48,
+      "output_policy": "stream",
+      "captured_output_chars": 944,
+      "output_truncated": false,
+      "current_rss_mb": 9.48,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; W=$(command -v whisper-cli || command -v whisper-cpp); MODEL=\"$HOME/Library/Caches/android-ai-call-bridge/ggml-base.bin\"; test -f /tmp/aicallbridge-live/signal-gated.wav; \"$W\" -m \"$MODEL\" -l pl -f /tmp/aicallbridge-live/signal-gated.wav -nt -np",
+      "exit_code": 0,
+      "output": "load_backend: loaded BLAS backend from /opt/homebrew/Cellar/ggml/0.24.0/libexec/libggml-blas.so\nggml_metal_device_init: tensor API disabled for pre-M5 and pre-A19 devices\nggml_metal_library_init: using embedded metal library\nggml_metal_library_compile_all: compiled 'fa' library in 27.072 sec\nggml_metal_library_compile_all: compiled 'mul_mv' library in 1.817 sec\nggml_metal_library_compile_all: compiled 'mul_mm' library in 2.225 sec\nggml_metal_library_compile_all: compiled 'quantize' library in 0.750 sec\nggml_metal_library_compile_all: compiled 'softmax' library in 0.299 sec\nggml_metal_library_compile_all: compiled 'norm' library in 0.334 sec\nggml_metal_library_compile_all: compiled 'unary' library in 0.515 sec\nggml_metal_library_compile_all: compiled 'binbcast' library in 0.405 sec\nggml_metal_library_compile_all: compiled 'reduce' library in 0.300 sec\nggml_metal_library_compile_all: compiled 'tri' library in 0.299 sec\nggml_metal_library_compile_all: compiled 'ssm' library in 0.748 sec\nggml_metal_library_compile_all: compiled 'wkv' library in 0.748 sec\nggml_metal_library_compile_all: compiled 'gated_delta_net' library in 0.298 sec\nggml_metal_library_compile_all: compiled 'solve_tri' library in 0.748 sec\nggml_metal_library_compile_all: compiled 'rope' library in 0.390 sec\nggml_metal_library_compile_all: compiled 'conv' library in 0.373 sec\nggml_metal_library_compile_all: compiled 'upscale' library in 0.373 sec\nggml_metal_library_compile_all: compiled 'argsort' library in 0.297 sec\nggml_metal_library_compile_all: compiled 'pool' library in 0.434 sec\nggml_metal_library_compile_all: compiled 'misc' library in 0.748 sec\nggml_metal_library_compile_all: loaded 20 libraries from embedded data in 27.073 sec (max single = 27.072 sec)\nggml_metal_rsets_init: creating a residency set collection (keep_alive = 180 s)\nggml_metal_device_init: GPU name:   MTL0 (Apple M1)\nggml_metal_device_init: GPU family: MTLGPUFamilyApple7  (1007)\nggml_metal_device_init: GPU family: MTLGPUFamilyCommon3 (3003)\nggml_metal_device_init: GPU family: MTLGPUFamilyMetal4  (5002)\nggml_metal_device_init: simdgroup reduction   = true\nggml_metal_device_init: simdgroup matrix mul. = true\nggml_metal_device_init: has unified memory    = true\nggml_metal_device_init: has bfloat            = true\nggml_metal_device_init: has tensor            = false\nggml_metal_device_init: use residency sets    = true\nggml_metal_device_init: use shared buffers    = true\nggml_metal_device_init: recommendedMaxWorkingSetSize  =  5726.63 MB\nload_backend: loaded MTL backend from /opt/homebrew/Cellar/ggml/0.24.0/libexec/libggml-metal.so\nload_backend: loaded CPU backend from /opt/homebrew/Cellar/ggml/0.24.0/libexec/libggml-cpu-apple_m1.so\nread_audio_data: reading audio data from '/tmp/aicallbridge-live/signal-gated.wav' ...\nread_audio_data: trying to decode with miniaudio\n\n Gie jakości orient.",
+      "elapsed_seconds": 30.336,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 37.25,
+      "output_policy": "stream",
+      "captured_output_chars": 2869,
+      "output_truncated": false,
+      "current_rss_mb": 27.53,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 5.514
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 30.336
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.085
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "finished_at": "2026-09-15T21:04:16.433704+00:00",
+  "task_digest": "6348fc46999713062a9cfc20c8f6d56db04472ecb260f1a86bb38105ad32ddea",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "ebc2dfb7d798528ead844688",
+  "daemon_version": "4.18.20"
+}
