@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "failsafe-red-20260915-2325",
   "task_digest": "e209bb2185cb6d3abe44d96c5bd361ed51ebf72a5b65b282bf627a2df4e9dbf3",
-  "idle_timeout": 300,
-  "task_timeout": 300,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-15T21:07:40.858660+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-15T21:07:43.063433+00:00",
   "attempt_id": "442722d588d97c0de60ef314",
   "daemon_version": "4.18.20",
   "daemon_pid": 40375,
-  "updated_at": "2026-09-15T21:07:40.858707+00:00",
+  "updated_at": "2026-09-15T21:07:43.306715+00:00",
   "pid": 40375
 }
