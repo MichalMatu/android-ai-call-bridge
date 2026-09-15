@@ -1,0 +1,60 @@
+{
+  "id": "live-call-toolchain-discovery-20260915-2219",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:17:29.301149+00:00",
+  "command_timeout": 60,
+  "edits": {},
+  "commands": [
+    {
+      "command": "echo CALL; adb shell dumpsys telephony.registry | grep -E 'mCallState=' | head -n 4; echo JAVAC; command -v javac || true; javac -version 2>&1 || true; echo SDK; echo ANDROID_HOME=$ANDROID_HOME; find \"$HOME/Library/Android/sdk/platforms\" -name android.jar 2>/dev/null | sort | tail -n 3; echo D8; find \"$HOME/Library/Android/sdk/build-tools\" -type f -name d8 2>/dev/null | sort | tail -n 3",
+      "exit_code": 0,
+      "output": "CALL\n    mCallState=2\n    mCallState=0\nJAVAC\n/usr/bin/javac\njavac 22\nSDK\nANDROID_HOME=\n/Users/michal/Library/Android/sdk/platforms/android-34/android.jar\n/Users/michal/Library/Android/sdk/platforms/android-36/android.jar\nD8\n/Users/michal/Library/Android/sdk/build-tools/34.0.0/d8\n/Users/michal/Library/Android/sdk/build-tools/35.0.0/d8\n/Users/michal/Library/Android/sdk/build-tools/36.0.0/d8\n",
+      "elapsed_seconds": 2.015,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.36,
+      "output_policy": "stream",
+      "captured_output_chars": 392,
+      "output_truncated": false,
+      "current_rss_mb": 1.36,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.015
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.077
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "finished_at": "2026-09-15T20:17:32.906671+00:00",
+  "task_digest": "814fd1539317d429bd9ac3ada9bd05ac77522d24f32686c63c19dad01336609b",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "4aea5a76ade51d13a45e1136",
+  "daemon_version": "4.18.20"
+}
