@@ -1,0 +1,60 @@
+{
+  "id": "phase1-tone-offcall-retry-20260915-2346",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T21:27:31.092234+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; test \"$(git rev-parse HEAD)\" = \"613c6d427b4b753aab3c5aa05d73815f4fadb01e\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug; adb -s 192.168.0.100:34771 install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; python3 scripts/s22_call_control.py status; APK=$(adb -s 192.168.0.100:34771 shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); set +e; adb -s 192.168.0.100:34771 shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe inject-tone 400 1000 0.05\"; RC=$?; set -e; echo inject_exit=$RC; echo offcall_control_complete=true",
+      "exit_code": 0,
+      "output": "Reusing configuration cache.\n> Task :app:generateDebugAssets UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :realtime-client:generateDebugAssets UP-TO-DATE\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :app:preBuild UP-TO-DATE\n> Task :audio-bridge:generateDebugAssets UP-TO-DATE\n> Task :app:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :app:generateDebugResources UP-TO-DATE\n> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE\n> Task :app:extractDeepLinksDebug UP-TO-DATE\n> Task :app:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :app:packageDebugResources UP-TO-DATE\n> Task :realtime-client:writeDebugAarMetadata UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :audio-bridge:writeDebugAarMetadata UP-TO-DATE\n> Task :app:mapDebugSourceSetPaths UP-TO-DATE\n> Task :realtime-client:extractDeepLinksDebug UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:processDebugManifest UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :app:checkDebugAarMetadata UP-TO-DATE\n> Task :audio-bridge:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:mapDebugSourceSetPaths UP-TO-DATE\n> Task :realtime-client:processDebugManifest UP-TO-DATE\n> Task :app:preDebugUnitTestBuild UP-TO-DATE\n> Task :app:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:mapDebugSourceSetPaths UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:compileDebugLibraryResources UP-TO-DATE\n> Task :app:mergeDebugResources UP-TO-DATE\n> Task :app:compileDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:compileDebugLibraryResources UP-TO-DATE\n> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :app:processDebugMainManifest UP-TO-DATE\n> Task :app:parseDebugLocalResources UP-TO-DATE\n> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:mergeDebugAssets UP-TO-DATE\n> Task :audio-bridge:mergeDebugAssets UP-TO-DATE\n> Task :app:processDebugManifest UP-TO-DATE\n> Task :app:checkDebugDuplicateClasses UP-TO-DATE\n> Task :app:generateDebugRFile UP-TO-DATE\n> Task :app:generateDebugGlobalSynthetics UP-TO-DATE\n> Task :app:mergeDebugAssets UP-TO-DATE\n> Task :app:processDebugManifestForPackage UP-TO-DATE\n> Task :app:desugarDebugFileDependencies UP-TO-DATE\n> Task :audio-bridge:mergeDebugJniLibFolders UP-TO-DATE\n> Task :realtime-client:mergeDebugJniLibFolders UP-TO-DATE\n> Task :app:mergeDebugJniLibFolders UP-TO-DATE\n> Task :app:validateSigningDebug UP-TO-DATE\n> Task :audio-bridge:mergeDebugNativeLibs NO-SOURCE\n> Task :app:compressDebugAssets UP-TO-DATE\n> Task :realtime-client:mergeDebugNativeLibs NO-SOURCE\n> Task :app:writeDebugAppMetadata UP-TO-DATE\n> Task :audio-bridge:copyDebugJniLibsProjectOnly UP-TO-DATE\n> Task :app:mergeExtDexDebug UP-TO-DATE\n> Task :realtime-client:copyDebugJniLibsProjectOnly UP-TO-DATE\n> Task :app:writeDebugSigningConfigVersions UP-TO-DATE\n> Task :app:mergeDebugNativeLibs NO-SOURCE\n> Task :app:stripDebugDebugSymbols NO-SOURCE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToDirDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :app:processDebugResources UP-TO-DATE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:compileDebugJavaWithJavac NO-SOURCE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToDirDebug UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :app:mergeLibDexDebug UP-TO-DATE\n> Task :app:compileDebugKotlin\n> Task :app:processDebugJavaRes UP-TO-DATE\n> Task :app:mergeDebugJavaResource UP-TO-DATE\n> Task :app:compileDebugJavaWithJavac\n> Task :app:bundleDebugClassesToCompileJar\n> Task :app:bundleDebugClassesToRuntimeJar\n> Task :app:compileDebugUnitTestKotlin NO-SOURCE\n> Task :app:processDebugUnitTestJavaRes NO-SOURCE\n> Task :app:compileDebugUnitTestJavaWithJavac UP-TO-DATE\n> Task :app:dexBuilderDebug\n> Task :app:mergeProjectDexDebug\n> Task :app:testDebugUnitTest\n> Task :app:packageDebug\n> Task :app:assembleDebug\n> Task :app:createDebugApkListingFileRedirect UP-TO-DATE\n\nBUILD SUCCESSFUL in 1s\n78 actionable tasks: 8 executed, 70 up-to-date\nConfiguration cache entry reused.\nserial=192.168.0.100:34771\ncall_state=0 name=IDLE\nprobe=shell-audio-v5\nuid=2000\npid=19251\nmode=INJECT_TONE\ninject_usage=USAGE_MEDIA\ninject_content_type=CONTENT_TYPE_MUSIC\nsample_rate=16000\nduration_ms=400\nfrequency_hz=1000\namplitude=0.05\naudio_mode=0\ntelephony_sink_present=true\ntelephony_sink=id:11,type:18,product:SM-S906B\ntarget_samples=6400\nbuffer_bytes=5184\ninject_tone=error:UnsupportedOperationException:Cannot create AudioTrack\ninject_exit=16\noffcall_control_complete=true\n",
+      "elapsed_seconds": 13.907,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 13.17,
+      "output_policy": "stream",
+      "captured_output_chars": 5513,
+      "output_truncated": false,
+      "current_rss_mb": 9.39,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 13.907
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.111
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.079
+  },
+  "finished_at": "2026-09-15T21:27:46.905240+00:00",
+  "task_digest": "85725dd438421226d3e4d196a4b856291ef94f5d15993cafb293415a15cec0e7",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "006f5424ac18ae0ddfe01d35",
+  "daemon_version": "4.18.20"
+}
