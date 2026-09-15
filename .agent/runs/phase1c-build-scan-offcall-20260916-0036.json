@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-build-scan-offcall-20260916-0036",
+  "task_digest": "52342726c2609dea29cd9ed5530135002b99d7f62f14e7d26f329a2da85e4d9b",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T22:37:50.535515+00:00",
+  "attempt_id": "5634278628d6c905ef2299c5",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 34108,
+  "updated_at": "2026-09-15T22:37:50.535737+00:00",
+  "pid": 34108
+}
