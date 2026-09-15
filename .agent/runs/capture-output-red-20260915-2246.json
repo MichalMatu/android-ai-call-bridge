@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "capture-output-red-20260915-2246",
+  "task_digest": "21b4b37b3e40c7b1379ac2508903b0b344100fba0db734cace8ce84c474853e5",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T20:38:17.360828+00:00",
+  "attempt_id": "331396b70f1b99a42668e816",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 98086,
+  "updated_at": "2026-09-15T20:38:17.361160+00:00",
+  "pid": 98086
+}
