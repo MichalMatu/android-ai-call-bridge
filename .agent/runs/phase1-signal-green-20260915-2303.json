@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1-signal-green-20260915-2303",
+  "task_digest": "69fca6727cc93cffae9095f040e0ff3dcb091a4f784d23e0757bfc9a5fa7823b",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T21:00:29.069535+00:00",
+  "attempt_id": "fce0d563840b79fddfadf990",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 26375,
+  "updated_at": "2026-09-15T21:00:29.070148+00:00",
+  "pid": 26375
+}
