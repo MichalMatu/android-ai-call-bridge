@@ -1,0 +1,13 @@
+{
+  "id": "phase1c-build-scan-offcall-20260916-0036",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "task_timeout": 900,
+  "commands": [
+    "set -e; EXPECTED=835e1b6ee6403c6444347728e4e448c530cd9773; ACTUAL=$(git rev-parse HEAD); echo expected=$EXPECTED actual=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug; echo '=== SCAN HIGH PORTS ==='; OPEN=$(seq 30000 50000 | xargs -P 256 -n1 sh -c 'nc -z -G 1 192.168.0.100 \"$0\" >/dev/null 2>&1 && echo \"$0\"' | sort -n | tr '\\n' ' '); echo open_ports=$OPEN; SERIAL=''; for PORT in $OPEN; do adb connect 192.168.0.100:$PORT >/tmp/aicallbridge-adb-connect.txt 2>&1 || true; cat /tmp/aicallbridge-adb-connect.txt; CAND=$(adb devices -l | awk '$2==\"device\" && /model:SM_S906B/ {print $1; exit}'); if [ -n \"$CAND\" ]; then SERIAL=$CAND; break; fi; done; rm -f /tmp/aicallbridge-adb-connect.txt; echo '=== DEVICES ==='; adb devices -l; if [ -z \"$SERIAL\" ]; then echo adb_recovered=false; exit 0; fi; echo adb_recovered=true serial=$SERIAL; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo call_state=$STATE; test \"$STATE\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; for RATE in 16000 48000; do echo === construct_$RATE ===; set +e; adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct $RATE\"; RC=$?; set -e; echo construct_${RATE}_exit=$RC; done; echo phase1c_build_scan_offcall_complete=true"
+  ]
+}
