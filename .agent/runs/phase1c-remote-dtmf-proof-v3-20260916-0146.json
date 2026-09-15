@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 6,
-  "command": "set -e; EXPECTED=08fa4028d8eb173401a638ba8daf80d3d8d3503d; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo initial_call_state=$STATE; test \"$STATE\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; printf '%s' \"$APK\" >/tmp/phase1c_apk_path",
-  "pid": 4238,
+  "command": "set -e; SERIAL=RFCT70L7E8J; APK=$(cat /tmp/phase1c_apk_path); rm -f /tmp/phase1c_control.pcm /tmp/phase1c_control.wav; adb -s \"$SERIAL\" shell rm -f /data/local/tmp/phase1c_control.pcm; cleanup(){ python3 scripts/s22_call_control.py hangup >/dev/null 2>&1 || true; }; trap cleanup EXIT; python3 scripts/s22_call_control.py dial 510100100; OFF=0; for i in $(seq 1 50); do ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo control_call_state=$ST; if [ \"$ST\" = \"2\" ]; then OFF=1; break; fi; sleep 0.4; done; test \"$OFF\" = \"1\"; sleep 6.3; adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe capture-downlink 5000 /data/local/tmp/phase1c_control.pcm\"; python3 scripts/s22_call_control.py hangup; trap - EXIT; sleep 1.5; ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo after_control_state=$ST; test \"$ST\" = \"0\"; adb -s \"$SERIAL\" pull /data/local/tmp/phase1c_control.pcm /tmp/phase1c_control.pcm >/dev/null; adb -s \"$SERIAL\" shell rm -f /data/local/tmp/phase1c_control.pcm",
+  "pid": 4375,
   "timeout": 240,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-15T23:45:24.930729+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-15T23:45:30.169960+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 6,
   "stage_phase": "commands",
   "task_id": "phase1c-remote-dtmf-proof-v3-20260916-0146",
@@ -18,5 +18,5 @@
   "task_digest": "44abc86f5496a7fe0e0269191c5fb5500a3f32ba3db32d79e3e1f43cfd9c32ca",
   "daemon_version": "4.18.20",
   "daemon_pid": 4061,
-  "updated_at": "2026-09-15T23:45:24.931104+00:00"
+  "updated_at": "2026-09-15T23:45:30.249331+00:00"
 }
