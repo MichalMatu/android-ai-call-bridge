@@ -1,0 +1,15 @@
+{
+  "id": "s22-call-control-discovery-20260915-2237",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 90,
+  "task_timeout": 600,
+  "commands": [
+    "echo TELECOM; adb shell 'cmd telecom help 2>&1 | head -n 220'; echo PHONE; adb shell 'cmd phone help 2>&1 | head -n 120'",
+    "echo DIALER; adb shell 'cmd role get-role-holders android.app.role.DIALER 2>/dev/null || true'; adb shell 'pm resolve-activity --brief -a android.intent.action.DIAL -d tel:510100100 2>/dev/null || true'",
+    "adb shell am start -a android.intent.action.DIAL -d tel:510100100 >/dev/null; sleep 1; echo UI; adb shell 'uiautomator dump /dev/tty 2>/dev/null | head -c 20000'"
+  ]
+}
