@@ -1,0 +1,60 @@
+{
+  "id": "local-whisper-discovery-20260915-2307",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T21:01:51.050326+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "echo BREW=$(command -v brew || true); brew search whisper 2>/dev/null | head -n 40; echo INFO; brew info whisper-cpp 2>/dev/null | head -n 80 || true; echo DISK; df -h / | tail -n 1",
+      "exit_code": 0,
+      "output": "BREW=/opt/homebrew/bin/brew\nopenai-whisper\nwhisper-cpp\nwhisperkit-cli\nhister\n\nfont-whisper\nhyperwhisper\nmacwhisper\nopensuperwhisper\nsuperwhisper\ntypewhisper\nwhispering\nINFO\n==> whisper-cpp: stable 1.9.2 (bottled), HEAD\nPort of OpenAI's Whisper model in C/C++\nhttps://github.com/ggml-org/whisper.cpp\nNot installed\nFrom: https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/w/whisper-cpp.rb\nLicense: MIT\n==> Dependencies\nRequired (2): ggml, sdl2-compat\n==> Options\n--HEAD\n\tInstall HEAD version\n==> Caveats\nwhisper-cpp requires GGML model files to work. These are not downloaded by default.\nTo obtain model files (.bin), visit one of these locations:\n\n  https://huggingface.co/ggerganov/whisper.cpp/tree/main\n  https://ggml.ggerganov.com/\nDISK\n/dev/disk3s1s1   228Gi    16Gi    34Gi    33%    459k  351M    0%   /\n",
+      "elapsed_seconds": 4.747,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 93.41,
+      "output_policy": "stream",
+      "captured_output_chars": 818,
+      "output_truncated": false,
+      "current_rss_mb": 93.41,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.747
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.128
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.084
+  },
+  "finished_at": "2026-09-15T21:01:57.147542+00:00",
+  "task_digest": "6e5adb940d76ebace26c399e9a4973cda4462a2593970c81801398de00968fa8",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "0339e78bc7717f116eb7e0cb",
+  "daemon_version": "4.18.20"
+}
