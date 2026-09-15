@@ -1,0 +1,60 @@
+{
+  "id": "speech-transcriber-build-20260915-2254",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:42:17.949336+00:00",
+  "command_timeout": 90,
+  "edits": {},
+  "commands": [
+    {
+      "command": "TMP=$(mktemp -d); swiftc scripts/transcribe_audio.swift -o \"$TMP/transcribe_audio\"; file \"$TMP/transcribe_audio\"; rm -rf \"$TMP\"",
+      "exit_code": 0,
+      "output": "/var/folders/y2/pbpz4k894kb10_gl3v69kbgm0000gn/T/tmp.B1DbzebDHF/transcribe_audio: Mach-O 64-bit executable arm64\n",
+      "elapsed_seconds": 5.8,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 34.22,
+      "output_policy": "stream",
+      "captured_output_chars": 113,
+      "output_truncated": false,
+      "current_rss_mb": 25.73,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 5.8
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.08
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "finished_at": "2026-09-15T20:42:25.649461+00:00",
+  "task_digest": "9b7631af9cfd09fd96f1f87e1cefaa7c268d3384e136fe3d8c7023d45a54940a",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "14bfd1d2ca0fede7d8ca1020",
+  "daemon_version": "4.18.20"
+}
