@@ -1,0 +1,61 @@
+{
+  "id": "phase1-signal-red-20260915-2301",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:59:35.704632+00:00",
+  "command_timeout": 60,
+  "edits": {},
+  "commands": [
+    {
+      "command": "cd scripts && python3 -m unittest -v test_autonomous_call_loop.py",
+      "exit_code": 1,
+      "output": "test_autonomous_call_loop (unittest.loader._FailedTest.test_autonomous_call_loop) ... ERROR\n\n======================================================================\nERROR: test_autonomous_call_loop (unittest.loader._FailedTest.test_autonomous_call_loop)\n----------------------------------------------------------------------\nImportError: Failed to import test module: test_autonomous_call_loop\nTraceback (most recent call last):\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py\", line 137, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_autonomous_call_loop.py\", line 3, in <module>\n    from autonomous_call_loop import ProbeMetrics, audio_signal_present, parse_probe_metrics\nModuleNotFoundError: No module named 'autonomous_call_loop'\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+      "elapsed_seconds": 0.424,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.45,
+      "output_policy": "stream",
+      "captured_output_chars": 1021,
+      "output_truncated": false,
+      "current_rss_mb": 2.45,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.424
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.079
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-15T20:59:37.907253+00:00",
+  "task_digest": "be9104a457608410927ed3c3f449452f51beea0d0e8dddc0893a76111ba59dc4",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "0a1e0e6e8fc9a1fdbf254b4d",
+  "daemon_version": "4.18.20"
+}
