@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "phase1-signal-red-20260915-2301",
   "task_digest": "be9104a457608410927ed3c3f449452f51beea0d0e8dddc0893a76111ba59dc4",
-  "idle_timeout": 300,
-  "task_timeout": 300,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-15T20:59:35.704603+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-15T20:59:37.907253+00:00",
   "attempt_id": "0a1e0e6e8fc9a1fdbf254b4d",
   "daemon_version": "4.18.20",
   "daemon_pid": 23810,
-  "updated_at": "2026-09-15T20:59:35.704663+00:00",
+  "updated_at": "2026-09-15T20:59:38.139651+00:00",
   "pid": 23810
 }
