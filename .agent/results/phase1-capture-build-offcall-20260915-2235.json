@@ -1,0 +1,116 @@
+{
+  "id": "phase1-capture-build-offcall-20260915-2235",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:33:20.787202+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug --no-daemon",
+      "exit_code": 0,
+      "output": "To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nCalculating task graph as no cached configuration is available for tasks: :app:testDebugUnitTest :app:assembleDebug\n> Task :audio-bridge:generateDebugAssets UP-TO-DATE\n> Task :app:preBuild UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :app:generateDebugAssets UP-TO-DATE\n> Task :realtime-client:generateDebugAssets UP-TO-DATE\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :app:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :app:generateDebugResources UP-TO-DATE\n> Task :app:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :app:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:writeDebugAarMetadata UP-TO-DATE\n> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE\n> Task :audio-bridge:writeDebugAarMetadata UP-TO-DATE\n> Task :audio-bridge:extractDeepLinksDebug UP-TO-DATE\n> Task :app:extractDeepLinksDebug UP-TO-DATE\n> Task :realtime-client:extractDeepLinksDebug UP-TO-DATE\n> Task :app:checkDebugAarMetadata UP-TO-DATE\n> Task :audio-bridge:processDebugManifest UP-TO-DATE\n> Task :app:preDebugUnitTestBuild UP-TO-DATE\n> Task :audio-bridge:mapDebugSourceSetPaths UP-TO-DATE\n> Task :realtime-client:mapDebugSourceSetPaths UP-TO-DATE\n> Task :realtime-client:processDebugManifest UP-TO-DATE\n> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :app:compileDebugNavigationResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :app:packageDebugResources UP-TO-DATE\n> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE\n> Task :app:processDebugMainManifest UP-TO-DATE\n> Task :app:processDebugManifest UP-TO-DATE\n> Task :audio-bridge:compileDebugLibraryResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :app:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:compileDebugLibraryResources UP-TO-DATE\n> Task :app:processDebugManifestForPackage UP-TO-DATE\n> Task :app:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :app:mergeDebugResources UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :app:processDebugResources UP-TO-DATE\n> Task :app:mergeDebugJniLibFolders\n> Task :realtime-client:mergeDebugAssets\n> Task :audio-bridge:mergeDebugAssets\n> Task :app:checkDebugDuplicateClasses\n> Task :audio-bridge:mergeDebugJniLibFolders\n> Task :app:desugarDebugFileDependencies\n> Task :audio-bridge:mergeDebugNativeLibs NO-SOURCE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :app:mergeDebugAssets\n> Task :realtime-client:mergeDebugJniLibFolders\n> Task :app:writeDebugAppMetadata\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:mergeDebugNativeLibs NO-SOURCE\n> Task :audio-bridge:copyDebugJniLibsProjectOnly\n> Task :realtime-client:copyDebugJniLibsProjectOnly\n> Task :app:compressDebugAssets\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :app:mergeDebugNativeLibs NO-SOURCE\n> Task :app:stripDebugDebugSymbols NO-SOURCE\n> Task :app:writeDebugSigningConfigVersions\n> Task :app:validateSigningDebug\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToDirDebug\n> Task :realtime-client:compileDebugJavaWithJavac NO-SOURCE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToDirDebug\n> Task :app:mergeLibDexDebug\n> Task :app:mergeExtDexDebug\n> Task :app:generateDebugGlobalSynthetics\n> Task :app:compileDebugKotlin\n> Task :app:processDebugJavaRes UP-TO-DATE\n> Task :app:mergeDebugJavaResource\n> Task :app:compileDebugJavaWithJavac\n> Task :app:bundleDebugClassesToCompileJar\n> Task :app:bundleDebugClassesToRuntimeJar\n> Task :app:compileDebugUnitTestKotlin NO-SOURCE\n> Task :app:processDebugUnitTestJavaRes NO-SOURCE\n> Task :app:compileDebugUnitTestJavaWithJavac UP-TO-DATE\n> Task :app:dexBuilderDebug\n> Task :app:mergeProjectDexDebug\n> Task :app:packageDebug\n> Task :app:assembleDebug\n> Task :app:createDebugApkListingFileRedirect\n> Task :app:testDebugUnitTest\n\nBUILD SUCCESSFUL in 10s\n78 actionable tasks: 29 executed, 49 up-to-date\nConfiguration cache entry stored.\n",
+      "elapsed_seconds": 11.178,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 101.31,
+      "output_policy": "stream",
+      "captured_output_chars": 5171,
+      "output_truncated": false,
+      "current_rss_mb": 41.48,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "adb devices -l; adb install -r app/build/outputs/apk/debug/app-debug.apk",
+      "exit_code": 0,
+      "output": "List of devices attached\n192.168.0.100:34771    device product:g0sxeea model:SM_S906B device:g0s transport_id:1\n\nPerforming Streamed Install\nSuccess\n",
+      "elapsed_seconds": 3.616,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.67,
+      "output_policy": "stream",
+      "captured_output_chars": 149,
+      "output_truncated": false,
+      "current_rss_mb": 9.67,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "echo CALL_STATE; adb shell dumpsys telephony.registry | grep -E 'mCallState=' | head -n 4; APK=$(adb shell pm path pl.michalmatu.aicallbridge | head -n1 | sed 's/^package://'); echo INVENTORY; adb shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe inventory\"; echo OFFCALL_CAPTURE; adb shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe capture-downlink 1000\"",
+      "exit_code": 0,
+      "output": "CALL_STATE\n    mCallState=0\n    mCallState=0\nINVENTORY\nprobe=shell-audio-v5\nuid=2000\npid=5432\nmode=INVENTORY\nrecord_VOICE_CALL=state:1,session:8497,buffer:2560\nrecord_VOICE_DOWNLINK=state:1,session:8505,buffer:2560\nrecord_VOICE_UPLINK=state:1,session:8513,buffer:2560\npermission_CAPTURE_AUDIO_OUTPUT=granted\npermission_MODIFY_AUDIO_ROUTING=granted\npermission_MODIFY_PHONE_STATE=granted\naudio_mode=0\ntelephony_device=id=11,direction=sink,product=SM-S906B\ntelephony_device=id=17,direction=source,product=SM-S906B\ntelephony_sink_present=true\ntelephony_source_present=true\ntrack_MEDIA_MUSIC=error:UnsupportedOperationException:Cannot create AudioTrack\ntrack_VOICE_COMMUNICATION=error:UnsupportedOperationException:Cannot create AudioTrack\nOFFCALL_CAPTURE\nprobe=shell-audio-v5\nuid=2000\npid=5496\nmode=CAPTURE_DOWNLINK\ncapture_source=VOICE_DOWNLINK\nsample_rate=16000\nduration_ms=1000\ntarget_samples=16000\nbuffer_bytes=4096\nrecord_state=1\nsession_id=8521\nrecording_state=3\nrouted_device=id:17,type:18,product:SM-S906B\nsamples_read=16000\nbytes_read=32000\nnon_zero_samples=11401\npeak=10\nrms=1.8538473507816118\nread_errors=0\n",
+      "elapsed_seconds": 2.82,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.67,
+      "output_policy": "stream",
+      "captured_output_chars": 1114,
+      "output_truncated": false,
+      "current_rss_mb": 9.67,
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 11.178
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 3.616
+    },
+    {
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.82
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.098
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.081
+  },
+  "finished_at": "2026-09-15T20:33:40.249325+00:00",
+  "task_digest": "05da3aaa8edaf222699883c18e0b3cf70116369e9a7867bd3a56c43cd46bb9f6",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "bcc767730c51b0110ee2f3e0",
+  "daemon_version": "4.18.20"
+}
