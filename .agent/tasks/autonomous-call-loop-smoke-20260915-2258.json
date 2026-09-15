@@ -1,0 +1,13 @@
+{
+  "id": "autonomous-call-loop-smoke-20260915-2258",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 300,
+  "commands": [
+    "set -e; echo BEFORE; python3 scripts/s22_call_control.py status; echo DIAL; python3 scripts/s22_call_control.py dial 510100100; active=0; for i in $(seq 1 30); do state=$(adb shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9]\\).*/\\1/p' | head -n1); echo poll=$i state=$state; if [ \"$state\" = \"2\" ]; then active=1; break; fi; sleep 1; done; if [ \"$active\" != \"1\" ]; then echo CALL_DID_NOT_BECOME_ACTIVE; python3 scripts/s22_call_control.py hangup || true; exit 3; fi; echo CAPTURE; mkdir -p /tmp/aicallbridge-live; python3 scripts/s22_call_control.py capture 3000 /tmp/aicallbridge-live/autonomous-smoke.wav; ls -l /tmp/aicallbridge-live/autonomous-smoke.wav; echo UI_DUMP_ACTIVE; python3 scripts/s22_call_control.py dump-ui | grep -Eo 'content-desc=\"[^\"]+\"|text=\"[^\"]+\"' | grep -Ei 'keypad|dialpad|klawiatura|end call|rozłącz|hang up|1|2|3' | head -n 80 || true; echo HANGUP; python3 scripts/s22_call_control.py hangup; sleep 2; echo AFTER; python3 scripts/s22_call_control.py status"
+  ]
+}
