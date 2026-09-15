@@ -1,0 +1,61 @@
+{
+  "id": "call-capture-wav-red-20260915-2250",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:40:42.560844+00:00",
+  "command_timeout": 60,
+  "edits": {},
+  "commands": [
+    {
+      "command": "cd scripts && python3 -m unittest -v test_s22_call_control.py",
+      "exit_code": 1,
+      "output": "test_s22_call_control (unittest.loader._FailedTest.test_s22_call_control) ... ERROR\n\n======================================================================\nERROR: test_s22_call_control (unittest.loader._FailedTest.test_s22_call_control)\n----------------------------------------------------------------------\nImportError: Failed to import test module: test_s22_call_control\nTraceback (most recent call last):\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py\", line 137, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_s22_call_control.py\", line 6, in <module>\n    from s22_call_control import (\n    ...<5 lines>...\n    )\nImportError: cannot import name 'write_pcm16_wav' from 's22_call_control' (/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/s22_call_control.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+      "elapsed_seconds": 0.388,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.98,
+      "output_policy": "stream",
+      "captured_output_chars": 1073,
+      "output_truncated": false,
+      "current_rss_mb": 1.98,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.388
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.083
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-15T20:40:44.822775+00:00",
+  "task_digest": "bb8dde6958b44e5710b1d322b5afb23c0d435d13ce70e587754c4c35189b9781",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "092f41bc94b269e44e09bb82",
+  "daemon_version": "4.18.20"
+}
