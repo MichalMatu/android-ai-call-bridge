@@ -1,0 +1,13 @@
+{
+  "id": "phase1c-call-assistant-live-tone-20260916-0121",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 600,
+  "commands": [
+    "set -e; EXPECTED=8884914b8a9db4d1f87385730247ff37cfb1a0c0; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; PRE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo pre_call_state=$PRE; test \"$PRE\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; adb -s \"$SERIAL\" logcat -c; cleanup(){ python3 scripts/s22_call_control.py hangup >/dev/null 2>&1 || true; }; trap cleanup EXIT; python3 scripts/s22_call_control.py dial 510100100; OFFHOOK=0; for i in $(seq 1 40); do STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo call_state=$STATE; if [ \"$STATE\" = \"2\" ]; then OFFHOOK=1; break; fi; sleep 0.5; done; test \"$OFFHOOK\" = \"1\"; echo '=== LIVE CALL_ASSISTANT TONE 16K ==='; set +e; adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe play-tone 16000 400 1000 0.05\"; RC=$?; set -e; echo live_tone_exit=$RC; echo '=== FOCUSED LOGCAT ==='; adb -s \"$SERIAL\" logcat -d -v brief | grep -i -E 'AudioTrack|AudioPolicy|AudioFlinger|getOutputForAttr|createTrack|CALL_ASSISTANT|incall_music|TELEPHONY_TX' | tail -n 260 || true; python3 scripts/s22_call_control.py hangup; trap - EXIT; sleep 1; POST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo post_call_state=$POST; test \"$POST\" = \"0\"; test \"$RC\" = \"0\"; echo phase1c_live_tone_complete=true"
+  ]
+}
