@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-stt-discovery-20260915-2239",
+  "task_digest": "f75b3fb30fa2d8beb7df75bea170c1bd700d1c2edcec9ca403facdc753ca1f34",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T20:34:58.216974+00:00",
+  "attempt_id": "f7614a8b3c3aa0de4f9a2979",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 94530,
+  "updated_at": "2026-09-15T20:34:58.217121+00:00",
+  "pid": 94530
+}
