@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1-tone-livecall-20260915-2350",
+  "task_digest": "2fff1c10b75910017213e1443aa2db69fc28b997923981679c0543d640fabf66",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T21:40:04.119670+00:00",
+  "attempt_id": "e82b0799a411baa159d0decc",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 77905,
+  "updated_at": "2026-09-15T21:40:04.122013+00:00",
+  "pid": 77905
+}
