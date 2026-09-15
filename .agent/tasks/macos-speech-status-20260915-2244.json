@@ -1,0 +1,13 @@
+{
+  "id": "macos-speech-status-20260915-2244",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 90,
+  "task_timeout": 300,
+  "commands": [
+    "TMP=$(mktemp -d); cat > \"$TMP/check.swift\" <<'SWIFT'\nimport Foundation\nimport Speech\nprint(\"speech_auth=\\(SFSpeechRecognizer.authorizationStatus().rawValue)\")\nprint(\"recognizer_pl=\\(SFSpeechRecognizer(locale: Locale(identifier: \"pl-PL\")) != nil)\")\nprint(\"recognizer_en=\\(SFSpeechRecognizer(locale: Locale(identifier: \"en-US\")) != nil)\")\nSWIFT\nswift \"$TMP/check.swift\"; rm -rf \"$TMP\""
+  ]
+}
