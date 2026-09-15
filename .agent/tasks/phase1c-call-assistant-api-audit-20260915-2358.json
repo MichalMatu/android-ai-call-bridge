@@ -1,0 +1,13 @@
+{
+  "id": "phase1c-call-assistant-api-audit-20260915-2358",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 600,
+  "commands": [
+    "set -e; test \"$(git rev-parse HEAD)\" = \"613c6d427b4b753aab3c5aa05d73815f4fadb01e\"; SDK=\"$HOME/Library/Android/sdk/platforms/android-36/android.jar\"; echo '=== AUDIOATTRIBUTES PUBLIC API ==='; javap -classpath \"$SDK\" android.media.AudioAttributes | grep -E 'USAGE_|CALL_ASSISTANT|setSystemUsage|setUsage' || true; echo '=== AUDIOTRACK PUBLIC API ==='; javap -classpath \"$SDK\" android.media.AudioTrack | grep -E 'CALL_ASSISTANT|setPreferredDevice|setAudioAttributes|Builder|setBufferSize|setTransferMode' || true; echo '=== POLICY XML INCALL ==='; SERIAL=192.168.0.100:34771; adb -s \"$SERIAL\" shell 'for f in /vendor/etc/audio_policy_configuration.xml /vendor/etc/*audio*policy*.xml /odm/etc/*audio*policy*.xml; do [ -f \"$f\" ] || continue; echo FILE:$f; grep -n -B 8 -A 14 -E \"incall_music_uplink|Telephony Tx|AUDIO_OUTPUT_FLAG_INCALL_MUSIC\" \"$f\" 2>/dev/null || true; done' | head -n 500; echo api_policy_audit_complete=true"
+  ]
+}
