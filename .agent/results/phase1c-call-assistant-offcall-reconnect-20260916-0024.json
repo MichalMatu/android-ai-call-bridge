@@ -1,0 +1,61 @@
+{
+  "id": "phase1c-call-assistant-offcall-reconnect-20260916-0024",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-15T22:27:03.985484+00:00",
+  "command_timeout": 180,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=c8652aa6eaaf23c07b809c44b0ae98b3c435c555; ACTUAL=$(git rev-parse HEAD); echo expected=$EXPECTED actual=$ACTUAL; test \"$ACTUAL\" = \"$EXPECTED\"; adb connect 192.168.0.100:34771 || true; echo '=== DEVICES ==='; adb devices -l; SERIAL=$(adb devices -l | awk '$2==\"device\" && /model:SM_S906B/ && $1 ~ /:/ {print $1; exit}'); if [ -z \"$SERIAL\" ]; then SERIAL=$(adb devices -l | awk '$2==\"device\" && /model:SM_S906B/ {print $1; exit}'); fi; test -n \"$SERIAL\"; echo serial=$SERIAL; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo call_state=$STATE; test \"$STATE\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; set +e; OUTPUT=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct\" 2>&1); RC=$?; set -e; echo \"$OUTPUT\"; echo probe_exit=$RC; echo offcall_call_assistant_complete=true",
+      "exit_code": 1,
+      "output": "expected=c8652aa6eaaf23c07b809c44b0ae98b3c435c555 actual=c8652aa6eaaf23c07b809c44b0ae98b3c435c555\nfailed to connect to '192.168.0.100:34771': Connection refused\n=== DEVICES ===\nList of devices attached\n\n",
+      "elapsed_seconds": 0.809,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 5.88,
+      "output_policy": "stream",
+      "captured_output_chars": 203,
+      "output_truncated": false,
+      "current_rss_mb": 5.88,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.809
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.086
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.079
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-15T22:27:06.561144+00:00",
+  "task_digest": "6c151dcbdc17c76707a1b715085199b8e11f0f4be58b488e1c4204baa25c3e1e",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "758d750fec4511f78f05d9e6",
+  "daemon_version": "4.18.20"
+}
