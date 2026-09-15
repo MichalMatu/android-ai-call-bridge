@@ -1,0 +1,13 @@
+{
+  "id": "dialer-inventory-20260915-2259",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 60,
+  "task_timeout": 180,
+  "commands": [
+    "echo DEFAULT; adb shell cmd telecom get-default-dialer; echo SYSTEM; adb shell cmd telecom get-system-dialer; echo CANDIDATES; adb shell pm list packages | grep -Ei 'dialer|incall|phone' | grep -Ei 'google|samsung|android' | sort | head -n 80"
+  ]
+}
