@@ -1,0 +1,88 @@
+{
+  "id": "adb-wifi-verify-20260915-2153",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-15T20:03:34.036520+00:00",
+  "command_timeout": 60,
+  "edits": {},
+  "commands": [
+    {
+      "command": "command -v adb || true; adb devices -l",
+      "exit_code": 0,
+      "output": "/opt/homebrew/bin/adb\nList of devices attached\n192.168.0.100:34771    device product:g0sxeea model:SM_S906B device:g0s transport_id:1\n\n",
+      "elapsed_seconds": 0.382,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.91,
+      "output_policy": "stream",
+      "captured_output_chars": 135,
+      "output_truncated": false,
+      "current_rss_mb": 9.91,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "adb shell getprop ro.product.model; adb shell getprop ro.product.device; adb shell getprop ro.build.version.release; adb shell getprop ro.build.version.sdk",
+      "exit_code": 0,
+      "output": "SM-S906B\ng0s\n16\n36\n",
+      "elapsed_seconds": 0.736,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 5.84,
+      "output_policy": "stream",
+      "captured_output_chars": 19,
+      "output_truncated": false,
+      "current_rss_mb": 5.84,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.382
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.736
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.085
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "finished_at": "2026-09-15T20:03:36.730115+00:00",
+  "task_digest": "a7e04bb6637338f4280c54320e350ac11a929aac1c3f51391d03a05170691a2c",
+  "idle_timeout": 300,
+  "task_timeout": 180,
+  "memory_limit_mb": 4096,
+  "attempt_id": "89312bf568a6232e5b4bd927",
+  "daemon_version": "4.18.20"
+}
