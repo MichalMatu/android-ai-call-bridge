@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1-tone-offcall-retry-20260915-2346",
+  "task_digest": "85725dd438421226d3e4d196a4b856291ef94f5d15993cafb293415a15cec0e7",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-15T21:27:31.092175+00:00",
+  "attempt_id": "006f5424ac18ae0ddfe01d35",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 62436,
+  "updated_at": "2026-09-15T21:27:31.092279+00:00",
+  "pid": 62436
+}
