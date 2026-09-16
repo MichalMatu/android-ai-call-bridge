@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.20",
   "state": "idle",
-  "pid": 6903,
-  "updated_at": "2026-09-16T08:41:29.865671+00:00",
+  "pid": 10286,
+  "updated_at": "2026-09-16T08:43:45.167404+00:00",
   "self_revision": "d2c23951456d1e1528e3c52e47bdd104294cf170",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 6903,
-  "supervisor_pid": 94950,
-  "last_task_id": "phase2c-validate-attributed-rx-offcall-20260916-1040",
+  "worker_pid": 10286,
+  "supervisor_pid": 10013,
   "execution_variant": "parallel"
 }
