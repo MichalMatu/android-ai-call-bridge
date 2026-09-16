@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 2,
-  "command": "set -e; EXPECTED=91d6fc115956ec1e221e406fc9fca64527e2c916; FROZEN=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; echo pre_branch=$(git branch --show-current); echo pre_head=$(git rev-parse HEAD); git status --short; test -z \"$(git status --porcelain)\"; git fetch origin work/phase1-live-call-probes milestone/phase2c-shizuku-live-proven-20260916; git checkout work/phase1-live-call-probes; git merge --ff-only origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); SNAP=$(git ls-remote origin refs/heads/milestone/phase2c-shizuku-live-proven-20260916 | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE phase2c_snapshot=$SNAP; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test \"$SNAP\" = \"$FROZEN\"; test -z \"$(git status --porcelain)\"; echo exact_sha_clean_tree_ok=true",
-  "pid": 87437,
+  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" clean :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_deep_audit_fresh_baseline_ok=true",
+  "pid": 87497,
   "timeout": 1800,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T12:18:36.216129+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-16T12:18:38.486109+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 2,
   "stage_phase": "commands",
   "task_id": "phase2-deep-audit-baseline-20260916-1416",
@@ -18,5 +18,5 @@
   "task_digest": "08143fc9595f3a2cdb09d190f9ae63120b0ffd26cbabbce55aef15c08541fb15",
   "daemon_version": "4.18.20",
   "daemon_pid": 87311,
-  "updated_at": "2026-09-16T12:18:36.216504+00:00"
+  "updated_at": "2026-09-16T12:18:38.555323+00:00"
 }
