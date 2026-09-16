@@ -1,0 +1,15 @@
+{
+  "id": "phase2d-verify-endurance-probe-offcall-20260916-1404",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "task_timeout": 1200,
+  "commands": [
+    "set -e; EXPECTED=c42377681f6b5025ada79c6e01fe7f675453b3ad; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); SNAP=$(git ls-remote origin refs/heads/milestone/phase2c-shizuku-live-proven-20260916 | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE phase2c_snapshot=$SNAP; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test \"$SNAP\" = \"9c136fc05c5b33f383d72b0b7080ad5b9a754bb4\"; test -z \"$(git status --porcelain)\"",
+    "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :app:assembleDebug --no-daemon; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2d_endurance_probe_build_ok=true",
+    "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_endurance_probe true >/dev/null; sleep 3; LOG=$(adb -s \"$SERIAL\" logcat -d -v brief -s AiCallBridge:I '*:S'); printf '%s\\n' \"$LOG\"; printf '%s\\n' \"$LOG\" | grep -q 'shizuku_endurance_probe_start=true'; printf '%s\\n' \"$LOG\" | grep -q 'probe=shizuku-user-service-endurance-v1'; printf '%s\\n' \"$LOG\" | grep -Eiq 'error=.*(cellular call.*not active|AudioManager.*IN_CALL|not active.*IN_CALL)'; echo phase2d_endurance_probe_offcall_guard_ok=true"
+  ]
+}
