@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 3,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_call_control.py scripts/test_autonomous_call_loop.py; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_shared_backend_build_ok=true",
-  "pid": 83416,
+  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo pre_call_state=$ST; test \"$ST\" = \"0\"; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/phase2-install.log; cat /tmp/phase2-install.log; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; echo '=== construct 16k ==='; OUT16=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct 16000\"); printf '%s\\n' \"$OUT16\"; printf '%s\\n' \"$OUT16\" | grep -q 'backend=SamsungCallAssistantTrack'; printf '%s\\n' \"$OUT16\" | grep -q 'construction=success'; echo '=== construct 48k ==='; OUT48=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct 48000\"); printf '%s\\n' \"$OUT48\"; printf '%s\\n' \"$OUT48\" | grep -q 'backend=SamsungCallAssistantTrack'; printf '%s\\n' \"$OUT48\" | grep -q 'construction=success'; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"0\"; rm -f /tmp/phase2-install.log; echo phase2_shared_backend_runtime_ok=true",
+  "pid": 83491,
   "timeout": 600,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T01:25:29.338541+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T01:25:32.549001+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "phase2-validate-shared-uplink-backend-20260916-0327",
@@ -18,5 +18,5 @@
   "task_digest": "d441b0550d17d23546dbb231883fbbfc3bf86b057e5a8ca2a81440ad283c2779",
   "daemon_version": "4.18.20",
   "daemon_pid": 83246,
-  "updated_at": "2026-09-16T01:25:29.414915+00:00"
+  "updated_at": "2026-09-16T01:25:32.567859+00:00"
 }
