@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-freeze-shizuku-live-proven-20260916-1249",
+  "task_digest": "6f8a03ceb24e12442ddbaeae5b860c8f96105399804b6226b05c07ed3b623b6f",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T10:54:05.786765+00:00",
+  "attempt_id": "f06c412436f8e1c7520e4294",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 20876,
+  "updated_at": "2026-09-16T10:54:05.786928+00:00",
+  "pid": 20876
+}
