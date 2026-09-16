@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-diagnose-downlink-open-offcall-20260916-0402",
+  "task_digest": "ce86ff38db66f088b8320622007d929d8ed5fab7f66260464a59574669963890",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T01:59:45.352758+00:00",
+  "attempt_id": "9d80c9fac12c9a3715b53f2e",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 9262,
+  "updated_at": "2026-09-16T01:59:45.352940+00:00",
+  "pid": 9262
+}
