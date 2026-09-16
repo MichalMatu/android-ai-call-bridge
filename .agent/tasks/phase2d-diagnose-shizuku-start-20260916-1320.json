@@ -1,0 +1,15 @@
+{
+  "id": "phase2d-diagnose-shizuku-start-20260916-1320",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "task_timeout": 600,
+  "commands": [
+    "set -e; EXPECTED=2029deb09068a3520708df01ddf39bfaacb2b860; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; echo '=== package ==='; adb -s \"$SERIAL\" shell pm path moe.shizuku.privileged.api || true; adb -s \"$SERIAL\" shell cmd package resolve-activity --brief moe.shizuku.privileged.api || true; echo '=== process ==='; adb -s \"$SERIAL\" shell ps -A | grep -i shizuku || true; echo '=== external files ==='; adb -s \"$SERIAL\" shell 'for d in /sdcard/Android/data/moe.shizuku.privileged.api /storage/emulated/0/Android/data/moe.shizuku.privileged.api; do echo DIR=$d; ls -la $d 2>/dev/null || true; find $d -maxdepth 3 -type f 2>/dev/null | head -n 100 || true; done'",
+    "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell monkey -p moe.shizuku.privileged.api -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1 || true; sleep 2; echo '=== process after manager launch ==='; adb -s \"$SERIAL\" shell ps -A | grep -i shizuku || true; echo '=== top activity ==='; adb -s \"$SERIAL\" shell dumpsys activity activities | grep -E 'mResumedActivity|topResumedActivity' | head -n 5 || true; adb -s \"$SERIAL\" shell uiautomator dump /sdcard/shizuku-window.xml >/dev/null 2>&1 || true; echo '=== visible UI text ==='; adb -s \"$SERIAL\" shell cat /sdcard/shizuku-window.xml 2>/dev/null | sed 's/></>\\n</g' | grep -o 'text=\"[^\"]*\"' | head -n 120 || true; echo '=== Shizuku logs ==='; adb -s \"$SERIAL\" logcat -d -v brief | grep -iE 'shizuku|wireless debugging|adb pair|start.sh' | tail -n 200 || true; echo phase2d_shizuku_start_diagnostic_complete=true"
+  ]
+}
