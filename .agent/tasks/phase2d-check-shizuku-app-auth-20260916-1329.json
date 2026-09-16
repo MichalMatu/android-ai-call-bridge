@@ -1,0 +1,15 @@
+{
+  "id": "phase2d-check-shizuku-app-auth-20260916-1329",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "task_timeout": 600,
+  "commands": [
+    "set -e; EXPECTED=2029deb09068a3520708df01ddf39bfaacb2b860; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; echo '=== shizuku process ==='; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E 'shizuku_server|moe.shizuku.privileged.api' || true; echo '=== app shizuku permission state ==='; adb -s \"$SERIAL\" shell dumpsys package pl.michalmatu.aicallbridge | grep -i -A3 -B3 'moe.shizuku.manager.permission.API_V23' || true; adb -s \"$SERIAL\" shell pm check-permission moe.shizuku.manager.permission.API_V23 pl.michalmatu.aicallbridge 2>/dev/null || true",
+    "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_probe true >/dev/null; sleep 3; echo '=== AiCallBridge log ==='; adb -s \"$SERIAL\" logcat -d -v brief -s AiCallBridge:I '*:S' || true; adb -s \"$SERIAL\" shell uiautomator dump /sdcard/aicall-auth-window.xml >/dev/null 2>&1 || true; echo '=== visible UI text ==='; adb -s \"$SERIAL\" shell cat /sdcard/aicall-auth-window.xml 2>/dev/null | sed 's/></>\\n</g' | grep -o 'text=\"[^\"]*\"' | head -n 120 || true; echo phase2d_shizuku_app_auth_check_complete=true"
+  ]
+}
