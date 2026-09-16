@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 3,
+  "index": 4,
   "total": 5,
-  "command": "set -e; SERIAL=RFCT70L7E8J; cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; }; trap cleanup EXIT; echo '=== SILENT NATIVE DTMF 1 STATIC COORDS ==='; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100; OFF=0; for i in $(seq 1 50); do ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo ref_call_state=$ST; [ \"$ST\" = \"2\" ] && OFF=1 && break; sleep 0.4; done; test \"$OFF\" = \"1\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8; sleep 6.0; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"2\"; adb -s \"$SERIAL\" shell input tap 174 1826; sleep 0.45; adb -s \"$SERIAL\" shell input tap 186 986; echo native_digit1_tapped=true; sleep 0.8; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"2\"; python3 scripts/s22_call_control.py --serial \"$SERIAL\" capture 3000 /tmp/phase1c_ref.wav; python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup; trap - EXIT; sleep 0.8; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"0\"; test -s /tmp/phase1c_ref.wav; echo silent_reference_capture=true",
-  "pid": 66281,
+  "command": "set -e; SERIAL=RFCT70L7E8J; APK=$(cat /tmp/phase1c_apk_path); cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; }; trap cleanup EXIT; echo '=== SILENT PCM DTMF 1 CALL_ASSISTANT ==='; adb -s \"$SERIAL\" logcat -c; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100; OFF=0; for i in $(seq 1 50); do ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo pcm_call_state=$ST; [ \"$ST\" = \"2\" ] && OFF=1 && break; sleep 0.4; done; test \"$OFF\" = \"1\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8; V=$(adb -s \"$SERIAL\" shell dumpsys audio | grep -i -A6 -B1 'STREAM_VOICE_CALL' | head -n 10); printf '%s\\n' \"$V\" | grep -q 'Muted: true'; sleep 6.0; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"2\"; adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe play-dual-tone 16000 300 697 1209 0.10\"; sleep 0.8; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"2\"; python3 scripts/s22_call_control.py --serial \"$SERIAL\" capture 3000 /tmp/phase1c_pcm.wav; echo '=== FOCUSED TX LOGCAT ==='; adb -s \"$SERIAL\" logcat -d -v brief | grep -i -E 'CALL_ASSISTANT|incall_music|TELEPHONY_TX|getOutputForAttr|AudioTrack' | tail -n 180 || true; python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup; trap - EXIT; sleep 0.8; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"0\"; test -s /tmp/phase1c_pcm.wav; echo silent_pcm_capture=true",
+  "pid": 66605,
   "timeout": 300,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T01:02:24.458466+00:00",
-  "stage_name": "command-3",
-  "stage_index": 3,
+  "started_at": "2026-09-16T01:02:38.426156+00:00",
+  "stage_name": "command-4",
+  "stage_index": 4,
   "stage_total": 5,
   "stage_phase": "commands",
   "task_id": "phase1c-silent-threeway-dtmf-proof-20260916-0304",
@@ -18,5 +18,5 @@
   "task_digest": "2d50da752dc9558c223ca541a1567569aa7ba5528336d08c740909f6f1a7e21e",
   "daemon_version": "4.18.20",
   "daemon_pid": 65666,
-  "updated_at": "2026-09-16T01:02:24.555422+00:00"
+  "updated_at": "2026-09-16T01:02:38.447802+00:00"
 }
