@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-validate-downlink-deferred-context-20260916-0425",
+  "task_digest": "c3dfdabad630e0933d1380b00e8f1f4b0f5fee680566dcdd53c8fe9459444b45",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T02:27:25.398954+00:00",
+  "attempt_id": "6a66af26cf04529186eed38e",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 29205,
+  "updated_at": "2026-09-16T02:27:25.399063+00:00",
+  "pid": 29205
+}
