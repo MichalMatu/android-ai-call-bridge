@@ -1,0 +1,13 @@
+{
+  "id": "phase2-m1-probe-worker-red-20260916-1749",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "task_timeout": 1200,
+  "commands": [
+    "set -e; EXPECTED=2ff26e95b8eb989753fbaecbbdcca93f11326e72; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; OUT=$(mktemp); \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.shizuku.ShizukuProbeWorkerTest --no-daemon >\"$OUT\" 2>&1; RC=$?; set -e; cat \"$OUT\"; grep -q 'ShizukuProbeWorker' \"$OUT\"; test \"$RC\" -ne 0; rm -f \"$OUT\"; test -z \"$(git status --porcelain)\"; echo expected_red_confirmed=true"
+  ]
+}
