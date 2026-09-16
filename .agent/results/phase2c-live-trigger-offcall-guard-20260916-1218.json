@@ -1,0 +1,89 @@
+{
+  "id": "phase2c-live-trigger-offcall-guard-20260916-1218",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T10:20:05.302569+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 9c136fc Fix Shizuku live timeout string literal\nexpected=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4 actual=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4 remote=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4\n",
+      "elapsed_seconds": 1.579,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.36,
+      "output_policy": "stream",
+      "captured_output_chars": 451,
+      "output_truncated": false,
+      "current_rss_mb": 1.36,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo call_state=$STATE; test \"$STATE\" = \"0\"; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge || true; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_live_probe true --ei shizuku_live_duration_ms 1000 >/dev/null; sleep 6; OUT=$(adb -s \"$SERIAL\" logcat -d -v brief | grep -E 'AiCallBridge.*(shizuku_live_probe_result|probe=|error=|service_uid=|prepared_|active_|heartbeat_|live_parity_ok=)' | tail -n 120 || true); printf '%s\\n' \"$OUT\"; printf '%s' \"$OUT\" | grep -q 'probe=shizuku-user-service-live-v1'; printf '%s' \"$OUT\" | grep -q 'error='; printf '%s' \"$OUT\" | grep -Eq 'not in call|not_in_call|MODE_IN_CALL|telephony'; if printf '%s' \"$OUT\" | grep -q 'live_parity_ok=true'; then exit 41; fi; echo phase2c_live_trigger_offcall_guard_ok=true",
+      "exit_code": 1,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\ncall_state=0\nI/AiCallBridge( 8269): probe=shizuku-user-service-live-v1\nI/AiCallBridge( 8269): error=IllegalStateException:cellular call is not active (AudioManager not IN_CALL)\n",
+      "elapsed_seconds": 10.051,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.53,
+      "output_policy": "stream",
+      "captured_output_chars": 254,
+      "output_truncated": false,
+      "current_rss_mb": 3.0,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.579
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 10.051
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.106
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T10:20:18.643176+00:00",
+  "task_digest": "09648382ee7108307465e76034278c447a51612ec66de8f382becf03908b8392",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "696227c4f4c8540918fe17be",
+  "daemon_version": "4.18.20"
+}
