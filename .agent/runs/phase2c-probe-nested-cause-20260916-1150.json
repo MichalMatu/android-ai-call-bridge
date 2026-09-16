@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-probe-nested-cause-20260916-1150",
+  "task_digest": "288cd122c7ce37a191a704aac344c16d34a2fdd2913a834518796e1b0760d161",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T09:52:03.401818+00:00",
+  "attempt_id": "f33acc49afaf206550edca82",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 64151,
+  "updated_at": "2026-09-16T09:52:03.401911+00:00",
+  "pid": 64151
+}
