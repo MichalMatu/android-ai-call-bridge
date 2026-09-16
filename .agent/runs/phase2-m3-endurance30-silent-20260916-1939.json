@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-m3-endurance30-silent-20260916-1939",
+  "task_digest": "518dc66177e297dfdbe7cbf908a15f60764a7c6353ac27a2cce512d1230cdd6f",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T17:39:58.391087+00:00",
+  "attempt_id": "ddde29013ff045a64dd54d72",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 44498,
+  "updated_at": "2026-09-16T17:39:58.391207+00:00",
+  "pid": 44498
+}
