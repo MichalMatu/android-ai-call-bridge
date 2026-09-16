@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-harden-ui-dump-retry-20260916-0224",
+  "task_digest": "1b5ed0828c120afb041913b76dcb9183f56c9695592c2f7727e0e1d1a25f63dc",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T00:25:25.450131+00:00",
+  "attempt_id": "905ac28633242987a9ab3619",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 34132,
+  "updated_at": "2026-09-16T00:25:25.450263+00:00",
+  "pid": 34132
+}
