@@ -1,0 +1,60 @@
+{
+  "id": "phase1c-extract-dtmf-coordinates-20260916-0300",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T00:58:54.562426+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=3091efd67e9642a4eb190e68bb827166e68bfd67; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"0\"; rm -f /tmp/phase1c-ref-ui.xml /tmp/phase1c-ref-keypad.xml; adb -s \"$SERIAL\" pull /data/local/tmp/phase1c-ref-ui.xml /tmp/phase1c-ref-ui.xml >/dev/null; adb -s \"$SERIAL\" pull /data/local/tmp/phase1c-ref-keypad.xml /tmp/phase1c-ref-keypad.xml >/dev/null; PYTHONPATH=scripts python3 -c 'from s22_call_control import find_node_bounds,center_from_bounds,KEYPAD_LABELS; a=open(\"/tmp/phase1c-ref-ui.xml\").read(); b=open(\"/tmp/phase1c-ref-keypad.xml\").read(); kb=find_node_bounds(a,KEYPAD_LABELS); one=find_node_bounds(b,[\"1\"],exact=True); print(\"keypad_bounds=%s\"%kb); print(\"keypad_xy=%s,%s\"%center_from_bounds(kb)); print(\"digit1_bounds=%s\"%one); print(\"digit1_xy=%s,%s\"%center_from_bounds(one)); assert kb and one'; rm -f /tmp/phase1c-ref-ui.xml /tmp/phase1c-ref-keypad.xml; echo phase1c_dtmf_coordinates_extracted=true",
+      "exit_code": 0,
+      "output": "expected=3091efd67e9642a4eb190e68bb827166e68bfd67 actual=3091efd67e9642a4eb190e68bb827166e68bfd67 remote=3091efd67e9642a4eb190e68bb827166e68bfd67\n* daemon not running; starting now at tcp:5037\n* daemon started successfully\n/data/local/tmp/phase1c-ref-ui.xml: 1 file pulled, 0 skipped. 4.6 MB/s (20939 bytes in 0.004s)\n/data/local/tmp/phase1c-ref-keypad.xml: 1 file pulled, 0 skipped. 12.3 MB/s (44074 bytes in 0.003s)\nkeypad_bounds=[132,1784][216,1868]\nkeypad_xy=174,1826\ndigit1_bounds=[169,934][203,1038]\ndigit1_xy=186,986\nphase1c_dtmf_coordinates_extracted=true\n",
+      "elapsed_seconds": 4.212,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 10.86,
+      "output_policy": "stream",
+      "captured_output_chars": 564,
+      "output_truncated": false,
+      "current_rss_mb": 10.86,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.212
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.094
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "finished_at": "2026-09-16T00:59:00.436966+00:00",
+  "task_digest": "001f857e96be04cd12b28b3b543acfcc7f4e164aedfc513376b36bf8a2ddf676",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "25977cf599dca420fc99aaea",
+  "daemon_version": "4.18.20"
+}
