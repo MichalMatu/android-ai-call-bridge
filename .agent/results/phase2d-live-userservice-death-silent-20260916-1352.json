@@ -1,0 +1,116 @@
+{
+  "id": "phase2d-live-userservice-death-silent-20260916-1352",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T11:55:35.191851+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=cc39862375e1a71f762d79f95776baa760790222; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at cc39862 Wire Shizuku explicit abort latency trigger\nexpected=cc39862375e1a71f762d79f95776baa760790222 actual=cc39862375e1a71f762d79f95776baa760790222 remote=cc39862375e1a71f762d79f95776baa760790222\n",
+      "elapsed_seconds": 1.476,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.41,
+      "output_policy": "stream",
+      "captured_output_chars": 455,
+      "output_truncated": false,
+      "current_rss_mb": 2.41,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:assembleDebug --no-daemon >/dev/null; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; adb -s \"$SERIAL\" shell dumpsys package pl.michalmatu.aicallbridge | grep -q 'moe.shizuku.manager.permission.API_V23: granted=true'; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; echo phase2d_userservice_death_preflight_ok=true",
+      "exit_code": 0,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\ncall_state=0\nshell         2946 shizuku_server\nphase2d_userservice_death_preflight_ok=true\n",
+      "elapsed_seconds": 11.537,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 105.58,
+      "output_policy": "stream",
+      "captured_output_chars": 168,
+      "output_truncated": false,
+      "current_rss_mb": 10.56,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'; }; voice_block(){ adb -s \"$SERIAL\" shell dumpsys audio | sed -n '/- STREAM_VOICE_CALL:/,/Volume Group: AUDIO_STREAM_VOICE_CALL/p'; }; cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; }; trap cleanup EXIT; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 || true; PRE=$(voice_block); printf '%s\\n' \"$PRE\"; printf '%s\\n' \"$PRE\" | grep -q 'Muted: true'; printf '%s\\n' \"$PRE\" | grep -q 'streamVolume:0'; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100 >/dev/null; echo dial_requested=true; ACTIVE=0; for i in $(seq 1 40); do S=$(state); echo live_call_state=$S; if [ \"$S\" = \"2\" ]; then ACTIVE=1; break; fi; sleep 1; done; test \"$ACTIVE\" = \"1\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 || true; ACTIVE_AUDIO=$(voice_block); printf '%s\\n' \"$ACTIVE_AUDIO\"; printf '%s\\n' \"$ACTIVE_AUDIO\" | grep -q 'Muted: true'; printf '%s\\n' \"$ACTIVE_AUDIO\" | grep -q 'streamVolume:0'; printf '%s\\n' \"$ACTIVE_AUDIO\" | grep -q 'Devices: earpiece(1)'; echo silent_audio_guard_active=true; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_live_probe true >/dev/null; PID=''; for i in $(seq 1 60); do PID=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | awk '$1==\"shell\" && $3 ~ /call_media$/ {print $2; exit}' | tr -d '\\r'); if [ -n \"$PID\" ]; then break; fi; sleep 0.1; done; echo userservice_pid=$PID; test -n \"$PID\"; sleep 1; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | awk -v p=\"$PID\" '$1==\"shell\" && $2==p {found=1; print} END{exit !found}'; SYSLOG=$(adb -s \"$SERIAL\" logcat -d -v brief); printf '%s\\n' \"$SYSLOG\" | grep -E \"u/pid:2000/$PID state:started.*USAGE_CALL_ASSISTANT|USAGE_CALL_ASSISTANT.*u/pid:2000/$PID state:started\" >/dev/null; echo call_assistant_active_before_kill=true; KILL_START=$(python3 -c 'import time; print(time.monotonic_ns())'); adb -s \"$SERIAL\" shell kill -9 \"$PID\"; GONE=0; for i in $(seq 1 100); do if ! adb -s \"$SERIAL\" shell ps -A -o PID | grep -Eq \"^[[:space:]]*$PID[[:space:]]*$\"; then GONE=1; break; fi; sleep 0.01; done; KILL_END=$(python3 -c 'import time; print(time.monotonic_ns())'); KILL_GONE_MS=$(( (KILL_END-KILL_START)/1000000 )); echo userservice_process_gone=$GONE; echo userservice_kill_to_gone_ms=$KILL_GONE_MS; test \"$GONE\" = \"1\"; FINAL=''; for i in $(seq 1 100); do FINAL=$(adb -s \"$SERIAL\" logcat -d -v brief -s AiCallBridge:I '*:S'); if printf '%s\\n' \"$FINAL\" | grep -Eq 'error=(service_disconnected|.*DeadObjectException|.*IOException|.*Broken pipe)'; then break; fi; sleep 0.05; done; printf '%s\\n' \"$FINAL\"; printf '%s\\n' \"$FINAL\" | grep -q 'shizuku_live_probe_start=true'; printf '%s\\n' \"$FINAL\" | grep -Eiq 'error=(service_disconnected|.*DeadObjectException|.*IOException|.*Broken pipe)'; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; APP=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge | tr -d '\\r'); echo app_pid_after_userservice_death=$APP; test -n \"$APP\"; POST_AUDIO=$(voice_block); printf '%s\\n' \"$POST_AUDIO\" | grep -q 'Muted: true'; printf '%s\\n' \"$POST_AUDIO\" | grep -q 'streamVolume:0'; printf '%s\\n' \"$POST_AUDIO\" | grep -q 'Devices: earpiece(1)'; echo silent_audio_guard_after_userservice_death=true; cleanup; trap - EXIT; test \"$(state)\" = \"0\"; echo phase2d_userservice_death_silent_ok=true",
+      "exit_code": 0,
+      "output": "calling AudioManager.adjustStreamVolume(0, AudioManager.ADJUST_MUTE, 0)\ncalling AudioManager.adjustStreamVolume(8, AudioManager.ADJUST_MUTE, 0)\n- STREAM_VOICE_CALL:\n   Muted: true\n   Muted Internally: false\n   Min: 1\n   Max: 15\n   streamVolume:0\n   Current: 1 (earpiece): 13, 2 (speaker): 1, 10 (bt_sco): 15, 20 (bt_sco_hs): 5, 4000000 (usb_headset): 1, 20000000 (ble_headset): 5, 40000000 (default): 9\n   Devices: earpiece(1)\n   Volume Group: AUDIO_STREAM_VOICE_CALL\ndial_requested=true\nlive_call_state=0\nlive_call_state=2\ncalling AudioManager.adjustStreamVolume(0, AudioManager.ADJUST_MUTE, 0)\ncalling AudioManager.adjustStreamVolume(8, AudioManager.ADJUST_MUTE, 0)\n- STREAM_VOICE_CALL:\n   Muted: true\n   Muted Internally: false\n   Min: 1\n   Max: 15\n   streamVolume:0\n   Current: 1 (earpiece): 13, 2 (speaker): 1, 10 (bt_sco): 15, 20 (bt_sco_hs): 5, 4000000 (usb_headset): 1, 20000000 (ble_headset): 5, 40000000 (default): 9\n   Devices: earpiece(1)\n   Volume Group: AUDIO_STREAM_VOICE_CALL\nsilent_audio_guard_active=true\nuserservice_pid=10271\nshell        10271 pl.michalmatu.aicallbridge:call_media\ncall_assistant_active_before_kill=true\nuserservice_process_gone=1\nuserservice_kill_to_gone_ms=167\n--------- beginning of main\nI/AiCallBridge(10222): shizuku_live_probe_start=true\nI/AiCallBridge(10222): shizuku_probe_result:\nI/AiCallBridge(10222): probe=shizuku-user-service-live-v1\nI/AiCallBridge(10222): error=IOException:write failed: EPIPE (Broken pipe) -> ErrnoException:write failed: EPIPE (Broken pipe)\nshell         2946 shizuku_server\napp_pid_after_userservice_death=10222\nsilent_audio_guard_after_userservice_death=true\nphase2d_userservice_death_silent_ok=true\n",
+      "elapsed_seconds": 5.254,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 10.64,
+      "output_policy": "stream",
+      "captured_output_chars": 1672,
+      "output_truncated": false,
+      "current_rss_mb": 10.64,
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.476
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 11.537
+    },
+    {
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 5.254
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.116
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.092
+  },
+  "finished_at": "2026-09-16T11:55:55.264029+00:00",
+  "task_digest": "f381bb16321787eac57851e0aa2e4b66d0f1f42d777ccaaebd86fba34936a2e4",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "e1e1c51f3bdf82ab0e87bc0f",
+  "daemon_version": "4.18.20"
+}
