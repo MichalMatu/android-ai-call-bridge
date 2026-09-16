@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-diagnose-active-mute-state-20260916-0433",
+  "task_digest": "21a1a4b6f50d7cb433ebd91960291081aaedd5c0e7d56ffe8f532ee0558a0ed3",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T02:35:49.900353+00:00",
+  "attempt_id": "af776404b528a92a9a7ca3a6",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 35733,
+  "updated_at": "2026-09-16T02:35:49.900578+00:00",
+  "pid": 35733
+}
