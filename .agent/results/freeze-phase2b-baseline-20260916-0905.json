@@ -1,0 +1,60 @@
+{
+  "id": "freeze-phase2b-baseline-20260916-0905",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T07:20:52.728889+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=c10f8dde29f245f8f98fb008a3572c21fe73fe35; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo phase2b_freeze_precheck_ok=true",
+      "exit_code": 0,
+      "output": "expected=c10f8dde29f245f8f98fb008a3572c21fe73fe35 actual=c10f8dde29f245f8f98fb008a3572c21fe73fe35 remote=c10f8dde29f245f8f98fb008a3572c21fe73fe35\nphase2b_freeze_precheck_ok=true\n",
+      "elapsed_seconds": 0.862,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.81,
+      "output_policy": "stream",
+      "captured_output_chars": 178,
+      "output_truncated": false,
+      "current_rss_mb": 1.81,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.862
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.089
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.072
+  },
+  "finished_at": "2026-09-16T07:20:55.316920+00:00",
+  "task_digest": "8848ba63c21273806866d5f23d36efd738e3e08cd542bc75ead010203dc90d25",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "a4775f383614ac755e7608ac",
+  "daemon_version": "4.18.20"
+}
