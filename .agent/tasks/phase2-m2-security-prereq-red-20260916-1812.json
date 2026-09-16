@@ -1,0 +1,14 @@
+{
+  "id": "phase2-m2-security-prereq-red-20260916-1812",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "task_timeout": 1200,
+  "commands": [
+    "set -e; EXPECTED=de1bffec6ab712992b5a8658a1efe8da1ab947fb; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; echo shell_dump_permission=$(adb -s \"$SERIAL\" shell pm check-permission android.permission.DUMP com.android.shell | tr -d '\\r'); adb -s \"$SERIAL\" shell pm check-permission android.permission.DUMP com.android.shell | tr -d '\\r' | grep -qx granted; echo shell_dump_permission_ok=true",
+    "set -e; set +e; grep -q 'android:name=\".DiagnosticProbeActivity\"' app/src/main/AndroidManifest.xml && grep -q 'android:permission=\"android.permission.DUMP\"' app/src/main/AndroidManifest.xml && ! grep -q 'EXTRA_RUN_SHIZUKU_ENDURANCE_PROBE' app/src/main/kotlin/pl/michalmatu/aicallbridge/MainActivity.kt; RC=$?; set -e; test \"$RC\" -ne 0; echo expected_diagnostic_surface_red=true; test -z \"$(git status --porcelain)\""
+  ]
+}
