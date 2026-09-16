@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "check-phone-connected-20260916-0858",
+  "task_digest": "3b57c59a912bb0bfa4ce8a6076915756afe5788709f5c062d6a326cc1d174593",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T07:14:38.096613+00:00",
+  "attempt_id": "ba1ead4591da4251d0d7cf1e",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 25746,
+  "updated_at": "2026-09-16T07:14:38.096708+00:00",
+  "pid": 25746
+}
