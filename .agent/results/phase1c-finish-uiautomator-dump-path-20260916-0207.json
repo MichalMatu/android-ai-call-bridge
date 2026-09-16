@@ -1,0 +1,61 @@
+{
+  "id": "phase1c-finish-uiautomator-dump-path-20260916-0207",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": true,
+  "started_at": "2026-09-16T00:09:42.174460+00:00",
+  "command_timeout": 180,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=08fa4028d8eb173401a638ba8daf80d3d8d3503d; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test \"$(git status --short)\" = \" M scripts/s22_call_control.py\"; git diff --check; git diff --exit-code -- . ':(exclude)scripts/s22_call_control.py'; grep -Fq 'path = \"/data/local/tmp/aicallbridge-window.xml\"' scripts/s22_call_control.py; test \"$(git diff --numstat -- scripts/s22_call_control.py | awk '{print $1\" \"$2}')\" = \"1 1\"; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_call_control.py; git add scripts/s22_call_control.py; git commit -m 'Use shell-safe path for UI dumps'; NEW=$(git rev-parse HEAD); git push origin HEAD:work/phase1-live-call-probes; REMOTE2=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo committed_sha=$NEW remote_sha=$REMOTE2; test \"$REMOTE2\" = \"$NEW\"; test -z \"$(git status --short)\"; echo phase1c_uiautomator_dump_path_fix_complete=true",
+      "exit_code": 1,
+      "output": "expected=08fa4028d8eb173401a638ba8daf80d3d8d3503d actual=08fa4028d8eb173401a638ba8daf80d3d8d3503d remote=08fa4028d8eb173401a638ba8daf80d3d8d3503d\n",
+      "elapsed_seconds": 0.82,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 4.45,
+      "output_policy": "stream",
+      "captured_output_chars": 146,
+      "output_truncated": false,
+      "current_rss_mb": 4.45,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.82
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.091
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.075
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T00:09:44.671015+00:00",
+  "task_digest": "16b429515218d2ed21f3597a5de3d9d023402201927cd71a4abacbf9a12b8992",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "75d2816fac0f2a55fe610fd6",
+  "daemon_version": "4.18.20"
+}
