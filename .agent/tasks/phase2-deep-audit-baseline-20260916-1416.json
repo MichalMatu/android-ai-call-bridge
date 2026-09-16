@@ -1,0 +1,14 @@
+{
+  "id": "phase2-deep-audit-baseline-20260916-1416",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "task_timeout": 2400,
+  "commands": [
+    "set -e; EXPECTED=91d6fc115956ec1e221e406fc9fca64527e2c916; FROZEN=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; echo pre_branch=$(git branch --show-current); echo pre_head=$(git rev-parse HEAD); git status --short; test -z \"$(git status --porcelain)\"; git fetch origin work/phase1-live-call-probes milestone/phase2c-shizuku-live-proven-20260916; git checkout work/phase1-live-call-probes; git merge --ff-only origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); SNAP=$(git ls-remote origin refs/heads/milestone/phase2c-shizuku-live-proven-20260916 | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE phase2c_snapshot=$SNAP; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test \"$SNAP\" = \"$FROZEN\"; test -z \"$(git status --porcelain)\"; echo exact_sha_clean_tree_ok=true",
+    "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" clean :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_deep_audit_fresh_baseline_ok=true"
+  ]
+}
