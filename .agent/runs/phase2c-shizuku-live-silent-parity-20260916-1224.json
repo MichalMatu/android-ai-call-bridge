@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-shizuku-live-silent-parity-20260916-1224",
+  "task_digest": "b0e06ae196c352b9f066849084675a650a77bb884e921963330637aa10729ab7",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T10:25:20.891343+00:00",
+  "attempt_id": "dd67e17aa2f245b5f59d7cc8",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 93566,
+  "updated_at": "2026-09-16T10:25:20.891401+00:00",
+  "pid": 93566
+}
