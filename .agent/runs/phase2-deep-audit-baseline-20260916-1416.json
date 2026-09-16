@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-deep-audit-baseline-20260916-1416",
+  "task_digest": "08143fc9595f3a2cdb09d190f9ae63120b0ffd26cbabbce55aef15c08541fb15",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T12:18:34.516660+00:00",
+  "attempt_id": "bcbc8de5f38f4b37ede62b14",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 87311,
+  "updated_at": "2026-09-16T12:18:34.516735+00:00",
+  "pid": 87311
+}
