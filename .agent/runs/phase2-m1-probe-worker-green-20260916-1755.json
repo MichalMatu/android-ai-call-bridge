@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-m1-probe-worker-green-20260916-1755",
+  "task_digest": "1807f1355dd6b2f15c6804808231b5bcea33f2713a97e54eecf8ecee4248b64d",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T15:58:54.751997+00:00",
+  "attempt_id": "276dd49a302a4eaabeadd95f",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 45160,
+  "updated_at": "2026-09-16T15:58:54.752055+00:00",
+  "pid": 45160
+}
