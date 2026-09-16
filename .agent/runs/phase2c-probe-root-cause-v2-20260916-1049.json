@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-probe-root-cause-v2-20260916-1049",
+  "task_digest": "a22e0bd39e22c2533db5063436b9876a565a5cbcdf11c6de5d2caffd4dd1bf4d",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T08:52:42.192838+00:00",
+  "attempt_id": "43ef88a344925f5f77e09b90",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 17341,
+  "updated_at": "2026-09-16T08:52:42.192927+00:00",
+  "pid": 17341
+}
