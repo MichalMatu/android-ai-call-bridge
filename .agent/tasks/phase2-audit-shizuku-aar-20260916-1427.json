@@ -1,0 +1,15 @@
+{
+  "id": "phase2-audit-shizuku-aar-20260916-1427",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "task_timeout": 1500,
+  "commands": [
+    "set -e; test \"$(git rev-parse HEAD)\" = 91d6fc115956ec1e221e406fc9fca64527e2c916; test -z \"$(git status --porcelain)\"; find \"$HOME/.gradle/caches/modules-2/files-2.1/dev.rikka.shizuku\" -path '*13.1.5*' -type f -maxdepth 8 | sort",
+    "set -e; TMP=$(mktemp -d); API=$(find \"$HOME/.gradle/caches/modules-2/files-2.1/dev.rikka.shizuku/api/13.1.5\" -type f -name '*.aar' | head -n1); echo api_aar=$API; test -n \"$API\"; unzip -q \"$API\" classes.jar -d \"$TMP\"; jar tf \"$TMP/classes.jar\" | grep -E 'Shizuku.*class|ServiceConnection' | head -120; javap -classpath \"$TMP/classes.jar\" -c -p rikka.shizuku.Shizuku | grep -A180 -B30 -E 'bindUserService|unbindUserService' | head -320; rm -rf \"$TMP\"",
+    "set -e; TMP=$(mktemp -d); API=$(find \"$HOME/.gradle/caches/modules-2/files-2.1/dev.rikka.shizuku/api/13.1.5\" -type f -name '*.aar' | head -n1); unzip -q \"$API\" classes.jar -d \"$TMP\"; for C in rikka.shizuku.ShizukuServiceConnections rikka.shizuku.ShizukuProvider; do echo ==== $C ====; javap -classpath \"$TMP/classes.jar\" -c -p \"$C\" 2>/dev/null | grep -A180 -B30 -E 'onServiceConnected|ServiceConnection|Handler|Looper|getMainLooper|Executor' || true; done; rm -rf \"$TMP\"; test -z \"$(git status --porcelain)\""
+  ]
+}
