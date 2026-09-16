@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 3,
-  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; echo '=== package ==='; adb -s \"$SERIAL\" shell pm path moe.shizuku.privileged.api || true; adb -s \"$SERIAL\" shell cmd package resolve-activity --brief moe.shizuku.privileged.api || true; echo '=== process ==='; adb -s \"$SERIAL\" shell ps -A | grep -i shizuku || true; echo '=== external files ==='; adb -s \"$SERIAL\" shell 'for d in /sdcard/Android/data/moe.shizuku.privileged.api /storage/emulated/0/Android/data/moe.shizuku.privileged.api; do echo DIR=$d; ls -la $d 2>/dev/null || true; find $d -maxdepth 3 -type f 2>/dev/null | head -n 100 || true; done'",
-  "pid": 47083,
+  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell monkey -p moe.shizuku.privileged.api -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1 || true; sleep 2; echo '=== process after manager launch ==='; adb -s \"$SERIAL\" shell ps -A | grep -i shizuku || true; echo '=== top activity ==='; adb -s \"$SERIAL\" shell dumpsys activity activities | grep -E 'mResumedActivity|topResumedActivity' | head -n 5 || true; adb -s \"$SERIAL\" shell uiautomator dump /sdcard/shizuku-window.xml >/dev/null 2>&1 || true; echo '=== visible UI text ==='; adb -s \"$SERIAL\" shell cat /sdcard/shizuku-window.xml 2>/dev/null | sed 's/></>\\n</g' | grep -o 'text=\"[^\"]*\"' | head -n 120 || true; echo '=== Shizuku logs ==='; adb -s \"$SERIAL\" logcat -d -v brief | grep -iE 'shizuku|wireless debugging|adb pair|start.sh' | tail -n 200 || true; echo phase2d_shizuku_start_diagnostic_complete=true",
+  "pid": 47210,
   "timeout": 300,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T11:22:08.982716+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T11:22:12.975807+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "phase2d-diagnose-shizuku-start-20260916-1320",
@@ -18,5 +18,5 @@
   "task_digest": "6a31a4e9b2332bb0f56f7b15e81ca12de5823c082c3d31198083cac0d6543f3c",
   "daemon_version": "4.18.20",
   "daemon_pid": 46907,
-  "updated_at": "2026-09-16T11:22:09.076277+00:00"
+  "updated_at": "2026-09-16T11:22:12.996558+00:00"
 }
