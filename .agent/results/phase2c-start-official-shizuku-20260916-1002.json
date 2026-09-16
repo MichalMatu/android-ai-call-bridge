@@ -1,0 +1,89 @@
+{
+  "id": "phase2c-start-official-shizuku-20260916-1002",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T08:04:32.641277+00:00",
+  "command_timeout": 180,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=e5ab31039f6f956362b9bc77de4cde3a1a6c0b32; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test \"$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}')\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "",
+      "elapsed_seconds": 1.137,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.41,
+      "output_policy": "stream",
+      "captured_output_chars": 0,
+      "output_truncated": false,
+      "current_rss_mb": 3.41,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; adb -s \"$SERIAL\" shell pm path --user 0 moe.shizuku.privileged.api | grep -q '^package:'; echo '=== start.sh presence ==='; adb -s \"$SERIAL\" shell ls -l /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh; echo '=== starting official Shizuku server ==='; adb -s \"$SERIAL\" shell sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh; sleep 3; echo '=== processes ==='; adb -s \"$SERIAL\" shell ps -A -o USER,UID,PID,NAME | grep -Ei 'shizuku|rikka' || true; echo '=== uid2000 candidates ==='; adb -s \"$SERIAL\" shell ps -A -o USER,UID,PID,NAME | grep -E '^shell[[:space:]]+2000[[:space:]].*shizuku' || true; echo phase2c_official_shizuku_start_complete=true",
+      "exit_code": 1,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\n=== start.sh presence ===\nls: /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh: No such file or directory\n",
+      "elapsed_seconds": 3.622,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.52,
+      "output_policy": "stream",
+      "captured_output_chars": 203,
+      "output_truncated": false,
+      "current_rss_mb": 9.52,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.137
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 3.622
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.083
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.075
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T08:04:39.447810+00:00",
+  "task_digest": "0b9cd4896b7de17a900abafb209b448fbe26b42a2372ac45a786ef17f74cb750",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "147cc0811d5d4032b02c2685",
+  "daemon_version": "4.18.20"
+}
