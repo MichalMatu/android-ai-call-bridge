@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2d-audit-failsafe-latency-v2-20260916-1300",
+  "task_digest": "056d68b6396be1f579e16eac40316514a5e9b0d6958cd4b12ba56141ca659ca6",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T11:00:27.229826+00:00",
+  "attempt_id": "7f8389bc0d422dfd8534f510",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 27277,
+  "updated_at": "2026-09-16T11:00:27.230016+00:00",
+  "pid": 27277
+}
