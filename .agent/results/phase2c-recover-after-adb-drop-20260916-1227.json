@@ -1,0 +1,88 @@
+{
+  "id": "phase2c-recover-after-adb-drop-20260916-1227",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T10:27:35.231077+00:00",
+  "command_timeout": 180,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 9c136fc Fix Shizuku live timeout string literal\nexpected=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4 actual=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4 remote=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4\n",
+      "elapsed_seconds": 1.481,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.12,
+      "output_policy": "stream",
+      "captured_output_chars": 451,
+      "output_truncated": false,
+      "current_rss_mb": 2.12,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; FOUND=0; for i in $(seq 1 60); do if adb devices | awk 'NR>1 {print $1,$2}' | grep -q \"^$SERIAL device$\"; then FOUND=1; break; fi; sleep 1; done; echo adb_device_found=$FOUND; test \"$FOUND\" = \"1\"; adb -s \"$SERIAL\" get-state; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1; }; ST=$(state); echo recovered_call_state=$ST; if [ \"$ST\" != \"0\" ]; then python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup || true; sleep 1; fi; FINAL=$(state); echo final_call_state=$FINAL; test \"$FINAL\" = \"0\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; VOICE=$(adb -s \"$SERIAL\" shell dumpsys audio | sed -n '/- STREAM_VOICE_CALL:/,/Volume Group: AUDIO_STREAM_VOICE_CALL/p'); printf '%s\\n' \"$VOICE\"; printf '%s\\n' \"$VOICE\" | grep -q 'Muted: true'; printf '%s\\n' \"$VOICE\" | grep -q 'streamVolume:0'; echo phase2c_adb_drop_recovery_ok=true",
+      "exit_code": 0,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\nadb_device_found=1\ndevice\nrecovered_call_state=0\nfinal_call_state=0\n- STREAM_VOICE_CALL:\n   Muted: true\n   Muted Internally: false\n   Min: 1\n   Max: 15\n   streamVolume:0\n   Current: 1 (earpiece): 13, 2 (speaker): 1, 10 (bt_sco): 15, 20 (bt_sco_hs): 5, 4000000 (usb_headset): 1, 20000000 (ble_headset): 5, 40000000 (default): 9\n   Devices: earpiece(1)\n   Volume Group: AUDIO_STREAM_VOICE_CALL\nphase2c_adb_drop_recovery_ok=true\n",
+      "elapsed_seconds": 3.823,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 12.28,
+      "output_policy": "stream",
+      "captured_output_chars": 503,
+      "output_truncated": false,
+      "current_rss_mb": 12.28,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.481
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 3.823
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.075
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.066
+  },
+  "finished_at": "2026-09-16T10:27:42.199189+00:00",
+  "task_digest": "a083e46ad81a49ee97012a93048e1850ace94e8482b2b9382d0cd4d5cebebdc4",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "ed14c05ad288aa8046983abc",
+  "daemon_version": "4.18.20"
+}
