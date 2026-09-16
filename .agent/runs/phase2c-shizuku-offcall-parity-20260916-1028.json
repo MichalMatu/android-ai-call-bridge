@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 4,
-  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; echo '=== shizuku processes ==='; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -Ei 'shizuku_server|moe.shizuku.privileged.api|rikka' || true; LINE=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '(^|[[:space:]])shizuku_server$' | head -n1 || true); echo shizuku_server_line=\"$LINE\"; printf '%s' \"$LINE\" | grep -Eq '^shell[[:space:]]+'; echo shizuku_server_shell_uid_ok=true",
-  "pid": 91807,
+  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:assembleDebug --no-daemon; APK=$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1); test -n \"$APK\"; echo apk=$APK; adb -s RFCT70L7E8J install -r \"$APK\"",
+  "pid": 91857,
   "timeout": 600,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T08:29:01.284401+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T08:29:05.076460+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase2c-shizuku-offcall-parity-20260916-1028",
@@ -18,5 +18,5 @@
   "task_digest": "f29c970aa9f098f3e4c6ca022a5dc4c0d87bfc363ee68c3a9de03e5a8e68f85f",
   "daemon_version": "4.18.20",
   "daemon_pid": 91579,
-  "updated_at": "2026-09-16T08:29:01.358146+00:00"
+  "updated_at": "2026-09-16T08:29:05.168177+00:00"
 }
