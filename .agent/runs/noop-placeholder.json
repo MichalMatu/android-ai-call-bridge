@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "noop-placeholder",
   "task_digest": "d247b82470488ef466714905f7010b4ed34af48ca642aed0de57717db8e68508",
-  "idle_timeout": 300,
-  "task_timeout": 1800,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T07:21:30.976056+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-16T07:21:33.307885+00:00",
   "attempt_id": "409ece703837538238f896d2",
   "daemon_version": "4.18.20",
   "daemon_pid": 31748,
-  "updated_at": "2026-09-16T07:21:30.976249+00:00",
+  "updated_at": "2026-09-16T07:21:33.563428+00:00",
   "pid": 31748
 }
