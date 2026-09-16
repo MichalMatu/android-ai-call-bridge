@@ -1,0 +1,60 @@
+{
+  "id": "phase1c-silent-call-audio-v2-20260916-0245",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T00:42:34.065439+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=3091efd67e9642a4eb190e68bb827166e68bfd67; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo call_state=$STATE; test \"$STATE\" = \"0\"; echo '=== MEDIA_SESSION HELP ==='; adb -s \"$SERIAL\" shell cmd media_session volume --help 2>&1 || true; echo '=== BEFORE ==='; adb -s \"$SERIAL\" shell cmd media_session volume --stream 0 --get 2>&1; echo '=== SET SILENT VOICE CALL ==='; adb -s \"$SERIAL\" shell cmd media_session volume --stream 0 --set 0 2>&1; echo '=== AFTER ==='; adb -s \"$SERIAL\" shell cmd media_session volume --stream 0 --get 2>&1; echo '=== AUDIO DUMP VOICE ==='; adb -s \"$SERIAL\" shell dumpsys audio | grep -i -A12 -B2 'STREAM_VOICE_CALL' | head -n 40 || true; echo phase1c_silent_call_audio_v2_complete=true",
+      "exit_code": 0,
+      "output": "expected=3091efd67e9642a4eb190e68bb827166e68bfd67 actual=3091efd67e9642a4eb190e68bb827166e68bfd67 remote=3091efd67e9642a4eb190e68bb827166e68bfd67\n* daemon not running; starting now at tcp:5037\n* daemon started successfully\ncall_state=0\n=== MEDIA_SESSION HELP ===\nusage: media_session [subcommand] [options]\n       media_session dispatch KEY\n       media_session list-sessions\n       media_session monitor <tag>\n       media_session volume [options]\n       media_session expire-temp-engaged-sessions\n\nmedia_session dispatch: dispatch a media key to the system.\n                KEY may be: play, pause, play-pause, mute, headsethook,\n                stop, next, previous, rewind, record, fast-forward.\nmedia_session list-sessions: print a list of the current sessions.\nmedia_session monitor: monitor updates to the specified session.\n                       Use the tag from list-sessions.\nmedia_session volume:  the options are as follows: \n\t\t--stream STREAM selects the stream to control, see AudioManager.STREAM_*\n\t\t                controls AudioManager.STREAM_MUSIC if no stream is specified\n\t\t--set INDEX     sets the volume index value\n\t\t--adj DIRECTION adjusts the volume, use raise|same|lower for the direction\n\t\t--get           outputs the current volume\n\t\t--show          shows the UI during the volume change\n\texamples:\n\t\tadb shell media_session volume --show --stream 3 --set 11\n\t\tadb shell media_session volume --stream 0 --adj lower\n\t\tadb shell media_session volume --stream 3 --get\n\n\t\tSamsung custom options are as follows: \n\t\t--setfine INDEX sets the fine volume index value\n\t\t--getfine       outputs the current fine volume\n\texamples:\n\t\tadb shell media_session volume --show --setfine 127\n\t\tadb shell media_session volume --getfine\n\nmedia_session expire-temp-engaged-sessions: Expires any ongoing\n                timers for media sessions in a temporary user-engaged\n                state.\n\njava.lang.IllegalArgumentException: Unknown argument --help\n=== BEFORE ===\n[V] will control stream=0 (STREAM_VOICE_CALL)\n[V] will get volume\n[V] Connecting to AudioService\n[V] volume is 13 in range [1..15]\n=== SET SILENT VOICE CALL ===\n[V] will control stream=0 (STREAM_VOICE_CALL)\n[V] will set volume to index=0\n[V] Connecting to AudioService\nusage: media_session [subcommand] [options]\n       media_session dispatch KEY\n       media_session list-sessions\n       media_session monitor <tag>\n       media_session volume [options]\n       media_session expire-temp-engaged-sessions\n\nmedia_session dispatch: dispatch a media key to the system.\n                KEY may be: play, pause, play-pause, mute, headsethook,\n                stop, next, previous, rewind, record, fast-forward.\nmedia_session list-sessions: print a list of the current sessions.\nmedia_session monitor: monitor updates to the specified session.\n                       Use the tag from list-sessions.\nmedia_session volume:  the options are as follows: \n\t\t--stream STREAM selects the stream to control, see AudioManager.STREAM_*\n\t\t                controls AudioManager.STREAM_MUSIC if no stream is specified\n\t\t--set INDEX     sets the volume index value\n\t\t--adj DIRECTION adjusts the volume, use raise|same|lower for the direction\n\t\t--get           outputs the current volume\n\t\t--show          shows the UI during the volume change\n\texamples:\n\t\tadb shell media_session volume --show --stream 3 --set 11\n\t\tadb shell media_session volume --stream 0 --adj lower\n\t\tadb shell media_session volume --stream 3 --get\n\n\t\tSamsung custom options are as follows: \n\t\t--setfine INDEX sets the fine volume index value\n\t\t--getfine       outputs the current fine volume\n\texamples:\n\t\tadb shell media_session volume --show --setfine 127\n\t\tadb shell media_session volume --getfine\n\nmedia_session expire-temp-engaged-sessions: Expires any ongoing\n                timers for media sessions in a temporary user-engaged\n                state.\n\nError: invalid volume index 0 for stream 0 (should be in [1..15])\n=== AFTER ===\n[V] will control stream=0 (STREAM_VOICE_CALL)\n[V] will get volume\n[V] Connecting to AudioService\n[V] volume is 13 in range [1..15]\n=== AUDIO DUMP VOICE ===\n\nStream volumes (device: index)\n- STREAM_VOICE_CALL:\n   Muted: false\n   Muted Internally: false\n   Min: 1\n   Max: 15\n   streamVolume:13\n   Current: 1 (earpiece): 13, 2 (speaker): 1, 10 (bt_sco): 15, 20 (bt_sco_hs): 5, 4000000 (usb_headset): 1, 20000000 (ble_headset): 5, 40000000 (default): 9\n   Devices: earpiece(1)\n   Volume Group: AUDIO_STREAM_VOICE_CALL\n\n- STREAM_SYSTEM:\n   Muted: true\n   Muted Internally: false\n   Min: 0\n   Max: 15\n   streamVolume:0\n   Current: 1 (earpiece): 6, 2 (speaker): 6, 80 (bt_a2dp): 6, 100 (bt_a2dp_hp): 6, 200 (bt_a2dp_spk): 6, 20000000 (ble_headset): 6, 40000000 (default): 6\n   Devices: speaker(2)\n   Volume Group: AUDIO_STREAM_SYSTEM\n\n- STREAM_RING:\n--\n   Devices: speaker\n   Streams: STREAM_ALARM \n- VOLUME GROUP AUDIO_STREAM_VOICE_CALL:\n   Muted: false\n   Min: 10\n   Max: 15\n   Current: 1 (earpiece): 13, 2 (speaker): 10, 10 (bt_sco): 15, 20 (bt_sco_hs): 5, 4000000 (usb_headset): 1, 20000000 (ble_headset): 5, 40000000 (default): 9\n   Devices: earpiece\n   Streams: STREAM_VOICE_CALL \n- VOLUME GROUP AUDIO_STREAM_DTMF:\n   Muted: false\n   Min: 0\n   Max: 15\n   Current: 1 (earpiece): 6, 2 (speaker): 6, 10 (bt_sco): 15, 20 (bt_sco_hs): 6, 80 (bt_a2dp): 1, 4000000 (usb_headset): 1, 20000000 (ble_headset): 5, 40000000 (default): 11\n   Devices: speaker\n   Streams: STREAM_DTMF \nphase1c_silent_call_audio_v2_complete=true\n",
+      "elapsed_seconds": 4.236,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 12.0,
+      "output_policy": "stream",
+      "captured_output_chars": 5484,
+      "output_truncated": false,
+      "current_rss_mb": 12.0,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.236
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.083
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.073
+  },
+  "finished_at": "2026-09-16T00:42:39.970415+00:00",
+  "task_digest": "677ce27c9373daceb3e771943c0ad70e10ee24b862195f56b31f8e2508a17140",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "1c76499561e61e8bb7683326",
+  "daemon_version": "4.18.20"
+}
