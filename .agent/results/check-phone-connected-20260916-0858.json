@@ -1,0 +1,60 @@
+{
+  "id": "check-phone-connected-20260916-0858",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T07:14:38.096647+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; echo '=== adb devices -l ==='; adb devices -l; echo '=== target serial ==='; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state; echo -n 'model='; adb -s \"$SERIAL\" shell getprop ro.product.model; echo -n 'device='; adb -s \"$SERIAL\" shell getprop ro.product.device; echo -n 'android='; adb -s \"$SERIAL\" shell getprop ro.build.version.release; echo phone_connected_check_ok=true",
+      "exit_code": 0,
+      "output": "=== adb devices -l ===\n* daemon not running; starting now at tcp:5037\n* daemon started successfully\nList of devices attached\nRFCT70L7E8J            device usb:0-1.2 product:g0sxeea model:SM_S906B device:g0s transport_id:1\n\n=== target serial ===\ndevice\n-n model=\nSM-S906B\n-n device=\ng0s\n-n android=\n16\nphone_connected_check_ok=true\n",
+      "elapsed_seconds": 3.821,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.48,
+      "output_policy": "stream",
+      "captured_output_chars": 331,
+      "output_truncated": false,
+      "current_rss_mb": 9.48,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 3.821
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.088
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "finished_at": "2026-09-16T07:14:43.629521+00:00",
+  "task_digest": "3b57c59a912bb0bfa4ce8a6076915756afe5788709f5c062d6a326cc1d174593",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "attempt_id": "ba1ead4591da4251d0d7cf1e",
+  "daemon_version": "4.18.20"
+}
