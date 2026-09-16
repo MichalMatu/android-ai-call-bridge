@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-build-helper-bootstrap-v2-20260916-0324",
+  "task_digest": "a10b03b702f96fec356886ae99ebeda5e4a92a6e3dd30c5050c6b0aef58577fb",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T01:17:50.739903+00:00",
+  "attempt_id": "34b83f9191ca3c03297153a0",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 77793,
+  "updated_at": "2026-09-16T01:17:50.739993+00:00",
+  "pid": 77793
+}
