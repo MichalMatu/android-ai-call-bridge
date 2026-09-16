@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-validate-downlink-system-context-offcall-20260916-0409",
+  "task_digest": "7418cea77a3cb8a5f443764f00d0729266cef523e0df88e589c56ea28698f76e",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T02:10:06.273825+00:00",
+  "attempt_id": "4fa2b525e0bfc3ee520c741c",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 16608,
+  "updated_at": "2026-09-16T02:10:06.273928+00:00",
+  "pid": 16608
+}
