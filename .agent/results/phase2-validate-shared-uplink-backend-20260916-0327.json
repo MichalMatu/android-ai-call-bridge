@@ -1,0 +1,116 @@
+{
+  "id": "phase2-validate-shared-uplink-backend-20260916-0327",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T01:25:26.699612+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=93348db159ec8f846b86ec048dd98ba3354bd394; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "expected=93348db159ec8f846b86ec048dd98ba3354bd394 actual=93348db159ec8f846b86ec048dd98ba3354bd394 remote=93348db159ec8f846b86ec048dd98ba3354bd394\n",
+      "elapsed_seconds": 0.831,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 4.41,
+      "output_policy": "stream",
+      "captured_output_chars": 146,
+      "output_truncated": false,
+      "current_rss_mb": 4.41,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_call_control.py scripts/test_autonomous_call_loop.py; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_shared_backend_build_ok=true",
+      "exit_code": 0,
+      "output": "Calculating task graph as configuration cache cannot be reused because file 'app/build.gradle.kts' has changed.\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :audio-bridge:generateDebugAssets UP-TO-DATE\n> Task :app:preBuild UP-TO-DATE\n> Task :privileged-helper:preBuild UP-TO-DATE\n> Task :app:generateDebugAssets UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :privileged-helper:generateDebugAssets UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :privileged-helper:prepareLintJarForPublish UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :app:preDebugBuild UP-TO-DATE\n> Task :privileged-helper:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:checkDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:generateDebugResources UP-TO-DATE\n> Task :privileged-helper:javaPreCompileDebug UP-TO-DATE\n> Task :privileged-helper:extractDeepLinksForAarDebug UP-TO-DATE\n> Task :app:generateDebugResources UP-TO-DATE\n> Task :privileged-helper:prepareDebugArtProfile UP-TO-DATE\n> Task :privileged-helper:mergeDebugJniLibFolders UP-TO-DATE\n> Task :privileged-helper:writeDebugAarMetadata UP-TO-DATE\n> Task :privileged-helper:mergeDebugNativeLibs NO-SOURCE\n> Task :privileged-helper:stripDebugDebugSymbols NO-SOURCE\n> Task :app:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:mergeDebugAssets UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :privileged-helper:copyDebugJniLibsProjectAndLocalJars UP-TO-DATE\n> Task :privileged-helper:processDebugManifest UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:writeDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:writeDebugAarMetadata UP-TO-DATE\n> Task :privileged-helper:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :app:javaPreCompileDebug UP-TO-DATE\n> Task :app:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:packageDebugResources UP-TO-DATE\n> Task :app:compileDebugNavigationResources UP-TO-DATE\n> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE\n> Task :app:extractDeepLinksDebug UP-TO-DATE\n> Task :privileged-helper:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:extractDeepLinksDebug UP-TO-DATE\n> Task :app:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:processDebugManifest UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:extractDeepLinksDebug UP-TO-DATE\n> Task :privileged-helper:generateDebugRFile UP-TO-DATE\n> Task :app:mergeDebugResources UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :app:generateDebugRFile UP-TO-DATE\n> Task :audio-bridge:mapDebugSourceSetPaths UP-TO-DATE\n> Task :realtime-client:processDebugManifest UP-TO-DATE\n> Task :audio-bridge:compileDebugLibraryResources UP-TO-DATE\n> Task :app:preDebugUnitTestBuild UP-TO-DATE\n> Task :realtime-client:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :realtime-client:compileDebugLibraryResources UP-TO-DATE\n> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE\n> Task :realtime-client:generateDebugAssets UP-TO-DATE\n> Task :audio-bridge:mergeDebugAssets UP-TO-DATE\n> Task :realtime-client:mergeDebugAssets UP-TO-DATE\n> Task :app:mergeDebugAssets UP-TO-DATE\n> Task :app:generateDebugGlobalSynthetics UP-TO-DATE\n> Task :app:compressDebugAssets UP-TO-DATE\n> Task :app:checkDebugDuplicateClasses UP-TO-DATE\n> Task :app:desugarDebugFileDependencies UP-TO-DATE\n> Task :app:mergeDebugJniLibFolders UP-TO-DATE\n> Task :audio-bridge:mergeDebugJniLibFolders UP-TO-DATE\n> Task :audio-bridge:mergeDebugNativeLibs NO-SOURCE\n> Task :privileged-helper:extractDeepLinksDebug\n> Task :app:mergeExtDexDebug UP-TO-DATE\n> Task :audio-bridge:copyDebugJniLibsProjectOnly UP-TO-DATE\n> Task :realtime-client:mergeDebugJniLibFolders UP-TO-DATE\n> Task :app:checkDebugAarMetadata\n> Task :privileged-helper:extractDebugAnnotations\n> Task :privileged-helper:mapDebugSourceSetPaths\n> Task :realtime-client:mergeDebugNativeLibs NO-SOURCE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :app:validateSigningDebug UP-TO-DATE\n> Task :realtime-client:copyDebugJniLibsProjectOnly UP-TO-DATE\n> Task :app:writeDebugAppMetadata UP-TO-DATE\n> Task :app:writeDebugSigningConfigVersions UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :privileged-helper:compileDebugKotlin NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToDirDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :privileged-helper:processDebugJavaRes NO-SOURCE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :privileged-helper:mergeDebugJavaResource UP-TO-DATE\n> Task :privileged-helper:copyDebugJniLibsProjectOnly\n> Task :app:mergeDebugNativeLibs NO-SOURCE\n> Task :app:stripDebugDebugSymbols NO-SOURCE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:compileDebugJavaWithJavac NO-SOURCE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToDirDebug UP-TO-DATE\n> Task :privileged-helper:compileDebugLibraryResources\n> Task :app:processDebugMainManifest\n> Task :app:processDebugManifest UP-TO-DATE\n> Task :app:processDebugManifestForPackage UP-TO-DATE\n> Task :privileged-helper:compileDebugJavaWithJavac\n> Task :privileged-helper:mergeDebugGeneratedProguardFiles UP-TO-DATE\n> Task :privileged-helper:mergeDebugConsumerProguardFiles UP-TO-DATE\n> Task :privileged-helper:bundleLibRuntimeToJarDebug\n> Task :privileged-helper:syncDebugLibJars\n> Task :privileged-helper:bundleLibCompileToJarDebug\n> Task :privileged-helper:bundleLibRuntimeToDirDebug\n> Task :privileged-helper:bundleDebugAar\n> Task :privileged-helper:assembleDebug\n> Task :app:compileDebugKotlin\n> Task :app:processDebugJavaRes UP-TO-DATE\n> Task :app:mergeDebugJavaResource UP-TO-DATE\n> Task :app:mergeLibDexDebug\n> Task :app:compileDebugJavaWithJavac\n> Task :app:processDebugResources\n> Task :app:bundleDebugClassesToRuntimeJar\n> Task :app:bundleDebugClassesToCompileJar\n> Task :app:compileDebugUnitTestKotlin NO-SOURCE\n> Task :app:processDebugUnitTestJavaRes NO-SOURCE\n> Task :app:compileDebugUnitTestJavaWithJavac UP-TO-DATE\n> Task :app:dexBuilderDebug\n> Task :app:mergeProjectDexDebug\n> Task :app:packageDebug\n> Task :app:assembleDebug\n> Task :app:createDebugApkListingFileRedirect UP-TO-DATE\n> Task :app:testDebugUnitTest\n\nBUILD SUCCESSFUL in 2s\n107 actionable tasks: 23 executed, 84 up-to-date\nConfiguration cache entry stored.\n.............idle_check_error=Command '['adb', 'shell', 'dumpsys']' returned non-zero exit status 1.\n......\n----------------------------------------------------------------------\nRan 19 tests in 0.003s\n\nOK\ndial_requested=true\nhangup_requested=true\nphase2_shared_backend_build_ok=true\n",
+      "elapsed_seconds": 3.212,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 83.59,
+      "output_policy": "stream",
+      "captured_output_chars": 7442,
+      "output_truncated": false,
+      "current_rss_mb": 83.59,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo pre_call_state=$ST; test \"$ST\" = \"0\"; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/phase2-install.log; cat /tmp/phase2-install.log; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; echo '=== construct 16k ==='; OUT16=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct 16000\"); printf '%s\\n' \"$OUT16\"; printf '%s\\n' \"$OUT16\" | grep -q 'backend=SamsungCallAssistantTrack'; printf '%s\\n' \"$OUT16\" | grep -q 'construction=success'; echo '=== construct 48k ==='; OUT48=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.CallAssistantAudioProbe construct 48000\"); printf '%s\\n' \"$OUT48\"; printf '%s\\n' \"$OUT48\" | grep -q 'backend=SamsungCallAssistantTrack'; printf '%s\\n' \"$OUT48\" | grep -q 'construction=success'; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"0\"; rm -f /tmp/phase2-install.log; echo phase2_shared_backend_runtime_ok=true",
+      "exit_code": 0,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\npre_call_state=0\nPerforming Streamed Install\nSuccess\n=== construct 16k ===\nprobe=call-assistant-audio-v3\nuid=2000\npid=24257\nmode=construct\nbackend=SamsungCallAssistantTrack\nsystem_usage=USAGE_CALL_ASSISTANT(17)\nsample_rate=16000\nchannels=stereo\ncontext_package=com.android.shell\ncontext_op_package=com.android.shell\ncontext_attribution_package=com.android.shell\npermission_MODIFY_AUDIO_ROUTING=granted\npermission_MODIFY_PHONE_STATE=granted\naudio_mode=0\ntelephony_sink_present=true\ntelephony_sink=id:11,type:18,product:SM-S906B\nattributes_public_usage=0\nattributes_system_usage=17\nattributes_content_type=1\ntrack_state=1\ntrack_session_id=9209\nconstruction=success\n=== construct 48k ===\nprobe=call-assistant-audio-v3\nuid=2000\npid=24349\nmode=construct\nbackend=SamsungCallAssistantTrack\nsystem_usage=USAGE_CALL_ASSISTANT(17)\nsample_rate=48000\nchannels=stereo\ncontext_package=com.android.shell\ncontext_op_package=com.android.shell\ncontext_attribution_package=com.android.shell\npermission_MODIFY_AUDIO_ROUTING=granted\npermission_MODIFY_PHONE_STATE=granted\naudio_mode=0\ntelephony_sink_present=true\ntelephony_sink=id:11,type:18,product:SM-S906B\nattributes_public_usage=0\nattributes_system_usage=17\nattributes_content_type=1\ntrack_state=1\ntrack_session_id=9217\nconstruction=success\nphase2_shared_backend_runtime_ok=true\n",
+      "elapsed_seconds": 4.982,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 10.94,
+      "output_policy": "stream",
+      "captured_output_chars": 1388,
+      "output_truncated": false,
+      "current_rss_mb": 10.94,
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.831
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 3.212
+    },
+    {
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.982
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.079
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.069
+  },
+  "finished_at": "2026-09-16T01:25:37.677679+00:00",
+  "task_digest": "d441b0550d17d23546dbb231883fbbfc3bf86b057e5a8ca2a81440ad283c2779",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "ed3758d8d0d6343ffe17eed7",
+  "daemon_version": "4.18.20"
+}
