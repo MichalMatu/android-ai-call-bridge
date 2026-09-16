@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2d-live-userservice-death-silent-20260916-1352",
+  "task_digest": "f381bb16321787eac57851e0aa2e4b66d0f1f42d777ccaaebd86fba34936a2e4",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T11:55:35.191711+00:00",
+  "attempt_id": "e1e1c51f3bdf82ab0e87bc0f",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 70830,
+  "updated_at": "2026-09-16T11:55:35.191936+00:00",
+  "pid": 70830
+}
