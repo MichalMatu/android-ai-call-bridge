@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 3,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_call_control.py scripts/test_autonomous_call_loop.py; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2c_freeze_build_tests_ok=true",
-  "pid": 21074,
+  "command": "set -e; EXPECTED=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; MILESTONE=milestone/phase2c-shizuku-live-proven-20260916; EXISTING=$(git ls-remote origin refs/heads/$MILESTONE | awk '{print $1}'); echo milestone_existing=$EXISTING; if [ -n \"$EXISTING\" ] && [ \"$EXISTING\" != \"$EXPECTED\" ]; then echo milestone_conflict=true; exit 42; fi; if [ -z \"$EXISTING\" ]; then git push origin \"$EXPECTED:refs/heads/$MILESTONE\"; fi; SNAP=$(git ls-remote origin refs/heads/$MILESTONE | awk '{print $1}'); echo milestone_snapshot=$SNAP; test \"$SNAP\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo phase2c_milestone_frozen=true",
+  "pid": 21235,
   "timeout": 900,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T10:54:08.768711+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T10:54:16.517666+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "phase2c-freeze-shizuku-live-proven-20260916-1249",
@@ -18,5 +18,5 @@
   "task_digest": "6f8a03ceb24e12442ddbaeae5b860c8f96105399804b6226b05c07ed3b623b6f",
   "daemon_version": "4.18.20",
   "daemon_pid": 20876,
-  "updated_at": "2026-09-16T10:54:08.848337+00:00"
+  "updated_at": "2026-09-16T10:54:16.592612+00:00"
 }
