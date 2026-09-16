@@ -1,0 +1,117 @@
+{
+  "id": "phase2d-verify-watchdog-probe-offcall-20260916-1310",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T11:12:15.704744+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=2029deb09068a3520708df01ddf39bfaacb2b860; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); SNAP=$(git ls-remote origin refs/heads/milestone/phase2c-shizuku-live-proven-20260916 | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE phase2c_snapshot=$SNAP; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test \"$SNAP\" = \"9c136fc05c5b33f383d72b0b7080ad5b9a754bb4\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 2 commits, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at 2029deb Wire Shizuku watchdog latency trigger\nexpected=2029deb09068a3520708df01ddf39bfaacb2b860 actual=2029deb09068a3520708df01ddf39bfaacb2b860 remote=2029deb09068a3520708df01ddf39bfaacb2b860 phase2c_snapshot=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4\n",
+      "elapsed_seconds": 2.153,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.86,
+      "output_policy": "stream",
+      "captured_output_chars": 585,
+      "output_truncated": false,
+      "current_rss_mb": 1.86,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :app:assembleDebug --no-daemon; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2d_watchdog_probe_build_ok=true",
+      "exit_code": 0,
+      "output": "To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nReusing configuration cache.\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :realtime-client:generateDebugAssets UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :privileged-helper:preBuild UP-TO-DATE\n> Task :app:preBuild UP-TO-DATE\n> Task :audio-bridge:generateDebugAssets UP-TO-DATE\n> Task :app:generateDebugAssets UP-TO-DATE\n> Task :privileged-helper:generateDebugAssets UP-TO-DATE\n> Task :app:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :privileged-helper:preDebugUnitTestBuild UP-TO-DATE\n> Task :privileged-helper:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :privileged-helper:javaPreCompileDebug UP-TO-DATE\n> Task :privileged-helper:processDebugNavigationResources UP-TO-DATE\n> Task :app:generateDebugResources UP-TO-DATE\n> Task :privileged-helper:generateDebugResources UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :app:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:writeDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:writeDebugAarMetadata UP-TO-DATE\n> Task :privileged-helper:writeDebugAarMetadata UP-TO-DATE\n> Task :app:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :app:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :privileged-helper:packageDebugResources UP-TO-DATE\n> Task :app:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:processDebugManifest UP-TO-DATE\n> Task :privileged-helper:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :privileged-helper:extractDeepLinksDebug UP-TO-DATE\n> Task :privileged-helper:processDebugManifest UP-TO-DATE\n> Task :privileged-helper:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :privileged-helper:generateDebugUnitTestStubRFile UP-TO-DATE\n> Task :audio-bridge:mapDebugSourceSetPaths UP-TO-DATE\n> Task :audio-bridge:compileDebugLibraryResources UP-TO-DATE\n> Task :realtime-client:processDebugManifest UP-TO-DATE\n> Task :privileged-helper:mapDebugSourceSetPaths UP-TO-DATE\n> Task :privileged-helper:compileDebugLibraryResources UP-TO-DATE\n> Task :realtime-client:mapDebugSourceSetPaths UP-TO-DATE\n> Task :realtime-client:compileDebugLibraryResources UP-TO-DATE\n> Task :app:preDebugUnitTestBuild UP-TO-DATE\n> Task :app:checkDebugAarMetadata UP-TO-DATE\n> Task :app:processDebugNavigationResources UP-TO-DATE\n> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :app:mergeDebugResources UP-TO-DATE\n> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE\n> Task :app:parseDebugLocalResources UP-TO-DATE\n> Task :privileged-helper:compileDebugKotlin NO-SOURCE\n> Task :app:compileDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:processDebugJavaRes NO-SOURCE\n> Task :privileged-helper:mergeDebugAssets UP-TO-DATE\n> Task :app:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:mergeDebugAssets UP-TO-DATE\n> Task :app:generateDebugGlobalSynthetics UP-TO-DATE\n> Task :app:desugarDebugFileDependencies UP-TO-DATE\n> Task :audio-bridge:mergeDebugJniLibFolders UP-TO-DATE\n> Task :app:mergeDebugJniLibFolders UP-TO-DATE\n> Task :audio-bridge:mergeDebugAssets UP-TO-DATE\n> Task :audio-bridge:mergeDebugNativeLibs NO-SOURCE\n> Task :app:processDebugMainManifest UP-TO-DATE\n> Task :privileged-helper:mergeDebugJniLibFolders UP-TO-DATE\n> Task :audio-bridge:copyDebugJniLibsProjectOnly UP-TO-DATE\n> Task :app:processDebugManifest UP-TO-DATE\n> Task :realtime-client:mergeDebugJniLibFolders UP-TO-DATE\n> Task :app:mergeDebugAssets UP-TO-DATE\n> Task :realtime-client:mergeDebugNativeLibs NO-SOURCE\n> Task :privileged-helper:compileDebugJavaWithJavac UP-TO-DATE\n> Task :app:processDebugManifestForPackage UP-TO-DATE\n> Task :app:compressDebugAssets UP-TO-DATE\n> Task :realtime-client:copyDebugJniLibsProjectOnly UP-TO-DATE\n> Task :privileged-helper:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :privileged-helper:mergeDebugNativeLibs NO-SOURCE\n> Task :privileged-helper:bundleLibRuntimeToDirDebug UP-TO-DATE\n> Task :privileged-helper:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :app:validateSigningDebug UP-TO-DATE\n> Task :privileged-helper:copyDebugJniLibsProjectOnly UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :app:writeDebugAppMetadata UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :app:checkDebugDuplicateClasses UP-TO-DATE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :app:writeDebugSigningConfigVersions UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToDirDebug UP-TO-DATE\n> Task :privileged-helper:compileDebugUnitTestKotlin NO-SOURCE\n> Task :privileged-helper:processDebugUnitTestJavaRes NO-SOURCE\n> Task :app:mergeDebugNativeLibs NO-SOURCE\n> Task :app:stripDebugDebugSymbols NO-SOURCE\n> Task :app:mergeExtDexDebug UP-TO-DATE\n> Task :privileged-helper:compileDebugUnitTestJavaWithJavac UP-TO-DATE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:compileDebugJavaWithJavac NO-SOURCE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToDirDebug UP-TO-DATE\n> Task :privileged-helper:testDebugUnitTest UP-TO-DATE\n> Task :app:mergeLibDexDebug UP-TO-DATE\n> Task :app:compileDebugAidl UP-TO-DATE\n> Task :app:processDebugResources UP-TO-DATE\n> Task :app:compileDebugKotlin\n> Task :app:processDebugJavaRes UP-TO-DATE\n> Task :app:mergeDebugJavaResource UP-TO-DATE\n\n> Task :app:compileDebugJavaWithJavac\nwarning: unknown enum constant Scope.LIBRARY_GROUP_PREFIX\n  reason: class file for androidx.annotation.RestrictTo$Scope not found\nwarning: unknown enum constant Scope.LIBRARY_GROUP_PREFIX\nwarning: unknown enum constant Scope.LIBRARY_GROUP_PREFIX\nwarning: unknown enum constant Scope.LIBRARY_GROUP_PREFIX\nwarning: unknown enum constant Scope.LIBRARY_GROUP_PREFIX\nwarning: unknown enum constant Scope.LIBRARY_GROUP_PREFIX\nwarning: unknown enum constant Scope.LIBRARY_GROUP_PREFIX\n7 warnings\n\n> Task :app:bundleDebugClassesToCompileJar\n> Task :app:bundleDebugClassesToRuntimeJar\n> Task :app:compileDebugUnitTestKotlin NO-SOURCE\n> Task :app:processDebugUnitTestJavaRes NO-SOURCE\n> Task :app:compileDebugUnitTestJavaWithJavac UP-TO-DATE\n> Task :app:dexBuilderDebug\n> Task :app:testDebugUnitTest\n> Task :app:mergeProjectDexDebug\n> Task :app:packageDebug\n> Task :app:assembleDebug\n> Task :app:createDebugApkListingFileRedirect UP-TO-DATE\n\n[Incubating] Problems report is available at: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/build/reports/problems/problems-report.html\n\nBUILD SUCCESSFUL in 10s\n101 actionable tasks: 8 executed, 93 up-to-date\nConfiguration cache entry reused.\nphase2d_watchdog_probe_build_ok=true\n",
+      "elapsed_seconds": 10.939,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 106.73,
+      "output_policy": "stream",
+      "captured_output_chars": 7912,
+      "output_truncated": false,
+      "current_rss_mb": 53.66,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; adb -s \"$SERIAL\" shell ps -A | grep -E '[[:space:]]shell[[:space:]].*shizuku_server' >/dev/null; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_watchdog_probe true >/dev/null; sleep 3; LOG=$(adb -s \"$SERIAL\" logcat -d -v brief -s AiCallBridge:I '*:S'); printf '%s\\n' \"$LOG\"; printf '%s\\n' \"$LOG\" | grep -q 'shizuku_watchdog_probe_start=true'; printf '%s\\n' \"$LOG\" | grep -q 'probe=shizuku-user-service-watchdog-v1'; printf '%s\\n' \"$LOG\" | grep -Eiq 'error=.*(cellular call.*not active|AudioManager.*IN_CALL|not active.*IN_CALL)'; echo phase2d_watchdog_offcall_guard_ok=true",
+      "exit_code": 1,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\ncall_state=0\n",
+      "elapsed_seconds": 3.69,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 10.8,
+      "output_policy": "stream",
+      "captured_output_chars": 90,
+      "output_truncated": false,
+      "current_rss_mb": 10.8,
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.153
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 10.939
+    },
+    {
+      "stage_name": "command-3",
+      "stage_index": 3,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 3.69
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.101
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.081
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T11:12:34.486609+00:00",
+  "task_digest": "c13e99fc195f941963680862ae4b2bfc5cf13c5a22fbb396e1b5076986bce8d9",
+  "idle_timeout": 300,
+  "task_timeout": 1500,
+  "memory_limit_mb": 4096,
+  "attempt_id": "530b6c2fa82cfb291d21a539",
+  "daemon_version": "4.18.20"
+}
