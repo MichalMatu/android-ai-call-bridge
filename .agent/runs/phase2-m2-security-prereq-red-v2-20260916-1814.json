@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-m2-security-prereq-red-v2-20260916-1814",
+  "task_digest": "4a0277fc7b06d739686ba2d0a70ce713e92698ef5af681d1d0ea6d11bf375f44",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T16:08:52.388674+00:00",
+  "attempt_id": "08d3611b76a53e56e8fccdb9",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 55770,
+  "updated_at": "2026-09-16T16:08:52.388782+00:00",
+  "pid": 55770
+}
