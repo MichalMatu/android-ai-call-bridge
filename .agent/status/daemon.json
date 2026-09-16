@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.20",
   "state": "idle",
-  "pid": 66639,
-  "updated_at": "2026-09-16T03:17:51.698125+00:00",
+  "pid": 68023,
+  "updated_at": "2026-09-16T03:18:58.998293+00:00",
   "self_revision": "d2c23951456d1e1528e3c52e47bdd104294cf170",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 66639,
-  "supervisor_pid": 60570,
-  "last_task_id": "phase2-diagnose-bidirectional-offcall-raw-20260916-0314",
+  "worker_pid": 68023,
+  "supervisor_pid": 67756,
   "execution_variant": "parallel"
 }
