@@ -1,0 +1,15 @@
+{
+  "id": "phase2-audit-python-and-references-v2-20260916-1433",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "task_timeout": 1800,
+  "commands": [
+    "set -e; test \"$(git rev-parse HEAD)\" = 91d6fc115956ec1e221e406fc9fca64527e2c916; test -z \"$(git status --porcelain)\"; echo '== python tests =='; find tests -maxdepth 2 -type f -print | sort; python3 -m unittest discover -s tests -v; test -z \"$(git status --porcelain)\"",
+    "set -e; echo '== source files =='; find app/src privileged-helper/src audio-bridge/src realtime-client/src -type f | grep -E '\\.(java|kt|aidl)$' | sort; echo '== synchronized =='; grep -RIn 'synchronized' app/src privileged-helper/src --include='*.java' --include='*.kt' || true; echo '== threads =='; grep -RIn 'new Thread' app/src privileged-helper/src --include='*.java' --include='*.kt' || true; echo '== handlers/loopers =='; grep -RInE 'Handler|Looper' app/src privileged-helper/src --include='*.java' --include='*.kt' || true",
+    "set -e; echo '== reference files per type =='; for C in CallAudioCapture CallAudioInjector PcmFrame AudioBridgeMetrics RealtimeTransport ShellAudioProbe CallAssistantAudioProbe DownlinkPipeProbe BidirectionalMediaProbe PcmMetrics ProbeArguments ToneGenerator SamsungCallMediaSessionController SamsungDownlinkPipeSession SamsungUplinkPipeSession SamsungCallAssistantTrack SamsungVoiceDownlinkCapture PrivilegedCallContexts ShizukuCallMediaUserService ShizukuUserServiceProbe ShizukuWatchdogProbe ShizukuAbortLatencyProbe ShizukuEnduranceProbe; do N=$(grep -RIl --exclude-dir=build --include='*.java' --include='*.kt' --include='*.aidl' \"$C\" app privileged-helper audio-bridge realtime-client | wc -l | tr -d ' '); echo \"$C $N\"; done; test -z \"$(git status --porcelain)\""
+  ]
+}
