@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-fix-uiautomator-dump-path-v2-20260916-0204",
+  "task_digest": "b5fbb427e3bd001e640fa0ad7807ce261b188d7b6090afb51d4fd9d44418af44",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T00:04:37.873225+00:00",
+  "attempt_id": "1a7ca2e47c8eb696e5b1a971",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 18715,
+  "updated_at": "2026-09-16T00:04:37.873387+00:00",
+  "pid": 18715
+}
