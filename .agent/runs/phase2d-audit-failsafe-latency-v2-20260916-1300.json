@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 4,
   "total": 4,
-  "command": "set -e; EXPECTED=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; SNAPBR=milestone/phase2c-shizuku-live-proven-20260916; git fetch origin work/phase1-live-call-probes $SNAPBR; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); SNAP=$(git ls-remote origin refs/heads/$SNAPBR | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE snapshot=$SNAP; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test \"$SNAP\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
-  "pid": 27472,
+  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest --no-daemon; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2d_readonly_audit_tests_ok=true",
+  "pid": 27567,
   "timeout": 600,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T11:00:28.701582+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-16T11:00:31.364936+00:00",
+  "stage_name": "command-4",
+  "stage_index": 4,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase2d-audit-failsafe-latency-v2-20260916-1300",
@@ -18,5 +18,5 @@
   "task_digest": "056d68b6396be1f579e16eac40316514a5e9b0d6958cd4b12ba56141ca659ca6",
   "daemon_version": "4.18.20",
   "daemon_pid": 27277,
-  "updated_at": "2026-09-16T11:00:28.701759+00:00"
+  "updated_at": "2026-09-16T11:00:31.382899+00:00"
 }
