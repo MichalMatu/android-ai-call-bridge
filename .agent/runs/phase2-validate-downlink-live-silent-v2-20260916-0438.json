@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-validate-downlink-live-silent-v2-20260916-0438",
+  "task_digest": "c90e8890f6f3e2b18f163fa3c974fdd9f53490e7d2fcce2cc6c1cbe69cc3b4f1",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T02:40:58.745946+00:00",
+  "attempt_id": "1d347e6acd7d4651b7cb137c",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 39430,
+  "updated_at": "2026-09-16T02:40:58.746087+00:00",
+  "pid": 39430
+}
