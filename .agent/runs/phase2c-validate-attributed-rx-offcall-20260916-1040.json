@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 3,
+  "index": 4,
   "total": 4,
-  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; LINE=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '(^|[[:space:]])shizuku_server$' | head -n1 || true); echo shizuku_server_line=\"$LINE\"; printf '%s' \"$LINE\" | grep -Eq '^shell[[:space:]]+'; APK=app/build/outputs/apk/debug/app-debug.apk; test -f \"$APK\"; adb -s \"$SERIAL\" install -r \"$APK\"",
-  "pid": 7432,
+  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge || true; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_probe true; sleep 10; echo '=== focus ==='; adb -s \"$SERIAL\" shell dumpsys window | grep -E 'mCurrentFocus|mFocusedApp' | head -n 8 || true; echo '=== probe logs ==='; OUT=$(adb -s \"$SERIAL\" logcat -d -v brief | grep -Ei 'AiCallBridge|ShizukuUserServiceProbe|ShizukuCallMediaUserService|offcall_parity_ok|prepared_|active_|heartbeat_|service_uid|service_pid|EX_SECURITY|invalid attr|Cannot create AudioRecord|ShizukuServiceStarter' | tail -n 320 || true); printf '%s\n' \"$OUT\"; printf '%s' \"$OUT\" | grep -q 'service_uid=2000'; printf '%s' \"$OUT\" | grep -q 'prepared_after_prepare=true'; printf '%s' \"$OUT\" | grep -q 'offcall_parity_ok=true'; if printf '%s' \"$OUT\" | grep -q 'invalid attr'; then echo unexpected_invalid_attr=true; exit 31; fi; echo phase2c_attributed_rx_offcall_ok=true",
+  "pid": 7565,
   "timeout": 900,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T08:41:00.487533+00:00",
-  "stage_name": "command-3",
-  "stage_index": 3,
+  "started_at": "2026-09-16T08:41:04.797097+00:00",
+  "stage_name": "command-4",
+  "stage_index": 4,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase2c-validate-attributed-rx-offcall-20260916-1040",
@@ -18,5 +18,5 @@
   "task_digest": "3b7ce93cf81df8987bb7a3dc2e19d6cee86dc8451114d55aba158708e962cd5a",
   "daemon_version": "4.18.20",
   "daemon_pid": 6903,
-  "updated_at": "2026-09-16T08:41:00.511259+00:00"
+  "updated_at": "2026-09-16T08:41:04.879620+00:00"
 }
