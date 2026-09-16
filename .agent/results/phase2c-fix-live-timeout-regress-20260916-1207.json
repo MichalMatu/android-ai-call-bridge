@@ -1,0 +1,89 @@
+{
+  "id": "phase2c-fix-live-timeout-regress-20260916-1207",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": true,
+  "started_at": "2026-09-16T10:09:14.412685+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=5e60965244332cd89ef4d69907de13329ffe72f6; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 5e60965 Add explicit Shizuku live probe trigger\nexpected=5e60965244332cd89ef4d69907de13329ffe72f6 actual=5e60965244332cd89ef4d69907de13329ffe72f6 remote=5e60965244332cd89ef4d69907de13329ffe72f6\n",
+      "elapsed_seconds": 1.571,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.03,
+      "output_policy": "stream",
+      "captured_output_chars": 451,
+      "output_truncated": false,
+      "current_rss_mb": 2.03,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; python3 - <<'PY'\nfrom pathlib import Path\np=Path('app/src/main/java/pl/michalmatu/aicallbridge/shizuku/ShizukuUserServiceProbe.java')\ns=p.read_text()\nold='''    private final Runnable timeout = () -> finish(\n        (live ? \"probe=shizuku-user-service-live-v1\" : \"probe=shizuku-user-service-v1\")\n            + \"\\nerror=connect_timeout\"\n    );\n'''\nnew='''    private final Runnable timeout = () -> finish(\n        probeName() + \"\\nerror=connect_timeout\"\n    );\n'''\nif s.count(old) != 1:\n    raise SystemExit('timeout block mismatch')\ns=s.replace(old,new)\nneedle='''    private void start() {\n'''\ninsert='''    private String probeName() {\n        return live ? \"probe=shizuku-user-service-live-v1\" : \"probe=shizuku-user-service-v1\";\n    }\n\n'''\nif s.count(needle) != 1:\n    raise SystemExit('start method anchor mismatch')\ns=s.replace(needle,insert+needle)\np.write_text(s)\nPY\ngit diff --check; git diff -- app/src/main/java/pl/michalmatu/aicallbridge/shizuku/ShizukuUserServiceProbe.java; git add app/src/main/java/pl/michalmatu/aicallbridge/shizuku/ShizukuUserServiceProbe.java; git commit -m 'Fix Shizuku live probe timeout initialization'; git push origin HEAD:work/phase1-live-call-probes; NEW=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo new_head=$NEW remote=$REMOTE; test \"$NEW\" = \"$REMOTE\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 1,
+      "output": "timeout block mismatch\n",
+      "elapsed_seconds": 0.418,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.0,
+      "output_policy": "stream",
+      "captured_output_chars": 23,
+      "output_truncated": false,
+      "current_rss_mb": 2.0,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.571
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.418
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.082
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.066
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T10:09:18.028883+00:00",
+  "task_digest": "a07f4be429a25f3fea31748c75102ed98c86d1866a580e1378c029274e370145",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "attempt_id": "e40ee3373125f186813b63f3",
+  "daemon_version": "4.18.20"
+}
