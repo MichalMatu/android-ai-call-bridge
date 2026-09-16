@@ -1,0 +1,15 @@
+{
+  "id": "phase2c-validate-binder-looper-offcall-20260916-1156",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "task_timeout": 900,
+  "commands": [
+    "set -e; EXPECTED=8e4cfc9cb68db5e49123b637ecaa4291134c08f4; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; git diff --check",
+    "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:assembleDebug --no-daemon; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; LINE=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '(^|[[:space:]])shizuku_server$' | head -n1 || true); echo shizuku_server_line=\"$LINE\"; printf '%s' \"$LINE\" | grep -Eq '^shell[[:space:]]+'; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk",
+    "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge || true; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_probe true >/dev/null; sleep 8; echo '=== offcall probe ==='; OUT=$(adb -s \"$SERIAL\" logcat -d -v brief | grep -E 'AiCallBridge.*(shizuku_probe_result|probe=|error=|binder_ping=|service_uid=|service_pid=|prepared_|active_|heartbeat_|privileged_uid=|offcall_parity_ok=)' | tail -n 120 || true); printf '%s\n' \"$OUT\"; if printf '%s' \"$OUT\" | grep -q 'error='; then exit 31; fi; printf '%s' \"$OUT\" | grep -q 'offcall_parity_ok=true'; printf '%s' \"$OUT\" | grep -Eq 'service_uid=2000|privileged_uid=2000'; echo phase2c_binder_looper_offcall_ok=true"
+  ]
+}
