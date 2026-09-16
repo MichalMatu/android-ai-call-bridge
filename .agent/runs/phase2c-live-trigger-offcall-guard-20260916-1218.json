@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-live-trigger-offcall-guard-20260916-1218",
+  "task_digest": "09648382ee7108307465e76034278c447a51612ec66de8f382becf03908b8392",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T10:20:05.302496+00:00",
+  "attempt_id": "696227c4f4c8540918fe17be",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 88871,
+  "updated_at": "2026-09-16T10:20:05.302631+00:00",
+  "pid": 88871
+}
