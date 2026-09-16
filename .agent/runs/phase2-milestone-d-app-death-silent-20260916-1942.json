@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 3,
-  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; adb -s \"$SERIAL\" shell dumpsys package pl.michalmatu.aicallbridge | grep -q 'moe.shizuku.manager.permission.API_V23: granted=true'; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; echo milestone_d_app_death_preflight_ok=true",
-  "pid": 48730,
+  "command": "set -e; SERIAL=RFCT70L7E8J; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'; }; voice_block(){ adb -s \"$SERIAL\" shell dumpsys audio | sed -n '/- STREAM_VOICE_CALL:/,/Volume Group: AUDIO_STREAM_VOICE_CALL/p'; }; cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; }; trap cleanup EXIT; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 || true; PRE=$(voice_block); printf '%s\\n' \"$PRE\"; printf '%s\\n' \"$PRE\" | grep -q 'Muted: true'; printf '%s\\n' \"$PRE\" | grep -q 'streamVolume:0'; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100 >/dev/null; echo dial_requested=true; ACTIVE=0; for i in $(seq 1 40); do S=$(state); echo live_call_state=$S; if [ \"$S\" = \"2\" ]; then ACTIVE=1; break; fi; sleep 1; done; test \"$ACTIVE\" = \"1\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 || true; ACTIVE_AUDIO=$(voice_block); printf '%s\\n' \"$ACTIVE_AUDIO\"; printf '%s\\n' \"$ACTIVE_AUDIO\" | grep -q 'Muted: true'; printf '%s\\n' \"$ACTIVE_AUDIO\" | grep -q 'streamVolume:0'; printf '%s\\n' \"$ACTIVE_AUDIO\" | grep -q 'Devices: earpiece(1)'; echo silent_audio_guard_active=true; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; START=$(adb -s \"$SERIAL\" shell am start -W -n pl.michalmatu.aicallbridge/.DiagnosticProbeActivity --ez run_shizuku_endurance_probe true 2>&1); printf '%s\\n' \"$START\"; printf '%s\\n' \"$START\" | grep -q 'Status: ok'; APP=''; HELPER=''; for i in $(seq 1 80); do APP=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge | tr -d '\\r'); HELPER=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | awk '$1==\"shell\" && $3 ~ /call_media$/ {print $2; exit}' | tr -d '\\r'); if [ -n \"$APP\" ] && [ -n \"$HELPER\" ]; then break; fi; sleep 0.1; done; echo app_pid_before_kill=$APP; echo userservice_pid_before_app_death=$HELPER; test -n \"$APP\"; test -n \"$HELPER\"; MEDIA_ACTIVE=0; for i in $(seq 1 50); do SYSLOG=$(adb -s \"$SERIAL\" logcat -d -v brief); if printf '%s\\n' \"$SYSLOG\" | grep -E \"u/pid:2000/$HELPER state:started.*USAGE_CALL_ASSISTANT|USAGE_CALL_ASSISTANT.*u/pid:2000/$HELPER state:started\" >/dev/null; then MEDIA_ACTIVE=1; break; fi; sleep 0.1; done; echo call_assistant_active_before_app_death=$MEDIA_ACTIVE; test \"$MEDIA_ACTIVE\" = \"1\"; KILL_START=$(python3 -c 'import time; print(time.monotonic_ns())'); adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; APP_GONE=0; HELPER_GONE=0; STOP_SEEN=0; for i in $(seq 1 300); do if [ -z \"$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge | tr -d '\\r')\" ]; then APP_GONE=1; fi; if ! adb -s \"$SERIAL\" shell ps -A -o PID | grep -Eq \"^[[:space:]]*$HELPER[[:space:]]*$\"; then HELPER_GONE=1; fi; SYSLOG=$(adb -s \"$SERIAL\" logcat -d -v brief); if printf '%s\\n' \"$SYSLOG\" | grep -E \"u/pid:2000/$HELPER state:stopped.*USAGE_CALL_ASSISTANT|USAGE_CALL_ASSISTANT.*u/pid:2000/$HELPER state:stopped\" >/dev/null; then STOP_SEEN=1; fi; if [ \"$APP_GONE\" = \"1\" ] && [ \"$HELPER_GONE\" = \"1\" ] && [ \"$STOP_SEEN\" = \"1\" ]; then break; fi; sleep 0.01; done; KILL_END=$(python3 -c 'import time; print(time.monotonic_ns())'); STOP_MS=$(( (KILL_END-KILL_START)/1000000 )); echo app_process_gone=$APP_GONE; echo userservice_process_gone=$HELPER_GONE; echo call_assistant_stop_seen=$STOP_SEEN; echo app_death_to_media_cleanup_ms=$STOP_MS; test \"$APP_GONE\" = \"1\"; test \"$HELPER_GONE\" = \"1\"; test \"$STOP_SEEN\" = \"1\"; test \"$STOP_MS\" -le 3000; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; POST_AUDIO=$(voice_block); printf '%s\\n' \"$POST_AUDIO\" | grep -q 'Muted: true'; printf '%s\\n' \"$POST_AUDIO\" | grep -q 'streamVolume:0'; printf '%s\\n' \"$POST_AUDIO\" | grep -q 'Devices: earpiece(1)'; echo silent_audio_guard_after_app_death=true; cleanup; trap - EXIT; test \"$(state)\" = \"0\"; echo milestone_d_app_death_silent_green=true",
+  "pid": 48803,
   "timeout": 300,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T17:45:14.355315+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T17:45:18.364540+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "phase2-milestone-d-app-death-silent-20260916-1942",
@@ -18,5 +18,5 @@
   "task_digest": "1d7cf282a650b6d909064c42c6351bb14022ac2e701c6d8c72bb33c728cb5f6a",
   "daemon_version": "4.18.20",
   "daemon_pid": 48549,
-  "updated_at": "2026-09-16T17:45:14.452721+00:00"
+  "updated_at": "2026-09-16T17:45:18.439354+00:00"
 }
