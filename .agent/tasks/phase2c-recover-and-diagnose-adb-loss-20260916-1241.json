@@ -1,0 +1,14 @@
+{
+  "id": "phase2c-recover-and-diagnose-adb-loss-20260916-1241",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 420,
+  "task_timeout": 600,
+  "commands": [
+    "set -e; EXPECTED=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -e; SERIAL=RFCT70L7E8J; FOUND=0; for i in $(seq 1 300); do if adb devices | awk 'NR>1 {print $1,$2}' | grep -q \"^$SERIAL device$\"; then FOUND=1; echo adb_returned_after_s=$i; break; fi; sleep 1; done; echo adb_device_found=$FOUND; if [ \"$FOUND\" != \"1\" ]; then echo '=== mac usb snapshot ==='; system_profiler SPUSBDataType 2>/dev/null | grep -i -A12 -B4 -E 'Samsung|Android|SM-S906B' || true; exit 71; fi; adb -s \"$SERIAL\" get-state; echo boot_completed=$(adb -s \"$SERIAL\" shell getprop sys.boot_completed | tr -d '\\r'); echo boot_reason=$(adb -s \"$SERIAL\" shell getprop ro.boot.bootreason | tr -d '\\r'); echo uptime=$(adb -s \"$SERIAL\" shell cat /proc/uptime | tr -d '\\r'); state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1; }; ST=$(state); echo recovered_call_state=$ST; if [ \"$ST\" != \"0\" ]; then python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup || true; sleep 1; fi; FINAL=$(state); echo final_call_state=$FINAL; test \"$FINAL\" = \"0\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; VOICE=$(adb -s \"$SERIAL\" shell dumpsys audio | sed -n '/- STREAM_VOICE_CALL:/,/Volume Group: AUDIO_STREAM_VOICE_CALL/p'); printf '%s\\n' \"$VOICE\"; printf '%s\\n' \"$VOICE\" | grep -q 'Muted: true'; printf '%s\\n' \"$VOICE\" | grep -q 'streamVolume:0'; echo '=== shizuku and app processes ==='; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E 'shizuku_server|pl.michalmatu.aicallbridge' || true; echo '=== recent crash/restart evidence ==='; adb -s \"$SERIAL\" logcat -d -b all -v threadtime | grep -Ei 'FATAL EXCEPTION|AndroidRuntime|Watchdog|system_server.*(crash|restart)|adbd|UsbDeviceManager|USB_STATE|reboot|ShizukuCallMedia|aicallbridge:call_media|AudioFlinger|AudioRecord|AudioTrack' | tail -n 300 || true; echo phase2c_adb_loss_recovery_and_diagnostics_complete=true"
+  ]
+}
