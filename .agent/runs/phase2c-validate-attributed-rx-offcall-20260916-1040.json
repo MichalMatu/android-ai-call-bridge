@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 4,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug --no-daemon",
-  "pid": 7120,
+  "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; LINE=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '(^|[[:space:]])shizuku_server$' | head -n1 || true); echo shizuku_server_line=\"$LINE\"; printf '%s' \"$LINE\" | grep -Eq '^shell[[:space:]]+'; APK=app/build/outputs/apk/debug/app-debug.apk; test -f \"$APK\"; adb -s \"$SERIAL\" install -r \"$APK\"",
+  "pid": 7432,
   "timeout": 900,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T08:40:45.257163+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T08:41:00.487533+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase2c-validate-attributed-rx-offcall-20260916-1040",
@@ -18,5 +18,5 @@
   "task_digest": "3b7ce93cf81df8987bb7a3dc2e19d6cee86dc8451114d55aba158708e962cd5a",
   "daemon_version": "4.18.20",
   "daemon_pid": 6903,
-  "updated_at": "2026-09-16T08:40:45.275696+00:00"
+  "updated_at": "2026-09-16T08:41:00.511259+00:00"
 }
