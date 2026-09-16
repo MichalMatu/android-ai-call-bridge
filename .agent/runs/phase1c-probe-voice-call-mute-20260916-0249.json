@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase1c-probe-voice-call-mute-20260916-0249",
+  "task_digest": "e2c1def6e45250d620a73cb00e936594540736110e80cf233cc31f19af7c4698",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T00:45:47.879705+00:00",
+  "attempt_id": "b98ef792d8027995c93b9ed4",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 50115,
+  "updated_at": "2026-09-16T00:45:47.879754+00:00",
+  "pid": 50115
+}
