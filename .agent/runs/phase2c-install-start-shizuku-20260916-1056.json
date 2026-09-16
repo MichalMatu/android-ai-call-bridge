@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-install-start-shizuku-20260916-1056",
+  "task_digest": "77f2daf9f5cc123c8152b19123033a44250a9a60c3db6ea952a19faf1990135e",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T07:57:16.755123+00:00",
+  "attempt_id": "14ec1a2aabd4789f3dbf7dbc",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 64424,
+  "updated_at": "2026-09-16T07:57:16.755175+00:00",
+  "pid": 64424
+}
