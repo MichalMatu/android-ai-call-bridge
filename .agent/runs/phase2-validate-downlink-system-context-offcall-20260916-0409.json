@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 3,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_call_control.py scripts/test_autonomous_call_loop.py; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_downlink_system_context_build_ok=true",
-  "pid": 16773,
+  "command": "set -e; SERIAL=RFCT70L7E8J; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1; }; adb -s \"$SERIAL\" get-state | grep -qx device; test \"$(state)\" = \"0\"; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/phase2-downlink-systemctx-install.log; cat /tmp/phase2-downlink-systemctx-install.log; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; echo '=== downlink open/abort offcall system context ==='; A=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.DownlinkPipeProbe open-abort-offcall\"); printf '%s\\n' \"$A\"; printf '%s\\n' \"$A\" | grep -q 'audio_mode=0'; printf '%s\\n' \"$A\" | grep -q 'context_package=android'; printf '%s\\n' \"$A\" | grep -q 'read_end_acquired=true'; printf '%s\\n' \"$A\" | grep -q 'terminated_after_abort=true'; printf '%s\\n' \"$A\" | grep -q 'aborted_after_abort=true'; echo '=== downlink start rejected offcall system context ==='; B=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.DownlinkPipeProbe start-offcall\"); printf '%s\\n' \"$B\"; printf '%s\\n' \"$B\" | grep -q 'audio_mode=0'; printf '%s\\n' \"$B\" | grep -q 'context_package=android'; printf '%s\\n' \"$B\" | grep -q 'offcall_start_rejected=true'; printf '%s\\n' \"$B\" | grep -q 'terminated_after_start_failure=true'; test \"$(state)\" = \"0\"; rm -f /tmp/phase2-downlink-systemctx-install.log; echo phase2_downlink_system_context_offcall_ok=true",
+  "pid": 16831,
   "timeout": 600,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T02:10:08.861830+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T02:10:10.890269+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "phase2-validate-downlink-system-context-offcall-20260916-0409",
@@ -18,5 +18,5 @@
   "task_digest": "7418cea77a3cb8a5f443764f00d0729266cef523e0df88e589c56ea28698f76e",
   "daemon_version": "4.18.20",
   "daemon_pid": 16608,
-  "updated_at": "2026-09-16T02:10:08.950804+00:00"
+  "updated_at": "2026-09-16T02:10:10.911224+00:00"
 }
