@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 2,
-  "command": "set -e; EXPECTED=812bac193c04c73ab0c51b7448aa9d90b517fce5; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.shizuku.ShizukuProbeWorkerTest --no-daemon; echo focused_probe_worker_green=true",
-  "pid": 45301,
+  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_m1_full_green=true",
+  "pid": 45606,
   "timeout": 1200,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T15:58:56.537395+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-16T15:59:07.899132+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 2,
   "stage_phase": "commands",
   "task_id": "phase2-m1-probe-worker-green-20260916-1755",
@@ -18,5 +18,5 @@
   "task_digest": "1807f1355dd6b2f15c6804808231b5bcea33f2713a97e54eecf8ecee4248b64d",
   "daemon_version": "4.18.20",
   "daemon_pid": 45160,
-  "updated_at": "2026-09-16T15:58:56.537766+00:00"
+  "updated_at": "2026-09-16T15:59:07.972482+00:00"
 }
