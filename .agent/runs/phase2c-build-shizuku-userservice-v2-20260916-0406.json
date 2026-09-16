@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-build-shizuku-userservice-v2-20260916-0406",
+  "task_digest": "ae54a5f00b31fc32175388c91db9de5b3a2ec2a8cb9a3f7d39e5d930c2d9516b",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T04:05:23.614577+00:00",
+  "attempt_id": "fb84abff40f0bb8e9337144a",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 2334,
+  "updated_at": "2026-09-16T04:05:23.614651+00:00",
+  "pid": 2334
+}
