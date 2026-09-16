@@ -1,0 +1,89 @@
+{
+  "id": "phase2-build-helper-bootstrap-20260916-0319",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T01:16:53.683852+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=e596b1543e5114d8e31483165f45b081e445c6c0; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "expected=e596b1543e5114d8e31483165f45b081e445c6c0 actual=e596b1543e5114d8e31483165f45b081e445c6c0 remote=e596b1543e5114d8e31483165f45b081e445c6c0\n",
+      "elapsed_seconds": 0.835,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 4.39,
+      "output_policy": "stream",
+      "captured_output_chars": 146,
+      "output_truncated": false,
+      "current_rss_mb": 4.39,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; test -x \"$GRADLE\"; \"$GRADLE\" :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_call_control.py scripts/test_autonomous_call_loop.py; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_helper_bootstrap_build_complete=true",
+      "exit_code": 1,
+      "output": "Calculating task graph as no cached configuration is available for tasks: :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug\n\nFAILURE: Build failed with an exception.\n\n* What went wrong:\nCould not determine the dependencies of task ':privileged-helper:extractDebugAnnotations'.\n> SDK location not found. Define a valid SDK location with an ANDROID_HOME environment variable or by setting the sdk.dir path in your project's local properties file at '/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/local.properties'.\n\n* Try:\n> Run with --stacktrace option to get the stack trace.\n> Run with --info or --debug option to get more log output.\n> Run with --scan to get full insights from a Build Scan (powered by Develocity).\n> Get more help at https://help.gradle.org.\n\nBUILD FAILED in 4s\nConfiguration cache entry stored.\n",
+      "elapsed_seconds": 5.241,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 87.42,
+      "output_policy": "stream",
+      "captured_output_chars": 859,
+      "output_truncated": false,
+      "current_rss_mb": 82.11,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.835
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 5.241
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.087
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.069
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T01:17:01.875877+00:00",
+  "task_digest": "aeec4310ab1019cb6269dd82109b43d6237e00337e8cb5d1d2948375d331e88d",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "3f1c501f875b112979ace0d0",
+  "daemon_version": "4.18.20"
+}
