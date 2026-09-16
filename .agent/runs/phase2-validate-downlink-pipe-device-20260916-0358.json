@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-validate-downlink-pipe-device-20260916-0358",
+  "task_digest": "f3399ca5e842934396be7d77dcbae99108c98252e823545043928301cc8e3ed3",
+  "idle_timeout": 300,
+  "task_timeout": 1500,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T01:55:21.357653+00:00",
+  "attempt_id": "c4ab6a1b23080633407b540e",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 5923,
+  "updated_at": "2026-09-16T01:55:21.357822+00:00",
+  "pid": 5923
+}
