@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-audit-reference-inventory-v3-20260916-1435",
+  "task_digest": "1be419e229b2f1c38dc8439b9fd2fe4e185ae2a8e0e34cd2abac89011f58e119",
+  "idle_timeout": 300,
+  "task_timeout": 1500,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T12:26:20.624006+00:00",
+  "attempt_id": "1de7e68961ad1a7a3d79cef6",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 95501,
+  "updated_at": "2026-09-16T12:26:20.624130+00:00",
+  "pid": 95501
+}
