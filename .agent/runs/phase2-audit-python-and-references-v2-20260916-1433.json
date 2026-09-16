@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "phase2-audit-python-and-references-v2-20260916-1433",
   "task_digest": "3328cc267af4d47bcf62125364407f69ba5bb6c059cf547a51c140f74769146e",
-  "idle_timeout": 300,
-  "task_timeout": 1800,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T12:25:45.611095+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T12:25:47.655106+00:00",
   "attempt_id": "8dce29b5d27d6b0178fd0737",
   "daemon_version": "4.18.20",
   "daemon_pid": 94767,
-  "updated_at": "2026-09-16T12:25:45.611269+00:00",
+  "updated_at": "2026-09-16T12:25:47.924723+00:00",
   "pid": 94767
 }
