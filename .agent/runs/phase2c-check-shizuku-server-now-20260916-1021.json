@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-check-shizuku-server-now-20260916-1021",
+  "task_digest": "4dfe5a2c27105365578d5883ad1378b2df8c2bf90dd7e5fbce980e385ffcb911",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T08:21:58.611448+00:00",
+  "attempt_id": "937aa77c8cb446a6f9d82e8c",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 86037,
+  "updated_at": "2026-09-16T08:21:58.611584+00:00",
+  "pid": 86037
+}
