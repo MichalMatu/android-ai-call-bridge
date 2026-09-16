@@ -1,0 +1,14 @@
+{
+  "id": "phase2c-live-trigger-offcall-guard-20260916-1218",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "task_timeout": 1200,
+  "commands": [
+    "set -e; EXPECTED=9c136fc05c5b33f383d72b0b7080ad5b9a754bb4; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo call_state=$STATE; test \"$STATE\" = \"0\"; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge || true; adb -s \"$SERIAL\" shell am start -n pl.michalmatu.aicallbridge/.MainActivity --ez run_shizuku_live_probe true --ei shizuku_live_duration_ms 1000 >/dev/null; sleep 6; OUT=$(adb -s \"$SERIAL\" logcat -d -v brief | grep -E 'AiCallBridge.*(shizuku_live_probe_result|probe=|error=|service_uid=|prepared_|active_|heartbeat_|live_parity_ok=)' | tail -n 120 || true); printf '%s\\n' \"$OUT\"; printf '%s' \"$OUT\" | grep -q 'probe=shizuku-user-service-live-v1'; printf '%s' \"$OUT\" | grep -q 'error='; printf '%s' \"$OUT\" | grep -Eq 'not in call|not_in_call|MODE_IN_CALL|telephony'; if printf '%s' \"$OUT\" | grep -q 'live_parity_ok=true'; then exit 41; fi; echo phase2c_live_trigger_offcall_guard_ok=true"
+  ]
+}
