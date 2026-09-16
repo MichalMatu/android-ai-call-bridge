@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-validate-downlink-init-order-20260916-0418",
+  "task_digest": "1bab79ff6b3b45a454bbbe67ef7950501aa627fee7064fd7fead568383ef8486",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T02:20:35.960750+00:00",
+  "attempt_id": "58800f293759d2846f73c046",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 24234,
+  "updated_at": "2026-09-16T02:20:35.960864+00:00",
+  "pid": 24234
+}
