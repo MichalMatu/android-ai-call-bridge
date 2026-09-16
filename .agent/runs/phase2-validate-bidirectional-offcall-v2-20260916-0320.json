@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 3,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :privileged-helper:assembleDebug :app:testDebugUnitTest :app:assembleDebug; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_call_control.py scripts/test_autonomous_call_loop.py; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_bidirectional_v2_build_ok=true",
-  "pid": 70677,
+  "command": "set -e; SERIAL=RFCT70L7E8J; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1; }; adb -s \"$SERIAL\" get-state | grep -qx device; test \"$(state)\" = \"0\"; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/phase2-bidirectional-v2-install.log; cat /tmp/phase2-bidirectional-v2-install.log; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; A=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.BidirectionalMediaProbe prepare-abort-offcall\"); printf '%s\\n' \"$A\"; printf '%s\\n' \"$A\" | grep -q 'probe=bidirectional-media-v2'; printf '%s\\n' \"$A\" | grep -q 'prepared_after_prepare=true'; printf '%s\\n' \"$A\" | grep -q 'prepared_after_abort=false'; printf '%s\\n' \"$A\" | grep -q 'active_after_abort=false'; printf '%s\\n' \"$A\" | grep -q 'heartbeat_after_abort=false'; B=$(adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.BidirectionalMediaProbe start-offcall\"); printf '%s\\n' \"$B\"; printf '%s\\n' \"$B\" | grep -q 'probe=bidirectional-media-v2'; printf '%s\\n' \"$B\" | grep -q 'prepared_before_contexts=true'; printf '%s\\n' \"$B\" | grep -q 'downlink_context_package=android'; printf '%s\\n' \"$B\" | grep -q 'uplink_context_package=com.android.shell'; printf '%s\\n' \"$B\" | grep -q 'offcall_start_rejected=true'; printf '%s\\n' \"$B\" | grep -q 'prepared_after_rollback=false'; printf '%s\\n' \"$B\" | grep -q 'active_after_rollback=false'; printf '%s\\n' \"$B\" | grep -q 'heartbeat_after_rollback=false'; printf '%s\\n' \"$B\" | grep -q 'prepared_after_final_abort=false'; printf '%s\\n' \"$B\" | grep -q 'active_after_final_abort=false'; test \"$(state)\" = \"0\"; rm -f /tmp/phase2-bidirectional-v2-install.log; echo phase2_bidirectional_offcall_v2_ok=true",
+  "pid": 70740,
   "timeout": 600,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T03:23:03.387457+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-16T03:23:05.351537+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "phase2-validate-bidirectional-offcall-v2-20260916-0320",
@@ -18,5 +18,5 @@
   "task_digest": "83c0174de442aa4e35e90ad0bcd735a3c7013fee6f8636ca23345016bc78d297",
   "daemon_version": "4.18.20",
   "daemon_pid": 70514,
-  "updated_at": "2026-09-16T03:23:03.472309+00:00"
+  "updated_at": "2026-09-16T03:23:05.370304+00:00"
 }
