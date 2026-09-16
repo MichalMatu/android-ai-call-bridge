@@ -1,0 +1,89 @@
+{
+  "id": "phase1c-silent-remote-dtmf-proof-20260916-0256",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T00:51:52.035554+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=3091efd67e9642a4eb190e68bb827166e68bfd67; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"0\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8; V=$(adb -s \"$SERIAL\" shell dumpsys audio | grep -i -A6 -B1 'STREAM_VOICE_CALL' | head -n 10); D=$(adb -s \"$SERIAL\" shell dumpsys audio | grep -i -A6 -B1 'STREAM_DTMF' | head -n 10); printf '%s\\n' \"$V\"; printf '%s\\n' \"$D\"; printf '%s\\n' \"$V\" | grep -q 'Muted: true'; printf '%s\\n' \"$D\" | grep -q 'Muted: true'; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; printf '%s' \"$APK\" >/tmp/phase1c_apk_path; rm -f /tmp/phase1c_ref.wav /tmp/phase1c_pcm.wav /tmp/ref-ui.xml /tmp/ref-keypad.xml; echo silent_audio_guard=true",
+      "exit_code": 0,
+      "output": "expected=3091efd67e9642a4eb190e68bb827166e68bfd67 actual=3091efd67e9642a4eb190e68bb827166e68bfd67 remote=3091efd67e9642a4eb190e68bb827166e68bfd67\n* daemon not running; starting now at tcp:5037\n* daemon started successfully\ncalling AudioManager.adjustStreamVolume(0, AudioManager.ADJUST_MUTE, 0)\ncalling AudioManager.adjustStreamVolume(8, AudioManager.ADJUST_MUTE, 0)\nStream volumes (device: index)\n- STREAM_VOICE_CALL:\n   Muted: true\n   Muted Internally: false\n   Min: 1\n   Max: 15\n   streamVolume:0\n   Current: 1 (earpiece): 13, 2 (speaker): 1, 10 (bt_sco): 15, 20 (bt_sco_hs): 5, 4000000 (usb_headset): 1, 20000000 (ble_headset): 5, 40000000 (default): 9\n   Devices: earpiece(1)\n   Volume Group: AUDIO_STREAM_VOICE_CALL\n\n- STREAM_DTMF (aliased to: STREAM_RING):\n   Muted: true\n   Muted Internally: false\n   Min: 0\n   Max: 15\n   streamVolume:0\n   Current: 1 (earpiece): 6, 2 (speaker): 6, 10 (bt_sco): 11, 20 (bt_sco_hs): 6, 80 (bt_a2dp): 1, 4000000 (usb_headset): 11, 20000000 (ble_headset): 11, 40000000 (default): 11\n   Devices: speaker(2)\n   Volume Group: AUDIO_STREAM_DTMF\nsilent_audio_guard=true\n",
+      "elapsed_seconds": 4.496,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 13.38,
+      "output_policy": "stream",
+      "captured_output_chars": 1103,
+      "output_truncated": false,
+      "current_rss_mb": 13.38,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; }; trap cleanup EXIT; echo '=== SILENT REFERENCE DTMF 1 ==='; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100; OFF=0; for i in $(seq 1 50); do ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo ref_call_state=$ST; [ \"$ST\" = \"2\" ] && OFF=1 && break; sleep 0.4; done; test \"$OFF\" = \"1\"; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8; sleep 6; rm -f /tmp/ref-ui.xml /tmp/ref-keypad.xml; adb -s \"$SERIAL\" shell rm -f /data/local/tmp/phase1c-ref-ui.xml /data/local/tmp/phase1c-ref-keypad.xml; OK=0; for i in $(seq 1 5); do adb -s \"$SERIAL\" shell uiautomator dump /data/local/tmp/phase1c-ref-ui.xml >/tmp/uiauto1.out 2>&1 && adb -s \"$SERIAL\" pull /data/local/tmp/phase1c-ref-ui.xml /tmp/ref-ui.xml >/dev/null 2>&1 && OK=1 && break; sleep 0.4; done; cat /tmp/uiauto1.out || true; test \"$OK\" = \"1\"; DIGIT=$(PYTHONPATH=scripts python3 -c 'from s22_call_control import find_node_bounds; s=open(\"/tmp/ref-ui.xml\").read(); print(find_node_bounds(s,[\"1\"],exact=True) or \"\")'); if [ -z \"$DIGIT\" ]; then KP=$(PYTHONPATH=scripts python3 -c 'from s22_call_control import find_node_bounds,KEYPAD_LABELS; s=open(\"/tmp/ref-ui.xml\").read(); print(find_node_bounds(s,KEYPAD_LABELS) or \"\")'); test -n \"$KP\"; XY=$(PYTHONPATH=scripts python3 -c 'import sys; from s22_call_control import center_from_bounds; print(*center_from_bounds(sys.argv[1]))' \"$KP\"); set -- $XY; adb -s \"$SERIAL\" shell input tap \"$1\" \"$2\"; sleep 1.0; OK=0; for i in $(seq 1 8); do adb -s \"$SERIAL\" shell uiautomator dump /data/local/tmp/phase1c-ref-keypad.xml >/tmp/uiauto2.out 2>&1 && adb -s \"$SERIAL\" pull /data/local/tmp/phase1c-ref-keypad.xml /tmp/ref-keypad.xml >/dev/null 2>&1 && OK=1 && break; sleep 0.5; done; cat /tmp/uiauto2.out || true; test \"$OK\" = \"1\"; DIGIT=$(PYTHONPATH=scripts python3 -c 'from s22_call_control import find_node_bounds; s=open(\"/tmp/ref-keypad.xml\").read(); print(find_node_bounds(s,[\"1\"],exact=True) or \"\")'); fi; test -n \"$DIGIT\"; XY=$(PYTHONPATH=scripts python3 -c 'import sys; from s22_call_control import center_from_bounds; print(*center_from_bounds(sys.argv[1]))' \"$DIGIT\"); set -- $XY; echo digit1_tap=$1,$2; adb -s \"$SERIAL\" shell input tap \"$1\" \"$2\"; sleep 0.35; python3 scripts/s22_call_control.py --serial \"$SERIAL\" capture 2500 /tmp/phase1c_ref.wav; python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup; trap - EXIT; sleep 1; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1)\" = \"0\"; test -s /tmp/phase1c_ref.wav; echo silent_reference_capture=true",
+      "exit_code": 2,
+      "output": "=== SILENT REFERENCE DTMF 1 ===\nserial=RFCT70L7E8J\ndial_requested=true\nref_call_state=0\nref_call_state=2\ncalling AudioManager.adjustStreamVolume(0, AudioManager.ADJUST_MUTE, 0)\ncalling AudioManager.adjustStreamVolume(8, AudioManager.ADJUST_MUTE, 0)\nUI hierchary dumped to: /data/local/tmp/phase1c-ref-ui.xml\nUI hierchary dumped to: /data/local/tmp/phase1c-ref-keypad.xml\ndigit1_tap=186,986\nerror=capture requires an active call (mCallState=2)\n",
+      "elapsed_seconds": 92.401,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 25.2,
+      "output_policy": "stream",
+      "captured_output_chars": 443,
+      "output_truncated": false,
+      "current_rss_mb": 25.2,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.496
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 92.401
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.091
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.078
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T00:53:30.621119+00:00",
+  "task_digest": "89885f220c39842cf9106e189d55ec814722c5b7771bcb07813dfc071828ea14",
+  "idle_timeout": 300,
+  "task_timeout": 1500,
+  "memory_limit_mb": 4096,
+  "attempt_id": "86da74c709e2e75459b6f9e1",
+  "daemon_version": "4.18.20"
+}
