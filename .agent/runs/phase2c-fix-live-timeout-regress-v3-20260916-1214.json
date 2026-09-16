@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-fix-live-timeout-regress-v3-20260916-1214",
+  "task_digest": "6501e2af0c067e367a6d1ef5228b043c0d800cecdef3c66faf68a2a913e25ed3",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T10:14:52.917218+00:00",
+  "attempt_id": "103057550db1b837e921be97",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 84736,
+  "updated_at": "2026-09-16T10:14:52.917330+00:00",
+  "pid": 84736
+}
