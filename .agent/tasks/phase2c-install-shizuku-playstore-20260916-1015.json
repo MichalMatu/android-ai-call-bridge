@@ -1,9 +1,0 @@
-{"id":"phase2c-install-shizuku-playstore-20260916-1015","agent_binding":"c25f88c0-4682-414c-8062-c47fa4034cb0","mode":"commands","work_branch":"work/phase1-live-call-probes","allow_write":false,"resources":[],"command_timeout":300,"task_timeout":900,"commands":["set -e; EXPECTED=e5ab31039f6f956362b9bc77de4cde3a1a6c0b32; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test \"$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}')\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"","set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; echo '=== screen state ==='; adb -s \"$SERIAL\" shell dumpsys power | grep -E 'mWakefulness=|Display Power' | head -5 || true; echo '=== open Play Store Shizuku ==='; adb -s \"$SERIAL\" shell am start -a android.intent.action.VIEW -d 'market://details?id=moe.shizuku.privileged.api' 2>&1 || adb -s \"$SERIAL\" shell am start -a android.intent.action.VIEW -d 'https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api' 2>&1; sleep 4; adb -s \"$SERIAL\" shell uiautomator dump /sdcard/window.xml >/dev/null 2>&1 || true; adb -s \"$SERIAL\" pull /sdcard/window.xml /tmp/aicall-shizuku-play.xml >/dev/null 2>&1 || true; echo '=== matching UI nodes ==='; if [ -f /tmp/aicall-shizuku-play.xml ]; then python3 - <<'PY'
-import re
-p='/tmp/aicall-shizuku-play.xml'
-s=open(p,encoding='utf-8',errors='ignore').read()
-for m in re.finditer(r'<node[^>]+>',s):
-    n=m.group(0)
-    if re.search(r'Zainstaluj|Install|Shizuku|Otwórz|Open|Aktualizuj|Update',n,re.I): print(n)
-PY
-fi; echo phase2c_playstore_ui_snapshot=true"]}
