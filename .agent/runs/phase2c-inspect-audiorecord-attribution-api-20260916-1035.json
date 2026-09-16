@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2c-inspect-audiorecord-attribution-api-20260916-1035",
+  "task_digest": "ee4b68d30fae69c1a6641cae8355ee52d1acb2878c3707725ed048d094d11f61",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T08:33:41.084501+00:00",
+  "attempt_id": "142099e820f1becc00d80f43",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 95835,
+  "updated_at": "2026-09-16T08:33:41.084628+00:00",
+  "pid": 95835
+}
