@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2d-verify-watchdog-probe-offcall-20260916-1310",
+  "task_digest": "c13e99fc195f941963680862ae4b2bfc5cf13c5a22fbb396e1b5076986bce8d9",
+  "idle_timeout": 300,
+  "task_timeout": 1500,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T11:12:15.704671+00:00",
+  "attempt_id": "530b6c2fa82cfb291d21a539",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 38072,
+  "updated_at": "2026-09-16T11:12:15.704814+00:00",
+  "pid": 38072
+}
