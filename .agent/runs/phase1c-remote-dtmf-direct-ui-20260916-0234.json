@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 4,
-  "command": "set -e; EXPECTED=3091efd67e9642a4eb190e68bb827166e68bfd67; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; PRE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo pre_call_state=$PRE; test \"$PRE\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); test -n \"$APK\"; printf '%s' \"$APK\" >/tmp/phase1c_apk_path; rm -f /tmp/phase1c_ref.wav /tmp/phase1c_pcm.wav /tmp/ref-ui.xml /tmp/ref-keypad.xml",
-  "pid": 42471,
+  "command": "set -e; SERIAL=RFCT70L7E8J; cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell rm -f /data/local/tmp/phase1c-ref-ui.xml /data/local/tmp/phase1c-ref-keypad.xml >/dev/null 2>&1 || true; }; trap cleanup EXIT; echo '=== REFERENCE CALL: DIRECT UI DTMF 1 ==='; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100; OFF=0; for i in $(seq 1 50); do ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo ref_call_state=$ST; if [ \"$ST\" = \"2\" ]; then OFF=1; break; fi; sleep 0.4; done; test \"$OFF\" = \"1\"; sleep 6; adb -s \"$SERIAL\" shell rm -f /data/local/tmp/phase1c-ref-ui.xml /data/local/tmp/phase1c-ref-keypad.xml; adb -s \"$SERIAL\" shell uiautomator dump /data/local/tmp/phase1c-ref-ui.xml; adb -s \"$SERIAL\" pull /data/local/tmp/phase1c-ref-ui.xml /tmp/ref-ui.xml >/dev/null; DIGIT=$(PYTHONPATH=scripts python3 -c 'from s22_call_control import find_node_bounds; s=open(\"/tmp/ref-ui.xml\").read(); print(find_node_bounds(s,[\"1\"],exact=True) or \"\")'); if [ -z \"$DIGIT\" ]; then KP=$(PYTHONPATH=scripts python3 -c 'from s22_call_control import find_node_bounds,KEYPAD_LABELS; s=open(\"/tmp/ref-ui.xml\").read(); print(find_node_bounds(s,KEYPAD_LABELS) or \"\")'); test -n \"$KP\"; XY=$(PYTHONPATH=scripts python3 -c 'import sys; from s22_call_control import center_from_bounds; print(*center_from_bounds(sys.argv[1]))' \"$KP\"); set -- $XY; adb -s \"$SERIAL\" shell input tap \"$1\" \"$2\"; sleep 0.6; adb -s \"$SERIAL\" shell uiautomator dump /data/local/tmp/phase1c-ref-keypad.xml; adb -s \"$SERIAL\" pull /data/local/tmp/phase1c-ref-keypad.xml /tmp/ref-keypad.xml >/dev/null; DIGIT=$(PYTHONPATH=scripts python3 -c 'from s22_call_control import find_node_bounds; s=open(\"/tmp/ref-keypad.xml\").read(); print(find_node_bounds(s,[\"1\"],exact=True) or \"\")'); fi; test -n \"$DIGIT\"; XY=$(PYTHONPATH=scripts python3 -c 'import sys; from s22_call_control import center_from_bounds; print(*center_from_bounds(sys.argv[1]))' \"$DIGIT\"); set -- $XY; echo digit1_tap=$1,$2; adb -s \"$SERIAL\" shell input tap \"$1\" \"$2\"; sleep 0.35; python3 scripts/s22_call_control.py --serial \"$SERIAL\" capture 2500 /tmp/phase1c_ref.wav; python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup; trap - EXIT; sleep 1; ST=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1); echo after_ref_state=$ST; test \"$ST\" = \"0\"; test -s /tmp/phase1c_ref.wav; adb -s \"$SERIAL\" shell rm -f /data/local/tmp/phase1c-ref-ui.xml /data/local/tmp/phase1c-ref-keypad.xml",
+  "pid": 42543,
   "timeout": 240,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-16T00:36:14.275454+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-16T00:36:18.304050+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase1c-remote-dtmf-direct-ui-20260916-0234",
@@ -18,5 +18,5 @@
   "task_digest": "2ae468ac01a4787c037b0e70477a9f0e059e499f6d85670f35161abb4d4d9d82",
   "daemon_version": "4.18.20",
   "daemon_pid": 42345,
-  "updated_at": "2026-09-16T00:36:14.275614+00:00"
+  "updated_at": "2026-09-16T00:36:18.380787+00:00"
 }
