@@ -1,0 +1,89 @@
+{
+  "id": "phase2c-install-start-shizuku-20260916-1056",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T07:57:16.755154+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=e5ab31039f6f956362b9bc77de4cde3a1a6c0b32; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test \"$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}')\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "",
+      "elapsed_seconds": 0.835,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.86,
+      "output_policy": "stream",
+      "captured_output_chars": 0,
+      "output_truncated": false,
+      "current_rss_mb": 3.86,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; adb -s \"$SERIAL\" shell am start -a android.intent.action.VIEW -d 'market://details?id=moe.shizuku.privileged.api' -p com.android.vending >/dev/null; sleep 5; adb -s \"$SERIAL\" shell uiautomator dump /sdcard/window.xml >/dev/null 2>&1 || true; XML=$(adb -s \"$SERIAL\" shell cat /sdcard/window.xml 2>/dev/null || true); printf '%s' \"$XML\" | grep -q 'text=\"Shizuku\"'; printf '%s' \"$XML\" | grep -q 'content-desc=\"Install\"'; echo install_button_verified=true; adb -s \"$SERIAL\" shell input tap 541 1188; INSTALLED=0; for i in $(seq 1 30); do if adb -s \"$SERIAL\" shell pm path --user 0 moe.shizuku.privileged.api 2>/dev/null | grep -q '^package:'; then INSTALLED=1; break; fi; sleep 2; done; echo installed=$INSTALLED; if [ \"$INSTALLED\" != 1 ]; then adb -s \"$SERIAL\" shell uiautomator dump /sdcard/window.xml >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cat /sdcard/window.xml 2>/dev/null | tr '<' '\n<' | grep -Ei 'Shizuku|Install|Open|Pending|Cancel|Verify|authentication|password' | head -n 100 || true; exit 12; fi; adb -s \"$SERIAL\" shell pm path --user 0 moe.shizuku.privileged.api; adb -s \"$SERIAL\" shell monkey -p moe.shizuku.privileged.api 1 >/dev/null 2>&1 || true; sleep 3; SCRIPT=''; for p in /sdcard/Android/data/moe.shizuku.privileged.api/start.sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh; do if adb -s \"$SERIAL\" shell test -f \"$p\"; then SCRIPT=$p; break; fi; done; echo start_script=$SCRIPT; if [ -n \"$SCRIPT\" ]; then adb -s \"$SERIAL\" shell sh \"$SCRIPT\" 2>&1 || true; sleep 3; fi; echo '=== shizuku processes ==='; adb -s \"$SERIAL\" shell ps -A | grep -Ei 'shizuku|rikka' || true; echo phase2c_install_start_shizuku_complete=true",
+      "exit_code": 1,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\n",
+      "elapsed_seconds": 10.821,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.52,
+      "output_policy": "stream",
+      "captured_output_chars": 77,
+      "output_truncated": false,
+      "current_rss_mb": 9.45,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.835
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 10.821
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.082
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-16T07:57:30.021032+00:00",
+  "task_digest": "77f2daf9f5cc123c8152b19123033a44250a9a60c3db6ea952a19faf1990135e",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "14ec1a2aabd4789f3dbf7dbc",
+  "daemon_version": "4.18.20"
+}
