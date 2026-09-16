@@ -1,0 +1,88 @@
+{
+  "id": "phase2-compare-legacy-downlink-offcall-20260916-0406",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T02:04:53.310152+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=c78f63d98063bd4f9d4c06c167dd7511e096b442; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "expected=c78f63d98063bd4f9d4c06c167dd7511e096b442 actual=c78f63d98063bd4f9d4c06c167dd7511e096b442 remote=c78f63d98063bd4f9d4c06c167dd7511e096b442\n",
+      "elapsed_seconds": 0.812,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 1.88,
+      "output_policy": "stream",
+      "captured_output_chars": 146,
+      "output_truncated": false,
+      "current_rss_mb": 1.88,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "SERIAL=RFCT70L7E8J; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1; }; adb -s \"$SERIAL\" get-state; echo pre_call_state=$(state); test \"$(state)\" = \"0\"; APK=$(adb -s \"$SERIAL\" shell pm path pl.michalmatu.aicallbridge | cut -d: -f2 | head -n1); echo apk=$APK; echo '=== legacy inventory offcall ==='; set +e; adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe inventory\" 2>&1; INV=$?; echo legacy_inventory_exit=$INV; echo '=== legacy capture downlink offcall ==='; adb -s \"$SERIAL\" shell \"CLASSPATH=$APK app_process /system/bin pl.michalmatu.aicallbridge.ShellAudioProbe capture-downlink 200\" 2>&1; CAP=$?; set -e; echo legacy_capture_exit=$CAP; echo post_call_state=$(state); test \"$(state)\" = \"0\"; echo phase2_legacy_downlink_offcall_comparison_complete=true",
+      "exit_code": 0,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\ndevice\npre_call_state=0\napk=/data/app/~~Elge7xR5cRSDoejtoDyrNg==/pl.michalmatu.aicallbridge-mcud6kZKKhWOQIecCmO9tg==/base.apk\n=== legacy inventory offcall ===\nprobe=shell-audio-v5\nuid=2000\npid=32570\nmode=INVENTORY\nrecord_VOICE_CALL=state:1,session:9241,buffer:2560\nrecord_VOICE_DOWNLINK=state:1,session:9249,buffer:2560\nrecord_VOICE_UPLINK=state:1,session:9257,buffer:2560\npermission_CAPTURE_AUDIO_OUTPUT=granted\npermission_MODIFY_AUDIO_ROUTING=granted\npermission_MODIFY_PHONE_STATE=granted\naudio_mode=0\ntelephony_device=id=11,direction=sink,product=SM-S906B\ntelephony_device=id=17,direction=source,product=SM-S906B\ntelephony_sink_present=true\ntelephony_source_present=true\ntrack_MEDIA_MUSIC=error:UnsupportedOperationException:Cannot create AudioTrack\ntrack_VOICE_COMMUNICATION=error:UnsupportedOperationException:Cannot create AudioTrack\nlegacy_inventory_exit=0\n=== legacy capture downlink offcall ===\nprobe=shell-audio-v5\nuid=2000\npid=32606\nmode=CAPTURE_DOWNLINK\ncapture_source=VOICE_DOWNLINK\nsample_rate=16000\nduration_ms=200\ntarget_samples=3200\nbuffer_bytes=4096\noutput_path=none\nrecord_state=1\nsession_id=9265\nrecording_state=3\nrouted_device=id:17,type:18,product:SM-S906B\nsamples_read=3200\nbytes_read=6400\nnon_zero_samples=1916\npeak=4\nrms=1.6860642039969889\nread_errors=0\nlegacy_capture_exit=0\npost_call_state=0\nphase2_legacy_downlink_offcall_comparison_complete=true\n",
+      "elapsed_seconds": 5.013,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.67,
+      "output_policy": "stream",
+      "captured_output_chars": 1452,
+      "output_truncated": false,
+      "current_rss_mb": 9.67,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.812
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 5.013
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.109
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.083
+  },
+  "finished_at": "2026-09-16T02:05:00.794744+00:00",
+  "task_digest": "8c29eaa21b9fa2a63675caafadaa4f60b28cf0bd8ae2c4d919ac928f16da2da1",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "3e2e4636d831b9bd34634b2b",
+  "daemon_version": "4.18.20"
+}
