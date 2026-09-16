@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-build-bidirectional-v4-20260916-0343",
+  "task_digest": "c35b2c70b9e14eca6f7597757e0448041c38e56e4d356b9ec7c63970d7137cec",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-16T03:44:31.872211+00:00",
+  "attempt_id": "d5ba51959824861662000da9",
+  "daemon_version": "4.18.20",
+  "daemon_pid": 86564,
+  "updated_at": "2026-09-16T03:44:31.872341+00:00",
+  "pid": 86564
+}
