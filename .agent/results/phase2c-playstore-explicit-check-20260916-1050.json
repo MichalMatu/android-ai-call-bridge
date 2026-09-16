@@ -1,0 +1,88 @@
+{
+  "id": "phase2c-playstore-explicit-check-20260916-1050",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-16T07:51:50.349666+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=e5ab31039f6f956362b9bc77de4cde3a1a6c0b32; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test \"$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}')\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "",
+      "elapsed_seconds": 0.843,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.38,
+      "output_policy": "stream",
+      "captured_output_chars": 0,
+      "output_truncated": false,
+      "current_rss_mb": 3.38,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state >/dev/null; echo '=== play store package ==='; adb -s \"$SERIAL\" shell pm path --user 0 com.android.vending; echo '=== explicit play store ==='; adb -s \"$SERIAL\" shell am start -a android.intent.action.VIEW -d 'market://details?id=moe.shizuku.privileged.api' -p com.android.vending 2>&1; sleep 6; echo '=== focused activity ==='; adb -s \"$SERIAL\" shell dumpsys window | grep -E 'mCurrentFocus|mFocusedApp' | head -n 6 || true; adb -s \"$SERIAL\" shell uiautomator dump /sdcard/window.xml >/dev/null 2>&1 || true; echo '=== matching ui ==='; adb -s \"$SERIAL\" shell cat /sdcard/window.xml 2>/dev/null | tr '<' '\n<' | grep -Ei 'Shizuku|Zainstaluj|Install|Otwórz|Open|Aktualizuj|Update' | head -n 120 || true; echo phase2c_playstore_explicit_check_complete=true",
+      "exit_code": 0,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\n=== play store package ===\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/base.apk\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/split_config.arm64_v8a.apk\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/split_config.en.apk\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/split_config.pl.apk\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/split_phonesky_data_loader.apk\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/split_phonesky_data_loader.config.arm64_v8a.apk\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/split_phonesky_webrtc_native_lib.apk\npackage:/data/app/~~IrVJvuGKYrGyGODK3BNArA==/com.android.vending-c5Kaz8gDwM6kOusH_NIEQQ==/split_phonesky_webrtc_native_lib.config.arm64_v8a.apk\n=== explicit play store ===\nStarting: Intent { act=android.intent.action.VIEW dat=market://details/... pkg=com.android.vending }\n=== focused activity ===\n  mCurrentFocus=Window{e10a919 u0 com.android.vending/com.google.android.finsky.transparentmainactivity.TransparentMainActivityPrivate}\n  mFocusedApp=ActivityRecord{61527645 u0 com.android.vending/com.google.android.finsky.transparentmainactivity.TransparentMainActivityPrivate t1214}\n=== matching ui ===\nnode index=\"1\" text=\"Shizuku\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.android.vending\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[315,704][539,752]\" drawing-order=\"1\" hint=\"\" />\nnode index=\"0\" text=\"\" resource-id=\"\" class=\"android.view.View\" package=\"com.android.vending\" content-desc=\"Install\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[490,1162][592,1215]\" drawing-order=\"0\" hint=\"\">\nnode index=\"0\" text=\"Install\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.android.vending\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[490,1162][592,1215]\" drawing-order=\"0\" hint=\"\" />\nnode index=\"7\" text=\"Shizuku is an open-source app for serving multiple apps that require root/adb.\" resource-id=\"\" class=\"android.widget.TextView\" package=\"com.android.vending\" content-desc=\"\" checkable=\"false\" checked=\"false\" clickable=\"false\" enabled=\"true\" focusable=\"false\" focused=\"false\" scrollable=\"false\" long-clickable=\"false\" password=\"false\" selected=\"false\" bounds=\"[63,1908][1017,2014]\" drawing-order=\"7\" hint=\"\" />\nphase2c_playstore_explicit_check_complete=true\n",
+      "elapsed_seconds": 11.913,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.53,
+      "output_policy": "stream",
+      "captured_output_chars": 3073,
+      "output_truncated": false,
+      "current_rss_mb": 9.44,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.843
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 11.913
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.11
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.077
+  },
+  "finished_at": "2026-09-16T07:52:04.988578+00:00",
+  "task_digest": "e84ca7d48192259e7765313af7404982faa24bccb96bd2dca6438f85275319dd",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "a96962a35154d6a3b9db0642",
+  "daemon_version": "4.18.20"
+}
