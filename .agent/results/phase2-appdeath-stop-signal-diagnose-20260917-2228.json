@@ -1,0 +1,88 @@
+{
+  "id": "phase2-appdeath-stop-signal-diagnose-20260917-2228",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T20:29:41.838482+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; echo '=== helper 10333 call-assistant logs ==='; adb -s \"$SERIAL\" shell 'logcat -d -v brief -t 6000 2>/dev/null | grep \"u/pid:2000/10333\" | grep \"USAGE_CALL_ASSISTANT\" || true'; echo '=== any helper 10333 audio logs ==='; adb -s \"$SERIAL\" shell 'logcat -d -v brief -t 6000 2>/dev/null | grep \"10333\" | grep -E \"Audio|Track|CALL_ASSISTANT|telephony\" | tail -120 || true'; echo stop_signal_log_scan_done=true",
+      "exit_code": 0,
+      "output": "=== helper 10333 call-assistant logs ===\nI/adbd    ( 1499): adbd service requested 'shell,v2,raw:logcat -d -v brief -t 6000 2>/dev/null | grep \"u/pid:2000/10333\" | grep \"USAGE_CALL_ASSISTANT\" || true'\n=== any helper 10333 audio logs ===\nI/adbd    ( 1499): adbd service requested 'shell,v2,raw:logcat -d -v brief -t 6000 2>/dev/null | grep \"u/pid:2000/10333\" | grep \"USAGE_CALL_ASSISTANT\" || true'\nI/adbd    ( 1499): adbd service requested 'shell,v2,raw:logcat -d -v brief -t 6000 2>/dev/null | grep \"10333\" | grep -E \"Audio|Track|CALL_ASSISTANT|telephony\" | tail -120 || true'\nstop_signal_log_scan_done=true\n",
+      "elapsed_seconds": 0.839,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.52,
+      "output_policy": "stream",
+      "captured_output_chars": 608,
+      "output_truncated": false,
+      "current_rss_mb": 2.52,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; echo '=== current call assistant records ==='; adb -s \"$SERIAL\" shell 'dumpsys audio 2>/dev/null | grep -n -A4 -B4 \"CALL_ASSISTANT\" | tail -120 || true'; echo '=== current state ==='; adb -s \"$SERIAL\" shell dumpsys telephony.registry | grep -m1 'mCallState='; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; echo stop_signal_environment_done=true",
+      "exit_code": 0,
+      "output": "=== current call assistant records ===\n341-   Max: 15\n342-   Current: 1 (earpiece): 13, 2 (speaker): 13, 20 (bt_sco_hs): 15, 80 (bt_a2dp): 7, 20000000 (ble_headset): 7, 40000000 (default): 7\n343-   Devices: speaker\n344-   Streams: STREAM_ASSISTANT \n345:- VOLUME GROUP AUDIO_STREAM_CALL_ASSISTANT:\n346-   Muted: false\n347-   Min: 0\n348-   Max: 15\n349-   Current: 40000000 (default): 7\n--\n567-09-17 22:08:12:914 player piid:12151 event:stopped\n568-09-17 22:08:12:915 releasing player piid:12151, uid:1000\n569-09-17 22:16:13:174 releasing player piid:9695, uid:1002\n570-09-17 22:16:15:718 player piid:335 event:started\n571:09-17 22:16:16:654 new player piid:12167 uid/pid:2000/10333 package:com.android.shell type:android.media.AudioTrack attr:AudioAttributes: usage=USAGE_CALL_ASSISTANT content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null session:12065\n572-09-17 22:16:16:655 port updated portId:[1926] mapped to player piid:12167\n573-09-17 22:16:16:725 player piid:12167 event:started\n574-09-17 22:16:16:728 player piid:12167 format update:FormatInfo{isSpatialized=false, channelMask=0x3, sampleRate=16000}\n575-09-17 22:16:16:733 player piid:12167 event:device updated deviceIds:[11]\n--\n1159-09-17 22:16:37:127 adjustStreamVolume(stream:STREAM_DTMF dir:ADJUST_MUTE flags:0x0) from android\n1160-\n1161-\n1162-Supported System Usages:\n1163:\tUSAGE_CALL_ASSISTANT\n1164-\n1165-\n1166-\n1167-Spatial audio:\n=== current state ===\n    mCallState=0\nshell         2946 shizuku_server\nstop_signal_environment_done=true\n",
+      "elapsed_seconds": 0.512,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.94,
+      "output_policy": "stream",
+      "captured_output_chars": 1508,
+      "output_truncated": false,
+      "current_rss_mb": 3.94,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.839
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.512
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.086
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.075
+  },
+  "finished_at": "2026-09-17T20:29:44.841328+00:00",
+  "task_digest": "edff80c2f2d79d939f2d7a2eea0302b7e7a3bdaaf7ab5f22a57ce135d1794afc",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "attempt_id": "aa3217aac64417d393212c39",
+  "daemon_version": "4.18.22"
+}
