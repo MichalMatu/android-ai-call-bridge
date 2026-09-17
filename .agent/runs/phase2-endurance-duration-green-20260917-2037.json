@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 5,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests 'pl.michalmatu.aicallbridge.shizuku.ShizukuEnduranceProbeTest' --no-daemon",
-  "pid": 37743,
+  "command": "set -e; grep -q 'endurance_duration_ms' app/src/main/kotlin/pl/michalmatu/aicallbridge/DiagnosticProbeActivity.kt; ! grep -q 'endurance_duration_ms' app/src/main/kotlin/pl/michalmatu/aicallbridge/MainActivity.kt; grep -q 'android:permission=\"android.permission.DUMP\"' app/src/main/AndroidManifest.xml; grep -q 'MAX_DURATION_MS = 600_000L' app/src/main/java/pl/michalmatu/aicallbridge/shizuku/ShizukuEnduranceProbe.java; echo endurance_duration_security_shape_green=true",
+  "pid": 37926,
   "timeout": 1800,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-17T18:41:15.929620+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-17T18:41:25.713102+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 5,
   "stage_phase": "commands",
   "task_id": "phase2-endurance-duration-green-20260917-2037",
@@ -18,5 +18,5 @@
   "task_digest": "1cbd270e3b70206d66fe6b45fa84dcedb8b019d5ef1846b6ecec609aa5062da9",
   "daemon_version": "4.18.22",
   "daemon_pid": 37581,
-  "updated_at": "2026-09-17T18:41:15.948447+00:00"
+  "updated_at": "2026-09-17T18:41:25.790155+00:00"
 }
