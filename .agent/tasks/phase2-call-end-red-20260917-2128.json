@@ -1,0 +1,16 @@
+{
+  "id": "phase2-call-end-red-20260917-2128",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -e; EXPECTED=cac1a9e97baa7e80d7487ea1523621b97909146e; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set +e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests 'pl.michalmatu.aicallbridge.shizuku.ShizukuCallEndProbeTest' --no-daemon; RC=$?; echo call_end_probe_red_rc=$RC; test \"$RC\" -ne 0; echo call_end_probe_red_confirmed=true",
+    "set +e; PYTHONPATH=scripts python3 -m unittest scripts.test_s22_call_end_gate; RC=$?; echo call_end_observer_red_rc=$RC; test \"$RC\" -ne 0; echo call_end_observer_red_confirmed=true"
+  ]
+}
