@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 4,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests 'pl.michalmatu.aicallbridge.shizuku.ShizukuBidirectionalProbeMediaTest' --no-daemon",
-  "pid": 16949,
+  "command": "set -e; PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_*.py'; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all",
+  "pid": 17073,
   "timeout": 1800,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-17T18:10:03.022349+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-17T18:10:10.351030+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase2-pfd-close-green-20260917-2010",
@@ -18,5 +18,5 @@
   "task_digest": "be3f10cbe46d02913cbaffed46610652787241e58115f63a2e143fdefe12e123",
   "daemon_version": "4.18.22",
   "daemon_pid": 16795,
-  "updated_at": "2026-09-17T18:10:03.100710+00:00"
+  "updated_at": "2026-09-17T18:10:10.426424+00:00"
 }
