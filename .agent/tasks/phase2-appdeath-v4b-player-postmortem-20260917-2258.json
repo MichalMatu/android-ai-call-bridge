@@ -1,0 +1,14 @@
+{
+  "id": "phase2-appdeath-v4b-player-postmortem-20260917-2258",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set -e; SERIAL=RFCT70L7E8J; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '[:space:]')\" = 0; echo '=== audio player exact ==='; adb -s \"$SERIAL\" shell 'dumpsys audio 2>/dev/null | grep -n -A10 -B10 -E \"piid:12231|session:12169|pid:2000/25597\" || true'; echo '=== audioflinger exact ==='; adb -s \"$SERIAL\" shell 'dumpsys media.audio_flinger 2>/dev/null | grep -n -A6 -B6 -E \"12169|25597\" | tail -160 || true'; echo appdeath_v4b_postmortem_done=true"
+  ]
+}
