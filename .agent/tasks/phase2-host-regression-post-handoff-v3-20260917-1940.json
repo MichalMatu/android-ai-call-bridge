@@ -1,0 +1,17 @@
+{
+  "id": "phase2-host-regression-post-handoff-v3-20260917-1940",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -e; EXPECTED=45fa26f5aedc88dcd6525e2feb0727dcba091d88; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -e; PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_*.py'",
+    "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; test -x \"$GRADLE\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all",
+    "set -e; test -z \"$(git status --porcelain)\"; git diff --check; echo phase2_host_regression_post_handoff_green=true"
+  ]
+}
