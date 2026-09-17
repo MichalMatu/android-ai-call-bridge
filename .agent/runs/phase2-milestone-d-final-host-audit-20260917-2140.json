@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-milestone-d-final-host-audit-20260917-2140",
+  "task_digest": "7f21d52bc54cc5ff0f5f080ee3141de095e07ab5a17920344a0121fe36d65800",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T19:37:23.324034+00:00",
+  "attempt_id": "7ebfec35943d8d2a26293aa6",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 78265,
+  "updated_at": "2026-09-17T19:37:23.324148+00:00",
+  "pid": 78265
+}
