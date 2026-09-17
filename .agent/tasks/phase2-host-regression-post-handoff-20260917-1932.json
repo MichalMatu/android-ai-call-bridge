@@ -1,0 +1,17 @@
+{
+  "id": "phase2-host-regression-post-handoff-20260917-1932",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -e; EXPECTED=45fa26f5aedc88dcd6525e2feb0727dcba091d88; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -e; python3 -m unittest scripts.test_s22_call_control scripts.test_autonomous_call_loop",
+    "set -e; ./gradlew :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --stacktrace",
+    "set -e; test -z \"$(git status --porcelain)\"; git diff --check; echo phase2_host_regression_post_handoff_green=true"
+  ]
+}
