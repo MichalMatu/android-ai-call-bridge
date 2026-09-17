@@ -1,0 +1,88 @@
+{
+  "id": "phase2-cycle20-postmortem-20260917-2342",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T21:38:25.516344+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=5e244835fcaa14176d1214fe8ce430f16f3e41ff; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo exact_head_clean=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 5e24483 fix: pace diagnostic uplink in realtime\nexact_head_clean=true\n",
+      "elapsed_seconds": 0.955,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.0,
+      "output_policy": "stream",
+      "captured_output_chars": 327,
+      "output_truncated": false,
+      "current_rss_mb": 2.0,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; T=/tmp/aicall-cycle20-telemetry.jsonl; TO=/tmp/aicall-cycle20-telemetry.out; echo telemetry_file_exists=$(test -f \"$T\" && echo true || echo false); echo telemetry_lines=$(test -f \"$T\" && wc -l < \"$T\" | tr -d ' ' || echo 0); echo '=== telemetry process output ==='; test -f \"$TO\" && cat \"$TO\" || true; echo '=== telemetry summary ==='; if test -s \"$T\"; then PYTHONPATH=scripts python3 scripts/s22_resource_telemetry.py summarize \"$T\"; fi; echo '=== cycle result tail ==='; adb -s RFCT70L7E8J logcat -d -v raw -s AiCallBridge:I '*:S' 2>/dev/null | sed -n '/shizuku_cycle_probe_result:/,$p' | tail -n 90; echo '=== current device state ==='; python3 scripts/s22_call_control.py --serial RFCT70L7E8J status; adb -s RFCT70L7E8J shell settings get global bluetooth_on",
+      "exit_code": 0,
+      "output": "telemetry_file_exists=true\ntelemetry_lines=0\n=== telemetry process output ===\nerror=Command '['adb', '-s', 'RFCT70L7E8J', 'shell', 'sh', '-c', 'PID=17231; if [ ! -d \"/proc/$PID\" ]; then echo process_missing=1; exit 0; fi; RSS=$(awk \\'/^VmRSS:/ {print $2}\\' \"/proc/$PID/status\" 2>/dev/null); FD=$(ls -1 \"/proc/$PID/fd\" 2>/dev/null | wc -l | tr -d \" \"); TH=$(ls -1 \"/proc/$PID/task\" 2>/dev/null | wc -l | tr -d \" \"); if [ -z \"$RSS\" ] || [ -z \"$FD\" ] || [ -z \"$TH\" ]; then exit 65; fi; printf \"pid=%s\\\\nvmrss_kb=%s\\\\nfd_count=%s\\\\nthread_count=%s\\\\n\" \"$PID\" \"$RSS\" \"$FD\" \"$TH\"']' returned non-zero exit status 65.\n=== telemetry summary ===\n=== cycle result tail ===\n=== current device state ===\nserial=RFCT70L7E8J\ncall_state=0 name=IDLE\n1\n",
+      "elapsed_seconds": 0.798,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 5.77,
+      "output_policy": "stream",
+      "captured_output_chars": 736,
+      "output_truncated": false,
+      "current_rss_mb": 5.77,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.955
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.798
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.113
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.073
+  },
+  "finished_at": "2026-09-17T21:38:28.954540+00:00",
+  "task_digest": "fe19d722689105178c4673f2b85fb93f1220b87d679d15b8da558801bcdf29e7",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "attempt_id": "9cf61cd1f160c1aa46344fd5",
+  "daemon_version": "4.18.22"
+}
