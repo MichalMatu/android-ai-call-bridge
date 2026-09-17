@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "phase2-appdeath-late-result-collect-20260917-2225",
   "task_digest": "acad8908b982c3d2f1364877d9358bbf3adb1dce446ae4c6e7ade1cda4bf52dd",
-  "idle_timeout": 300,
-  "task_timeout": 300,
-  "memory_limit_mb": 1024,
-  "started_at": "2026-09-17T20:24:00.818462+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-17T20:24:03.517560+00:00",
   "attempt_id": "3e1458fe487e2da5f267434c",
   "daemon_version": "4.18.22",
   "daemon_pid": 23680,
-  "updated_at": "2026-09-17T20:24:00.818518+00:00",
+  "updated_at": "2026-09-17T20:24:03.775245+00:00",
   "pid": 23680
 }
