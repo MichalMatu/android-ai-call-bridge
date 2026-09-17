@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-endpoint-pacing-host-20260917-2318",
+  "task_digest": "5d56affba75b8469368998ae89dc8f68ffebd909ef666f141cc31958bd5a27d3",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T21:19:03.387179+00:00",
+  "attempt_id": "fa05143f5114a4f94fb90bfa",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 391,
+  "updated_at": "2026-09-17T21:19:03.387463+00:00",
+  "pid": 391
+}
