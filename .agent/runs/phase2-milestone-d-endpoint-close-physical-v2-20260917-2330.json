@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-milestone-d-endpoint-close-physical-v2-20260917-2330",
+  "task_digest": "45e55deeafbad02c88785c477053805b3a94fd2c62f38c830f5c553ce3a0b4a9",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-17T21:31:19.497829+00:00",
+  "attempt_id": "a4bb87c203b80acc9d946066",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 16952,
+  "updated_at": "2026-09-17T21:31:19.497952+00:00",
+  "pid": 16952
+}
