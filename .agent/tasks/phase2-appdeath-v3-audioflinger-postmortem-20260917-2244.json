@@ -1,0 +1,14 @@
+{
+  "id": "phase2-appdeath-v3-audioflinger-postmortem-20260917-2244",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set -e; SERIAL=RFCT70L7E8J; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1 | tr -d '\\r')\" = 0; echo '=== audio service exact track ==='; adb -s \"$SERIAL\" shell 'dumpsys audio 2>/dev/null | grep -n -A12 -B12 -E \"piid:12199|session:12129|pid:2000/22142\" || true'; echo '=== audioflinger exact track ==='; adb -s \"$SERIAL\" shell 'dumpsys media.audio_flinger 2>/dev/null | grep -n -A8 -B8 -E \"12129|22142\" | tail -240 || true'; echo appdeath_v3_postmortem_done=true"
+  ]
+}
