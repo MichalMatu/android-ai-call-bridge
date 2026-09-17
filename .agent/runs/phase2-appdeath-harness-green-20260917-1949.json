@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-appdeath-harness-green-20260917-1949",
+  "task_digest": "4768c434cdb0933fad94b67127a66161c41286b75c02fa807bb2a73aa27543cb",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T17:35:14.434032+00:00",
+  "attempt_id": "3ff921477a3ca7cfbe13a561",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 82933,
+  "updated_at": "2026-09-17T17:35:14.434195+00:00",
+  "pid": 82933
+}
