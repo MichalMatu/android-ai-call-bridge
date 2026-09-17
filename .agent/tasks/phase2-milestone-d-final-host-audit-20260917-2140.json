@@ -1,0 +1,18 @@
+{
+  "id": "phase2-milestone-d-final-host-audit-20260917-2140",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -e; EXPECTED=9cb95e95727db980dc2da2b35c616f870be52dbb; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo exact_head_clean=true",
+    "set -e; grep -q 'HOST TOOLING COMPLETE / PHYSICAL GATES PENDING' docs/ROADMAP.md; grep -q 'all Python tests: 44 PASS' docs/ROADMAP.md; grep -q 'All planned Milestone D host-side diagnostics/tooling are now implemented' docs/superpowers/plans/2026-09-17-milestone-d-remaining-gates.md; grep -q 'Milestone D host preparation — COMPLETE' docs/HANDOFF_NEXT_CHAT.md; ! grep -q 'latest host-only regression after app-death tooling: 30 Python tests' docs/ROADMAP.md; echo docs_host_ready_shape_green=true",
+    "set -e; python3 -m py_compile scripts/s22_app_death_gate.py scripts/s22_call_end_gate.py scripts/s22_resource_telemetry.py; PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_*.py'; echo python_final_green=true",
+    "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all; echo gradle_final_green=true",
+    "set -e; git diff --check; test -z \"$(git status --porcelain)\"; echo phase2_milestone_d_final_host_audit_green=true"
+  ]
+}
