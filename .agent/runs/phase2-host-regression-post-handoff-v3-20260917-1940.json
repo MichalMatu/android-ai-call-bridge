@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-host-regression-post-handoff-v3-20260917-1940",
+  "task_digest": "266c434815fae3ac68deab462b816dd6755a7ad8e07138af34a18a554e7f4495",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T17:30:50.512054+00:00",
+  "attempt_id": "99d6daf31dc36c766b204e28",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 77666,
+  "updated_at": "2026-09-17T17:30:50.512290+00:00",
+  "pid": 77666
+}
