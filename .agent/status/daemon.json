@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.22",
   "state": "idle",
-  "pid": 58510,
-  "updated_at": "2026-09-17T20:51:07.047597+00:00",
+  "pid": 67076,
+  "updated_at": "2026-09-17T20:56:13.824526+00:00",
   "self_revision": "224046066b0df92544337db0ee623e372629e726",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 58510,
+  "worker_pid": 67076,
   "supervisor_pid": 65293,
-  "last_task_id": "phase2-milestone-d-app-death-physical-v4b-20260917-2250",
   "execution_variant": "parallel"
 }
