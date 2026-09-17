@@ -1,0 +1,9 @@
+{
+  "event": "invalid_task_rejected",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "updated_at": "2026-09-17T17:23:45.830542+00:00",
+  "task_id": "update-handoff-remove-event-driven-20260917-1924",
+  "daemon_version": "4.18.22",
+  "pid": 68867
+}
