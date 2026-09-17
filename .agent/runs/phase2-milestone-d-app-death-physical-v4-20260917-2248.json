@@ -1,0 +1,9 @@
+{
+  "event": "invalid_task_rejected",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "updated_at": "2026-09-17T20:48:58.495675+00:00",
+  "task_id": "phase2-milestone-d-app-death-physical-v4-20260917-2248",
+  "daemon_version": "4.18.22",
+  "pid": 57436
+}
