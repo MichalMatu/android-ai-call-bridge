@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-cycle20-resource-final-20260918-0008",
+  "task_digest": "c6c6b5fbc96067d12667b73568c10c87f557e15c82b755fea6dbb05241f44846",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-17T22:05:36.458816+00:00",
+  "attempt_id": "a98de6ab812731ca31f4aba3",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 57927,
+  "updated_at": "2026-09-17T22:05:36.458992+00:00",
+  "pid": 57927
+}
