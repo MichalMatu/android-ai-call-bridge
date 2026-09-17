@@ -1,0 +1,14 @@
+{
+  "id": "phase2-natural-call-end-product-postmortem-20260918-0040",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; EXPECTED=78b41c0e3eddaa82b69a846b03ceb4db2483e312; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; echo '=== call-end probe result ==='; adb -s RFCT70L7E8J logcat -d -v raw -s AiCallBridge:I '*:S' 2>/dev/null | grep -A40 -B2 'shizuku_call_end_probe_result' | tail -n 80 || true; echo '=== key markers ==='; adb -s RFCT70L7E8J logcat -d -v raw -s AiCallBridge:I '*:S' 2>/dev/null | grep -E 'call_end_fail_safe_ok=|call_media_ended=|call_media_end_observed_ms=|workers_stopped_without_owner_close=|prepared_after_end=|active_after_end=|heartbeat_after_end=|downlink_terminal=|uplink_terminal=' | tail -n 30 || true; echo '=== observer ==='; adb -s RFCT70L7E8J shell cat /data/local/tmp/aicall_callend_observer.txt 2>/dev/null || true; echo '=== state ==='; python3 scripts/s22_call_control.py --serial RFCT70L7E8J status; echo helper_pid=$(adb -s RFCT70L7E8J shell pidof pl.michalmatu.aicallbridge:call_media 2>/dev/null | tr -d '[:space:]'); echo bluetooth_on=$(adb -s RFCT70L7E8J shell settings get global bluetooth_on | tr -d '[:space:]')"
+  ]
+}
