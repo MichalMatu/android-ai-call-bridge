@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-pfd-close-red-20260917-2008",
+  "task_digest": "243d486aa38c16a9b7330a37da935f9eaa7ba1195defdaee5d73a073f5807e33",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T18:02:19.165949+00:00",
+  "attempt_id": "da0e95c4811d455c8e3000c0",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 11518,
+  "updated_at": "2026-09-17T18:02:19.166089+00:00",
+  "pid": 11518
+}
