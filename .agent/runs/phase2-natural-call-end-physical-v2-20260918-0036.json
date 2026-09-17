@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-natural-call-end-physical-v2-20260918-0036",
+  "task_digest": "0b31d9cbd72895abf6995f601e9284dfec5faa143797dad2a48ca5fa64c3fe02",
+  "idle_timeout": 300,
+  "task_timeout": 360,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-17T22:35:17.981493+00:00",
+  "attempt_id": "3734cc68634d0364ce2f85d0",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 91830,
+  "updated_at": "2026-09-17T22:35:17.981611+00:00",
+  "pid": 91830
+}
