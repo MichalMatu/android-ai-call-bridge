@@ -1,0 +1,14 @@
+{
+  "id": "phase2-milestone-d-soak-v2-postmortem-20260918-0144",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; EXPECTED=72cc290a261432588005f0300ace382aa252deb1; SERIAL=RFCT70L7E8J; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; TELE=/tmp/aicall-soak-v2-telemetry.jsonl; test -s \"$TELE\"; python3 -c \"import json,pathlib; p=pathlib.Path('/tmp/aicall-soak-v2-telemetry.jsonl'); rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]; app=[r['app'] for r in rows if r.get('app')]; helper=[r['helper'] for r in rows if r.get('helper')]; print('telemetry_rows=',len(rows)); print('app_samples=',len(app),'app_pid_count=',len({x['pid'] for x in app})); print('helper_samples=',len(helper),'helper_pid_count=',len({x['pid'] for x in helper})); print('app_fd_min=',min(x['fd_count'] for x in app),'app_fd_max=',max(x['fd_count'] for x in app)); print('app_threads_min=',min(x['thread_count'] for x in app),'app_threads_max=',max(x['thread_count'] for x in app)); print('app_rss_min_kb=',min(x['vmrss_kb'] for x in app),'app_rss_max_kb=',max(x['vmrss_kb'] for x in app)); print('helper_fd_min=',min(x['fd_count'] for x in helper),'helper_fd_max=',max(x['fd_count'] for x in helper)); print('helper_threads_min=',min(x['thread_count'] for x in helper),'helper_threads_max=',max(x['thread_count'] for x in helper)); print('helper_rss_min_kb=',min(x['vmrss_kb'] for x in helper),'helper_rss_max_kb=',max(x['vmrss_kb'] for x in helper)); assert len(app)>=100; assert len(helper)>=100; assert max(x['fd_count'] for x in app)-min(x['fd_count'] for x in app)<40; assert max(x['thread_count'] for x in app)-min(x['thread_count'] for x in app)<30; assert max(x['fd_count'] for x in helper)-min(x['fd_count'] for x in helper)<40; assert max(x['thread_count'] for x in helper)-min(x['thread_count'] for x in helper)<30; print('segmented_soak_resource_evidence_green=true')\"; python3 scripts/s22_call_control.py --serial \"$SERIAL\" status; echo bluetooth_on=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]'); echo helper_pid=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge:call_media 2>/dev/null | tr -d '[:space:]'); echo milestone_d_soak_postmortem_complete=true"
+  ]
+}
