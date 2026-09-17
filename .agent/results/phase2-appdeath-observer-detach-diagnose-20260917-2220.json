@@ -1,0 +1,88 @@
+{
+  "id": "phase2-appdeath-observer-detach-diagnose-20260917-2220",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T20:19:39.778224+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1 | tr -d '\\r')\" = 0; echo '=== leftovers ==='; adb -s \"$SERIAL\" shell 'ls -l /data/local/tmp/aicall_appdeath_observer* 2>/dev/null || true'; adb -s \"$SERIAL\" shell 'ps -A -o USER,PID,PPID,NAME,ARGS | grep aicall_appdeath_observer | grep -v grep || true'; echo idle_leftovers_checked=true",
+      "exit_code": 0,
+      "output": "=== leftovers ===\n-rwx------ 1 shell shell 2758 2026-09-17 22:16 /data/local/tmp/aicall_appdeath_observer.sh\n-rw-rw-rw- 1 shell shell  206 2026-09-17 22:16 /data/local/tmp/aicall_appdeath_observer.txt.tmp\nshell        10459     1 sh                          sh /data/local/tmp/aicall_appdeath_observer.sh 10303 10333 force-stop pl.michalmatu.aicallbridge /data/local/tmp/aicall_appdeath_observer.txt\nidle_leftovers_checked=true\n",
+      "elapsed_seconds": 0.695,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 4.47,
+      "output_policy": "stream",
+      "captured_output_chars": 428,
+      "output_truncated": false,
+      "current_rss_mb": 4.47,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" shell 'rm -f /data/local/tmp/aicall_detach_test.sh /data/local/tmp/aicall_detach_test.txt /data/local/tmp/aicall_detach_test.txt.tmp'; printf '%s\\n' '#!/system/bin/sh' 'OUT=/data/local/tmp/aicall_detach_test.txt' 'TMP=${OUT}.tmp' 'rm -f \"$OUT\" \"$TMP\"' 'printf \"started=1\\n\" >\"$TMP\"' 'sleep 2' 'printf \"done=1\\n\" >>\"$TMP\"' 'mv \"$TMP\" \"$OUT\"' > /tmp/aicall_detach_test.sh; adb -s \"$SERIAL\" push /tmp/aicall_detach_test.sh /data/local/tmp/aicall_detach_test.sh >/dev/null; adb -s \"$SERIAL\" shell chmod 700 /data/local/tmp/aicall_detach_test.sh; adb -s \"$SERIAL\" shell \"sh /data/local/tmp/aicall_detach_test.sh >/dev/null 2>&1 </dev/null &\"; for i in $(seq 1 30); do if adb -s \"$SERIAL\" shell test -f /data/local/tmp/aicall_detach_test.txt >/dev/null 2>&1; then break; fi; sleep 0.2; done; echo '=== detached result ==='; adb -s \"$SERIAL\" shell cat /data/local/tmp/aicall_detach_test.txt; grep -q '^done=1$' <(adb -s \"$SERIAL\" shell cat /data/local/tmp/aicall_detach_test.txt | tr -d '\\r'); echo detached_shell_atomic_result_green=true",
+      "exit_code": 2,
+      "output": "/bin/sh: -c: line 0: syntax error near unexpected token `('\n/bin/sh: -c: line 0: `set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" shell 'rm -f /data/local/tmp/aicall_detach_test.sh /data/local/tmp/aicall_detach_test.txt /data/local/tmp/aicall_detach_test.txt.tmp'; printf '%s\\n' '#!/system/bin/sh' 'OUT=/data/local/tmp/aicall_detach_test.txt' 'TMP=${OUT}.tmp' 'rm -f \"$OUT\" \"$TMP\"' 'printf \"started=1\\n\" >\"$TMP\"' 'sleep 2' 'printf \"done=1\\n\" >>\"$TMP\"' 'mv \"$TMP\" \"$OUT\"' > /tmp/aicall_detach_test.sh; adb -s \"$SERIAL\" push /tmp/aicall_detach_test.sh /data/local/tmp/aicall_detach_test.sh >/dev/null; adb -s \"$SERIAL\" shell chmod 700 /data/local/tmp/aicall_detach_test.sh; adb -s \"$SERIAL\" shell \"sh /data/local/tmp/aicall_detach_test.sh >/dev/null 2>&1 </dev/null &\"; for i in $(seq 1 30); do if adb -s \"$SERIAL\" shell test -f /data/local/tmp/aicall_detach_test.txt >/dev/null 2>&1; then break; fi; sleep 0.2; done; echo '=== detached result ==='; adb -s \"$SERIAL\" shell cat /data/local/tmp/aicall_detach_test.txt; grep -q '^done=1$' <(adb -s \"$SERIAL\" shell cat /data/local/tmp/aicall_detach_test.txt | tr -d '\\r'); echo detached_shell_atomic_result_green=true'\n",
+      "elapsed_seconds": 0.135,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": null,
+      "output_policy": "stream",
+      "captured_output_chars": 1160,
+      "output_truncated": false,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.695
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 2,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.135
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.087
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-17T20:19:42.272851+00:00",
+  "task_digest": "51d4794b9c7dc904ffa7025b0d35ff19272d71028e689815d13baebcd3676c1f",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "attempt_id": "e39de2baea0cc020f5c3ed22",
+  "daemon_version": "4.18.22"
+}
