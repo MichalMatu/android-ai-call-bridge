@@ -1,0 +1,60 @@
+{
+  "id": "phase2-telemetry-source-probe-20260917-2355",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T21:54:37.500256+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=0acd5545253bf1cdde580b0c220c6a09c3ae2fcc; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; adb -s RFCT70L7E8J shell am force-stop pl.michalmatu.aicallbridge; adb -s RFCT70L7E8J shell am start -W -n pl.michalmatu.aicallbridge/.MainActivity >/dev/null; sleep 0.5; PID=$(adb -s RFCT70L7E8J shell pidof pl.michalmatu.aicallbridge | tr -d '[:space:]'); test -n \"$PID\"; echo app_pid=$PID; echo '=== ps rss ==='; adb -s RFCT70L7E8J shell ps -A -o PID,RSS,NAME | grep \"^[[:space:]]*$PID[[:space:]]\" || true; echo '=== ps threads ==='; adb -s RFCT70L7E8J shell ps -AT -o PID,TID,NAME | awk -v p=\"$PID\" '$1==p {n++} END {print \"ps_thread_count=\" n+0}' || true; echo '=== proc status ==='; adb -s RFCT70L7E8J shell sh -c \"cat /proc/$PID/status 2>/dev/null | grep -E '^(VmRSS|Threads):'\" || true; echo '=== proc fd ==='; adb -s RFCT70L7E8J shell sh -c \"ls -1 /proc/$PID/fd 2>/dev/null | wc -l\" || true; echo '=== lsof ==='; adb -s RFCT70L7E8J shell lsof -p \"$PID\" 2>/dev/null | head -n 5 || true; echo lsof_count=$(adb -s RFCT70L7E8J shell lsof -p \"$PID\" 2>/dev/null | awk 'NR>1 {n++} END {print n+0}'); echo '=== dumpsys meminfo ==='; adb -s RFCT70L7E8J shell dumpsys meminfo \"$PID\" | grep -E 'TOTAL PSS:|TOTAL RSS:|TOTAL:' | head -n 5 || true; adb -s RFCT70L7E8J shell am force-stop pl.michalmatu.aicallbridge; echo telemetry_source_probe_done=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 0acd554 fix: collect app telemetry through run-as\napp_pid=24982\n=== ps rss ===\n24982 132480 pl.michalmatu.aicallbridge\n=== ps threads ===\nps_thread_count=26\n=== proc status ===\n=== proc fd ===\n41\n=== lsof ===\nCOMMAND     PID       USER   FD      TYPE             DEVICE  SIZE/OFF       NODE NAME\ntu.aicallbridge 24982    u0_a652  cwd   unknown                                         /proc/24982/cwd (readlink: Permission denied)\ntu.aicallbridge 24982    u0_a652  rtd   unknown                                         /proc/24982/root (readlink: Permission denied)\ntu.aicallbridge 24982    u0_a652  txt   unknown                                         /proc/24982/exe (readlink: Permission denied)\ntu.aicallbridge 24982    u0_a652 NOFD   unknown                                         /proc/24982/fd (opendir: Permission denied)\nlsof_count=4\n=== dumpsys meminfo ===\n           TOTAL PSS:    62309            TOTAL RSS:   149574       TOTAL SWAP PSS:     1101\ntelemetry_source_probe_done=true\n",
+      "elapsed_seconds": 3.425,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.05,
+      "output_policy": "stream",
+      "captured_output_chars": 1251,
+      "output_truncated": false,
+      "current_rss_mb": 3.05,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 3.425
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.132
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.092
+  },
+  "finished_at": "2026-09-17T21:54:43.194064+00:00",
+  "task_digest": "2c557f8f6fee9f3412c66104ca000de5cc6854d14b5a9fec3cb5ae6fa881e2c1",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "attempt_id": "aada8c8cd547afdd652c502d",
+  "daemon_version": "4.18.22"
+}
