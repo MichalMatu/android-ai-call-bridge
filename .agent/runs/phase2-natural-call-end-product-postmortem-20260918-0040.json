@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-natural-call-end-product-postmortem-20260918-0040",
+  "task_digest": "7a056c6bf541e46ee93d7ea3f77198519a2737f13fa1c3ce4402bd790bf9941c",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-17T22:39:36.794193+00:00",
+  "attempt_id": "d2915c5913635ab554e149d7",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 822,
+  "updated_at": "2026-09-17T22:39:36.794296+00:00",
+  "pid": 822
+}
