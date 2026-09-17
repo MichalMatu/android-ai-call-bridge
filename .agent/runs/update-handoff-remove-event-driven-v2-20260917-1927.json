@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "update-handoff-remove-event-driven-v2-20260917-1927",
+  "task_digest": "04dbae77cde888c469ea28da9aa2847cd67cd7c71e9016a9a4b6de49cccb708f",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "started_at": "2026-09-17T17:25:16.581836+00:00",
+  "attempt_id": "68e1f48b3d2ad4713a77c68c",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 70676,
+  "updated_at": "2026-09-17T17:25:16.581889+00:00",
+  "pid": 70676
+}
