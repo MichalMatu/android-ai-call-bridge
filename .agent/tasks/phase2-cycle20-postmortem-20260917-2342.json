@@ -1,0 +1,15 @@
+{
+  "id": "phase2-cycle20-postmortem-20260917-2342",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; EXPECTED=5e244835fcaa14176d1214fe8ce430f16f3e41ff; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo exact_head_clean=true",
+    "set -e; T=/tmp/aicall-cycle20-telemetry.jsonl; TO=/tmp/aicall-cycle20-telemetry.out; echo telemetry_file_exists=$(test -f \"$T\" && echo true || echo false); echo telemetry_lines=$(test -f \"$T\" && wc -l < \"$T\" | tr -d ' ' || echo 0); echo '=== telemetry process output ==='; test -f \"$TO\" && cat \"$TO\" || true; echo '=== telemetry summary ==='; if test -s \"$T\"; then PYTHONPATH=scripts python3 scripts/s22_resource_telemetry.py summarize \"$T\"; fi; echo '=== cycle result tail ==='; adb -s RFCT70L7E8J logcat -d -v raw -s AiCallBridge:I '*:S' 2>/dev/null | sed -n '/shizuku_cycle_probe_result:/,$p' | tail -n 90; echo '=== current device state ==='; python3 scripts/s22_call_control.py --serial RFCT70L7E8J status; adb -s RFCT70L7E8J shell settings get global bluetooth_on"
+  ]
+}
