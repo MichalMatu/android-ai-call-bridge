@@ -1,0 +1,14 @@
+{
+  "id": "phase2-resource-telemetry-red-20260917-2108",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set +e; EXPECTED=f62945e874181d19ed7274bffa093402fcb3a6f2; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\" || exit 97; PYTHONPATH=scripts python3 -m unittest scripts.test_s22_resource_telemetry; RC=$?; echo red_test_rc=$RC; test \"$RC\" -ne 0; echo phase2_resource_telemetry_red_confirmed=true"
+  ]
+}
