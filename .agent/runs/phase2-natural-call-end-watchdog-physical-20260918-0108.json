@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-natural-call-end-watchdog-physical-20260918-0108",
+  "task_digest": "cc4471e747446e9da9d1083943aee6f0d3d2120abcd62162b285607bb0d220f1",
+  "idle_timeout": 300,
+  "task_timeout": 420,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T23:08:29.446343+00:00",
+  "attempt_id": "f9baabf8c12117b500dc39a5",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 34563,
+  "updated_at": "2026-09-17T23:08:29.446446+00:00",
+  "pid": 34563
+}
