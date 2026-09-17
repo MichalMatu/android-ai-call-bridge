@@ -1,0 +1,89 @@
+{
+  "id": "phase2-milestone-d-cycle20-telemetry-physical-20260917-2335",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T21:33:35.861220+00:00",
+  "command_timeout": 240,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=5e244835fcaa14176d1214fe8ce430f16f3e41ff; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo exact_head_clean=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 5e24483 fix: pace diagnostic uplink in realtime\nexact_head_clean=true\n",
+      "elapsed_seconds": 0.925,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.92,
+      "output_policy": "stream",
+      "captured_output_chars": 327,
+      "output_truncated": false,
+      "current_rss_mb": 2.92,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; T=/tmp/aicall-cycle20-telemetry.jsonl; TO=/tmp/aicall-cycle20-telemetry.out; rm -f \"$T\" \"$TO\"; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '[:space:]'; }; voice_block(){ adb -s \"$SERIAL\" shell dumpsys audio | sed -n '/- STREAM_VOICE_CALL:/,/Volume Group: AUDIO_STREAM_VOICE_CALL/p'; }; BT_BEFORE=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]'); cleanup(){ [ -n \"${TPID:-}\" ] && kill \"$TPID\" >/dev/null 2>&1 || true; python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; if [ \"$BT_BEFORE\" = 1 ]; then adb -s \"$SERIAL\" shell cmd bluetooth_manager enable >/dev/null 2>&1 || true; for i in $(seq 1 40); do [ \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = 1 ] && break; sleep 0.25; done; fi; }; trap cleanup EXIT; test \"$(state)\" = 0; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; if [ \"$BT_BEFORE\" = 1 ]; then adb -s \"$SERIAL\" shell cmd bluetooth_manager disable; fi; for i in $(seq 1 40); do [ \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = 0 ] && break; sleep 0.25; done; test \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 || true; PRE=$(voice_block); printf '%s\n' \"$PRE\" | grep -q 'Muted: true'; printf '%s\n' \"$PRE\" | grep -q 'streamVolume:0'; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100; ACTIVE=0; for i in $(seq 1 40); do S=$(state); echo live_call_state=$S; if [ \"$S\" = 2 ]; then ACTIVE=1; break; fi; sleep 1; done; test \"$ACTIVE\" = 1; adb -s \"$SERIAL\" shell cmd audio adj-mute 0; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 || true; ACTIVE_AUDIO=$(voice_block); printf '%s\n' \"$ACTIVE_AUDIO\" | grep -q 'Muted: true'; printf '%s\n' \"$ACTIVE_AUDIO\" | grep -q 'streamVolume:0'; printf '%s\n' \"$ACTIVE_AUDIO\" | grep -q 'Devices: earpiece(1)'; echo silent_audio_guard_active=true; adb -s \"$SERIAL\" shell \"sh -c 'sleep 25; input keyevent KEYCODE_ENDCALL; cmd audio adj-mute 0; cmd audio adj-mute 8' >/dev/null 2>&1 </dev/null &\"; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; PYTHONPATH=scripts python3 scripts/s22_resource_telemetry.py --serial \"$SERIAL\" watch \"$T\" --duration-seconds 20 --interval-seconds 0.2 >\"$TO\" 2>&1 & TPID=$!; START_OUTPUT=$(adb -s \"$SERIAL\" shell am start -W -n pl.michalmatu.aicallbridge/.DiagnosticProbeActivity --ez run_shizuku_cycle_probe true --ei cycle_count 20 2>&1); printf '%s\n' \"$START_OUTPUT\"; printf '%s\n' \"$START_OUTPUT\" | grep -q 'Status: ok'; RESULT=''; for i in $(seq 1 160); do RESULT=$(adb -s \"$SERIAL\" logcat -d -v raw -s AiCallBridge:I '*:S' 2>/dev/null || true); if printf '%s\n' \"$RESULT\" | grep -q 'cycle_probe_ok=true'; then break; fi; sleep 0.1; done; printf '%s\n' \"$RESULT\"; printf '%s\n' \"$RESULT\" | grep -q 'completed_cycles=20'; printf '%s\n' \"$RESULT\" | grep -q 'first_failed_cycle=0'; printf '%s\n' \"$RESULT\" | grep -q 'service_pid_stable=true'; printf '%s\n' \"$RESULT\" | grep -q 'final_prepared=false'; printf '%s\n' \"$RESULT\" | grep -q 'final_active=false'; printf '%s\n' \"$RESULT\" | grep -q 'final_heartbeat=false'; printf '%s\n' \"$RESULT\" | grep -q 'cycle_probe_ok=true'; test \"$(state)\" = 2; sleep 1; kill \"$TPID\" >/dev/null 2>&1 || true; wait \"$TPID\" >/dev/null 2>&1 || true; TPID=''; test -s \"$T\"; echo cycle20_probe_green=true; cleanup; trap - EXIT; for i in $(seq 1 20); do [ \"$(state)\" = 0 ] && break; sleep 0.25; done; test \"$(state)\" = 0; test \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = \"$BT_BEFORE\"; echo cycle20_cleanup_green=true",
+      "exit_code": 1,
+      "output": "shell         2946 shizuku_server\nBluetoothShellCommand: Exec disable\ndisable: Success\ncalling AudioManager.adjustStreamVolume(0, AudioManager.ADJUST_MUTE, 0)\ncalling AudioManager.adjustStreamVolume(8, AudioManager.ADJUST_MUTE, 0)\nserial=RFCT70L7E8J\ndial_requested=true\nlive_call_state=0\nlive_call_state=2\ncalling AudioManager.adjustStreamVolume(0, AudioManager.ADJUST_MUTE, 0)\ncalling AudioManager.adjustStreamVolume(8, AudioManager.ADJUST_MUTE, 0)\nsilent_audio_guard_active=true\nStarting: Intent { cmp=pl.michalmatu.aicallbridge/.DiagnosticProbeActivity (has extras) }\nStatus: ok\nLaunchState: COLD\nActivity: pl.michalmatu.aicallbridge/.DiagnosticProbeActivity\nTotalTime: 305\nWaitTime: 306\nComplete\n--------- beginning of main\nshizuku_cycle_probe_start=true\nshizuku_cycle_probe_result:\nprobe=shizuku-user-service-cycle-v1\nmode=live-repeated-start-abort\nbinder_ping=true\nshizuku_uid=2000\nservice_uid=2000\nservice_pid=17266\nsample_rate=16000\nrequested_cycles=20\nabort_max_ms=500\ncycle_1_service_pid_stable=true\ncycle_1_active_after_start=true\ncycle_1_heartbeat_at_baseline=true\ncycle_1_media_warm=true\ncycle_1_downlink_bytes=1280\ncycle_1_uplink_bytes=1280\ncycle_1_abort_rpc_ms=23\ncycle_1_prepared_after_abort=false\ncycle_1_active_after_abort=false\ncycle_1_heartbeat_after_abort=false\ncycle_1_threads_stopped=true\ncycle_1_ok=true\ncycle_2_service_pid_stable=true\ncycle_2_active_after_start=true\ncycle_2_heartbeat_at_baseline=true\ncycle_2_media_warm=true\ncycle_2_downlink_bytes=1280\ncycle_2_uplink_bytes=1280\ncycle_2_abort_rpc_ms=37\ncycle_2_prepared_after_abort=false\ncycle_2_active_after_abort=false\ncycle_2_heartbeat_after_abort=false\ncycle_2_threads_stopped=true\ncycle_2_ok=true\ncycle_3_service_pid_stable=true\ncycle_3_active_after_start=true\ncycle_3_heartbeat_at_baseline=true\ncycle_3_media_warm=true\ncycle_3_downlink_bytes=1280\ncycle_3_uplink_bytes=1280\ncycle_3_abort_rpc_ms=25\ncycle_3_prepared_after_abort=false\ncycle_3_active_after_abort=false\ncycle_3_heartbeat_after_abort=false\ncycle_3_threads_stopped=true\ncycle_3_ok=true\ncycle_4_service_pid_stable=true\ncycle_4_active_after_start=true\ncycle_4_heartbeat_at_baseline=true\ncycle_4_media_warm=true\ncycle_4_downlink_bytes=1280\ncycle_4_uplink_bytes=640\ncycle_4_abort_rpc_ms=21\ncycle_4_prepared_after_abort=false\ncycle_4_active_after_abort=false\ncycle_4_heartbeat_after_abort=false\ncycle_4_threads_stopped=true\ncycle_4_ok=true\ncycle_5_service_pid_stable=true\ncycle_5_active_after_start=true\ncycle_5_heartbeat_at_baseline=true\ncycle_5_media_warm=true\ncycle_5_downlink_bytes=1280\ncycle_5_uplink_bytes=1280\ncycle_5_abort_rpc_ms=25\ncycle_5_prepared_after_abort=false\ncycle_5_active_after_abort=false\ncycle_5_heartbeat_after_abort=false\ncycle_5_threads_stopped=true\ncycle_5_ok=true\ncycle_6_service_pid_stable=true\ncycle_6_active_after_start=true\ncycle_6_heartbeat_at_baseline=true\ncycle_6_media_warm=true\ncycle_6_downlink_bytes=1280\ncycle_6_uplink_bytes=1280\ncycle_6_abort_rpc_ms=26\ncycle_6_prepared_after_abort=false\ncycle_6_active_after_abort=false\ncycle_6_heartbeat_after_abort=false\ncycle_6_threads_stopped=true\ncycle_6_ok=true\ncycle_7_service_pid_stable=true\ncycle_7_active_after_start=true\ncycle_7_heartbeat_at_baseline=true\ncycle_7_media_warm=true\ncycle_7_downlink_bytes=1280\ncycle_7_uplink_bytes=1280\ncycle_7_abort_rpc_ms=32\ncycle_7_prepared_after_abort=false\ncycle_7_active_after_abort=false\ncycle_7_heartbeat_after_abort=false\ncycle_7_threads_stopped=true\ncycle_7_ok=true\ncycle_8_service_pid_stable=true\ncycle_8_active_after_start=true\ncycle_8_heartbeat_at_baseline=true\ncycle_8_media_warm=true\ncycle_8_downlink_bytes=1280\ncycle_8_uplink_bytes=640\ncycle_8_abort_rpc_ms=17\ncycle_8_prepared_after_abort=false\ncycle_8_active_after_abort=false\ncycle_8_heartbeat_after_abort=false\ncycle_8_threads_stopped=true\ncycle_8_ok=true\ncycle_9_service_pid_stable=true\ncycle_9_active_after_start=true\ncycle_9_heartbeat_at_baseline=true\ncycle_9_media_warm=true\ncycle_9_downlink_bytes=1280\ncycle_9_uplink_bytes=1280\ncycle_9_abort_rpc_ms=40\ncycle_9_prepared_after_abort=false\ncycle_9_active_after_abort=false\ncycle_9_heartbeat_after_abort=false\ncycle_9_threads_stopped=true\ncycle_9_ok=true\ncycle_10_service_pid_stable=true\ncycle_10_active_after_start=true\ncycle_10_heartbeat_at_baseline=true\ncycle_10_media_warm=true\ncycle_10_downlink_bytes=1280\ncycle_10_uplink_bytes=1280\ncycle_10_abort_rpc_ms=26\ncycle_10_prepared_after_abort=false\ncycle_10_active_after_abort=false\ncycle_10_heartbeat_after_abort=false\ncycle_10_threads_stopped=true\ncycle_10_ok=true\ncycle_11_service_pid_stable=true\ncycle_11_active_after_start=true\ncycle_11_heartbeat_at_baseline=true\ncycle_11_media_warm=true\ncycle_11_downlink_bytes=1280\ncycle_11_uplink_bytes=1280\ncycle_11_abort_rpc_ms=18\ncycle_11_prepared_after_abort=false\ncycle_11_active_after_abort=false\ncycle_11_heartbeat_after_abort=false\ncycle_11_threads_stopped=true\ncycle_11_ok=true\ncycle_12_service_pid_stable=true\ncycle_12_active_after_start=true\ncycle_12_heartbeat_at_baseline=true\ncycle_12_media_warm=true\ncycle_12_downlink_bytes=2560\ncycle_12_uplink_bytes=1920\ncycle_12_abort_rpc_ms=57\ncycle_12_prepared_after_abort=false\ncycle_12_active_after_abort=false\ncycle_12_heartbeat_after_abort=false\ncycle_12_threads_stopped=true\ncycle_12_ok=true\ncycle_13_service_pid_stable=true\ncycle_13_active_after_start=true\ncycle_13_heartbeat_at_baseline=true\ncycle_13_media_warm=true\ncycle_13_downlink_bytes=1280\ncycle_13_uplink_bytes=1280\ncycle_13_abort_rpc_ms=25\ncycle_13_prepared_after_abort=false\ncycle_13_active_after_abort=false\ncycle_13_heartbeat_after_abort=false\ncycle_13_threads_stopped=true\ncycle_13_ok=true\ncycle_14_service_pid_stable=true\ncycle_14_active_after_start=true\ncycle_14_heartbeat_at_baseline=true\ncycle_14_media_warm=true\ncycle_14_downlink_bytes=1280\ncycle_14_uplink_bytes=1280\ncycle_14_abort_rpc_ms=27\ncycle_14_prepared_after_abort=false\ncycle_14_active_after_abort=false\ncycle_14_heartbeat_after_abort=false\ncycle_14_threads_stopped=true\ncycle_14_ok=true\ncycle_15_service_pid_stable=true\ncycle_15_active_after_start=true\ncycle_15_heartbeat_at_baseline=true\ncycle_15_media_warm=true\ncycle_15_downlink_bytes=1280\ncycle_15_uplink_bytes=1280\ncycle_15_abort_rpc_ms=30\ncycle_15_prepared_after_abort=false\ncycle_15_active_after_abort=false\ncycle_15_heartbeat_after_abort=false\ncycle_15_threads_stopped=true\ncycle_15_ok=true\ncycle_16_service_pid_stable=true\ncycle_16_active_after_start=true\ncycle_16_heartbeat_at_baseline=true\ncycle_16_media_warm=true\ncycle_16_downlink_bytes=1280\ncycle_16_uplink_bytes=1280\ncycle_16_abort_rpc_ms=35\ncycle_16_prepared_after_abort=false\ncycle_16_active_after_abort=false\ncycle_16_heartbeat_after_abort=false\ncycle_16_threads_stopped=true\ncycle_16_ok=true\ncycle_17_service_pid_stable=true\ncycle_17_active_after_start=true\ncycle_17_heartbeat_at_baseline=true\ncycle_17_media_warm=true\ncycle_17_downlink_bytes=1280\ncycle_17_uplink_bytes=1280\ncycle_17_abort_rpc_ms=36\ncycle_17_prepared_after_abort=false\ncycle_17_active_after_abort=false\ncycle_17_heartbeat_after_abort=false\ncycle_17_threads_stopped=true\ncycle_17_ok=true\ncycle_18_service_pid_stable=true\ncycle_18_active_after_start=true\ncycle_18_heartbeat_at_baseline=true\ncycle_18_media_warm=true\ncycle_18_downlink_bytes=1280\ncycle_18_uplink_bytes=1280\ncycle_18_abort_rpc_ms=34\ncycle_18_prepared_after_abort=false\ncycle_18_active_after_abort=false\ncycle_18_heartbeat_after_abort=false\ncycle_18_threads_stopped=true\ncycle_18_ok=true\ncycle_19_service_pid_stable=true\ncycle_19_active_after_start=true\ncycle_19_heartbeat_at_baseline=true\ncycle_19_media_warm=true\ncycle_19_downlink_bytes=1280\ncycle_19_uplink_bytes=1920\ncycle_19_abort_rpc_ms=51\ncycle_19_prepared_after_abort=false\ncycle_19_active_after_abort=false\ncycle_19_heartbeat_after_abort=false\ncycle_19_threads_stopped=true\ncycle_19_ok=true\ncycle_20_service_pid_stable=true\ncycle_20_active_after_start=true\ncycle_20_heartbeat_at_baseline=true\ncycle_20_media_warm=true\ncycle_20_downlink_bytes=1280\ncycle_20_uplink_bytes=1280\ncycle_20_abort_rpc_ms=40\ncycle_20_prepared_after_abort=false\ncycle_20_active_after_abort=false\ncycle_20_heartbeat_after_abort=false\ncycle_20_threads_stopped=true\ncycle_20_ok=true\ncompleted_cycles=20\nfirst_failed_cycle=0\ncumulative_downlink_bytes=26880\ncumulative_uplink_bytes=25600\nmax_abort_rpc_ms=57\nservice_pid_stable=true\nfinal_prepared=false\nfinal_active=false\nfinal_heartbeat=false\nprivileged_uid=true\ncycle_probe_ok=true\n",
+      "elapsed_seconds": 8.538,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 11.34,
+      "output_policy": "stream",
+      "captured_output_chars": 8357,
+      "output_truncated": false,
+      "current_rss_mb": 10.0,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.925
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 3,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 8.538
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.12
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.075
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-17T21:33:46.841731+00:00",
+  "task_digest": "fbae5b30bb40a59950cbe9ba3f2dc68a28be1b08d971950ddf524354f8e3fbfd",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 2048,
+  "attempt_id": "bfd9691d91af0e27467a0da5",
+  "daemon_version": "4.18.22"
+}
