@@ -1,0 +1,61 @@
+{
+  "id": "phase2-natural-call-end-physical-v2-20260918-0036",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T22:35:17.981555+00:00",
+  "command_timeout": 240,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=78b41c0e3eddaa82b69a846b03ceb4db2483e312; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; SERIAL=RFCT70L7E8J; state(){ adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '[:space:]'; }; BT_BEFORE=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]'); cleanup(){ python3 scripts/s22_call_control.py --serial \"$SERIAL\" hangup >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null 2>&1 || true; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; if [ \"$BT_BEFORE\" = 1 ]; then adb -s \"$SERIAL\" shell cmd bluetooth_manager enable >/dev/null 2>&1 || true; fi; }; trap cleanup EXIT; test \"$(state)\" = 0; if [ \"$BT_BEFORE\" = 1 ]; then adb -s \"$SERIAL\" shell cmd bluetooth_manager disable >/dev/null; fi; for i in $(seq 1 40); do [ \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = 0 ] && break; sleep 0.25; done; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; python3 scripts/s22_call_control.py --serial \"$SERIAL\" dial 510100100; for i in $(seq 1 40); do [ \"$(state)\" = 2 ] && break; sleep 1; done; test \"$(state)\" = 2; adb -s \"$SERIAL\" shell cmd audio adj-mute 0 >/dev/null; adb -s \"$SERIAL\" shell cmd audio adj-mute 8 >/dev/null 2>&1 || true; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am force-stop pl.michalmatu.aicallbridge; adb -s \"$SERIAL\" shell am start -W -n pl.michalmatu.aicallbridge/.DiagnosticProbeActivity --ez run_shizuku_call_end_probe true --el call_end_wait_ms 120000 >/tmp/aicall-callend-v2.start 2>&1; grep -q 'Status: ok' /tmp/aicall-callend-v2.start; HELPER=''; for i in $(seq 1 100); do HELPER=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge:call_media 2>/dev/null | tr -d '[:space:]'); [ -n \"$HELPER\" ] && break; sleep 0.1; done; test -n \"$HELPER\"; PYTHONPATH=scripts python3 scripts/s22_call_end_gate.py --serial \"$SERIAL\" arm --helper-pid \"$HELPER\"; DONE=0; for i in $(seq 1 1500); do if adb -s \"$SERIAL\" shell test -f /data/local/tmp/aicall_callend_observer.txt >/dev/null 2>&1; then DONE=1; break; fi; sleep 0.1; done; test \"$DONE\" = 1; PYTHONPATH=scripts python3 scripts/s22_call_end_gate.py --serial \"$SERIAL\" collect --max-cleanup-ms 3000; RESULT=$(adb -s \"$SERIAL\" logcat -d -v raw -s AiCallBridge:I '*:S' 2>/dev/null || true); printf '%s\n' \"$RESULT\" | grep -q 'call_end_fail_safe_ok=true'; test \"$(state)\" = 0; echo milestone_d_natural_call_end_green=true; cleanup; trap - EXIT; if [ \"$BT_BEFORE\" = 1 ]; then for i in $(seq 1 40); do [ \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = 1 ] && break; sleep 0.25; done; fi; test \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = \"$BT_BEFORE\"",
+      "exit_code": 2,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 78b41c0 fix: collect process metrics from ps on Android 16\nserial=RFCT70L7E8J\ndial_requested=true\nserial=RFCT70L7E8J\nhelper_pid=14090\nremote_result=/data/local/tmp/aicall_callend_observer.txt\nobserver_armed=true\ngate_error=call_assistant_started_before is false\ngate_error=call_assistant_stop_seen is false\ngate_error=media_stop_after_call_end_ms is invalid\nboot_before=2287d281-56ba-450f-8012-a3c7c468a64d\nstart_uptime=702765.94\ncall_state_before=2\ncall_assistant_started_before=0\ncall_end_seen=1\ncall_end_observed_ms=83180\ncall_state_after=0\ncall_assistant_stop_seen=0\nmedia_stop_after_call_end_ms=-1\nshizuku_server_alive=1\nboot_after=2287d281-56ba-450f-8012-a3c7c468a64d\nboot_same=1\ndone=1\ncall_end_gate_ok=false\n",
+      "elapsed_seconds": 119.093,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 11.66,
+      "output_policy": "stream",
+      "captured_output_chars": 973,
+      "output_truncated": false,
+      "current_rss_mb": 2.97,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 119.093
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.085
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.069
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-17T22:37:18.756849+00:00",
+  "task_digest": "0b31d9cbd72895abf6995f601e9284dfec5faa143797dad2a48ca5fa64c3fe02",
+  "idle_timeout": 300,
+  "task_timeout": 360,
+  "memory_limit_mb": 2048,
+  "attempt_id": "3734cc68634d0364ce2f85d0",
+  "daemon_version": "4.18.22"
+}
