@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-host-final-audit-20260917-2000",
+  "task_digest": "b3427a11537ccf053da69c9ae655b183ce9fa7f68b0011f7c8cca43090cb9420",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T17:57:23.013195+00:00",
+  "attempt_id": "364e1e5b22b84dbf404ca2c0",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 7334,
+  "updated_at": "2026-09-17T17:57:23.013346+00:00",
+  "pid": 7334
+}
