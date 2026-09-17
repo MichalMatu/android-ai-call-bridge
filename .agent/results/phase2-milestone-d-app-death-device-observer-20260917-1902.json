@@ -1,0 +1,89 @@
+{
+  "id": "phase2-milestone-d-app-death-device-observer-20260917-1902",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T17:03:58.176878+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=60cbe81af2e02ba2e4100691c8afb76332735548; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; ACTUAL=$(git rev-parse HEAD); REMOTE=$(git ls-remote origin refs/heads/work/phase1-live-call-probes | awk '{print $1}'); echo expected=$EXPECTED actual=$ACTUAL remote=$REMOTE; test \"$ACTUAL\" = \"$EXPECTED\"; test \"$REMOTE\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 60cbe81 Reuse Shizuku ActivityThread for privileged contexts\nexpected=60cbe81af2e02ba2e4100691c8afb76332735548 actual=60cbe81af2e02ba2e4100691c8afb76332735548 remote=60cbe81af2e02ba2e4100691c8afb76332735548\n",
+      "elapsed_seconds": 2.231,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.95,
+      "output_policy": "stream",
+      "captured_output_chars": 464,
+      "output_truncated": false,
+      "current_rss_mb": 2.95,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    },
+    {
+      "command": "set -e; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state | grep -qx device; STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -n1 | tr -d '\\r'); echo call_state=$STATE; test \"$STATE\" = \"0\"; adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$'; adb -s \"$SERIAL\" shell dumpsys package pl.michalmatu.aicallbridge | grep -q 'moe.shizuku.manager.permission.API_V23: granted=true'; adb -s \"$SERIAL\" shell 'toybox nohup --help >/dev/null 2>&1'; test -f app/build/outputs/apk/debug/app-debug.apk || ./gradlew :app:assembleDebug; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; echo milestone_d_app_death_device_observer_preflight_ok=true",
+      "exit_code": 125,
+      "output": "* daemon not running; starting now at tcp:5037\n* daemon started successfully\ncall_state=0\nshell         2946 shizuku_server\n",
+      "elapsed_seconds": 5.374,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.31,
+      "output_policy": "stream",
+      "captured_output_chars": 124,
+      "output_truncated": false,
+      "current_rss_mb": 9.31,
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.231
+    },
+    {
+      "stage_name": "command-2",
+      "stage_index": 2,
+      "stage_total": 4,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 5.374
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.114
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.089
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-17T17:04:08.213215+00:00",
+  "task_digest": "fafcb114dbdb42e25229da714c27609dddda9c4047b42849e81f1cbc036538bd",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "cd0d03750c693b53e19af125",
+  "daemon_version": "4.18.22"
+}
