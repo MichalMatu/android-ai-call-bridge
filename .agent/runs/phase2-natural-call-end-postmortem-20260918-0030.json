@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-natural-call-end-postmortem-20260918-0030",
+  "task_digest": "643a29515ed3712cab2e6518e13b1936055cd4670295e42d05bedc4fb116a5fe",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-17T22:23:48.614227+00:00",
+  "attempt_id": "b91e82155b94d9451f184960",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 79286,
+  "updated_at": "2026-09-17T22:23:48.614293+00:00",
+  "pid": 79286
+}
