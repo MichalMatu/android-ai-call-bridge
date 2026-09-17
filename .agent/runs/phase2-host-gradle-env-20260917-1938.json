@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "phase2-host-gradle-env-20260917-1938",
   "task_digest": "00496c17d8041f7c8c3e4e4009a9f7a1ff89dd7dc7c115f68701175b3227b3ed",
-  "idle_timeout": 300,
-  "task_timeout": 300,
-  "memory_limit_mb": 1024,
-  "started_at": "2026-09-17T17:29:46.475791+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-17T17:29:48.882363+00:00",
   "attempt_id": "df7e39e2926c0332a9ee02f2",
   "daemon_version": "4.18.22",
   "daemon_pid": 76508,
-  "updated_at": "2026-09-17T17:29:46.475842+00:00",
+  "updated_at": "2026-09-17T17:29:49.132981+00:00",
   "pid": 76508
 }
