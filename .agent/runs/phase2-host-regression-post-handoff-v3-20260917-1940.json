@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 3,
+  "index": 4,
   "total": 4,
-  "command": "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; test -x \"$GRADLE\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all",
-  "pid": 77974,
+  "command": "set -e; test -z \"$(git status --porcelain)\"; git diff --check; echo phase2_host_regression_post_handoff_green=true",
+  "pid": 78629,
   "timeout": 1800,
   "idle_timeout": 300,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-17T17:30:54.523723+00:00",
-  "stage_name": "command-3",
-  "stage_index": 3,
+  "started_at": "2026-09-17T17:31:29.411963+00:00",
+  "stage_name": "command-4",
+  "stage_index": 4,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "phase2-host-regression-post-handoff-v3-20260917-1940",
@@ -18,5 +18,5 @@
   "task_digest": "266c434815fae3ac68deab462b816dd6755a7ad8e07138af34a18a554e7f4495",
   "daemon_version": "4.18.22",
   "daemon_pid": 77666,
-  "updated_at": "2026-09-17T17:30:54.602581+00:00"
+  "updated_at": "2026-09-17T17:31:29.435115+00:00"
 }
