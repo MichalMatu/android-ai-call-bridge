@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-appdeath-v4b-player-postmortem-20260917-2258",
+  "task_digest": "c83493fa54c26f7aaf263b422e9fd1a38e407057faa5ade4ddf517b63ca1370d",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "started_at": "2026-09-17T20:57:21.278823+00:00",
+  "attempt_id": "7c4b6ea811755c7df1f9ca52",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 68137,
+  "updated_at": "2026-09-17T20:57:21.279117+00:00",
+  "pid": 68137
+}
