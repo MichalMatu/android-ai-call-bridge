@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-resource-telemetry-green-20260917-2116",
+  "task_digest": "021a6429af9337fa10d781b80965ec37db000483cf334a56959b99130e31bbae",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T19:22:35.680844+00:00",
+  "attempt_id": "32ede6168f923b9876ad23b1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 64191,
+  "updated_at": "2026-09-17T19:22:35.681065+00:00",
+  "pid": 64191
+}
