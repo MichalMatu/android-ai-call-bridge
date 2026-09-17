@@ -1,0 +1,60 @@
+{
+  "id": "phase2-appdeath-preflight-diagnose-20260917-1907",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-17T17:16:50.187090+00:00",
+  "command_timeout": 120,
+  "edits": {},
+  "commands": [
+    {
+      "command": "SERIAL=RFCT70L7E8J; echo '=== adb ==='; adb -s \"$SERIAL\" get-state; echo adb_rc=$?; echo '=== permission ==='; adb -s \"$SERIAL\" shell dumpsys package pl.michalmatu.aicallbridge | grep 'moe.shizuku.manager.permission.API_V23' || true; adb -s \"$SERIAL\" shell dumpsys package pl.michalmatu.aicallbridge | grep -q 'moe.shizuku.manager.permission.API_V23: granted=true'; echo permission_rc=$?; echo '=== toybox nohup help ==='; adb -s \"$SERIAL\" shell 'toybox nohup --help >/dev/null 2>&1'; echo toybox_nohup_help_rc=$?; echo '=== toybox nohup presence ==='; adb -s \"$SERIAL\" shell 'toybox --long | tr \" \" \"\\n\" | grep -x nohup'; echo toybox_nohup_presence_rc=$?; echo '=== shell nohup presence ==='; adb -s \"$SERIAL\" shell 'command -v nohup || true'; echo '=== apk ==='; test -f app/build/outputs/apk/debug/app-debug.apk; echo apk_exists_rc=$?; echo preflight_diagnosis_complete=true",
+      "exit_code": 0,
+      "output": "=== adb ===\n* daemon not running; starting now at tcp:5037\n* daemon started successfully\ndevice\nadb_rc=0\n=== permission ===\n      moe.shizuku.manager.permission.API_V23\n        moe.shizuku.manager.permission.API_V23: granted=true\npermission_rc=0\n=== toybox nohup help ===\ntoybox_nohup_help_rc=125\n=== toybox nohup presence ===\ntoybox_nohup_presence_rc=1\n=== shell nohup presence ===\nalias nohup='nohup '\n=== apk ===\napk_exists_rc=0\npreflight_diagnosis_complete=true\n",
+      "elapsed_seconds": 4.081,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.53,
+      "output_policy": "stream",
+      "captured_output_chars": 466,
+      "output_truncated": false,
+      "current_rss_mb": 9.53,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.081
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.083
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.065
+  },
+  "finished_at": "2026-09-17T17:16:56.071012+00:00",
+  "task_digest": "83e240a174e2bf9e193fbbfa9d5e7874348f3960c4c23e176358d89e03e98738",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "attempt_id": "13c0a79cf1f12ba1dc83344f",
+  "daemon_version": "4.18.22"
+}
