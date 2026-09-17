@@ -1,9 +1,0 @@
-{
-  "id": "update-handoff-remove-event-driven-20260917-1924",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "started_at": null,
-  "finished_at": "2026-09-17T17:23:41.616936+00:00",
-  "daemon_version": "4.18.22",
-  "error": "JSONDecodeError: Invalid \\escape: line 13 column 4213 (char 4872)"
-}
