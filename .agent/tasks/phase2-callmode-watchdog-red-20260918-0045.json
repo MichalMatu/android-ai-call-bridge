@@ -1,0 +1,14 @@
+{
+  "id": "phase2-callmode-watchdog-red-20260918-0045",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; EXPECTED=855fd6be7727b9962e88ffe459c44262cbd61536; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; OUT=$($GRADLE :privileged-helper:testDebugUnitTest --tests pl.michalmatu.aicallbridge.helper.samsung.CallModeWatchdogTest --no-daemon 2>&1); CODE=$?; set -e; printf '%s\n' \"$OUT\"; test $CODE -ne 0; printf '%s\n' \"$OUT\" | grep -q 'CallModeWatchdog'; echo callmode_watchdog_red=true"
+  ]
+}
