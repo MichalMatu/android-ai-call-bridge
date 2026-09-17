@@ -1,0 +1,14 @@
+{
+  "id": "phase2-appdeath-harness-red-20260917-1945",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set +e; EXPECTED=7879ba68461607cdb2fa44ec218d0265ff799cee; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\" || exit 97; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_app_death_gate.py; RC=$?; echo red_test_rc=$RC; test \"$RC\" -ne 0; echo phase2_appdeath_harness_red_confirmed=true"
+  ]
+}
