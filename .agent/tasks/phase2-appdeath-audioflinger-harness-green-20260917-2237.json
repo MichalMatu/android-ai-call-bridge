@@ -1,0 +1,17 @@
+{
+  "id": "phase2-appdeath-audioflinger-harness-green-20260917-2237",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; EXPECTED=4ba55fd7d5821fc2566768676f52a76656fb79f6; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo exact_head_clean=true",
+    "set -e; python3 -m py_compile scripts/s22_app_death_gate.py scripts/test_s22_app_death_gate.py; PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_s22_app_death_gate.py' -v; echo appdeath_focused_green=true",
+    "set -e; PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_*.py'; echo all_python_green=true",
+    "set -e; PYTHONPATH=scripts python3 scripts/s22_app_death_gate.py show-script >/tmp/aicall-appdeath-observer.sh; grep -q 'USAGE_CALL_ASSISTANT' /tmp/aicall-appdeath-observer.sh; grep -q 'dumpsys media.audio_flinger' /tmp/aicall-appdeath-observer.sh; grep -q 'removeTrack_l' /tmp/aicall-appdeath-observer.sh; ! grep -q 'logcat -d' /tmp/aicall-appdeath-observer.sh; git diff --check; test -z \"$(git status --porcelain)\"; echo appdeath_audioflinger_harness_green=true"
+  ]
+}
