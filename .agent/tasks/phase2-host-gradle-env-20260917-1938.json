@@ -1,0 +1,14 @@
+{
+  "id": "phase2-host-gradle-env-20260917-1938",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set -e; git checkout work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"45fa26f5aedc88dcd6525e2feb0727dcba091d88\"; echo pwd=$(pwd); command -v gradle || true; gradle --version || true; java -version; ls -la | sed -n '1,80p'"
+  ]
+}
