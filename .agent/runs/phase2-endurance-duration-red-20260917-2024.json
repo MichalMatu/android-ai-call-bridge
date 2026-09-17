@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-endurance-duration-red-20260917-2024",
+  "task_digest": "d1d04b55e6c513a71f5cf5df06ab59927dceb0e1c06e8ce23b39359d14d77727",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T18:30:36.211214+00:00",
+  "attempt_id": "58c877d3d2b05c513bb81606",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 30416,
+  "updated_at": "2026-09-17T18:30:36.211339+00:00",
+  "pid": 30416
+}
