@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-endpoint-close-probe-host-green-20260917-2018",
+  "task_digest": "b0125d569308a05e139bbe9e1f70b88f3f3c20959ddf1227f752a3ba899ba82f",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-17T18:21:06.161460+00:00",
+  "attempt_id": "fda7d4d5bd64a4735f4ff9c1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 24089,
+  "updated_at": "2026-09-17T18:21:06.161601+00:00",
+  "pid": 24089
+}
