@@ -1,0 +1,19 @@
+{
+  "id": "phase2-appdeath-harness-green-20260917-1949",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -e; EXPECTED=ad4431f07b6b54bec25f744472e313420821429d; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"",
+    "set -e; PYTHONPATH=scripts python3 -m unittest scripts/test_s22_app_death_gate.py",
+    "set -e; PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_*.py'",
+    "set -e; python3 scripts/s22_app_death_gate.py show-script >/tmp/aicall-appdeath-observer.sh; ! grep -q nohup /tmp/aicall-appdeath-observer.sh; grep -q '/proc/\\$APP_PID' /tmp/aicall-appdeath-observer.sh; grep -q 'mv \"\\$TMP\" \"\\$OUT\"' /tmp/aicall-appdeath-observer.sh; rm -f /tmp/aicall-appdeath-observer.sh",
+    "set -e; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :privileged-helper:testDebugUnitTest :app:testDebugUnitTest :audio-bridge:testDebugUnitTest :realtime-client:testDebugUnitTest :app:assembleDebug --no-daemon --warning-mode all",
+    "set -e; test -z \"$(git status --porcelain)\"; git diff --check; echo phase2_appdeath_harness_green=true"
+  ]
+}
