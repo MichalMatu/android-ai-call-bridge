@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "phase2-cycle20-device-sampler-postmortem-20260918-0021",
   "task_digest": "7c4330a114d6149b97699116f4b9051c22d4beaed49c0497c35a85bd6e3fcfde",
-  "idle_timeout": 300,
-  "task_timeout": 300,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-17T22:16:52.975275+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-17T22:16:55.987619+00:00",
   "attempt_id": "d699f7da16c3ad258d7b606b",
   "daemon_version": "4.18.22",
   "daemon_pid": 69471,
-  "updated_at": "2026-09-17T22:16:52.975360+00:00",
+  "updated_at": "2026-09-17T22:16:56.240527+00:00",
   "pid": 69471
 }
