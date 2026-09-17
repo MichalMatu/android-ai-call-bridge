@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2-appdeath-observer-stall-diagnose-20260917-2224",
+  "task_digest": "0f894460bd73d9fef94f4f8ca0ac19c01a74e85abe9e44c226dbc28ade83e6c2",
+  "idle_timeout": 300,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "started_at": "2026-09-17T20:21:25.662979+00:00",
+  "attempt_id": "1b19541d8576c4e70f1cbb1f",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 18447,
+  "updated_at": "2026-09-17T20:21:25.663037+00:00",
+  "pid": 18447
+}
