@@ -1,0 +1,15 @@
+{
+  "id": "pre-api-docs-final-gate-20260918-3110",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=70757f678f0433ffa7dbbd27b4a145bd7d2727da; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; bash scripts/verify_host.sh; echo '=== DOC INVENTORY ==='; find docs -name '*.md' -type f | sort; DOCS=$(find docs -name '*.md' -type f | wc -l | tr -d ' '); LINES=$(cat README.md AGENTS.md $(find docs -name '*.md' -type f | sort) | wc -l | tr -d ' '); BYTES=$(cat README.md AGENTS.md $(find docs -name '*.md' -type f | sort) | wc -c | tr -d ' '); echo docs_md_files=$DOCS; echo active_doc_lines=$LINES; echo active_doc_bytes=$BYTES; test \"$DOCS\" = 6; test ! -e docs/NEXT_CHAT_PROMPT.md; test ! -e docs/DEVELOPMENT_WORKFLOW.md; test ! -d docs/superpowers; if git grep -n 'work/phase1-live-call-probes' -- README.md AGENTS.md docs; then echo stale_work_branch_reference=true >&2; exit 1; fi; git diff --check; test -z \"$(git status --porcelain)\"; echo docs_slim_gate_green=true"
+  ]
+}
