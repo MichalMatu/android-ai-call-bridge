@@ -1,0 +1,15 @@
+{
+  "id": "pre-api-final-physical-readiness-20260918-3290",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 1200,
+  "idle_timeout": 600,
+  "task_timeout": 1800,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -euo pipefail; EXPECTED=b6774dd00efaab5c5272e3be196d42c3def64da5; SERIAL=RFCT70L7E8J; git fetch origin main; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; DEVICES=$(adb devices -l); printf '%s\\n' \"$DEVICES\"; PYTHONPATH=scripts python3 -c 'import os; from realtime_network_smoke import is_direct_usb_target; data=os.environ[\"DEVICES\"]; assert is_direct_usb_target(data, \"RFCT70L7E8J\"); print(\"exact_s22_direct_usb_green=true\")' DEVICES=\"$DEVICES\" 2>/dev/null || DEVICES=\"$DEVICES\" PYTHONPATH=scripts python3 -c 'import os; from realtime_network_smoke import is_direct_usb_target; assert is_direct_usb_target(os.environ[\"DEVICES\"], \"RFCT70L7E8J\"); print(\"exact_s22_direct_usb_green=true\")'; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); echo call_state_before=$CALL_STATE; test \"$CALL_STATE\" = 0; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE_BIN\" :app:assembleDebug --no-daemon >/dev/null; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/dev/null; echo latest_apk_installed=true; CONFIG=$(adb -s \"$SERIAL\" shell run-as pl.michalmatu.aicallbridge sh -c 'test -e files/realtime-network-smoke.json; echo $?' | tr -d '\\r'); test \"$CONFIG\" != 0; echo one_shot_config_absent=true; HELPER=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge:call_media 2>/dev/null || true); test -z \"$HELPER\"; echo media_helper_absent=true; set +e; NO_KEY=$(env -u OPENAI_API_KEY python3 scripts/realtime_offcall_lab.py \"$SERIAL\" 2>&1); RC=$?; set -e; test \"$RC\" -eq 1; printf '%s' \"$NO_KEY\" | grep -q 'OPENAI_API_KEY is not set'; echo missing_key_fail_closed=true; CALL_STATE_AFTER=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); test \"$CALL_STATE_AFTER\" = 0; echo call_state_after=$CALL_STATE_AFTER; test -z \"$(git status --porcelain)\"; echo s22_pre_api_physical_ready=true"
+  ]
+}
