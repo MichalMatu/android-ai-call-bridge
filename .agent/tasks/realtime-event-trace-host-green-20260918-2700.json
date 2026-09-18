@@ -1,0 +1,15 @@
+{
+  "id": "realtime-event-trace-host-green-20260918-2700",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=5e07238150c9e6d88fe530704001db036df12903; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeEventTraceTest --no-daemon; \"$GRADLE\" :realtime-client:testDebugUnitTest --no-daemon; \"$GRADLE\" :app:testDebugUnitTest --no-daemon; \"$GRADLE\" :app:assembleDebug --no-daemon; python3 -m unittest discover -s scripts -p 'test_*.py'; if grep -RInE --include='*.kt' --include='*.java' --include='*.xml' '(OPENAI_API_KEY|sk-[A-Za-z0-9_-]{8,}|apiKey|api_key)' app/src/main realtime-client/src/main privileged-helper/src/main audio-bridge/src/main; then echo production_secret_scan_failed=true >&2; exit 1; fi; git diff --check; test -z \"$(git status --porcelain)\"; echo realtime_event_trace_focused_green=true; echo realtime_client_full_green=true; echo app_unit_full_green=true; echo app_assemble_green=true; echo scripts_green=true; echo production_secret_scan_green=true; echo clean_worktree=true"
+  ]
+}
