@@ -1,0 +1,15 @@
+{
+  "id": "pre-api-docs-slim-20260918-3100",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": true,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=db8afd807f7cd1e45cd41ea36da70d21b947c302; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; BEFORE_DOCS=$(find docs -name '*.md' -type f | wc -l | tr -d ' '); BEFORE_LINES=$(cat README.md AGENTS.md $(find docs -name '*.md' -type f | sort) | wc -l | tr -d ' '); printf '%s' 'ZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCgpQYXRoKCdSRUFETUUubWQnKS53cml0ZV9ieXRlcyhfX2ltcG9ydF9fKCdiYXNlNjQnKS5iNjRkZWNvZGUoJ0l5QkJibVJ5YjJsa0lFRkpJRU5oYkd3Z1FucHBaR2RsQ2dwQmJtUnliMmxrSUhCeWIzUnZkSGx3WlNCbWIzSWdZbkpwWkdkcGJtY2dZVzRnYjNKa2FXNWhjbmtnWTJkc1pYQnNiM0lnWTJGc2JDQnZiaUJ2Ym1VZ2MzUnZZMnNnVTJGdGMzVnVaeUJ3YUc5dVpTQjBieUJoYmlCUGNHVnVTVEU2SUVWTFZXd3RkR2x0WlNCMmIybGpaU0JoWjJWdWRDQjNhWFJvYjNWMElHVjRkR1Z5Ym1Gc0lHRjFaR2x2SUdoaGNtUjNZWEpsTGdvS1ZHRnlaMlYwSUdSbGRtbGpaVG9nVTJGdGMzVnVaeUJYWVd4aGVYTWdVekk2S3lCZFRTMVRPVFUyUWl3Z1FXNWtjbTlwWkNBeE5pQXZJRUZRU1NBek5pQXZJRzl1WlNCVlNTQTROQzRLQ2lNaklGTjBZWFIxY3dvS1ZHaGxJRk5oYlhOMWJtY2dZMlZzYkhWc1lYSWdiV1ZrYVdFZ2NHRjBhQ0JwY3lCd2FIbHphV05oYkd4NUlIQnliM1psYmlCaGJtUWdabkp2ZW1WdUxpQlVhR1VnVkdWc1pYQm9iMjVsSUVGblpXNTBJRTh2VUdWdFlXaDBhVzFsSUhOMFlXTnJJR2x6SUdsdGNHeGxiV1Z1ZEdWa0lHRnVaQ0JvYjNOMExXZHlaV1Z1TGx3dUxpJykpKQ==...TRUNCATED_FOR_DISPLAY...'
+  ]
+}
