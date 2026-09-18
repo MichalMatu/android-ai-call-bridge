@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-okhttp-connector-red-20260918-1530",
+  "task_digest": "938722b753cf836ba6c1f7955694e0a64369b7c6376cad62c2f4f04362f7a40e",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T09:23:42.643247+00:00",
+  "attempt_id": "771f3a579378ef0c85276ac1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 86494,
+  "updated_at": "2026-09-18T09:23:42.643299+00:00",
+  "pid": 86494
+}
