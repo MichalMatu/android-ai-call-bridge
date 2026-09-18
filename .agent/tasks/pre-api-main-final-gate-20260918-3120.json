@@ -1,0 +1,15 @@
+{
+  "id": "pre-api-main-final-gate-20260918-3120",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=70757f678f0433ffa7dbbd27b4a145bd7d2727da; git fetch origin main work/phase1-live-call-probes milestone/phase2b-proven-s22-20260916 milestone/phase2c-shizuku-live-proven-20260916 milestone/phase2d-failsafe-proven-s22-20260918; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test \"$(git rev-parse origin/work/phase1-live-call-probes)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; bash scripts/verify_host.sh; python3 - <<'PY'\nfrom pathlib import Path\nimport xml.etree.ElementTree as ET\nmods=['app','realtime-client','privileged-helper','audio-bridge']\ntotal=0\nfor m in mods:\n    t=f=e=s=0\n    for p in Path(m).glob('build/test-results/testDebugUnitTest/TEST-*.xml'):\n        r=ET.parse(p).getroot(); t+=int(r.attrib.get('tests','0')); f+=int(r.attrib.get('failures','0')); e+=int(r.attrib.get('errors','0')); s+=int(r.attrib.get('skipped','0'))\n    print(f'{m}_jvm_tests={t} failures={f} errors={e} skipped={s}')\n    total+=t\nprint(f'jvm_tests_total={total}')\nroots=[Path('app/src/main'),Path('realtime-client/src/main'),Path('privileged-helper/src/main'),Path('audio-bridge/src/main')]\nrows=[]\nfor root in roots:\n    for p in root.rglob('*'):\n        if p.suffix in {'.kt','.java'}:\n            n=p.read_text(errors='replace').count('\\n')+1; rows.append((n,str(p)))\nprint(f'production_source_files={len(rows)}')\nprint(f'production_source_lines={sum(n for n,_ in rows)}')\nfor n,p in sorted(rows,reverse=True)[:8]: print(f'largest_source={n}:{p}')\nPY\nfor c in c10f8dde29f245f8f98fb008a3572c21fe73fe35 9c136fc05c5b33f383d72b0b7080ad5b9a754bb4 59b0505537a53306acdab6a2a66ca6eed2b3f1c0; do git merge-base --is-ancestor \"$c\" HEAD; echo preserved_ancestor=$c; done; DOCS=$(find docs -name '*.md' -type f | wc -l | tr -d ' '); LINES=$(cat README.md AGENTS.md $(find docs -name '*.md' -type f | sort) | wc -l | tr -d ' '); echo docs_md_files=$DOCS; echo active_doc_lines=$LINES; test \"$DOCS\" = 6; git diff --check; test -z \"$(git status --porcelain)\"; echo main_final_gate_green=true"
+  ]
+}
