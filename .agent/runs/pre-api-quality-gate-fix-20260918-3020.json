@@ -1,9 +1,0 @@
-{
-  "event": "invalid_task_rejected",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "updated_at": "2026-09-18T16:56:51.226843+00:00",
-  "task_id": "pre-api-quality-gate-fix-20260918-3020",
-  "daemon_version": "4.18.22",
-  "pid": 86340
-}
