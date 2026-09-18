@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-main-final-gate-20260918-3120",
+  "task_digest": "197732cd525968390e26826372536538be805ea81429759d831cfef9b45ff981",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T17:25:50.999356+00:00",
+  "attempt_id": "a92bf5b35b88a9880dce3b6a",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 27561,
+  "updated_at": "2026-09-18T17:25:50.999419+00:00",
+  "pid": 27561
+}
