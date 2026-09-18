@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-audio-pump-bounds-red-20260918-1208",
+  "task_digest": "f103a78be619e5b020c8c3da7fcaaef71499d1d3f0ca760043e0f291a8ee17e4",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T10:06:34.464164+00:00",
+  "attempt_id": "172c85b271a34350ce48974f",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 32243,
+  "updated_at": "2026-09-18T10:06:34.464328+00:00",
+  "pid": 32243
+}
