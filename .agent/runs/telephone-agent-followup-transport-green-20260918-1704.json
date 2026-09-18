@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-followup-transport-green-20260918-1704",
+  "task_digest": "e44445b9e697dc38b3a29df779efe61af6e520fbca3fa0be45f916d4ed0cb25f",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T13:06:55.196114+00:00",
+  "attempt_id": "ae368bc17c96380794c30bfa",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 5699,
+  "updated_at": "2026-09-18T13:06:55.196247+00:00",
+  "pid": 5699
+}
