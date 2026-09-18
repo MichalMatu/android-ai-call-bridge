@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "realtime-network-smoke-runner-red-20260918-2040",
   "task_digest": "a7407e36d0c7ddfad41f89dc7d2fb56e3e28021849381e63ab5d3a8ca2e7b035",
-  "idle_timeout": 180,
-  "task_timeout": 600,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-18T13:57:02.480889+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-18T13:57:05.376461+00:00",
   "attempt_id": "1230bbfd87fa3eeb121fc74d",
   "daemon_version": "4.18.22",
   "daemon_pid": 71884,
-  "updated_at": "2026-09-18T13:57:02.481025+00:00",
+  "updated_at": "2026-09-18T13:57:05.608462+00:00",
   "pid": 71884
 }
