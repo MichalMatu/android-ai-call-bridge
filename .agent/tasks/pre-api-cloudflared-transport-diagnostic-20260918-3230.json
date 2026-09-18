@@ -1,0 +1,13 @@
+{
+  "id": "pre-api-cloudflared-transport-diagnostic-20260918-3230",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 1024,
+  "commands": ["set -euo pipefail; EXPECTED=d4f9ef9b4a4cb1f55c50e6353e37d35b6ebbdf35; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind((\"127.0.0.1\",0)); print(s.getsockname()[1]); s.close()'); TMP=$(mktemp -d); python3 -m http.server \"$PORT\" --bind 127.0.0.1 >\"$TMP/http.out\" 2>\"$TMP/http.err\" & HTTP_PID=$!; CF_PID=''; cleanup(){ if [ -n \"$CF_PID\" ]; then kill \"$CF_PID\" 2>/dev/null || true; wait \"$CF_PID\" 2>/dev/null || true; fi; kill \"$HTTP_PID\" 2>/dev/null || true; wait \"$HTTP_PID\" 2>/dev/null || true; rm -rf \"$TMP\"; }; trap cleanup EXIT; run_probe(){ PROTOCOL=\"$1\"; : >\"$TMP/cf.err\"; if [ \"$PROTOCOL\" = auto ]; then cloudflared tunnel --url \"http://127.0.0.1:$PORT\" --no-autoupdate >\"$TMP/cf.out\" 2>\"$TMP/cf.err\" & else cloudflared tunnel --protocol \"$PROTOCOL\" --url \"http://127.0.0.1:$PORT\" --no-autoupdate >\"$TMP/cf.out\" 2>\"$TMP/cf.err\" & fi; CF_PID=$!; URL=''; for i in $(seq 1 80); do URL=$(grep -Eo 'https://[a-z0-9-]+\\.trycloudflare\\.com' \"$TMP/cf.err\" | head -n1 || true); [ -n \"$URL\" ] && break; sleep 0.25; done; echo protocol=$PROTOCOL; echo url_published=$([ -n \"$URL\" ] && echo true || echo false); if [ -n \"$URL\" ]; then HOST=$(printf '%s' \"$URL\" | sed 's#https://##'); echo host=$HOST; if command -v dig >/dev/null 2>&1; then echo system_dns=$(dig +short \"$HOST\" | paste -sd, -); echo cf_dns=$(dig @1.1.1.1 +short \"$HOST\" | paste -sd, -); fi; CODE=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 8 \"$URL/\" 2>\"$TMP/curl.err\" || true); echo curl_code=$CODE; sed -n '1,3p' \"$TMP/curl.err\" | sed 's/^/curl_err=/' || true; fi; grep -E 'Registered tunnel connection|Failed to serve tunnel connection|Unable to establish connection|quic|http2|ERR|error' \"$TMP/cf.err\" | tail -n 15 | sed 's/^/cloudflared=/' || true; kill \"$CF_PID\" 2>/dev/null || true; wait \"$CF_PID\" 2>/dev/null || true; CF_PID=''; }; run_probe auto; run_probe http2; cleanup; trap - EXIT; test -z \"$(git status --porcelain)\"; echo cloudflared_transport_diagnostic_complete=true"]
+}
