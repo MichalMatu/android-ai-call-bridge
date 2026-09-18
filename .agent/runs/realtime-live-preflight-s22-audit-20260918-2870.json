@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "realtime-live-preflight-s22-audit-20260918-2870",
   "task_digest": "0fb1fb187195c5601cd7c2418ad353cb7ff6d9c0012bb73e1d4853a11ac3f96b",
-  "idle_timeout": 300,
-  "task_timeout": 900,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-18T16:26:39.390867+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-18T16:26:42.663386+00:00",
   "attempt_id": "20059560752c2dd53fd6f891",
   "daemon_version": "4.18.22",
   "daemon_pid": 49683,
-  "updated_at": "2026-09-18T16:26:39.390959+00:00",
+  "updated_at": "2026-09-18T16:26:42.911080+00:00",
   "pid": 49683
 }
