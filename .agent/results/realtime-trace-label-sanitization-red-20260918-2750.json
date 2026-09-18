@@ -1,0 +1,60 @@
+{
+  "id": "realtime-trace-label-sanitization-red-20260918-2750",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T15:55:47.051253+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=8f5893f3720d429da9634b3d3afca18a7eb51706; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; \"$GRADLE\" :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeEventTraceTest.untrustedDiagnosticLabelsCannotInjectTraceContent --no-daemon > /tmp/realtime-trace-label-red.log 2>&1; RC=$?; set -e; cat /tmp/realtime-trace-label-red.log; test \"$RC\" -ne 0; grep -q 'untrustedDiagnosticLabelsCannotInjectTraceContent' /tmp/realtime-trace-label-red.log; test -z \"$(git status --porcelain)\"; echo realtime_trace_label_sanitization_red_verified=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 2 commits, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at 8f5893f test: require realtime trace label sanitization\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nCalculating task graph as no cached configuration is available for tasks: :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeEventTraceTest.untrustedDiagnosticLabelsCannotInjectTraceContent\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugUnitTestBuild UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugUnitTestStubRFile UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:compileDebugJavaWithJavac UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n\n> Task :realtime-client:compileDebugUnitTestKotlin\nw: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/realtime-client/src/test/kotlin/pl/michalmatu/aicallbridge/realtime/RealtimeEventTraceTest.kt:158:37 The corresponding parameter in the supertype 'Continuation' is named 'result'. This may cause problems when calling this function with named arguments.\n\n> Task :realtime-client:compileDebugUnitTestJavaWithJavac NO-SOURCE\n> Task :realtime-client:processDebugUnitTestJavaRes UP-TO-DATE\n\n> Task :realtime-client:testDebugUnitTest FAILED\n\nRealtimeEventTraceTest > untrustedDiagnosticLabelsCannotInjectTraceContent FAILED\n    org.junit.ComparisonFailure at RealtimeEventTraceTest.kt:108\n\n1 test completed, 1 failed\n\nFAILURE: Build failed with an exception.\n\n* What went wrong:\nExecution failed for task ':realtime-client:testDebugUnitTest'.\n> There were failing tests. See the report at: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/realtime-client/build/reports/tests/testDebugUnitTest/index.html\n\n* Try:\n> Run with --scan to get full insights from a Build Scan (powered by Develocity).\n\nBUILD FAILED in 10s\n26 actionable tasks: 2 executed, 24 up-to-date\nConfiguration cache entry stored.\nrealtime_trace_label_sanitization_red_verified=true\n",
+      "elapsed_seconds": 12.027,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 106.08,
+      "output_policy": "stream",
+      "captured_output_chars": 3810,
+      "output_truncated": false,
+      "current_rss_mb": 85.5,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 12.027
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.079
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.064
+  },
+  "finished_at": "2026-09-18T15:56:00.840931+00:00",
+  "task_digest": "fec3c82558bee5e960cd80beedef19553be5e56e985250d400ebc86cdf0b0e12",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "attempt_id": "98ccefeaa999e44f1ba20d4b",
+  "daemon_version": "4.18.22"
+}
