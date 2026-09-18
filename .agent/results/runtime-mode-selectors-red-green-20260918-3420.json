@@ -1,0 +1,9 @@
+{
+  "id": "runtime-mode-selectors-red-green-20260918-3420",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T20:46:23.962269+00:00",
+  "daemon_version": "4.18.22",
+  "error": "ValueError: resources must be declared explicitly"
+}
