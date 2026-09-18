@@ -1,0 +1,15 @@
+{
+  "id": "realtime-live-probe-offcall-s22-refusal-retry-20260918-2850",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 1200,
+  "idle_timeout": 600,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=81ee85a6615c3e2fa78390671a1cbb89d8755fbb; SERIAL=RFCT70L7E8J; PACKAGE=pl.michalmatu.aicallbridge; ACTIVITY=$PACKAGE/.DiagnosticProbeActivity; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; adb -s \"$SERIAL\" get-state; test \"$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r')\" = \"SM-S906B\"; CALL_BEFORE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | grep -m1 'mCallState=' | cut -d= -f2 | tr -dc '0-9'); echo CALL_STATE_BEFORE=$CALL_BEFORE; test \"$CALL_BEFORE\" = \"0\"; \"$GRADLE\" :app:assembleDebug --no-daemon >/tmp/live-probe-refusal-build.log 2>&1; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk; adb -s \"$SERIAL\" shell run-as \"$PACKAGE\" rm -f files/realtime-network-smoke.json; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am start -n \"$ACTIVITY\" --ez run_realtime_live_call_smoke true --el realtime_live_duration_ms 3000 >/tmp/live-probe-refusal-start.log; FOUND=0; OUTPUT=''; for i in $(seq 1 24); do OUTPUT=$(adb -s \"$SERIAL\" logcat -d -s AiCallBridge:I '*:S'); if printf '%s\\n' \"$OUTPUT\" | grep -q 'realtime_live_call_smoke=REFUSED'; then FOUND=1; break; fi; sleep 0.25; done; printf '%s\\n' \"$OUTPUT\"; test \"$FOUND\" = \"1\"; printf '%s\\n' \"$OUTPUT\" | grep -q 'reason=cellular_call_not_active'; CALL_AFTER=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | grep -m1 'mCallState=' | cut -d= -f2 | tr -dc '0-9'); echo CALL_STATE_AFTER=$CALL_AFTER; test \"$CALL_AFTER\" = \"0\"; adb -s \"$SERIAL\" shell run-as \"$PACKAGE\" sh -c 'test ! -e files/realtime-network-smoke.json'; HELPER=$(adb -s \"$SERIAL\" shell pidof \"$PACKAGE:call_media\" | tr -d '\\r' || true); echo HELPER_PID_AFTER=${HELPER:-none}; test -z \"$HELPER\"; test -z \"$(git status --porcelain)\"; echo live_probe_offcall_refusal_s22_green=true; echo no_config_consumed_or_created=true; echo no_media_helper_started=true; echo no_cellular_call_made=true"
+  ]
+}
