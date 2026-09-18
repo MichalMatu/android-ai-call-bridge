@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-response-lifecycle-pump-green-20260918-2450",
+  "task_digest": "ea45e5af06b25af7346e04970770a77481a0aca0fc207adc5f83772dac2d4181",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T14:48:27.926558+00:00",
+  "attempt_id": "6f75ae55ede5d7be70f0736d",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 45470,
+  "updated_at": "2026-09-18T14:48:27.926620+00:00",
+  "pid": 45470
+}
