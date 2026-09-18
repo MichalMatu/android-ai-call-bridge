@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-confirmation-policy-green-20260918-1130",
+  "task_digest": "9aba3605ab3c1d805e68b8fbd7ff790222ad5c61a77784bc14b5ca1cef0b96cd",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T08:43:32.120622+00:00",
+  "attempt_id": "580e005b69efccf7b88107cd",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 32003,
+  "updated_at": "2026-09-18T08:43:32.120726+00:00",
+  "pid": 32003
+}
