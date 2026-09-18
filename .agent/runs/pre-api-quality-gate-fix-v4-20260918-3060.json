@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-quality-gate-fix-v4-20260918-3060",
+  "task_digest": "35b49e5fd1df6021b4f6dbfdb55c5008e9e25ed8834bb121d338a5cccabc685a",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T17:08:38.064115+00:00",
+  "attempt_id": "e55a2c0aaa3b39d0511f539f",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 10914,
+  "updated_at": "2026-09-18T17:08:38.064239+00:00",
+  "pid": 10914
+}
