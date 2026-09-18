@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "pre-api-final-physical-readiness-20260918-3290",
   "task_digest": "bc951b58e2500a1106302fd51e8a7cc94840a562e2374847a776fcbe0197489e",
-  "idle_timeout": 600,
-  "task_timeout": 1800,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-18T17:57:02.951475+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-18T17:57:05.701766+00:00",
   "attempt_id": "4f6d5cf5d9f3431bf4d09911",
   "daemon_version": "4.18.22",
   "daemon_pid": 87687,
-  "updated_at": "2026-09-18T17:57:02.951593+00:00",
+  "updated_at": "2026-09-18T17:57:05.923835+00:00",
   "pid": 87687
 }
