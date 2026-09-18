@@ -1,9 +1,0 @@
-{
-  "id": "pre-api-public-broker-http-diagnostics-20260918-3310",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "started_at": null,
-  "finished_at": "2026-09-18T18:00:52.888288+00:00",
-  "daemon_version": "4.18.22",
-  "error": "JSONDecodeError: Invalid control character at: line 13 column 2779 (char 3108)"
-}

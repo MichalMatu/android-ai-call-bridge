@@ -1,9 +1,0 @@
-{
-  "event": "invalid_task_rejected",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "updated_at": "2026-09-18T18:00:56.233476+00:00",
-  "task_id": "pre-api-public-broker-http-diagnostics-20260918-3310",
-  "daemon_version": "4.18.22",
-  "pid": 92119
-}
