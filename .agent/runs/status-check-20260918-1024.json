@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "status-check-20260918-1024",
   "task_digest": "357478cf81033d02ea68ae264bc535e01e8a21402481ab28d74797998518a7bc",
-  "idle_timeout": 120,
-  "task_timeout": 300,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-18T08:24:50.796562+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-18T08:24:54.097101+00:00",
   "attempt_id": "8e9c259fab5340b1ff74f62d",
   "daemon_version": "4.18.22",
   "daemon_pid": 16934,
-  "updated_at": "2026-09-18T08:24:50.796660+00:00",
+  "updated_at": "2026-09-18T08:24:54.326965+00:00",
   "pid": 16934
 }
