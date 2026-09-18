@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-output-routing-red-20260918-2140",
+  "task_digest": "e1e436bd06f745ddff05036e3906da7a8cc98c77501a636d0df6d0b5274f3c82",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T14:12:02.035642+00:00",
+  "attempt_id": "823a9a3926f2c3ff60ca8bd2",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 97030,
+  "updated_at": "2026-09-18T14:12:02.035719+00:00",
+  "pid": 97030
+}
