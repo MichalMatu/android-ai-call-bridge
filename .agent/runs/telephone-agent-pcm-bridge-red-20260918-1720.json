@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-pcm-bridge-red-20260918-1720",
+  "task_digest": "017504e4bd6146caab351d8c1177423f35df548c7332936760e53f231ecf6e36",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T09:41:13.490671+00:00",
+  "attempt_id": "595eea011c805aae2bd617a5",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 11989,
+  "updated_at": "2026-09-18T09:41:13.490721+00:00",
+  "pid": 11989
+}
