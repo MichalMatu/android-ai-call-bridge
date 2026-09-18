@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "local-mac-llm-capacity-audit-retry-20260919-3590",
   "task_digest": "44e06ac049b51013db7a177066369f84d9f36c15b79286e942990c235d8fe8f5",
-  "idle_timeout": 300,
-  "task_timeout": 1200,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-18T22:42:58.556416+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-18T22:43:01.241622+00:00",
   "attempt_id": "8c4e21ada4c598ef91e324ac",
   "daemon_version": "4.18.22",
   "daemon_pid": 76753,
-  "updated_at": "2026-09-18T22:42:58.556531+00:00",
+  "updated_at": "2026-09-18T22:43:01.452999+00:00",
   "pid": 76753
 }
