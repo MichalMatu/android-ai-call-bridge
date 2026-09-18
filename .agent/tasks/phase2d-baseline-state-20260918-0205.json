@@ -1,0 +1,15 @@
+{
+  "id": "phase2d-baseline-state-20260918-0205",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "idle_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; git fetch origin work/phase1-live-call-probes agent-control; echo local_branch=$(git branch --show-current); echo local_head=$(git rev-parse HEAD); echo remote_head=$(git rev-parse origin/work/phase1-live-call-probes); echo status_begin; git status --porcelain=v1; echo status_end; echo adb_devices_begin; adb devices -l; echo adb_devices_end; SERIAL=RFCT70L7E8J; if adb -s \"$SERIAL\" get-state >/dev/null 2>&1; then echo phone_connected=true; echo model=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r'); echo android=$(adb -s \"$SERIAL\" shell getprop ro.build.version.release | tr -d '\\r'); echo sdk=$(adb -s \"$SERIAL\" shell getprop ro.build.version.sdk | tr -d '\\r'); echo build=$(adb -s \"$SERIAL\" shell getprop ro.build.display.id | tr -d '\\r'); echo bluetooth=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '\\r[:space:]'); echo call_state=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '\\r[:space:]'); echo shizuku=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$' || true); else echo phone_connected=false; fi"
+  ]
+}
