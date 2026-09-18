@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.22",
   "state": "idle",
-  "pid": 15256,
-  "updated_at": "2026-09-18T09:44:49.944349+00:00",
+  "pid": 19215,
+  "updated_at": "2026-09-18T09:49:50.748898+00:00",
   "self_revision": "224046066b0df92544337db0ee623e372629e726",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 15256,
+  "worker_pid": 19215,
   "supervisor_pid": 65293,
-  "last_task_id": "telephone-agent-realtime-control-red-20260918-1750",
   "execution_variant": "parallel"
 }
