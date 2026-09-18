@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-function-response-id-red-20260918-2515",
+  "task_digest": "35e950b3e7b0a6d3e248a9be935aa21f80c3a9069a2a15824f6cd63b6b2dffcb",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T14:51:44.699259+00:00",
+  "attempt_id": "5241ebdcdecff18eab9c183e",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 48931,
+  "updated_at": "2026-09-18T14:51:44.699601+00:00",
+  "pid": 48931
+}
