@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-commitment-focused-green-20260918-1633",
+  "task_digest": "8d629c1d5deee8ed293073c6c9e0439f077062ddddf8a493eacd3f138f3b949f",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T12:55:55.485973+00:00",
+  "attempt_id": "6b46aecf8a3e3d5887fa03c1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 93193,
+  "updated_at": "2026-09-18T12:55:55.486093+00:00",
+  "pid": 93193
+}
