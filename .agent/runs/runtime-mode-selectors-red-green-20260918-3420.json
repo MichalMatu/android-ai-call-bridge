@@ -1,0 +1,9 @@
+{
+  "event": "invalid_task_rejected",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "updated_at": "2026-09-18T20:46:27.296801+00:00",
+  "task_id": "runtime-mode-selectors-red-green-20260918-3420",
+  "daemon_version": "4.18.22",
+  "pid": 51704
+}
