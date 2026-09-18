@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 3,
-  "command": "set -eu; EXPECTED=d9e705a2e38f73cc6653b43a6e990e590577e909; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; git fetch origin main agent-control; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; git show origin/agent-control:.agent/patches/local-phone-llm-full-pipeline-v1.py > /tmp/local-phone-llm-full-pipeline-v1.py; python3 /tmp/local-phone-llm-full-pipeline-v1.py; git diff --check; \"$GRADLE_BIN\" :app:compileDebugKotlin; echo local_phone_llm_full_pipeline_compile_green=true; bash scripts/verify_host.sh; echo local_phone_llm_full_pipeline_host_gate_green=true",
-  "pid": 47889,
+  "command": "set -eu; SERIAL=RFCT70L7E8J; PKG=pl.michalmatu.aicallbridge; PORT=18115; ALIAS=qwen-phone-0.5b; REMOTE=/data/local/tmp/aicall-phone-llm; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; DEVICES=$(adb devices -l || true); PRESENT=$(DEVICES=\"$DEVICES\" PYTHONPATH=scripts python3 -c 'import os; from realtime_network_smoke import is_direct_usb_target; print(1 if is_direct_usb_target(os.environ.get(\"DEVICES\", \"\"), \"RFCT70L7E8J\") else 0)'); test \"$PRESENT\" = 1; echo local_phone_llm_full_pipeline_direct_usb=true; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); echo local_phone_llm_full_pipeline_call_state_before=$CALL_STATE; test \"$CALL_STATE\" = 0; adb -s \"$SERIAL\" shell \"test -x $REMOTE/llama-server && test -f $REMOTE/model.gguf\"; echo local_phone_llm_full_pipeline_artifacts_present=true; PID=$(adb -s \"$SERIAL\" shell cat \"$REMOTE/server.pid\" 2>/dev/null | tr -d '\\r' || true); if [ -n \"$PID\" ]; then adb -s \"$SERIAL\" shell kill \"$PID\" 2>/dev/null || true; fi; adb -s \"$SERIAL\" shell \"cd $REMOTE && nohup sh -c 'LD_LIBRARY_PATH=$REMOTE exec $REMOTE/llama-server -m $REMOTE/model.gguf --host 127.0.0.1 --port $PORT --alias $ALIAS -c 1024 -t 4 -np 1' >$REMOTE/server.log 2>&1 </dev/null & echo \\$! >$REMOTE/server.pid\"; adb -s \"$SERIAL\" forward --remove tcp:$PORT >/dev/null 2>&1 || true; adb -s \"$SERIAL\" forward tcp:$PORT tcp:$PORT >/dev/null; READY=0; for i in $(seq 1 120); do if curl -fsS --max-time 2 \"http://127.0.0.1:$PORT/health\" >/tmp/phone-llm-full-health.json 2>/dev/null; then READY=1; break; fi; sleep 1; done; test \"$READY\" = 1; echo local_phone_llm_full_pipeline_server_ready=true; \"$GRADLE_BIN\" :app:assembleDebug >/tmp/phone-llm-full-build.log 2>&1; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/phone-llm-full-install.log; cat /tmp/phone-llm-full-install.log; adb -s \"$SERIAL\" shell run-as \"$PKG\" rm -f files/local-phone-llm-speech-pipeline-report.txt 2>/dev/null || true; adb -s \"$SERIAL\" shell am force-stop \"$PKG\"; adb -s \"$SERIAL\" shell am start -W -n \"$PKG/.DiagnosticProbeActivity\" --ez run_local_phone_llm_speech_pipeline_probe true --es local_text_base_url \"http://127.0.0.1:$PORT/v1/\" --es local_text_model \"$ALIAS\"; for i in $(seq 1 300); do REPORT=$(adb -s \"$SERIAL\" shell run-as \"$PKG\" cat files/local-phone-llm-speech-pipeline-report.txt 2>/dev/null | tr -d '\\r' || true); if printf '%s\\n' \"$REPORT\" | grep -q '^probe_complete=true$'; then break; fi; sleep 0.5; done; echo '--- local phone LLM full speech pipeline report ---'; printf '%s\\n' \"$REPORT\"; echo '--- end local phone LLM full speech pipeline report ---'",
+  "pid": 48839,
   "timeout": 3600,
   "idle_timeout": 900,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-18T23:23:36.386658+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-18T23:24:24.662017+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 3,
   "stage_phase": "commands",
   "task_id": "local-phone-llm-full-speech-pipeline-s22-20260919-3620",
@@ -18,5 +18,5 @@
   "task_digest": "dabd6b6b041dc826ffc4dbc8a0c8351172871fcab4884f80d1e2ba6a2160d7a7",
   "daemon_version": "4.18.22",
   "daemon_pid": 47732,
-  "updated_at": "2026-09-18T23:23:36.386832+00:00"
+  "updated_at": "2026-09-18T23:24:24.759226+00:00"
 }
