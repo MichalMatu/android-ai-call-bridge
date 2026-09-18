@@ -1,0 +1,9 @@
+{
+  "id": "pre-api-quick-tunnel-proof-20260918-3200",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T17:39:28.004905+00:00",
+  "daemon_version": "4.18.22",
+  "error": "JSONDecodeError: Invalid \\escape: line 13 column 737 (char 1054)"
+}
