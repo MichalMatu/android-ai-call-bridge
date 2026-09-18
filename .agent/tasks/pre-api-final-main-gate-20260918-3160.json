@@ -1,0 +1,13 @@
+{
+  "id": "pre-api-final-main-gate-20260918-3160",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "commands": ["set -euo pipefail; EXPECTED=9a23d8200284e9485155e95e8500f5a0fc9b152e; git fetch origin main agent-control; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; bash scripts/verify_host.sh; DOCS=$(find docs -name '*.md' -type f | wc -l | tr -d ' '); echo docs_md_files=$DOCS; test \"$DOCS\" = 6; if git grep -nE 'docs/(PHASE2_DEEP_AUDIT_2026-09-16|S22_PHASE2_LOCAL_BRIDGE_2026-09-16|NEXT_CHAT_PROMPT|DEVELOPMENT_WORKFLOW)\.md' -- '*.md'; then exit 1; fi; if git grep -n 'work/phase1-live-call-probes' -- '*.md'; then exit 1; fi; HEADS=$(git ls-remote --heads origin | awk '{sub(\"refs/heads/\",\"\",$2); print $2}' | sort | paste -sd, -); echo remote_heads=$HEADS; test \"$HEADS\" = \"agent-control,main\"; for v in OPENAI_API_KEY AI_CALL_BRIDGE_BROKER_TOKEN AI_CALL_BRIDGE_BROKER_HTTPS_URL; do if printenv \"$v\" >/dev/null 2>&1; then echo \"$v=present\"; else echo \"$v=absent\"; fi; done; git diff --check; test -z \"$(git status --porcelain)\"; echo pre_api_final_main_gate_green=true"]
+}
