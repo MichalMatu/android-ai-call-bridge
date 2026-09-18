@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-offcall-smoke-s22-20260918-1055",
+  "task_digest": "a5bc319bd759deaf9bd30483452365a9e67a49e75a271f5d148403d368f81a00",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T08:34:33.995686+00:00",
+  "attempt_id": "74ba6b493f68e17a4aa8ce0e",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 24596,
+  "updated_at": "2026-09-18T08:34:33.995771+00:00",
+  "pid": 24596
+}
