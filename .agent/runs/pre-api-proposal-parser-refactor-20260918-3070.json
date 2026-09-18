@@ -1,13 +1,11 @@
 {
-  "event": "task_finished",
-  "task_id": "pre-api-proposal-parser-refactor-20260918-3070",
-  "task_digest": "d7d08ab11b878681ca79bb73d534b2eb041c1ee3a7badc8a998a55e649266837",
+  "event": "result_republished",
   "status": "failed",
   "failure_reason": "command_failed",
-  "finished_at": "2026-09-18T17:13:11.955904+00:00",
   "attempt_id": "80b714547571a5e65de28576",
+  "task_digest": "d7d08ab11b878681ca79bb73d534b2eb041c1ee3a7badc8a998a55e649266837",
+  "updated_at": "2026-09-18T17:13:36.088815+00:00",
+  "task_id": "pre-api-proposal-parser-refactor-20260918-3070",
   "daemon_version": "4.18.22",
-  "daemon_pid": 16254,
-  "updated_at": "2026-09-18T17:13:12.437248+00:00",
-  "pid": 16254
+  "pid": 17053
 }
