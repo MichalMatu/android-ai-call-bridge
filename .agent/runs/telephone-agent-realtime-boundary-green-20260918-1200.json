@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-realtime-boundary-green-20260918-1200",
+  "task_digest": "73145a2653b9c26a9ea7f75a5d43f8764bd35faab793128800204c8f2baaba77",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T08:48:20.374688+00:00",
+  "attempt_id": "11be2fbb3b209e6381f20f18",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 39193,
+  "updated_at": "2026-09-18T08:48:20.374747+00:00",
+  "pid": 39193
+}
