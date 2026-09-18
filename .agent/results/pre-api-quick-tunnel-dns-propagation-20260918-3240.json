@@ -1,0 +1,60 @@
+{
+  "id": "pre-api-quick-tunnel-dns-propagation-20260918-3240",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-18T17:48:44.814104+00:00",
+  "command_timeout": 240,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=d4f9ef9b4a4cb1f55c50e6353e37d35b6ebbdf35; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind((\"127.0.0.1\",0)); print(s.getsockname()[1]); s.close()'); TMP=$(mktemp -d); python3 -m http.server \"$PORT\" --bind 127.0.0.1 >\"$TMP/http.out\" 2>\"$TMP/http.err\" & HTTP_PID=$!; cloudflared tunnel --url \"http://127.0.0.1:$PORT\" --no-autoupdate >\"$TMP/cf.out\" 2>\"$TMP/cf.err\" & CF_PID=$!; cleanup(){ kill \"$CF_PID\" 2>/dev/null || true; wait \"$CF_PID\" 2>/dev/null || true; kill \"$HTTP_PID\" 2>/dev/null || true; wait \"$HTTP_PID\" 2>/dev/null || true; rm -rf \"$TMP\"; }; trap cleanup EXIT; URL=''; for i in $(seq 1 100); do URL=$(grep -Eo 'https://[a-z0-9-]+\\.trycloudflare\\.com' \"$TMP/cf.err\" | head -n1 || true); [ -n \"$URL\" ] && break; sleep 0.2; done; test -n \"$URL\"; HOST=$(printf '%s' \"$URL\" | sed 's#https://##'); echo quick_tunnel_host=$HOST; START=$(date +%s); RESOLVED=''; for i in $(seq 1 120); do RESOLVED=$(dig @1.1.1.1 +short \"$HOST\" | paste -sd, -); if [ -n \"$RESOLVED\" ]; then NOW=$(date +%s); echo dns_elapsed_seconds=$((NOW-START)); echo dns_records=$RESOLVED; break; fi; sleep 1; done; if [ -z \"$RESOLVED\" ]; then echo dns_unresolved_after_seconds=120; grep -E 'Registered tunnel connection|Failed to serve tunnel connection|Unable to establish connection|ERR|error|protocol' \"$TMP/cf.err\" | tail -n 30 | sed 's/^/cloudflared=/' || true; exit 1; fi; CODE=''; for i in $(seq 1 30); do CODE=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 5 \"$URL/\" 2>/dev/null || true); [ \"$CODE\" = 200 ] && break; sleep 1; done; echo public_http_code=$CODE; test \"$CODE\" = 200; cleanup; trap - EXIT; test -z \"$(git status --porcelain)\"; echo quick_tunnel_dns_propagation_green=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at d4f9ef9b test: cover public broker readiness gate\nquick_tunnel_host=faqs-modems-contributed-train.trycloudflare.com\ndns_elapsed_seconds=3\ndns_records=104.16.231.132,104.16.230.132\npublic_http_code=200\nquick_tunnel_dns_propagation_green=true\n",
+      "elapsed_seconds": 9.794,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 66.56,
+      "output_policy": "stream",
+      "captured_output_chars": 434,
+      "output_truncated": false,
+      "current_rss_mb": 66.56,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 9.794
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.073
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.068
+  },
+  "finished_at": "2026-09-18T17:48:56.325387+00:00",
+  "task_digest": "7af7602060c164154b0bbfde90772ce70039639a1ddf6114a576051c0c476605",
+  "idle_timeout": 240,
+  "task_timeout": 360,
+  "memory_limit_mb": 1024,
+  "attempt_id": "ff4e9c152250045f0aba29d3",
+  "daemon_version": "4.18.22"
+}
