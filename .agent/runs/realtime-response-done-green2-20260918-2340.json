@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-response-done-green2-20260918-2340",
+  "task_digest": "1824443a40c0b888b11a45d23eaf0fd79306058fe8e27d04913525c935cb96a1",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T14:38:11.295105+00:00",
+  "attempt_id": "81c63c5417b37cd0c7514e52",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 34049,
+  "updated_at": "2026-09-18T14:38:11.295245+00:00",
+  "pid": 34049
+}
