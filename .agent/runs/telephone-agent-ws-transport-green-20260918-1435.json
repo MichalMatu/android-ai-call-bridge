@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-ws-transport-green-20260918-1435",
+  "task_digest": "c62e73fa4342ea84b08bcf2ff7ae723f00b0403da10f6bc9ff0c47dcdd405b57",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T09:14:48.241713+00:00",
+  "attempt_id": "07ac86bc35c03b8472d10705",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 77699,
+  "updated_at": "2026-09-18T09:14:48.241840+00:00",
+  "pid": 77699
+}
