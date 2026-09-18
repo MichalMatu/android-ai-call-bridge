@@ -1,0 +1,13 @@
+{
+  "id": "pre-api-host-tunnel-audit-20260918-3170",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 1024,
+  "commands": ["set -euo pipefail; EXPECTED=9a23d8200284e9485155e95e8500f5a0fc9b152e; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; if command -v cloudflared >/dev/null 2>&1; then echo cloudflared_path=$(command -v cloudflared); cloudflared --version; echo cloudflared_present=true; else echo cloudflared_present=false; fi; if command -v openssl >/dev/null 2>&1; then echo openssl_present=true; openssl version; else echo openssl_present=false; fi; if command -v curl >/dev/null 2>&1; then echo curl_present=true; else echo curl_present=false; fi; python3 --version; for v in OPENAI_API_KEY AI_CALL_BRIDGE_BROKER_TOKEN AI_CALL_BRIDGE_BROKER_HTTPS_URL; do if printenv \"$v\" >/dev/null 2>&1; then echo \"$v=present\"; else echo \"$v=absent\"; fi; done; test -z \"$(git status --porcelain)\"; echo host_tunnel_audit_complete=true"]
+}
