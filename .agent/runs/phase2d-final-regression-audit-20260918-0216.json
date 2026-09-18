@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2d-final-regression-audit-20260918-0216",
+  "task_digest": "81a1f3e84c25e240740829292eb8d6d5bf8a55f887bc4b843b0da24f13c1e862",
+  "idle_timeout": 300,
+  "task_timeout": 1050,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T00:10:39.668281+00:00",
+  "attempt_id": "62ed0c8e4e438f2c660d8c98",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 22795,
+  "updated_at": "2026-09-18T00:10:39.668332+00:00",
+  "pid": 22795
+}
