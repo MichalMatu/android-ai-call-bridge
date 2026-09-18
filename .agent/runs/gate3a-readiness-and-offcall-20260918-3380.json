@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "gate3a-readiness-and-offcall-20260918-3380",
   "task_digest": "b79b00bb1cef82ff7c6f8f8077d54f65d60a94b7412831d9626c7e7612ee4392",
-  "idle_timeout": 300,
-  "task_timeout": 1200,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-18T18:18:58.383616+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-18T18:19:00.875322+00:00",
   "attempt_id": "9c41e732df7e186e1b5f25d4",
   "daemon_version": "4.18.22",
   "daemon_pid": 29820,
-  "updated_at": "2026-09-18T18:18:58.383664+00:00",
+  "updated_at": "2026-09-18T18:19:01.104665+00:00",
   "pid": 29820
 }
