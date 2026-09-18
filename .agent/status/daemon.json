@@ -1,9 +1,9 @@
 {
   "version": 1,
   "daemon_version": "4.18.22",
-  "state": "running",
+  "state": "publication_pending",
   "pid": 17053,
-  "updated_at": "2026-09-18T17:13:39.170888+00:00",
+  "updated_at": "2026-09-18T17:13:55.825655+00:00",
   "self_revision": "224046066b0df92544337db0ee623e372629e726",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -15,8 +15,8 @@
   "task_timeout_max": 21600,
   "memory_limit_mb_default": 4096,
   "current_task_id": "pre-api-modularity-refactor-20260918-3070",
-  "current_attempt_id": null,
-  "current_task_digest": null,
+  "current_attempt_id": "9e3a230f5078d7aecdade64b",
+  "current_task_digest": "f05c469541bd368ff54159afe0a41a4c1da4fe3800a2b5bac9653ff13406ab6a",
   "repository_id": "android-ai-call-bridge",
   "repository": "MichalMatu/android-ai-call-bridge",
   "control_branch": "agent-control",
@@ -25,6 +25,6 @@
   "execution_model": "multi_repository_worker",
   "worker_pid": 17053,
   "supervisor_pid": 65293,
-  "active_resources": [],
+  "last_task_id": "pre-api-modularity-refactor-20260918-3070",
   "execution_variant": "parallel"
 }
