@@ -1,0 +1,62 @@
+{
+  "id": "pre-api-host-cloudflared-install-audit-20260918-3180",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-18T17:37:36.516080+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; git fetch origin main; git checkout main; git reset --hard origin/main; echo arch=$(uname -m); if command -v brew >/dev/null 2>&1; then echo brew_path=$(command -v brew); brew --version | head -1; echo brew_present=true; brew info cloudflared --json=v2 | python3 -c 'import json,sys; d=json.load(sys.stdin); f=d.get(\"formulae\",[]); print(\"cloudflared_formula=\" + (f[0].get(\"versions\",{}).get(\"stable\",\"unknown\") if f else \"missing\"))'; else echo brew_present=false; fi; test -z \"$(git status --porcelain)\"; echo install_audit_green=true",
+      "exit_code": 126,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at 9a23d820 docs: refresh phase3 pre-api status\narch=arm64\nbrew_path=/opt/homebrew/bin/brew\nHomebrew 7.0.2\nbrew_present=true\ncloudflared_formula=2026.9.1\ninstall_audit_green=true\n",
+      "elapsed_seconds": 1.765,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": true,
+      "peak_rss_mb": 1.88,
+      "output_policy": "stream",
+      "captured_output_chars": 369,
+      "output_truncated": false,
+      "current_rss_mb": 1.88,
+      "failure_reason": "command_background_process_leak",
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 1.765
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.092
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.084
+  },
+  "failure_reason": "command_background_process_leak",
+  "finished_at": "2026-09-18T17:37:39.902171+00:00",
+  "task_digest": "d74ed13b6d2192006afc798b041a0d30aeeac2dedbce32ea24f33ef65ed2e15d",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 1024,
+  "attempt_id": "e736c3fb25e3388df9d90d8e",
+  "daemon_version": "4.18.22"
+}
