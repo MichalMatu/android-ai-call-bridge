@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-host-cloudflared-install-audit-20260918-3180",
+  "task_digest": "d74ed13b6d2192006afc798b041a0d30aeeac2dedbce32ea24f33ef65ed2e15d",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 1024,
+  "started_at": "2026-09-18T17:37:36.515947+00:00",
+  "attempt_id": "e736c3fb25e3388df9d90d8e",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 45788,
+  "updated_at": "2026-09-18T17:37:36.516195+00:00",
+  "pid": 45788
+}
