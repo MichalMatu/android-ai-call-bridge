@@ -1,0 +1,15 @@
+{
+  "id": "telephone-agent-session-model-green-20260918-1405",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=f4200ad3323421b07a088d724c8f89a3c6f191a7; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeWebSocketProtocolTest --no-daemon; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug --no-daemon; python3 -m unittest discover -s scripts -p 'test_*.py'; git diff --check; test -z \"$(git status --porcelain)\"; echo session_model_green=true"
+  ]
+}
