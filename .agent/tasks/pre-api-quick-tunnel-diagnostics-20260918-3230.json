@@ -1,0 +1,30 @@
+{
+  "id": "pre-api-quick-tunnel-diagnostics-20260918-3230",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set -euo pipefail; git fetch origin main; git checkout main; git reset --hard origin/main; TMP=$(mktemp -d); SERVER_PID=''; TUNNEL_PID=''; cleanup(){ if [ -n \"$TUNNEL_PID\" ]; then kill \"$TUNNEL_PID\" 2>/dev/null || true; wait \"$TUNNEL_PID\" 2>/dev/null || true; fi; if [ -n \"$SERVER_PID\" ]; then kill \"$SERVER_PID\" 2>/dev/null || true; wait \"$SERVER_PID\" 2>/dev/null || true; fi; rm -rf \"$TMP\"; }; trap cleanup EXIT; python3 -m http.server 18765 --bind 127.0.0.1 >\"$TMP/server.log\" 2>&1 & SERVER_PID=$!; cloudflared tunnel --no-autoupdate --url http://127.0.0.1:18765 >\"$TMP/tunnel.out\" 2>\"$TMP/tunnel.err\" & TUNNEL_PID=$!; URL=''; for i in $(seq 1 120); do URL=$(grep -Eo 'https://[a-z0-9-]+[.]trycloudflare[.]com' \"$TMP/tunnel.err\" | head -n 1 || true); [ -n \"$URL\" ] && break; if ! kill -0 \"$TUNNEL_PID\" 2>/dev/null; then echo tunnel_exited=true; tail -40 \"$TMP/tunnel.err\"; exit 1; fi; sleep 0.25; done; test -n \"$URL\"; echo quick_tunnel_url_published=true; HOST=${URL#https://}; python3 - \"$HOST\" <<'PY'
+import socket,sys,time
+host=sys.argv[1]
+for attempt in range(12):
+    try:
+        addrs=socket.getaddrinfo(host,443,type=socket.SOCK_STREAM)
+        print('dns_resolved=true')
+        print('dns_address_count='+str(len(addrs)))
+        break
+    except OSError as e:
+        print('dns_attempt_failed='+type(e).__name__)
+        time.sleep(5)
+else:
+    print('dns_resolved=false')
+PY
+REACH=0; LAST=''; for i in $(seq 1 12); do set +e; LAST=$(curl -sS -o \"$TMP/body\" -w '%{http_code}' --connect-timeout 5 --max-time 10 \"$URL/\" 2>\"$TMP/curl.err\"); RC=$?; set -e; echo https_attempt_$i=rc_${RC}_http_${LAST}; if [ \"$RC\" -eq 0 ] && [ \"$LAST\" = 200 ]; then REACH=1; break; fi; sleep 5; done; echo https_reachable=$REACH; if [ \"$REACH\" -ne 1 ]; then echo cloudflared_tail_begin; tail -30 \"$TMP/tunnel.err\"; echo cloudflared_tail_end; echo curl_error_begin; cat \"$TMP/curl.err\"; echo curl_error_end; exit 1; fi; grep -q 'Directory listing' \"$TMP/body\"; test -z \"$(git status --porcelain)\"; echo quick_tunnel_diagnostics_green=true"
+  ]
+}
