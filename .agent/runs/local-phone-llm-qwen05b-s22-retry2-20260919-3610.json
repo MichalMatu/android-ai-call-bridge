@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-phone-llm-qwen05b-s22-retry2-20260919-3610",
+  "task_digest": "ec8d902809b2b063fecf01544035f9f72efc363d50d857f0f4fc128e6b2d7dc2",
+  "idle_timeout": 1200,
+  "task_timeout": 9000,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T23:04:28.658294+00:00",
+  "attempt_id": "d623507f04efb6225dc7601c",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 14684,
+  "updated_at": "2026-09-18T23:04:28.658478+00:00",
+  "pid": 14684
+}
