@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "phase2d-resource-trend-short-live-20260918-0210",
+  "task_digest": "284796326f0084e7d7092211afd020c69e0c677dd25c310751b1de700d46967a",
+  "idle_timeout": 180,
+  "task_timeout": 360,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T00:04:59.209610+00:00",
+  "attempt_id": "fb223865cbf97e0c608bb7cb",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 16610,
+  "updated_at": "2026-09-18T00:04:59.209664+00:00",
+  "pid": 16610
+}
