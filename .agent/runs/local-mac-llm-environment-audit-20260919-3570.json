@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-mac-llm-environment-audit-20260919-3570",
+  "task_digest": "8a9bfbaad0df873891fd58a55311c19f499cbfa9dde1c3723e7aa25f39eb2503",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T22:33:04.832523+00:00",
+  "attempt_id": "24d81f06eca63470ce0225f6",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 58339,
+  "updated_at": "2026-09-18T22:33:04.832605+00:00",
+  "pid": 58339
+}
