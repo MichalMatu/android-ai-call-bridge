@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-general-audit-20260918-3000",
+  "task_digest": "413b376b319c667425022b973a15f6154c167ab04bff2de6e7e1ed2db47c1320",
+  "idle_timeout": 600,
+  "task_timeout": 3000,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T16:52:10.286595+00:00",
+  "attempt_id": "92b954997dad31946dfac34e",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 81767,
+  "updated_at": "2026-09-18T16:52:10.286684+00:00",
+  "pid": 81767
+}
