@@ -1,0 +1,60 @@
+{
+  "id": "gate3a-readiness-and-offcall-20260918-3380",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-18T18:18:58.383640+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=1a99d54e1742563698b94ee612fac0d5278c6447; SERIAL=RFCT70L7E8J; git fetch origin main; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; DEVICES=$(adb devices -l || true); PRESENT=$(DEVICES=\"$DEVICES\" PYTHONPATH=scripts python3 -c 'import os; from realtime_network_smoke import is_direct_usb_target; print(1 if is_direct_usb_target(os.environ.get(\"DEVICES\", \"\"), \"RFCT70L7E8J\") else 0)'); if [ \"$PRESENT\" != 1 ]; then echo gate3a_direct_usb=false; echo gate3a_not_run=true; exit 0; fi; echo gate3a_direct_usb=true; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); echo gate3a_call_state=$CALL_STATE; if [ \"$CALL_STATE\" != 0 ]; then echo gate3a_idle_call_required=true; echo gate3a_not_run=true; exit 0; fi; if [ -z \"${OPENAI_API_KEY:-}\" ]; then echo gate3a_openai_key_present=false; echo gate3a_not_run=true; exit 0; fi; echo gate3a_openai_key_present=true; python3 scripts/realtime_offcall_lab.py \"$SERIAL\"; RC=$?; echo gate3a_runner_rc=$RC; test -z \"$(git status --porcelain)\"; exit \"$RC\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at 1a99d54e docs: finalize pre-api operator gate\ngate3a_direct_usb=false\ngate3a_not_run=true\n",
+      "elapsed_seconds": 0.943,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.98,
+      "output_policy": "stream",
+      "captured_output_chars": 283,
+      "output_truncated": false,
+      "current_rss_mb": 2.98,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.943
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.09
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "finished_at": "2026-09-18T18:19:00.875322+00:00",
+  "task_digest": "b79b00bb1cef82ff7c6f8f8077d54f65d60a94b7412831d9626c7e7612ee4392",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 2048,
+  "attempt_id": "9c41e732df7e186e1b5f25d4",
+  "daemon_version": "4.18.22"
+}
