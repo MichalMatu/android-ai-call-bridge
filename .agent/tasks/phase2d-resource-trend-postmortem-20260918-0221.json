@@ -1,0 +1,15 @@
+{
+  "id": "phase2d-resource-trend-postmortem-20260918-0221",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 120,
+  "idle_timeout": 120,
+  "task_timeout": 240,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; TELE=/tmp/phase2d-resource-short-live.jsonl; R=/tmp/phase2d-resource-result.txt; test -s \"$TELE\"; python3 - \"$TELE\" <<'PY'\nimport json,sys\nfrom pathlib import Path\np=Path(sys.argv[1])\nrows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]\napp=[r['app'] for r in rows if r.get('app')]\nhelper=[r['helper'] for r in rows if r.get('helper')]\nprint('telemetry_rows=',len(rows))\nprint('duration_device_s=',round(rows[-1]['device_uptime_s']-rows[0]['device_uptime_s'],3))\nprint('app_samples=',len(app),'app_pids=',sorted({x['pid'] for x in app}))\nprint('helper_samples=',len(helper),'helper_pids=',sorted({x['pid'] for x in helper}))\nassert len(rows)>=20\nassert len(app)>=20\nassert len(helper)>=20\nassert len({x['pid'] for x in app})==1\nassert len({x['pid'] for x in helper})==1\ndef report(name, seq):\n    first,last=seq[0],seq[-1]\n    rss=(first['vmrss_kb'],last['vmrss_kb'],max(x['vmrss_kb'] for x in seq))\n    fd=(first['fd_count'],last['fd_count'],max(x['fd_count'] for x in seq))\n    th=(first['thread_count'],last['thread_count'],max(x['thread_count'] for x in seq))\n    print(name+'_rss_kb_start_end_peak=',*rss)\n    print(name+'_fd_start_end_peak=',*fd)\n    print(name+'_threads_start_end_peak=',*th)\n    assert fd[1] <= fd[0] + 4, (name,'fd',fd)\n    assert th[1] <= th[0] + 4, (name,'threads',th)\n    assert rss[1] <= rss[0] + 16384, (name,'rss',rss)\nreport('app',app)\nreport('helper',helper)\nprint('resource_trend_evidence_green=true')\nPY\n if [ -s \"$R\" ]; then grep -E 'duration_ms=60000|all_heartbeats_ok=true|active_throughout=true|duration_ok=true|prepared_after_abort=false|active_after_abort=false|heartbeat_after_abort=false|threads_stopped=true|endurance_ok=true|downlink_bytes_read=|uplink_bytes_written=' \"$R\" || true; fi; SERIAL=RFCT70L7E8J; echo current_call_state=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '[:space:]'); echo helper_pid=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge:call_media 2>/dev/null | tr -d '[:space:]'); echo bluetooth=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]'); test \"$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '[:space:]')\" = 0; test -z \"$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge:call_media 2>/dev/null | tr -d '[:space:]')\"; test \"$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]')\" = 1; echo resource_postmortem_green=true"
+  ]
+}
