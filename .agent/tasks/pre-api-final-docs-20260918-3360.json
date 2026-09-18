@@ -1,0 +1,15 @@
+{
+  "id": "pre-api-final-docs-20260918-3360",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": true,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=25153fc52bb5a95d5a85ea44a0bd4b29b2930d96; git fetch origin main agent-control; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; git show origin/agent-control:.agent/patches/pre-api-docs-final-v2.py > /tmp/pre-api-docs-final-v2.py; python3 /tmp/pre-api-docs-final-v2.py; git diff --check; ! grep -q 'requires the three host variables' AGENTS.md; ! grep -q 'BLOCKED ONLY BY HOST ENVIRONMENT' docs/ROADMAP.md; grep -q 'python3 scripts/realtime_offcall_lab.py RFCT70L7E8J' README.md docs/HANDOFF_NEXT_CHAT.md docs/ROADMAP.md; grep -q 'pre-api-public-broker-boundary-proof-retry-20260918-3350.json' docs/HANDOFF_NEXT_CHAT.md docs/PHASE3_REALTIME_STATUS_2026-09-18.md; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; bash scripts/verify_host.sh; git add README.md AGENTS.md docs/HANDOFF_NEXT_CHAT.md docs/PHASE3_REALTIME_STATUS_2026-09-18.md docs/SECURITY_PRIVACY.md docs/ROADMAP.md; git commit -m 'docs: finalize pre-api operator gate'; git push origin HEAD:main; echo pushed_head=$(git rev-parse HEAD); test -z \"$(git status --porcelain)\"; echo pre_api_final_docs_green=true"
+  ]
+}
