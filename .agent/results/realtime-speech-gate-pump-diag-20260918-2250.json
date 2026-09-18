@@ -1,0 +1,9 @@
+{
+  "id": "realtime-speech-gate-pump-diag-20260918-2250",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T14:25:15.955239+00:00",
+  "daemon_version": "4.18.22",
+  "error": "JSONDecodeError: Invalid \\escape: line 13 column 864 (char 1209)"
+}
