@@ -1,0 +1,15 @@
+{
+  "id": "phase2d-docs-freeze-prep-v2-20260918-0223",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": true,
+  "resources": [],
+  "command_timeout": 180,
+  "idle_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; EXPECTED=908ec45c3ff1b4e78da28504a734e161025e22be; git fetch origin work/phase1-live-call-probes agent-control; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; git show origin/agent-control:.agent/payloads/phase2d_docs_freeze.py > /tmp/phase2d_docs_freeze.py; python3 /tmp/phase2d_docs_freeze.py; git diff --check; git status --short; git diff --stat; git add README.md docs/ROADMAP.md docs/ARCHITECTURE.md docs/SECURITY_PRIVACY.md docs/HANDOFF_NEXT_CHAT.md docs/PHASE2D_FREEZE_2026-09-18.md; git commit -m 'docs: freeze Milestone D evidence'; git push origin HEAD:work/phase1-live-call-probes; echo docs_head=$(git rev-parse HEAD); test -z \"$(git status --porcelain)\""
+  ]
+}
