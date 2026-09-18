@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-live-spec-red-20260918-2810",
+  "task_digest": "764c7e607b302006563ff3c6faaaf39734a09b71bddab1e551214efbd99862ea",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T16:16:28.793884+00:00",
+  "attempt_id": "d480bf165b76f668cb3bc03c",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 39084,
+  "updated_at": "2026-09-18T16:16:28.793934+00:00",
+  "pid": 39084
+}
