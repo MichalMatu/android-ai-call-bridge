@@ -1,0 +1,9 @@
+{
+  "id": "realtime-live-probe-offcall-s22-refusal-20260918-2840",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T16:22:10.004098+00:00",
+  "daemon_version": "4.18.22",
+  "error": "ValueError: resource must be canonical lowercase text: 'adb:RFCT70L7E8J'"
+}
