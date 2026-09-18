@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-live-preflight-host-green-20260918-2910",
+  "task_digest": "700e108b4993320c77bf2e5bcef3285cdc0a1296fcea1f9499f272a216823d40",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T16:34:01.193503+00:00",
+  "attempt_id": "927a1f94a34377cdc7c21528",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 56538,
+  "updated_at": "2026-09-18T16:34:01.193604+00:00",
+  "pid": 56538
+}
