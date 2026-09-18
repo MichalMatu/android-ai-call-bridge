@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-phone-llm-full-speech-pipeline-s22-retry2-20260919-3650",
+  "task_digest": "1175a54a0f4b3aecea3b99d9bf835ac86cd02435525d4cf12e2d864806bcaeee",
+  "idle_timeout": 300,
+  "task_timeout": 3600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T23:55:16.004244+00:00",
+  "attempt_id": "2d85bcbf5e2177e28b50c934",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 95928,
+  "updated_at": "2026-09-18T23:55:16.004310+00:00",
+  "pid": 95928
+}
