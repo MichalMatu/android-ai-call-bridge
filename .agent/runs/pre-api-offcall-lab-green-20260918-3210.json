@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-offcall-lab-green-20260918-3210",
+  "task_digest": "37ae3856db1a549237e03be3027424c5d9654da212d4dfc40e53118dc72dbac8",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T17:43:13.317629+00:00",
+  "attempt_id": "edb18f89801c8b0f20583d8b",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 62557,
+  "updated_at": "2026-09-18T17:43:13.317686+00:00",
+  "pid": 62557
+}
