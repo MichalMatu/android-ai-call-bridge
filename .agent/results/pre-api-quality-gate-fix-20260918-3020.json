@@ -1,0 +1,9 @@
+{
+  "id": "pre-api-quality-gate-fix-20260918-3020",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T16:56:48.120917+00:00",
+  "daemon_version": "4.18.22",
+  "error": "JSONDecodeError: Expecting ',' delimiter: line 13 column 3301 (char 3641)"
+}
