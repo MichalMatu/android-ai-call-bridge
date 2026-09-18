@@ -1,0 +1,60 @@
+{
+  "id": "telephone-agent-coordinator-green-20260918-0234",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": true,
+  "started_at": "2026-09-18T00:23:18.853172+00:00",
+  "command_timeout": 420,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=8ce572ace3792bea78a750245cb17788dacad625; git fetch origin work/phase1-live-call-probes agent-control; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; git show origin/agent-control:.agent/payloads/telephone_agent_coordinator_green.py > /tmp/telephone_agent_coordinator_green.py; python3 /tmp/telephone_agent_coordinator_green.py; git diff --check; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.session.CallMediaSessionCoordinatorTest --no-daemon; git add app/src/main/java/pl/michalmatu/aicallbridge/session; git commit -m 'feat: add call media session coordinator core'; git push origin HEAD:work/phase1-live-call-probes; echo coordinator_head=$(git rev-parse HEAD); test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\n * branch            agent-control -> FETCH_HEAD\n   04392d4..63d9065  agent-control -> origin/agent-control\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at 8ce572a test: define call media coordinator lifecycle\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nReusing configuration cache.\n> Task :app:preBuild UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :privileged-helper:preBuild UP-TO-DATE\n> Task :privileged-helper:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :app:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:generateDebugResources UP-TO-DATE\n> Task :app:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :app:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:writeDebugAarMetadata UP-TO-DATE\n> Task :privileged-helper:writeDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:writeDebugAarMetadata UP-TO-DATE\n> Task :app:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :privileged-helper:packageDebugResources UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :app:extractDeepLinksDebug UP-TO-DATE\n> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE\n> Task :audio-bridge:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:processDebugManifest UP-TO-DATE\n> Task :privileged-helper:extractDeepLinksDebug UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :privileged-helper:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :privileged-helper:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :privileged-helper:processDebugManifest UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:mapDebugSourceSetPaths UP-TO-DATE\n> Task :audio-bridge:compileDebugLibraryResources UP-TO-DATE\n> Task :privileged-helper:compileDebugKotlin NO-SOURCE\n> Task :realtime-client:processDebugManifest UP-TO-DATE\n> Task :privileged-helper:mapDebugSourceSetPaths UP-TO-DATE\n> Task :privileged-helper:compileDebugLibraryResources UP-TO-DATE\n> Task :app:processDebugNavigationResources UP-TO-DATE\n> Task :app:checkDebugAarMetadata UP-TO-DATE\n> Task :app:mergeDebugResources UP-TO-DATE\n> Task :app:preDebugUnitTestBuild UP-TO-DATE\n> Task :app:compileDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:compileDebugLibraryResources UP-TO-DATE\n> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :privileged-helper:processDebugJavaRes NO-SOURCE\n> Task :app:generateDebugRFile UP-TO-DATE\n> Task :app:processDebugMainManifest UP-TO-DATE\n> Task :privileged-helper:compileDebugJavaWithJavac UP-TO-DATE\n> Task :app:processDebugManifest UP-TO-DATE\n> Task :privileged-helper:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :app:processDebugManifestForPackage UP-TO-DATE\n> Task :privileged-helper:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:compileDebugJavaWithJavac NO-SOURCE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :app:compileDebugAidl UP-TO-DATE\n> Task :app:processDebugResources UP-TO-DATE\n> Task :app:compileDebugKotlin\n> Task :app:processDebugJavaRes UP-TO-DATE\n> Task :app:compileDebugJavaWithJavac\n> Task :app:bundleDebugClassesToCompileJar\n> Task :app:bundleDebugClassesToRuntimeJar\n> Task :app:compileDebugUnitTestKotlin NO-SOURCE\n> Task :app:processDebugUnitTestJavaRes NO-SOURCE\n> Task :app:compileDebugUnitTestJavaWithJavac\n> Task :app:testDebugUnitTest\n\nBUILD SUCCESSFUL in 8s\n69 actionable tasks: 6 executed, 63 up-to-date\nConfiguration cache entry reused.\n[work/phase1-live-call-probes 33d30d4] feat: add call media session coordinator core\n 8 files changed, 363 insertions(+)\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaEndpointLease.java\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaHeartbeatScheduler.java\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaMonotonicClock.java\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaSessionBackend.java\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaSessionCoordinator.java\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaSessionFailure.java\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaSessionSnapshot.java\n create mode 100644 app/src/main/java/pl/michalmatu/aicallbridge/session/CallMediaSessionState.java\nTo https://github.com/MichalMatu/android-ai-call-bridge.git\n   8ce572a..33d30d4  HEAD -> work/phase1-live-call-probes\ncoordinator_head=33d30d4f949c33c63fa30e126fd0027d0bcdf022\n",
+      "elapsed_seconds": 11.843,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 178.91,
+      "output_policy": "stream",
+      "captured_output_chars": 6363,
+      "output_truncated": false,
+      "current_rss_mb": 17.42,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 11.843
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.077
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.073
+  },
+  "finished_at": "2026-09-18T00:23:32.179028+00:00",
+  "task_digest": "5be8ee732209be372934f7a9e399393ff7783c77c4394b004e0d95967e04a1c0",
+  "idle_timeout": 240,
+  "task_timeout": 540,
+  "memory_limit_mb": 4096,
+  "attempt_id": "1639257bb7663c456926c613",
+  "daemon_version": "4.18.22"
+}
