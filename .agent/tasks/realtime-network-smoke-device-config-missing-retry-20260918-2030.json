@@ -1,0 +1,15 @@
+{
+  "id": "realtime-network-smoke-device-config-missing-retry-20260918-2030",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=71e3e22f5d39e513bb41c64df2d3fe7087a4ca0d; SERIAL=RFCT70L7E8J; PKG=pl.michalmatu.aicallbridge; ACT=pl.michalmatu.aicallbridge/.DiagnosticProbeActivity; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:assembleDebug --no-daemon >/tmp/realtime-smoke-device-build.log 2>&1; adb -s \"$SERIAL\" get-state; MODEL=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r'); test \"$MODEL\" = \"SM-S906B\"; CALL_BEFORE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | grep -m1 'mCallState=' | cut -d= -f2 | tr -dc '0-9'); echo CALL_STATE_BEFORE=$CALL_BEFORE; test \"$CALL_BEFORE\" = \"0\"; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/realtime-smoke-install.log; cat /tmp/realtime-smoke-install.log; adb -s \"$SERIAL\" shell run-as \"$PKG\" rm -f files/realtime-network-smoke.json; adb -s \"$SERIAL\" logcat -c; adb -s \"$SERIAL\" shell am start -n \"$ACT\" --ez run_realtime_network_off_call_smoke true; sleep 4; LOG=$(adb -s \"$SERIAL\" logcat -d -s AiCallBridge:I '*:S'); printf '%s\\n' \"$LOG\"; printf '%s\\n' \"$LOG\" | grep -q 'realtime_network_off_call_smoke_result:'; printf '%s\\n' \"$LOG\" | grep -q 'realtime_network_off_call_smoke=FAIL'; printf '%s\\n' \"$LOG\" | grep -q 'reason=config_error'; if adb -s \"$SERIAL\" shell run-as \"$PKG\" test -e files/realtime-network-smoke.json; then echo config_file_remains=true; exit 1; else echo config_file_remains=false; fi; CALL_AFTER=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | grep -m1 'mCallState=' | cut -d= -f2 | tr -dc '0-9'); echo CALL_STATE_AFTER=$CALL_AFTER; test \"$CALL_AFTER\" = \"0\"; HELPER=$(adb -s \"$SERIAL\" shell pidof \"$PKG:call_media\" | tr -d '\\r' || true); echo HELPER_PID_AFTER=${HELPER:-none}; test -z \"$HELPER\"; test -z \"$(git status --porcelain)\"; echo realtime_network_smoke_config_missing_device_green=true"
+  ]
+}
