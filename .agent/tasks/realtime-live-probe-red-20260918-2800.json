@@ -1,0 +1,15 @@
+{
+  "id": "realtime-live-probe-red-20260918-2800",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -euo pipefail; EXPECTED=11c312e005996a28843cc223ecd481c4e00e385b; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.RealtimeLiveCallSmokeStateTrackerTest --no-daemon > /tmp/live-probe-kotlin-red.log 2>&1; KRC=$?; python3 -m unittest discover -s scripts -p 'test_realtime_live_call_smoke.py' > /tmp/live-probe-python-red.log 2>&1; PRC=$?; set -e; cat /tmp/live-probe-kotlin-red.log; cat /tmp/live-probe-python-red.log; test \"$KRC\" -ne 0; test \"$PRC\" -ne 0; grep -Eq 'RealtimeLiveCallSmoke(StateTracker|Result)|Unresolved reference' /tmp/live-probe-kotlin-red.log; grep -Eq 'realtime_live_call_smoke|ModuleNotFoundError' /tmp/live-probe-python-red.log; test -z \"$(git status --porcelain)\"; echo realtime_live_tracker_red_verified=true; echo realtime_live_runner_red_verified=true"
+  ]
+}
