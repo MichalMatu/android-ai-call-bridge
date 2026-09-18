@@ -1,0 +1,60 @@
+{
+  "id": "local-phone-llm-server-post-timeout-audit-20260919-3630",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-18T23:44:53.505531+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -eu; SERIAL=RFCT70L7E8J; PORT=18115; REMOTE=/data/local/tmp/aicall-phone-llm; DEVICES=$(adb devices -l || true); PRESENT=$(DEVICES=\"$DEVICES\" PYTHONPATH=scripts python3 -c 'import os; from realtime_network_smoke import is_direct_usb_target; print(1 if is_direct_usb_target(os.environ.get(\"DEVICES\", \"\"), \"RFCT70L7E8J\") else 0)'); test \"$PRESENT\" = 1; echo post_timeout_direct_usb=true; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); echo post_timeout_call_state=$CALL_STATE; test \"$CALL_STATE\" = 0; echo '--- server pid file ---'; adb -s \"$SERIAL\" shell cat \"$REMOTE/server.pid\" 2>/dev/null || true; echo '--- llama processes ---'; adb -s \"$SERIAL\" shell \"ps -A | grep llama-server || true\"; echo '--- server log tail ---'; adb -s \"$SERIAL\" shell tail -80 \"$REMOTE/server.log\" 2>/dev/null || true; echo '--- health ---'; adb -s \"$SERIAL\" forward --remove tcp:$PORT >/dev/null 2>&1 || true; adb -s \"$SERIAL\" forward tcp:$PORT tcp:$PORT >/dev/null; if curl -fsS --max-time 3 \"http://127.0.0.1:$PORT/health\"; then echo; echo post_timeout_server_healthy=true; else echo post_timeout_server_healthy=false; fi; test -z \"$(git status --porcelain)\" || { echo workspace_dirty=true; git status --short; }",
+      "exit_code": 0,
+      "output": "post_timeout_direct_usb=true\npost_timeout_call_state=0\n--- server pid file ---\n30367\n--- llama processes ---\nshell        30368 30367   13484516   9620 futex_wait_queue_me 0 S llama-server\n--- server log tail ---\n0.00.056.726 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)\n0.00.060.226 W srv  llama_server: -----------------\n0.00.060.279 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set\n0.00.060.283 W srv  llama_server: this can be a security risk (cross-origin attacks)\n0.00.060.285 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655\n0.00.060.288 W srv  llama_server: -----------------\n0.00.062.840 I srv    load_model: loading model '/data/local/tmp/aicall-phone-llm/model.gguf'\n0.00.654.629 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden\n0.01.801.053 I cmn          init: llama threadpool init, n_threads = 4\n0.01.870.747 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 1024, kv_unified = 'false'\n0.01.879.657 I srv  llama_server: model loaded\n0.01.879.668 I srv  llama_server: listening on http://127.0.0.1:18115\n--- health ---\n{\"status\":\"ok\"}\npost_timeout_server_healthy=true\n",
+      "elapsed_seconds": 0.902,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.33,
+      "output_policy": "stream",
+      "captured_output_chars": 1291,
+      "output_truncated": false,
+      "current_rss_mb": 3.33,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.902
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.064
+  },
+  "finished_at": "2026-09-18T23:44:55.837882+00:00",
+  "task_digest": "aaf15335fceb957020dc0c50f9e0dbc48d8caf4266a05c1518ecbbf4e5c910f9",
+  "idle_timeout": 120,
+  "task_timeout": 600,
+  "memory_limit_mb": 2048,
+  "attempt_id": "2c80ea7195a611aa9a1f9bf1",
+  "daemon_version": "4.18.22"
+}
