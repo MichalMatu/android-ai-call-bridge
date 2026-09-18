@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.22",
   "state": "idle",
-  "pid": 9695,
-  "updated_at": "2026-09-18T14:23:45.038808+00:00",
+  "pid": 21865,
+  "updated_at": "2026-09-18T14:28:49.572272+00:00",
   "self_revision": "224046066b0df92544337db0ee623e372629e726",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 9695,
+  "worker_pid": 21865,
   "supervisor_pid": 65293,
-  "last_task_id": "realtime-speech-gate-pump-green2-20260918-2240",
   "execution_variant": "parallel"
 }
