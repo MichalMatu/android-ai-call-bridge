@@ -1,0 +1,29 @@
+{
+  "id": "pre-api-main-cleanup-20260918-3120",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": true,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\nEXPECTED=70757f678f0433ffa7dbbd27b4a145bd7d2727da\ngit fetch origin --prune\ngit checkout main\ngit reset --hard origin/main\ngit clean -fd\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED\"\ntest -z \"$(git status --porcelain)\"\nexport ANDROID_HOME=\"$HOME/Library/Android/sdk\"\nexport ANDROID_SDK_ROOT=\"$ANDROID_HOME\"\nexport GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"\nbash scripts/verify_host.sh\nfor branch in \\
+  milestone/phase2b-proven-s22-20260916 \\
+  milestone/phase2c-shizuku-live-proven-20260916 \\
+  milestone/phase2d-failsafe-proven-s22-20260918 \\
+  work/phase1-live-call-probes \\
+  tmp-do-not-use-cleanup-marker \\
+  tmp-do-not-use-cleanup-marker-2 \\
+  tmp-do-not-use-cleanup-marker-3; do\n  git merge-base --is-ancestor \"origin/$branch\" origin/main\ndone\ngit push origin --delete \\
+  milestone/phase2b-proven-s22-20260916 \\
+  milestone/phase2c-shizuku-live-proven-20260916 \\
+  milestone/phase2d-failsafe-proven-s22-20260918 \\
+  work/phase1-live-call-probes \\
+  tmp-do-not-use-cleanup-marker \\
+  tmp-do-not-use-cleanup-marker-2 \\
+  tmp-do-not-use-cleanup-marker-3\ngit fetch origin --prune\nREMOTE_HEADS=$(git ls-remote --heads origin | awk '{sub(\"refs/heads/\",\"\",$2); print $2}' | sort)\nprintf '%s\\n' \"$REMOTE_HEADS\"\ntest \"$REMOTE_HEADS\" = $'agent-control\\nmain'\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED\"\ntest -z \"$(git status --porcelain)\"\necho main_cleanup_gate_green=true"
+  ]
+}
