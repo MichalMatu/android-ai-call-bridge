@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-diagnostic-labels-host-green-20260918-2770",
+  "task_digest": "e8f3d07a931783e906efd389b99b50383698a72f4be637c374589779c7cde4b8",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T15:58:30.959788+00:00",
+  "attempt_id": "df5a15c745a1ebeac00981ff",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 18153,
+  "updated_at": "2026-09-18T15:58:30.959988+00:00",
+  "pid": 18153
+}
