@@ -1,9 +1,9 @@
 {
   "version": 1,
   "daemon_version": "4.18.22",
-  "state": "running",
+  "state": "publication_pending",
   "pid": 16254,
-  "updated_at": "2026-09-18T17:12:53.222689+00:00",
+  "updated_at": "2026-09-18T17:13:25.970835+00:00",
   "self_revision": "224046066b0df92544337db0ee623e372629e726",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -15,8 +15,8 @@
   "task_timeout_max": 21600,
   "memory_limit_mb_default": 4096,
   "current_task_id": "pre-api-proposal-parser-refactor-20260918-3070",
-  "current_attempt_id": null,
-  "current_task_digest": null,
+  "current_attempt_id": "80b714547571a5e65de28576",
+  "current_task_digest": "d7d08ab11b878681ca79bb73d534b2eb041c1ee3a7badc8a998a55e649266837",
   "repository_id": "android-ai-call-bridge",
   "repository": "MichalMatu/android-ai-call-bridge",
   "control_branch": "agent-control",
@@ -25,6 +25,6 @@
   "execution_model": "multi_repository_worker",
   "worker_pid": 16254,
   "supervisor_pid": 65293,
-  "active_resources": [],
+  "last_task_id": "pre-api-proposal-parser-refactor-20260918-3070",
   "execution_variant": "parallel"
 }
