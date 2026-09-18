@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-followup-protocol-red-20260918-1646",
+  "task_digest": "267681f41cf0b0dfb39601b525ef604575cdeb85efad3cafe7078213d42242b0",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T12:58:21.603498+00:00",
+  "attempt_id": "63ba6f9d3e3b15dc5d5c94c6",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 96333,
+  "updated_at": "2026-09-18T12:58:21.603560+00:00",
+  "pid": 96333
+}
