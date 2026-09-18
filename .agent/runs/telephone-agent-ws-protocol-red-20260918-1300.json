@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-ws-protocol-red-20260918-1300",
+  "task_digest": "da7677716ebae591abeadfb5f4e10082f9f6b6a78eb97f68a0e17b420e3ebd15",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T09:00:59.991216+00:00",
+  "attempt_id": "689b3953195752d4168023e8",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 58411,
+  "updated_at": "2026-09-18T09:00:59.994813+00:00",
+  "pid": 58411
+}
