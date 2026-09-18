@@ -1,0 +1,60 @@
+{
+  "id": "status-check-20260918-1024",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T08:24:50.796619+00:00",
+  "command_timeout": 180,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; echo HEAD=$(git rev-parse HEAD); echo STATUS_BEGIN; git status --short; echo STATUS_END; echo DEVICES_BEGIN; adb devices -l; echo DEVICES_END; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state; echo MODEL=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r'); echo API=$(adb -s \"$SERIAL\" shell getprop ro.build.version.sdk | tr -d '\\r'); echo CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '[:space:]'); echo BLUETOOTH=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]'); echo SHIZUKU=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$' || true); echo APP_PID=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge 2>/dev/null | tr -d '[:space:]'); test -z \"$(git status --porcelain)\"; echo status_check_green=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at cc76d9c feat: add production Shizuku media backend\nHEAD=cc76d9cf5d0404d93f413391b5d81d091f156303\nSTATUS_BEGIN\nSTATUS_END\nDEVICES_BEGIN\nList of devices attached\nRFCT70L7E8J            device usb:18874368X product:g0sxeea model:SM_S906B device:g0s transport_id:2\n\nDEVICES_END\ndevice\nMODEL=SM-S906B\nAPI=36\nCALL_STATE=0\nBLUETOOTH=1\nSHIZUKU=shell 2946 shizuku_server\nAPP_PID=21369\nstatus_check_green=true\n",
+      "elapsed_seconds": 1.63,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 7.91,
+      "output_policy": "stream",
+      "captured_output_chars": 657,
+      "output_truncated": false,
+      "current_rss_mb": 7.91,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.63
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.1
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "finished_at": "2026-09-18T08:24:54.097101+00:00",
+  "task_digest": "357478cf81033d02ea68ae264bc535e01e8a21402481ab28d74797998518a7bc",
+  "idle_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "attempt_id": "8e9c259fab5340b1ff74f62d",
+  "daemon_version": "4.18.22"
+}
