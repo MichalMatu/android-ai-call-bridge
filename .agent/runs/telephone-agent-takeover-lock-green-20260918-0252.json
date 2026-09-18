@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-takeover-lock-green-20260918-0252",
+  "task_digest": "fc660de8caf6d9f8a23e8b61e74f53a9e5e98575127b283bbca513301420927c",
+  "idle_timeout": 180,
+  "task_timeout": 420,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T00:29:42.357629+00:00",
+  "attempt_id": "b24ff9ff2b2e81b1f6410e5d",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 50102,
+  "updated_at": "2026-09-18T00:29:42.364458+00:00",
+  "pid": 50102
+}
