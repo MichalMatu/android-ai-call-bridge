@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-tunnel-registration-diag-20260918-3330",
+  "task_digest": "e65b41200e6339389aace88db6efd0e5e168650defa12deddec55af7f420f76f",
+  "idle_timeout": 240,
+  "task_timeout": 420,
+  "memory_limit_mb": 1024,
+  "started_at": "2026-09-18T18:04:40.118415+00:00",
+  "attempt_id": "4b50674f4281f36e6b2507e2",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 5025,
+  "updated_at": "2026-09-18T18:04:40.123131+00:00",
+  "pid": 5025
+}
