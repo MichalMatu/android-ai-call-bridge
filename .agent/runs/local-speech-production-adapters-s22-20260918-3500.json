@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-speech-production-adapters-s22-20260918-3500",
+  "task_digest": "f48420adf2058e5f893dba8f57dfb77d1af981f1cd304ee867f18f615c63ef70",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T21:40:23.277778+00:00",
+  "attempt_id": "b1460bcd53570f48a2d4b7c1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 44770,
+  "updated_at": "2026-09-18T21:40:23.277906+00:00",
+  "pid": 44770
+}
