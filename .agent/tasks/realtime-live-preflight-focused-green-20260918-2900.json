@@ -1,0 +1,15 @@
+{
+  "id": "realtime-live-preflight-focused-green-20260918-2900",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -euo pipefail; EXPECTED=b4532c2fe691aa91e8460b6d25a46f533d08d4c8; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; python3 -m unittest discover -s scripts -p 'test_realtime_live_call_smoke.py'; git diff --check; test -z \"$(git status --porcelain)\"; echo realtime_live_preflight_focused_green=true; echo clean_worktree=true"
+  ]
+}
