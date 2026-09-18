@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-openai-offcall-smoke-20260918-2610",
+  "task_digest": "d92a63e2fff08fb32db531809f1144ac69bf5859f2e34153cb8e40c30796b70d",
+  "idle_timeout": 600,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T15:18:21.644896+00:00",
+  "attempt_id": "e5d89a8793f80c4275dd23a4",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 75643,
+  "updated_at": "2026-09-18T15:18:21.645121+00:00",
+  "pid": 75643
+}
