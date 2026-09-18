@@ -1,0 +1,60 @@
+{
+  "id": "telephone-agent-okhttp-connector-red-20260918-1530",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T09:23:42.643273+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=76a1d62afa055d30e241059356c2ef3ffd3a6f67; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; \"$GRADLE\" :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.OkHttpRealtimeSocketConnectorTest --no-daemon > /tmp/okhttp-connector-red.log 2>&1; RC=$?; set -e; cat /tmp/okhttp-connector-red.log; test \"$RC\" -ne 0; grep -Eq 'OkHttpRealtimeSocketConnector|unresolved reference|cannot find symbol|Compilation failed|compileDebugUnitTestKotlin FAILED' /tmp/okhttp-connector-red.log; test -z \"$(git status --porcelain)\"; echo okhttp_connector_red_verified=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 1 commit, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at 76a1d62 test: define okhttp realtime socket adapter\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nCalculating task graph as no cached configuration is available for tasks: :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.OkHttpRealtimeSocketConnectorTest\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :realtime-client:preDebugUnitTestBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:generateDebugUnitTestStubRFile\n> Task :realtime-client:compileDebugJavaWithJavac\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n\n> Task :realtime-client:compileDebugUnitTestKotlin FAILED\ne: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/realtime-client/src/test/kotlin/pl/michalmatu/aicallbridge/realtime/OkHttpRealtimeSocketConnectorTest.kt:23:25 Unresolved reference 'OkHttpRealtimeSocketConnector'.\ne: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/realtime-client/src/test/kotlin/pl/michalmatu/aicallbridge/realtime/OkHttpRealtimeSocketConnectorTest.kt:71:25 Unresolved reference 'OkHttpRealtimeSocketConnector'.\n\nFAILURE: Build failed with an exception.\n\n* What went wrong:\nExecution failed for task ':realtime-client:compileDebugUnitTestKotlin' (registered by plugin 'com.android.internal.library').\n> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction\n   > Compilation error. See log for more details\n\n* Try:\n> Run with --stacktrace option to get the stack trace.\n> Run with --info or --debug option to get more log output.\n> Run with --scan to get full insights from a Build Scan (powered by Develocity).\n> Get more help at https://help.gradle.org.\n\nBUILD FAILED in 12s\n24 actionable tasks: 3 executed, 21 up-to-date\nConfiguration cache entry stored.\nokhttp_connector_red_verified=true\n",
+      "elapsed_seconds": 14.025,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 107.88,
+      "output_policy": "stream",
+      "captured_output_chars": 3751,
+      "output_truncated": false,
+      "current_rss_mb": 51.23,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 14.025
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.067
+  },
+  "finished_at": "2026-09-18T09:23:58.350053+00:00",
+  "task_digest": "938722b753cf836ba6c1f7955694e0a64369b7c6376cad62c2f4f04362f7a40e",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "771f3a579378ef0c85276ac1",
+  "daemon_version": "4.18.22"
+}
