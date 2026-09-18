@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-event-trace-host-green-retry-20260918-2710",
+  "task_digest": "e4d8af15d5d987815fbc119fb9849ed674a6853ab4c24c44a1b8d2d0b3be6b85",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T15:45:43.171340+00:00",
+  "attempt_id": "707907acc538cb23ece9e036",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 4881,
+  "updated_at": "2026-09-18T15:45:43.171450+00:00",
+  "pid": 4881
+}
