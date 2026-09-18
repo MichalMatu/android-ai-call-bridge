@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-proposal-handler-red-20260918-1424",
+  "task_digest": "21278e9dcbc564508c8a57eb8d62526432ded7c09026e7e4f22fce7d9c207cd6",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T12:04:39.894670+00:00",
+  "attempt_id": "fdf7b4c6bf16ccc227fb5385",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 38020,
+  "updated_at": "2026-09-18T12:04:39.894770+00:00",
+  "pid": 38020
+}
