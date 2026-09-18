@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-public-broker-http-diagnostics-v2-20260918-3320",
+  "task_digest": "929f41f627a48c6f1eecd2fed86dc08e4af10549439ee8ed531b68bbdfa0ce03",
+  "idle_timeout": 240,
+  "task_timeout": 420,
+  "memory_limit_mb": 1024,
+  "started_at": "2026-09-18T18:01:43.205355+00:00",
+  "attempt_id": "f660f65069b5a89b5aa13ca1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 92695,
+  "updated_at": "2026-09-18T18:01:43.205503+00:00",
+  "pid": 92695
+}
