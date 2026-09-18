@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-shizuku-backend-host-green-20260918-0300",
+  "task_digest": "9b947f4255f5de776f3b2a3408c68abfee6fc60736d4299aead384d0bb9d5bdf",
+  "idle_timeout": 240,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T00:34:05.891604+00:00",
+  "attempt_id": "d468fffee2ed0b514dfd7b8a",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 56625,
+  "updated_at": "2026-09-18T00:34:05.891873+00:00",
+  "pid": 56625
+}
