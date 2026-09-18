@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-text-pipeline-s22-20260918-3530",
+  "task_digest": "7738b5e2cd1835ef445e78f93936e41f1f8c50798153556b9b638f08a5746077",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T22:02:47.509754+00:00",
+  "attempt_id": "f8f053f22d47f3148fb1bb2a",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 78028,
+  "updated_at": "2026-09-18T22:02:47.509863+00:00",
+  "pid": 78028
+}
