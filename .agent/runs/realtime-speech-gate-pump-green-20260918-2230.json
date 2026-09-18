@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-speech-gate-pump-green-20260918-2230",
+  "task_digest": "ece30b5e2da292bfe94743b84c63b6dfe79cb582f4f7296834ce1f3c8fa1833b",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T14:21:22.578565+00:00",
+  "attempt_id": "f5c4db38bd40b6096cb33311",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 7894,
+  "updated_at": "2026-09-18T14:21:22.578721+00:00",
+  "pid": 7894
+}
