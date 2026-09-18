@@ -1,0 +1,60 @@
+{
+  "id": "pre-api-cloudflared-transport-diagnostic-20260918-3230",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-18T17:47:44.107537+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=d4f9ef9b4a4cb1f55c50e6353e37d35b6ebbdf35; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind((\"127.0.0.1\",0)); print(s.getsockname()[1]); s.close()'); TMP=$(mktemp -d); python3 -m http.server \"$PORT\" --bind 127.0.0.1 >\"$TMP/http.out\" 2>\"$TMP/http.err\" & HTTP_PID=$!; CF_PID=''; cleanup(){ if [ -n \"$CF_PID\" ]; then kill \"$CF_PID\" 2>/dev/null || true; wait \"$CF_PID\" 2>/dev/null || true; fi; kill \"$HTTP_PID\" 2>/dev/null || true; wait \"$HTTP_PID\" 2>/dev/null || true; rm -rf \"$TMP\"; }; trap cleanup EXIT; run_probe(){ PROTOCOL=\"$1\"; : >\"$TMP/cf.err\"; if [ \"$PROTOCOL\" = auto ]; then cloudflared tunnel --url \"http://127.0.0.1:$PORT\" --no-autoupdate >\"$TMP/cf.out\" 2>\"$TMP/cf.err\" & else cloudflared tunnel --protocol \"$PROTOCOL\" --url \"http://127.0.0.1:$PORT\" --no-autoupdate >\"$TMP/cf.out\" 2>\"$TMP/cf.err\" & fi; CF_PID=$!; URL=''; for i in $(seq 1 80); do URL=$(grep -Eo 'https://[a-z0-9-]+\\.trycloudflare\\.com' \"$TMP/cf.err\" | head -n1 || true); [ -n \"$URL\" ] && break; sleep 0.25; done; echo protocol=$PROTOCOL; echo url_published=$([ -n \"$URL\" ] && echo true || echo false); if [ -n \"$URL\" ]; then HOST=$(printf '%s' \"$URL\" | sed 's#https://##'); echo host=$HOST; if command -v dig >/dev/null 2>&1; then echo system_dns=$(dig +short \"$HOST\" | paste -sd, -); echo cf_dns=$(dig @1.1.1.1 +short \"$HOST\" | paste -sd, -); fi; CODE=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 8 \"$URL/\" 2>\"$TMP/curl.err\" || true); echo curl_code=$CODE; sed -n '1,3p' \"$TMP/curl.err\" | sed 's/^/curl_err=/' || true; fi; grep -E 'Registered tunnel connection|Failed to serve tunnel connection|Unable to establish connection|quic|http2|ERR|error' \"$TMP/cf.err\" | tail -n 15 | sed 's/^/cloudflared=/' || true; kill \"$CF_PID\" 2>/dev/null || true; wait \"$CF_PID\" 2>/dev/null || true; CF_PID=''; }; run_probe auto; run_probe http2; cleanup; trap - EXIT; test -z \"$(git status --porcelain)\"; echo cloudflared_transport_diagnostic_complete=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at d4f9ef9b test: cover public broker readiness gate\nprotocol=auto\nurl_published=true\nhost=determines-jackets-omissions-bra.trycloudflare.com\nsystem_dns=\ncf_dns=\ncurl_code=000\ncurl_err=curl: (6) Could not resolve host: determines-jackets-omissions-bra.trycloudflare.com\ncloudflared=2026-09-18T17:47:46Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps\ncloudflared=2026-09-18T17:47:46Z INF Requesting new quick Tunnel on trycloudflare.com...\ncloudflared=2026-09-18T17:47:51Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |\ncloudflared=2026-09-18T17:47:51Z INF Settings: map[ha-connections:1 no-autoupdate:true protocol:quic url:http://127.0.0.1:55972]\ncloudflared=2026-09-18T17:47:51Z INF Initial protocol quic\nprotocol=http2\nurl_published=true\nhost=curve-modem-bought-buzz.trycloudflare.com\nsystem_dns=\ncf_dns=\ncurl_code=000\ncurl_err=curl: (6) Could not resolve host: curve-modem-bought-buzz.trycloudflare.com\ncloudflared=2026-09-18T17:47:52Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps\ncloudflared=2026-09-18T17:47:52Z INF Requesting new quick Tunnel on trycloudflare.com...\ncloudflared=2026-09-18T17:47:59Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |\ncloudflared=2026-09-18T17:47:59Z INF Settings: map[ha-connections:1 no-autoupdate:true p:http2 protocol:http2 url:http://127.0.0.1:55972]\ncloudflared=2026-09-18T17:47:59Z INF Initial protocol http2\ncloudflared_transport_diagnostic_complete=true\n",
+      "elapsed_seconds": 14.391,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 64.86,
+      "output_policy": "stream",
+      "captured_output_chars": 2763,
+      "output_truncated": false,
+      "current_rss_mb": 57.19,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 14.391
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.076
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "finished_at": "2026-09-18T17:48:00.094860+00:00",
+  "task_digest": "486b1389192e36a40a77173442d45d024a4a11789299e515f3be91160b060bef",
+  "idle_timeout": 300,
+  "task_timeout": 600,
+  "memory_limit_mb": 1024,
+  "attempt_id": "4df7866beb16116bd2735f5b",
+  "daemon_version": "4.18.22"
+}
