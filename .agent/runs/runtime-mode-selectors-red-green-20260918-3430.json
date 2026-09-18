@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "runtime-mode-selectors-red-green-20260918-3430",
+  "task_digest": "6448c8241b21706785b294bf0aeca432347e23b47abf6dfee575c0626b373d06",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T20:52:55.677374+00:00",
+  "attempt_id": "5e5f12817fd6dc8cab677ca0",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 56262,
+  "updated_at": "2026-09-18T20:52:55.677438+00:00",
+  "pid": 56262
+}
