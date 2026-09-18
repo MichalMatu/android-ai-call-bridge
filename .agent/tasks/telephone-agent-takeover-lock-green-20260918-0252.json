@@ -1,0 +1,15 @@
+{
+  "id": "telephone-agent-takeover-lock-green-20260918-0252",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 180,
+  "task_timeout": 420,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -e; EXPECTED=d678c042a62ff82ea6d9a27493e0f662da173408; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.session.CallMediaSessionCoordinatorTest --no-daemon; git diff --check; test -z \"$(git status --porcelain)\"; echo takeover_lock_green=true"
+  ]
+}
