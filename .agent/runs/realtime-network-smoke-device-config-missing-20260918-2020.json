@@ -1,9 +1,0 @@
-{
-  "event": "invalid_task_rejected",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "updated_at": "2026-09-18T13:50:48.912194+00:00",
-  "task_id": "realtime-network-smoke-device-config-missing-20260918-2020",
-  "daemon_version": "4.18.22",
-  "pid": 63603
-}
