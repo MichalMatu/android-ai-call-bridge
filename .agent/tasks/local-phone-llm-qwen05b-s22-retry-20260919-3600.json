@@ -1,0 +1,15 @@
+{
+  "id": "local-phone-llm-qwen05b-s22-retry-20260919-3600",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 7200,
+  "idle_timeout": 1200,
+  "task_timeout": 9000,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -eu; git fetch origin agent-control; git show origin/agent-control:.agent/tasks/local-phone-llm-qwen05b-s22-20260919-3590.json > /tmp/local-phone-llm-qwen05b-s22-3590.json; python3 - <<'PY'\nimport json, subprocess\nwith open('/tmp/local-phone-llm-qwen05b-s22-3590.json', 'r', encoding='utf-8') as f:\n    task = json.load(f)\ncmd = task['commands'][0]\nprint('local_phone_llm_retry_shell=bash')\nsubprocess.run(['/bin/bash', '-lc', cmd], check=True)\nPY"
+  ]
+}
