@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-response-done-routing-red-20260918-2350",
+  "task_digest": "dfa1bd2a327c659bc6ff52ef79ff7b325b2ff638c83435449595936ca6c6c1cb",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T14:40:21.695776+00:00",
+  "attempt_id": "9c1b05ce67e9adfbaf86cea9",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 36251,
+  "updated_at": "2026-09-18T14:40:21.695887+00:00",
+  "pid": 36251
+}
