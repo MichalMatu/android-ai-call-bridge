@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-endpoint-contract-green-20260918-1640",
+  "task_digest": "49d563fd59034ce9acc604aa6753fb162328ad3ea450d982780a753186c5663a",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T09:35:47.560390+00:00",
+  "attempt_id": "787c3f36043496d48853223b",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 5375,
+  "updated_at": "2026-09-18T09:35:47.564235+00:00",
+  "pid": 5375
+}
