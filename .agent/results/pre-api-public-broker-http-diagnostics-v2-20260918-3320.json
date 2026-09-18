@@ -1,0 +1,61 @@
+{
+  "id": "pre-api-public-broker-http-diagnostics-v2-20260918-3320",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-18T18:01:43.205438+00:00",
+  "command_timeout": 240,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=b6774dd00efaab5c5272e3be196d42c3def64da5; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; TOKEN=$(python3 -c 'import secrets; print(secrets.token_urlsafe(48))'); PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind((\"127.0.0.1\",0)); print(s.getsockname()[1]); s.close()'); TMP=$(mktemp -d); BROKER=''; TUNNEL=''; cleanup(){ [ -z \"$TUNNEL\" ] || kill \"$TUNNEL\" 2>/dev/null || true; [ -z \"$TUNNEL\" ] || wait \"$TUNNEL\" 2>/dev/null || true; [ -z \"$BROKER\" ] || kill \"$BROKER\" 2>/dev/null || true; [ -z \"$BROKER\" ] || wait \"$BROKER\" 2>/dev/null || true; rm -rf \"$TMP\"; }; trap cleanup EXIT; OPENAI_API_KEY=dummy-never-used AI_CALL_BRIDGE_BROKER_TOKEN=\"$TOKEN\" python3 scripts/realtime_credential_broker.py --port \"$PORT\" >\"$TMP/broker.out\" 2>\"$TMP/broker.err\" & BROKER=$!; LOCAL=''; for i in $(seq 1 50); do LOCAL=$(curl -s -o /dev/null -w '%{http_code}' --max-time 1 \"http://127.0.0.1:$PORT/\" || true); [ \"$LOCAL\" = 405 ] && break; sleep 0.1; done; echo local_get_code=$LOCAL; test \"$LOCAL\" = 405; cloudflared tunnel --url \"http://127.0.0.1:$PORT\" --no-autoupdate >\"$TMP/tunnel.out\" 2>\"$TMP/tunnel.err\" & TUNNEL=$!; URL=''; for i in $(seq 1 120); do URL=$(grep -Eo 'https://[a-z0-9-]+[.]trycloudflare[.]com' \"$TMP/tunnel.err\" | head -n1 || true); [ -n \"$URL\" ] && break; sleep 0.25; done; test -n \"$URL\"; echo tunnel_url_published=true; CURL_GET=''; CURL_POST=''; for i in $(seq 1 60); do CURL_GET=$(curl -sS -o \"$TMP/get-body\" -w '%{http_code}' --connect-timeout 3 --max-time 6 \"$URL/\" 2>\"$TMP/get-err\" || true); CURL_POST=$(curl -sS -o \"$TMP/post-body\" -w '%{http_code}' --connect-timeout 3 --max-time 6 -X POST -H 'Content-Type: application/json' --data '{}' \"$URL/v1/realtime/client-secret\" 2>\"$TMP/post-err\" || true); if [ \"$CURL_POST\" = 401 ]; then break; fi; sleep 1; done; echo curl_get_final=$CURL_GET; echo curl_post_final=$CURL_POST; python3 -c 'import urllib.request; p=urllib.request.getproxies(); print(\"urllib_http_proxy_present=\"+str(bool(p.get(\"http\"))).lower()); print(\"urllib_https_proxy_present=\"+str(bool(p.get(\"https\"))).lower())'; set +e; PYTHONPATH=scripts python3 -c 'import sys; from realtime_offcall_lab import wait_for_public_broker; wait_for_public_broker(sys.argv[1]+\"/v1/realtime/client-secret\",timeout_seconds=5); print(\"urllib_boundary=401\")' \"$URL\" >\"$TMP/urllib.out\" 2>\"$TMP/urllib.err\"; URC=$?; set -e; echo urllib_rc=$URC; cat \"$TMP/urllib.out\"; if [ \"$URC\" -ne 0 ]; then python3 -c 'from pathlib import Path; import sys; t=Path(sys.argv[1]).read_text(errors=\"replace\").strip().splitlines(); print(\"urllib_error_tail=\"+(t[-1][:160] if t else \"none\"))' \"$TMP/urllib.err\"; fi; test \"$CURL_POST\" = 401; test -z \"$(git status --porcelain)\"; echo public_broker_curl_401_green=true",
+      "exit_code": 1,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at b6774dd0 fix: harden pre-api credential boundary\nlocal_get_code=405\ntunnel_url_published=true\ncurl_get_final=000\ncurl_post_final=000\nurllib_http_proxy_present=false\nurllib_https_proxy_present=false\nurllib_rc=1\nurllib_error_tail=TimeoutError: public credential broker did not become reachable and protected\n",
+      "elapsed_seconds": 77.084,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 1024,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 99.75,
+      "output_policy": "stream",
+      "captured_output_chars": 499,
+      "output_truncated": false,
+      "current_rss_mb": 99.75,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 77.084
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.072
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-18T18:03:02.075899+00:00",
+  "task_digest": "929f41f627a48c6f1eecd2fed86dc08e4af10549439ee8ed531b68bbdfa0ce03",
+  "idle_timeout": 240,
+  "task_timeout": 420,
+  "memory_limit_mb": 1024,
+  "attempt_id": "f660f65069b5a89b5aa13ca1",
+  "daemon_version": "4.18.22"
+}
