@@ -1,0 +1,60 @@
+{
+  "id": "telephone-agent-takeover-lock-green-20260918-0252",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T00:29:42.357698+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -e; EXPECTED=d678c042a62ff82ea6d9a27493e0f662da173408; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.session.CallMediaSessionCoordinatorTest --no-daemon; git diff --check; test -z \"$(git status --porcelain)\"; echo takeover_lock_green=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 1 commit, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at d678c04 fix: keep takeover independent of blocking backend calls\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nReusing configuration cache.\n> Task :app:preBuild UP-TO-DATE\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :privileged-helper:preBuild UP-TO-DATE\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :app:preDebugUnitTestBuild UP-TO-DATE\n> Task :app:preDebugBuild UP-TO-DATE\n> Task :privileged-helper:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :app:generateDebugResources UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:generateDebugResources UP-TO-DATE\n> Task :privileged-helper:processDebugNavigationResources UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :app:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:writeDebugAarMetadata UP-TO-DATE\n> Task :privileged-helper:writeDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:writeDebugAarMetadata UP-TO-DATE\n> Task :app:mapDebugSourceSetPaths UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE\n> Task :privileged-helper:packageDebugResources UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :app:extractDeepLinksDebug UP-TO-DATE\n> Task :app:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:processDebugManifest UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :privileged-helper:parseDebugLocalResources UP-TO-DATE\n> Task :privileged-helper:extractDeepLinksDebug UP-TO-DATE\n> Task :privileged-helper:generateDebugRFile UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :privileged-helper:processDebugManifest UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:extractDeepLinksDebug UP-TO-DATE\n> Task :audio-bridge:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:processDebugNavigationResources UP-TO-DATE\n> Task :app:checkDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:processDebugManifest UP-TO-DATE\n> Task :audio-bridge:compileDebugLibraryResources UP-TO-DATE\n> Task :app:mergeDebugResources UP-TO-DATE\n> Task :privileged-helper:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:compileDebugNavigationResources UP-TO-DATE\n> Task :app:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :privileged-helper:compileDebugLibraryResources UP-TO-DATE\n> Task :app:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:compileDebugLibraryResources UP-TO-DATE\n> Task :app:processDebugMainManifest UP-TO-DATE\n> Task :privileged-helper:compileDebugKotlin NO-SOURCE\n> Task :app:processDebugManifest UP-TO-DATE\n> Task :app:processDebugManifestForPackage UP-TO-DATE\n> Task :privileged-helper:processDebugJavaRes NO-SOURCE\n> Task :privileged-helper:compileDebugJavaWithJavac UP-TO-DATE\n> Task :privileged-helper:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :privileged-helper:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:compileDebugJavaWithJavac NO-SOURCE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :app:compileDebugAidl UP-TO-DATE\n> Task :app:processDebugResources UP-TO-DATE\n> Task :app:compileDebugKotlin\n> Task :app:processDebugJavaRes UP-TO-DATE\n> Task :app:compileDebugJavaWithJavac\n> Task :app:bundleDebugClassesToCompileJar\n> Task :app:bundleDebugClassesToRuntimeJar\n> Task :app:compileDebugUnitTestKotlin NO-SOURCE\n> Task :app:processDebugUnitTestJavaRes NO-SOURCE\n> Task :app:compileDebugUnitTestJavaWithJavac\n> Task :app:testDebugUnitTest\n\nBUILD SUCCESSFUL in 24s\n69 actionable tasks: 6 executed, 63 up-to-date\nConfiguration cache entry reused.\ntakeover_lock_green=true\n",
+      "elapsed_seconds": 26.374,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 106.61,
+      "output_policy": "stream",
+      "captured_output_chars": 5250,
+      "output_truncated": false,
+      "current_rss_mb": 40.42,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 26.374
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.101
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.169
+  },
+  "finished_at": "2026-09-18T00:30:10.774734+00:00",
+  "task_digest": "fc660de8caf6d9f8a23e8b61e74f53a9e5e98575127b283bbca513301420927c",
+  "idle_timeout": 180,
+  "task_timeout": 420,
+  "memory_limit_mb": 4096,
+  "attempt_id": "b24ff9ff2b2e81b1f6410e5d",
+  "daemon_version": "4.18.22"
+}
