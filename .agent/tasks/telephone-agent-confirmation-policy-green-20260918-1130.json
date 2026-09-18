@@ -1,0 +1,15 @@
+{
+  "id": "telephone-agent-confirmation-policy-green-20260918-1130",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=66a4a3663a2c27fe0f32a3250a97c619d693e39b; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.agent.CallConfirmationPolicyTest --no-daemon; \"$GRADLE\" :app:testDebugUnitTest :app:assembleDebug --no-daemon; python3 -m unittest discover -s scripts -p 'test_*.py'; git diff --check; test -z \"$(git status --porcelain)\"; echo confirmation_policy_green=true"
+  ]
+}
