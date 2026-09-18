@@ -1,0 +1,61 @@
+{
+  "id": "telephone-agent-function-protocol-green-20260918-1340",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T10:44:23.237526+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=d02e5c3b4715214967447b389cf3c03fe2dcdb38; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeFunctionToolProtocolTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeWebSocketProtocolTest --no-daemon; \"$GRADLE\" :realtime-client:testDebugUnitTest :app:testDebugUnitTest :app:assembleDebug --no-daemon; python3 -m unittest discover -s scripts -p 'test_*.py'; ! grep -R -E 'OPENAI_API_KEY|sk-[A-Za-z0-9_-]{12,}|apiKey|api_key' app/src/main realtime-client/src/main --exclude='*.class'; git diff --check; test -z \"$(git status --porcelain)\"; echo function_protocol_green=true",
+      "exit_code": 1,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 5 commits, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at d02e5c3 feat: add realtime function tool protocol\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nCalculating task graph as no cached configuration is available for tasks: :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeFunctionToolProtocolTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeWebSocketProtocolTest\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugUnitTestBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugUnitTestStubRFile UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n\n> Task :realtime-client:compileDebugKotlin FAILED\ne: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/realtime-client/src/main/kotlin/pl/michalmatu/aicallbridge/realtime/RealtimeWebSocketTransport.kt:226:9 'when' expression must be exhaustive. Add the 'FUNCTION_CALL' branch or an 'else' branch.\n\nFAILURE: Build failed with an exception.\n\n* What went wrong:\nExecution failed for task ':realtime-client:compileDebugKotlin' (registered by plugin 'com.android.internal.library').\n> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction\n   > Compilation error. See log for more details\n\n* Try:\n> Run with --stacktrace option to get the stack trace.\n> Run with --info or --debug option to get more log output.\n> Run with --scan to get full insights from a Build Scan (powered by Develocity).\n> Get more help at https://help.gradle.org.\n\nBUILD FAILED in 28s\n19 actionable tasks: 1 executed, 18 up-to-date\nConfiguration cache entry stored.\n",
+      "elapsed_seconds": 30.0,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 157.83,
+      "output_policy": "stream",
+      "captured_output_chars": 3290,
+      "output_truncated": false,
+      "current_rss_mb": 37.53,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 30.0
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.089
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.081
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-18T10:44:55.255336+00:00",
+  "task_digest": "7c917fc0576f6a48caaf4878e43b4f8e249e936e81620aa11bc5675c0a0a1e86",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "1d6d6813d8de31ed45fd019b",
+  "daemon_version": "4.18.22"
+}
