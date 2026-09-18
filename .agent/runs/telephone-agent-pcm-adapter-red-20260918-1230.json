@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-pcm-adapter-red-20260918-1230",
+  "task_digest": "b1df3132fb5e4c7ccc25c62537c9a2e3df3412313d702268f3303b96af51422d",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T08:56:35.080505+00:00",
+  "attempt_id": "0ee047528ebac7546fe551f1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 52113,
+  "updated_at": "2026-09-18T08:56:35.080671+00:00",
+  "pid": 52113
+}
