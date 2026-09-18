@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-network-smoke-config-red-20260918-1900",
+  "task_digest": "3076d00601b55262fb84db86943d89baa65d25f96b683e41ceb5e5fc80e8b81f",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T13:36:19.266056+00:00",
+  "attempt_id": "eefc68610af19d58886269be",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 46059,
+  "updated_at": "2026-09-18T13:36:19.266235+00:00",
+  "pid": 46059
+}
