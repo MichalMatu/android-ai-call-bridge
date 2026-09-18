@@ -1,0 +1,9 @@
+{
+  "id": "phase2d-resource-trend-postmortem-v2-20260918-0213",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T00:08:08.222920+00:00",
+  "daemon_version": "4.18.22",
+  "error": "ValueError: stage 'command-1' timeout 45s cannot fit inside task_timeout=75s with 60s finalization reserve"
+}
