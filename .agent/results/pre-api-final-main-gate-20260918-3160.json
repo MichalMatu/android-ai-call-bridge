@@ -1,0 +1,9 @@
+{
+  "id": "pre-api-final-main-gate-20260918-3160",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T17:31:26.222373+00:00",
+  "daemon_version": "4.18.22",
+  "error": "JSONDecodeError: Invalid \\escape: line 12 column 702 (char 1002)"
+}
