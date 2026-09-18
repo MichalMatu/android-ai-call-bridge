@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-proposal-parser-refactor-20260918-3070",
+  "task_digest": "d7d08ab11b878681ca79bb73d534b2eb041c1ee3a7badc8a998a55e649266837",
+  "idle_timeout": 900,
+  "task_timeout": 4200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T17:12:56.375959+00:00",
+  "attempt_id": "80b714547571a5e65de28576",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 16254,
+  "updated_at": "2026-09-18T17:12:56.376625+00:00",
+  "pid": 16254
+}
