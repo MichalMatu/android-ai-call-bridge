@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-commitment-followup-green-retry-20260918-1731",
+  "task_digest": "108ee8e7212018a0b5088ae7a07d20e036fa2fdc3d727ca0f80cefdd7d4b1c07",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T13:15:42.713658+00:00",
+  "attempt_id": "78f228a03afda9fdefa62cae",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 16926,
+  "updated_at": "2026-09-18T13:15:42.723854+00:00",
+  "pid": 16926
+}
