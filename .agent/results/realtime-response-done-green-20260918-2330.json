@@ -1,0 +1,61 @@
+{
+  "id": "realtime-response-done-green-20260918-2330",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T14:36:38.310677+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=92792873bb38fa3cc86752ba051da44dce4ee9c8; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeResponseDoneProtocolTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeOutputTranscriptProtocolTest --no-daemon; \"$GRADLE\" :realtime-client:testDebugUnitTest --no-daemon; git diff --check; test -z \"$(git status --porcelain)\"; echo realtime_response_done_green=true",
+      "exit_code": 1,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 3 commits, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at 9279287 feat: parse realtime response done status\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nCalculating task graph as no cached configuration is available for tasks: :realtime-client:testDebugUnitTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeResponseDoneProtocolTest --tests pl.michalmatu.aicallbridge.realtime.RealtimeOutputTranscriptProtocolTest\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugUnitTestBuild UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:generateDebugUnitTestStubRFile UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n\n> Task :realtime-client:compileDebugKotlin FAILED\ne: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/realtime-client/src/main/kotlin/pl/michalmatu/aicallbridge/realtime/RealtimeWebSocketTransport.kt:239:9 'when' expression must be exhaustive. Add the 'RESPONSE_DONE' branch or an 'else' branch.\n\nFAILURE: Build failed with an exception.\n\n* What went wrong:\nExecution failed for task ':realtime-client:compileDebugKotlin' (registered by plugin 'com.android.internal.library').\n> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction\n   > Compilation error. See log for more details\n\n* Try:\n> Run with --stacktrace option to get the stack trace.\n> Run with --info or --debug option to get more log output.\n> Run with --scan to get full insights from a Build Scan (powered by Develocity).\n> Get more help at https://help.gradle.org.\n\nBUILD FAILED in 9s\n19 actionable tasks: 1 executed, 18 up-to-date\nConfiguration cache entry stored.\n",
+      "elapsed_seconds": 10.841,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 106.14,
+      "output_policy": "stream",
+      "captured_output_chars": 3296,
+      "output_truncated": false,
+      "current_rss_mb": 75.97,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 10.841
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.066
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-18T14:36:51.264320+00:00",
+  "task_digest": "9b09753f08ded5d7c59d025a185753402e11b8803fe705a44440eb40adfa2d23",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "attempt_id": "d8de5920ab722907cb755226",
+  "daemon_version": "4.18.22"
+}
