@@ -1,0 +1,15 @@
+{
+  "id": "realtime-speech-gate-pump-green-20260918-2230",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -euo pipefail; EXPECTED=23467150816c9b09e07e96ca4c7c932e6905f251; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.session.CallRealtimeAudioPumpSpeechGateTest --tests pl.michalmatu.aicallbridge.session.CallRealtimeAudioPumpTest --tests pl.michalmatu.aicallbridge.session.CallRealtimeAudioPumpBoundsTest --no-daemon; git diff --check; test -z \"$(git status --porcelain)\"; echo realtime_speech_gate_pump_green=true"
+  ]
+}
