@@ -1,0 +1,9 @@
+{
+  "event": "invalid_task_rejected",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "updated_at": "2026-09-18T18:28:59.111092+00:00",
+  "task_id": "gate3a-readiness-and-offcall-20260918-3390",
+  "daemon_version": "4.18.22",
+  "pid": 37158
+}
