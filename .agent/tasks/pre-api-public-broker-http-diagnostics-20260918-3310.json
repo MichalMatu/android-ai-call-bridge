@@ -1,0 +1,22 @@
+{
+  "id": "pre-api-public-broker-http-diagnostics-20260918-3310",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 240,
+  "idle_timeout": 240,
+  "task_timeout": 420,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set -euo pipefail; EXPECTED=b6774dd00efaab5c5272e3be196d42c3def64da5; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; TOKEN=$(python3 -c 'import secrets; print(secrets.token_urlsafe(48))'); PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind((\"127.0.0.1\",0)); print(s.getsockname()[1]); s.close()'); TMP=$(mktemp -d); BROKER=''; TUNNEL=''; cleanup(){ [ -z \"$TUNNEL\" ] || kill \"$TUNNEL\" 2>/dev/null || true; [ -z \"$TUNNEL\" ] || wait \"$TUNNEL\" 2>/dev/null || true; [ -z \"$BROKER\" ] || kill \"$BROKER\" 2>/dev/null || true; [ -z \"$BROKER\" ] || wait \"$BROKER\" 2>/dev/null || true; rm -rf \"$TMP\"; }; trap cleanup EXIT; OPENAI_API_KEY=dummy-never-used AI_CALL_BRIDGE_BROKER_TOKEN=\"$TOKEN\" python3 scripts/realtime_credential_broker.py --port \"$PORT\" >\"$TMP/broker.out\" 2>\"$TMP/broker.err\" & BROKER=$!; LOCAL=''; for i in $(seq 1 50); do LOCAL=$(curl -s -o /dev/null -w '%{http_code}' --max-time 1 \"http://127.0.0.1:$PORT/\" || true); [ \"$LOCAL\" = 405 ] && break; sleep 0.1; done; echo local_get_code=$LOCAL; test \"$LOCAL\" = 405; cloudflared tunnel --url \"http://127.0.0.1:$PORT\" --no-autoupdate >\"$TMP/tunnel.out\" 2>\"$TMP/tunnel.err\" & TUNNEL=$!; URL=''; for i in $(seq 1 120); do URL=$(grep -Eo 'https://[a-z0-9-]+[.]trycloudflare[.]com' \"$TMP/tunnel.err\" | head -n1 || true); [ -n \"$URL\" ] && break; sleep 0.25; done; test -n \"$URL\"; echo tunnel_url_published=true; CURL_GET=''; CURL_POST=''; for i in $(seq 1 60); do CURL_GET=$(curl -sS -o \"$TMP/get-body\" -w '%{http_code}' --connect-timeout 3 --max-time 6 \"$URL/\" 2>\"$TMP/get-err\" || true); CURL_POST=$(curl -sS -o \"$TMP/post-body\" -w '%{http_code}' --connect-timeout 3 --max-time 6 -X POST -H 'Content-Type: application/json' --data '{}' \"$URL/v1/realtime/client-secret\" 2>\"$TMP/post-err\" || true); echo attempt_${i}_get=$CURL_GET; echo attempt_${i}_post=$CURL_POST; if [ \"$CURL_POST\" = 401 ]; then break; fi; sleep 1; done; echo curl_get_final=$CURL_GET; echo curl_post_final=$CURL_POST; echo urllib_proxy_http_present=$(python3 -c 'import urllib.request; p=urllib.request.getproxies(); print(str(bool(p.get(\"http\"))).lower())'); echo urllib_proxy_https_present=$(python3 -c 'import urllib.request; p=urllib.request.getproxies(); print(str(bool(p.get(\"https\"))).lower())'); set +e; PYTHONPATH=scripts python3 -c 'import sys; from realtime_offcall_lab import wait_for_public_broker; wait_for_public_broker(sys.argv[1] + \"/v1/realtime/client-secret\", timeout_seconds=5); print(\"urllib_boundary=401\")' \"$URL\" >\"$TMP/urllib.out\" 2>\"$TMP/urllib.err\"; URC=$?; set -e; echo urllib_rc=$URC; cat \"$TMP/urllib.out\"; if [ \"$URC\" -ne 0 ]; then python3 - \"$TMP/urllib.err\" <<'PY'
+from pathlib import Path
+import sys
+text=Path(sys.argv[1]).read_text(errors='replace')
+last=text.strip().splitlines()[-1] if text.strip() else 'none'
+print('urllib_error_tail='+last[:160])
+PY
+fi; test \"$CURL_POST\" = 401; test -z \"$(git status --porcelain)\"; echo public_broker_curl_401_green=true"
+  ]
+}
