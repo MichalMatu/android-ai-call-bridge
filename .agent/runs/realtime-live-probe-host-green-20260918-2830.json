@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-live-probe-host-green-20260918-2830",
+  "task_digest": "30a9fdf5a6365dbcf724824293bb302a5c6dc2d9ebf8ea95635cec0f831c5e0d",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T16:20:57.379426+00:00",
+  "attempt_id": "a31ad2927e57b618b4a44c45",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 43797,
+  "updated_at": "2026-09-18T16:20:57.379505+00:00",
+  "pid": 43797
+}
