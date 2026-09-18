@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-task-model-red-20260918-1105",
+  "task_digest": "dd6657fa1cb848a376a6e75174335222cbdca65d235b2b1e1b8f22c1f46fd0bf",
+  "idle_timeout": 240,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T08:37:33.516802+00:00",
+  "attempt_id": "0c0c32732819f68528c14a34",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 27251,
+  "updated_at": "2026-09-18T08:37:33.517005+00:00",
+  "pid": 27251
+}
