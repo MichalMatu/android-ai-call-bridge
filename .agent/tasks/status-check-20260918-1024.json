@@ -1,0 +1,15 @@
+{
+  "id": "status-check-20260918-1024",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 180,
+  "idle_timeout": 120,
+  "task_timeout": 300,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -e; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; echo HEAD=$(git rev-parse HEAD); echo STATUS_BEGIN; git status --short; echo STATUS_END; echo DEVICES_BEGIN; adb devices -l; echo DEVICES_END; SERIAL=RFCT70L7E8J; adb -s \"$SERIAL\" get-state; echo MODEL=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r'); echo API=$(adb -s \"$SERIAL\" shell getprop ro.build.version.sdk | tr -d '\\r'); echo CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | grep -m1 'mCallState=' | cut -d= -f2 | tr -d '[:space:]'); echo BLUETOOTH=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '[:space:]'); echo SHIZUKU=$(adb -s \"$SERIAL\" shell ps -A -o USER,PID,NAME | grep -E '^shell[[:space:]]+[0-9]+[[:space:]]+shizuku_server$' || true); echo APP_PID=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge 2>/dev/null | tr -d '[:space:]'); test -z \"$(git status --porcelain)\"; echo status_check_green=true"
+  ]
+}
