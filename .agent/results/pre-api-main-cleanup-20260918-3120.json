@@ -1,0 +1,9 @@
+{
+  "id": "pre-api-main-cleanup-20260918-3120",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-18T17:26:33.324498+00:00",
+  "daemon_version": "4.18.22",
+  "error": "JSONDecodeError: Invalid control character at: line 13 column 465 (char 777)"
+}
