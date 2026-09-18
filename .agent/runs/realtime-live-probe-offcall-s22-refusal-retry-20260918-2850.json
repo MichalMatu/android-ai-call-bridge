@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-live-probe-offcall-s22-refusal-retry-20260918-2850",
+  "task_digest": "a848f0e12caef2b256d1fd53e2ac8c6d4e551ac9f16c34ad1bba84cdd100ca10",
+  "idle_timeout": 600,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T16:24:09.156864+00:00",
+  "attempt_id": "86a8a5c694fadd5ffc23e6ad",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 47019,
+  "updated_at": "2026-09-18T16:24:09.156967+00:00",
+  "pid": 47019
+}
