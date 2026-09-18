@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "phase2d-resource-trend-postmortem-20260918-0212",
   "task_digest": "45daf1a69244c1afcbe0ebdeb283b5f343cad8b61e53fb397b768d34adc34a57",
-  "idle_timeout": 90,
-  "task_timeout": 180,
-  "memory_limit_mb": 2048,
-  "started_at": "2026-09-18T00:07:25.718937+00:00",
+  "status": "failed",
+  "failure_reason": "task_budget_exhausted",
+  "finished_at": "2026-09-18T00:07:27.394964+00:00",
   "attempt_id": "f586b39042ab2fbc81737033",
   "daemon_version": "4.18.22",
   "daemon_pid": 19424,
-  "updated_at": "2026-09-18T00:07:25.719061+00:00",
+  "updated_at": "2026-09-18T00:07:27.651779+00:00",
   "pid": 19424
 }
