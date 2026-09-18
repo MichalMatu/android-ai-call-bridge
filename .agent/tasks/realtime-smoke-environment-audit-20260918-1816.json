@@ -1,0 +1,15 @@
+{
+  "id": "realtime-smoke-environment-audit-20260918-1816",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 2048,
+  "commands": [
+    "set -euo pipefail; EXPECTED=6d1100d75b4067f9980d9568c51844b430f319b3; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; if [ -n \"${OPENAI_API_KEY:-}\" ]; then echo OPENAI_API_KEY_PRESENT=yes; else echo OPENAI_API_KEY_PRESENT=no; fi; if [ -n \"${AI_CALL_BRIDGE_BROKER_TOKEN:-}\" ]; then echo BROKER_TOKEN_PRESENT=yes; else echo BROKER_TOKEN_PRESENT=no; fi; if command -v cloudflared >/dev/null 2>&1; then echo CLOUDFLARED_PRESENT=yes; cloudflared --version | head -n 1; else echo CLOUDFLARED_PRESENT=no; fi; if command -v adb >/dev/null 2>&1; then echo ADB_PRESENT=yes; adb devices -l; else echo ADB_PRESENT=no; fi; SERIAL=RFCT70L7E8J; if adb -s \"$SERIAL\" get-state >/dev/null 2>&1; then echo S22_CONNECTED=yes; echo MODEL=$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\r'); echo API=$(adb -s \"$SERIAL\" shell getprop ro.build.version.sdk | tr -d '\r'); else echo S22_CONNECTED=no; fi; test -z \"$(git status --porcelain)\"; echo realtime_smoke_environment_audit_done=true"
+  ]
+}
