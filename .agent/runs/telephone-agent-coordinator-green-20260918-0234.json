@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-coordinator-green-20260918-0234",
+  "task_digest": "5be8ee732209be372934f7a9e399393ff7783c77c4394b004e0d95967e04a1c0",
+  "idle_timeout": 240,
+  "task_timeout": 540,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T00:23:18.853141+00:00",
+  "attempt_id": "1639257bb7663c456926c613",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 40826,
+  "updated_at": "2026-09-18T00:23:18.853200+00:00",
+  "pid": 40826
+}
