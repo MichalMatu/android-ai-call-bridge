@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-docs-final-gate-20260918-3110",
+  "task_digest": "83c80cf77f8b9d00c62b20caebcb133e067d6c46f772e002023af6600ce287ae",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T17:24:26.772299+00:00",
+  "attempt_id": "6d208e7f33d0383966b1b3f9",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 26083,
+  "updated_at": "2026-09-18T17:24:26.772430+00:00",
+  "pid": 26083
+}
