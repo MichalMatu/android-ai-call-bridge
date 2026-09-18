@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-privacy-rendering-red-20260918-1321",
+  "task_digest": "0b8d0e87d7b21af3fb55eecac40bd26af899d5e5ef9e66d361a6e92179603e66",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T10:38:21.303925+00:00",
+  "attempt_id": "d520b2b47d21e0711ae581c9",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 64573,
+  "updated_at": "2026-09-18T10:38:21.303977+00:00",
+  "pid": 64573
+}
