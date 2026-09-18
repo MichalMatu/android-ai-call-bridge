@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-speech-pfd-loopback-s22-20260918-3470",
+  "task_digest": "0b639692fac83e5b3267dd5cbaeb897537eea1f223446df4ce03cde30c594f5b",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T21:15:26.202738+00:00",
+  "attempt_id": "78bce0650b4cacb0d2d7194a",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 90409,
+  "updated_at": "2026-09-18T21:15:26.202803+00:00",
+  "pid": 90409
+}
