@@ -1,0 +1,60 @@
+{
+  "id": "realtime-live-preflight-red-20260918-2890",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T16:31:25.549847+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=e664ef336941998c5f0a7d4b65142877bd1093af; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; set +e; python3 -m unittest discover -s scripts -p 'test_realtime_live_call_smoke.py' > /tmp/realtime-live-preflight-red.log 2>&1; RC=$?; set -e; cat /tmp/realtime-live-preflight-red.log; test \"$RC\" -ne 0; grep -Eq 'validate_live_preflight|ImportError|cannot import name' /tmp/realtime-live-preflight-red.log; test -z \"$(git status --porcelain)\"; echo realtime_live_preflight_red_verified=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 1 commit, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at e664ef3 test: require safe live-call preflight\nE\n======================================================================\nERROR: test_realtime_live_call_smoke (unittest.loader._FailedTest.test_realtime_live_call_smoke)\n----------------------------------------------------------------------\nImportError: Failed to import test module: test_realtime_live_call_smoke\nTraceback (most recent call last):\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py\", line 396, in _find_test_path\n    module = self._get_module_from_name(name)\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py\", line 339, in _get_module_from_name\n    __import__(name)\n    ~~~~~~~~~~^^^^^^\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_realtime_live_call_smoke.py\", line 4, in <module>\n    from realtime_live_call_smoke import (\n    ...<5 lines>...\n    )\nImportError: cannot import name 'validate_live_preflight' from 'realtime_live_call_smoke' (/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/realtime_live_call_smoke.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\nrealtime_live_preflight_red_verified=true\n",
+      "elapsed_seconds": 0.974,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.14,
+      "output_policy": "stream",
+      "captured_output_chars": 1689,
+      "output_truncated": false,
+      "current_rss_mb": 3.14,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.974
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.085
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.076
+  },
+  "finished_at": "2026-09-18T16:31:28.334357+00:00",
+  "task_digest": "16f3570c72ceb35965cb0caf69f573a095be13a3a6a15bfebf70c59cb1eea741",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 2048,
+  "attempt_id": "2edaaae5234899ea7b6ec6af",
+  "daemon_version": "4.18.22"
+}
