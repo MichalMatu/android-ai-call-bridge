@@ -1,0 +1,15 @@
+{
+  "id": "telephone-agent-commitment-flow-red-20260918-1602",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=f8b2f656be7c18c8c5e74943799b7daeea46cc45; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.agent.CallRealtimeCommitmentIntegrationTest --no-daemon > /tmp/commitment-flow-red.log 2>&1; RC=$?; set -e; cat /tmp/commitment-flow-red.log; test \"$RC\" -ne 0; grep -Eq 'CallRealtimeCommitmentFunctionHandler|Too many arguments|Unresolved reference|Compilation failed' /tmp/commitment-flow-red.log; test -z \"$(git status --porcelain)\"; echo commitment_flow_red_verified=true"
+  ]
+}
