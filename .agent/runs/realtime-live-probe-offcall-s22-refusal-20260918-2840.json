@@ -1,0 +1,9 @@
+{
+  "event": "invalid_task_rejected",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "updated_at": "2026-09-18T16:22:13.497232+00:00",
+  "task_id": "realtime-live-probe-offcall-s22-refusal-20260918-2840",
+  "daemon_version": "4.18.22",
+  "pid": 45347
+}
