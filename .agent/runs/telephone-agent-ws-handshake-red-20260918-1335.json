@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-ws-handshake-red-20260918-1335",
+  "task_digest": "ccb5e93f825e6c96bb3808423f17aaa44f01d6f00c2e933dcc4fe1f999c6d45e",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T09:06:58.047779+00:00",
+  "attempt_id": "4c4b86924b450f77c3842746",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 68569,
+  "updated_at": "2026-09-18T09:06:58.048036+00:00",
+  "pid": 68569
+}
