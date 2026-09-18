@@ -1,0 +1,13 @@
+{
+  "id": "pre-api-branch-prune-20260918-3130",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": true,
+  "resources": [],
+  "command_timeout": 1200,
+  "idle_timeout": 600,
+  "task_timeout": 1800,
+  "memory_limit_mb": 2048,
+  "commands": ["set -euo pipefail; EXPECTED=70757f678f0433ffa7dbbd27b4a145bd7d2727da; git fetch origin --prune; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; for branch in milestone/phase2b-proven-s22-20260916 milestone/phase2c-shizuku-live-proven-20260916 milestone/phase2d-failsafe-proven-s22-20260918 work/phase1-live-call-probes tmp-do-not-use-cleanup-marker tmp-do-not-use-cleanup-marker-2 tmp-do-not-use-cleanup-marker-3; do git merge-base --is-ancestor \"origin/$branch\" origin/main; done; git push origin --delete milestone/phase2b-proven-s22-20260916 milestone/phase2c-shizuku-live-proven-20260916 milestone/phase2d-failsafe-proven-s22-20260918 work/phase1-live-call-probes tmp-do-not-use-cleanup-marker tmp-do-not-use-cleanup-marker-2 tmp-do-not-use-cleanup-marker-3; git fetch origin --prune; HEADS=$(git ls-remote --heads origin | awk '{sub(\"refs/heads/\",\"\",$2); print $2}' | sort | paste -sd, -); echo remote_heads=$HEADS; test \"$HEADS\" = \"agent-control,main\"; test \"$(git rev-parse origin/main)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; echo branch_prune_green=true"]
+}
