@@ -1,9 +1,0 @@
-{
-  "event": "invalid_task_rejected",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "updated_at": "2026-09-18T17:39:30.883759+00:00",
-  "task_id": "pre-api-quick-tunnel-proof-20260918-3200",
-  "daemon_version": "4.18.22",
-  "pid": 53700
-}
