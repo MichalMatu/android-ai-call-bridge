@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-app-lint-audit-20260918-3050",
+  "task_digest": "7cf394d7a9e6639a372df3faa9167adeb531ff6740935ae010db9abef7cdd665",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T17:05:08.719223+00:00",
+  "attempt_id": "976d0bab2de667a4612af575",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 95154,
+  "updated_at": "2026-09-18T17:05:08.719284+00:00",
+  "pid": 95154
+}
