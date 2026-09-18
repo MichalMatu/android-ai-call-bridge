@@ -1,0 +1,60 @@
+{
+  "id": "telephone-agent-audio-pump-bounds-red-20260918-1208",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T10:06:34.464258+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=1dbc6a21867eb4174146de44a45bc3d570c351dc; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.session.CallRealtimeAudioPumpBoundsTest --no-daemon > /tmp/audio-pump-bounds-red.log 2>&1; RC=$?; set -e; cat /tmp/audio-pump-bounds-red.log; test \"$RC\" -ne 0; grep -Eq 'tiny-frame backlog was not bounded|CallRealtimeAudioPumpBoundsTest|FAILED' /tmp/audio-pump-bounds-red.log; test -z \"$(git status --porcelain)\"; echo audio_pump_bounds_red_verified=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is behind 'origin/work/phase1-live-call-probes' by 1 commit, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at 1dbc6a2 test: bound realtime audio pump object backlog\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nCalculating task graph as no cached configuration is available for tasks: :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.session.CallRealtimeAudioPumpBoundsTest\n> Task :realtime-client:preBuild UP-TO-DATE\n> Task :audio-bridge:preBuild UP-TO-DATE\n> Task :app:preBuild UP-TO-DATE\n> Task :privileged-helper:preBuild UP-TO-DATE\n> Task :app:preDebugBuild UP-TO-DATE\n> Task :privileged-helper:preDebugBuild UP-TO-DATE\n> Task :realtime-client:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:preDebugBuild UP-TO-DATE\n> Task :audio-bridge:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:processDebugNavigationResources UP-TO-DATE\n> Task :audio-bridge:generateDebugResources UP-TO-DATE\n> Task :privileged-helper:generateDebugResources UP-TO-DATE\n> Task :audio-bridge:processDebugNavigationResources UP-TO-DATE\n> Task :app:generateDebugResources UP-TO-DATE\n> Task :privileged-helper:processDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:javaPreCompileDebug UP-TO-DATE\n> Task :realtime-client:generateDebugResources UP-TO-DATE\n> Task :realtime-client:javaPreCompileDebug UP-TO-DATE\n> Task :app:javaPreCompileDebug UP-TO-DATE\n> Task :audio-bridge:writeDebugAarMetadata UP-TO-DATE\n> Task :privileged-helper:writeDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:writeDebugAarMetadata UP-TO-DATE\n> Task :app:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE\n> Task :app:extractDeepLinksDebug UP-TO-DATE\n> Task :app:packageDebugResources UP-TO-DATE\n> Task :privileged-helper:packageDebugResources UP-TO-DATE\n> Task :audio-bridge:packageDebugResources UP-TO-DATE\n> Task :realtime-client:packageDebugResources UP-TO-DATE\n> Task :app:compileDebugAidl UP-TO-DATE\n> Task :audio-bridge:extractDeepLinksDebug UP-TO-DATE\n> Task :privileged-helper:extractDeepLinksDebug UP-TO-DATE\n> Task :privileged-helper:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:parseDebugLocalResources UP-TO-DATE\n> Task :realtime-client:parseDebugLocalResources UP-TO-DATE\n> Task :audio-bridge:processDebugManifest UP-TO-DATE\n> Task :realtime-client:extractDeepLinksDebug UP-TO-DATE\n> Task :privileged-helper:generateDebugRFile UP-TO-DATE\n> Task :audio-bridge:generateDebugRFile UP-TO-DATE\n> Task :privileged-helper:processDebugManifest UP-TO-DATE\n> Task :realtime-client:generateDebugRFile UP-TO-DATE\n> Task :app:processDebugNavigationResources UP-TO-DATE\n> Task :audio-bridge:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:checkDebugAarMetadata UP-TO-DATE\n> Task :realtime-client:processDebugManifest UP-TO-DATE\n> Task :app:compileDebugNavigationResources UP-TO-DATE\n> Task :privileged-helper:mapDebugSourceSetPaths UP-TO-DATE\n> Task :audio-bridge:compileDebugLibraryResources UP-TO-DATE\n> Task :app:parseDebugLocalResources UP-TO-DATE\n> Task :app:preDebugUnitTestBuild UP-TO-DATE\n> Task :privileged-helper:compileDebugLibraryResources UP-TO-DATE\n> Task :realtime-client:mapDebugSourceSetPaths UP-TO-DATE\n> Task :app:mergeDebugResources UP-TO-DATE\n> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE\n> Task :app:generateDebugRFile UP-TO-DATE\n> Task :realtime-client:compileDebugLibraryResources UP-TO-DATE\n> Task :privileged-helper:compileDebugKotlin NO-SOURCE\n> Task :app:processDebugMainManifest UP-TO-DATE\n> Task :privileged-helper:processDebugJavaRes NO-SOURCE\n> Task :app:processDebugManifest UP-TO-DATE\n> Task :app:processDebugManifestForPackage UP-TO-DATE\n> Task :privileged-helper:compileDebugJavaWithJavac UP-TO-DATE\n> Task :privileged-helper:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :privileged-helper:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :app:processDebugResources UP-TO-DATE\n> Task :audio-bridge:compileDebugKotlin UP-TO-DATE\n> Task :audio-bridge:compileDebugJavaWithJavac NO-SOURCE\n> Task :audio-bridge:processDebugJavaRes UP-TO-DATE\n> Task :audio-bridge:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :audio-bridge:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :realtime-client:compileDebugKotlin UP-TO-DATE\n> Task :realtime-client:processDebugJavaRes UP-TO-DATE\n> Task :realtime-client:compileDebugJavaWithJavac UP-TO-DATE\n> Task :realtime-client:bundleLibCompileToJarDebug UP-TO-DATE\n> Task :realtime-client:bundleLibRuntimeToJarDebug UP-TO-DATE\n> Task :app:compileDebugKotlin UP-TO-DATE\n> Task :app:processDebugJavaRes UP-TO-DATE\n> Task :app:compileDebugJavaWithJavac UP-TO-DATE\n> Task :app:bundleDebugClassesToCompileJar UP-TO-DATE\n> Task :app:bundleDebugClassesToRuntimeJar UP-TO-DATE\n> Task :app:compileDebugUnitTestKotlin\n> Task :app:processDebugUnitTestJavaRes UP-TO-DATE\n> Task :app:compileDebugUnitTestJavaWithJavac UP-TO-DATE\n\n> Task :app:testDebugUnitTest FAILED\n\nCallRealtimeAudioPumpBoundsTest > tinyDeltasCannotCreateUnboundedObjectBacklog FAILED\n    java.lang.AssertionError at CallRealtimeAudioPumpBoundsTest.kt:43\n\n1 test completed, 1 failed\n\nFAILURE: Build failed with an exception.\n\n* What went wrong:\nExecution failed for task ':app:testDebugUnitTest'.\n> There were failing tests. See the report at: file:///Users/michal/agent-workspace/repos/android-ai-call-bridge/work/app/build/reports/tests/testDebugUnitTest/index.html\n\n* Try:\n> Run with --scan to get full insights from a Build Scan (powered by Develocity).\n\nBUILD FAILED in 10s\n72 actionable tasks: 2 executed, 70 up-to-date\nConfiguration cache entry stored.\naudio_pump_bounds_red_verified=true\n",
+      "elapsed_seconds": 12.487,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 108.14,
+      "output_policy": "stream",
+      "captured_output_chars": 6005,
+      "output_truncated": false,
+      "current_rss_mb": 65.69,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 12.487
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.104
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.076
+  },
+  "finished_at": "2026-09-18T10:06:48.883436+00:00",
+  "task_digest": "f103a78be619e5b020c8c3da7fcaaef71499d1d3f0ca760043e0f291a8ee17e4",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "172c85b271a34350ce48974f",
+  "daemon_version": "4.18.22"
+}
