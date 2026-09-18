@@ -1,0 +1,60 @@
+{
+  "id": "realtime-openai-offcall-smoke-20260918-2610",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T15:18:21.645024+00:00",
+  "command_timeout": 1200,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=b0c2bac0ff2615f40e31cf525082fc9e33494bf0; SERIAL=RFCT70L7E8J; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; MISSING=0; if [ -n \"${OPENAI_API_KEY:-}\" ]; then echo openai_api_key_present=true; else echo openai_api_key_present=false; MISSING=1; fi; if [ -n \"${AI_CALL_BRIDGE_BROKER_TOKEN:-}\" ]; then echo broker_token_present=true; else echo broker_token_present=false; MISSING=1; fi; if [ -n \"${AI_CALL_BRIDGE_BROKER_HTTPS_URL:-}\" ]; then echo broker_https_url_present=true; else echo broker_https_url_present=false; MISSING=1; fi; if [ \"$MISSING\" -ne 0 ]; then echo external_prerequisite_blocked=true; exit 0; fi; python3 - <<'PY'\nimport os\nfrom scripts.realtime_credential_broker import BrokerConfig\nfrom scripts.realtime_network_smoke import SmokeEnvironment\nBrokerConfig.from_env(os.environ)\nSmokeEnvironment.from_mapping(os.environ)\nprint('broker_config_valid=true')\nprint('smoke_environment_valid=true')\nPY\nexport ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; adb -s \"$SERIAL\" get-state; test \"$(adb -s \"$SERIAL\" shell getprop ro.product.model | tr -d '\\r')\" = \"SM-S906B\"; CALL_BEFORE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | grep -m1 'mCallState=' | cut -d= -f2 | tr -dc '0-9'); echo CALL_STATE_BEFORE=$CALL_BEFORE; test \"$CALL_BEFORE\" = \"0\"; \"$GRADLE\" :app:assembleDebug --no-daemon >/tmp/realtime-openai-offcall-build.log 2>&1; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/realtime-openai-offcall-install.log; cat /tmp/realtime-openai-offcall-install.log; PORT=${AI_CALL_BRIDGE_BROKER_PORT:-8765}; BROKER_LOG=/tmp/realtime-openai-broker.log; : > \"$BROKER_LOG\"; python3 scripts/realtime_credential_broker.py --port \"$PORT\" >\"$BROKER_LOG\" 2>&1 & BROKER_PID=$!; cleanup(){ kill \"$BROKER_PID\" 2>/dev/null || true; wait \"$BROKER_PID\" 2>/dev/null || true; }; trap cleanup EXIT; READY=0; for i in $(seq 1 40); do if ! kill -0 \"$BROKER_PID\" 2>/dev/null; then echo broker_process_exited=true; sed -E 's/(sk-[A-Za-z0-9_-]+)/REDACTED/g' \"$BROKER_LOG\"; exit 1; fi; if python3 - \"$PORT\" <<'PY'\nimport socket, sys\ns=socket.socket(); s.settimeout(0.2)\ntry:\n s.connect(('127.0.0.1', int(sys.argv[1]))); print('ready')\nfinally:\n s.close()\nPY\n then READY=1; break; fi; sleep 0.25; done; test \"$READY\" = \"1\"; echo credential_broker_loopback_ready=true; set +e; SMOKE_OUTPUT=$(python3 scripts/realtime_network_smoke.py \"$SERIAL\" 2>&1); SMOKE_RC=$?; set -e; printf '%s\\n' \"$SMOKE_OUTPUT\"; echo smoke_rc=$SMOKE_RC; CALL_AFTER=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | grep -m1 'mCallState=' | cut -d= -f2 | tr -dc '0-9'); echo CALL_STATE_AFTER=$CALL_AFTER; test \"$CALL_AFTER\" = \"0\"; HELPER=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge:call_media | tr -d '\\r' || true); echo HELPER_PID_AFTER=${HELPER:-none}; test -z \"$HELPER\"; test -z \"$(git status --porcelain)\"; if [ \"$SMOKE_RC\" -eq 0 ]; then printf '%s\\n' \"$SMOKE_OUTPUT\" | grep -q 'realtime_network_off_call_smoke=PASS'; printf '%s\\n' \"$SMOKE_OUTPUT\" | grep -q 'reason=realtime_connected_off_call_media_rejected'; printf '%s\\n' \"$SMOKE_OUTPUT\" | grep -q 'states=FETCHING_CREDENTIAL>CONNECTING_REALTIME>STARTING_MEDIA>FAILED'; ! printf '%s\\n' \"$SMOKE_OUTPUT\" | grep -q 'ACTIVE'; echo real_openai_offcall_smoke_green=true; else echo real_openai_offcall_smoke_green=false; echo external_network_or_tunnel_prerequisite_failed=true; exit 3; fi",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch            work/phase1-live-call-probes -> FETCH_HEAD\nSwitched to branch 'work/phase1-live-call-probes'\nYour branch is up to date with 'origin/work/phase1-live-call-probes'.\nHEAD is now at b0c2bac fix: close realtime speech gate reds\nopenai_api_key_present=false\nbroker_token_present=false\nbroker_https_url_present=false\nexternal_prerequisite_blocked=true\n",
+      "elapsed_seconds": 0.849,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.36,
+      "output_policy": "stream",
+      "captured_output_chars": 424,
+      "output_truncated": false,
+      "current_rss_mb": 2.36,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.849
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.08
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.066
+  },
+  "finished_at": "2026-09-18T15:18:24.101564+00:00",
+  "task_digest": "d92a63e2fff08fb32db531809f1144ac69bf5859f2e34153cb8e40c30796b70d",
+  "idle_timeout": 600,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "attempt_id": "e5d89a8793f80c4275dd23a4",
+  "daemon_version": "4.18.22"
+}
