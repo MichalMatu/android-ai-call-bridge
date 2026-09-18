@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "pre-api-install-cloudflared-20260918-3190",
+  "task_digest": "f782c245c8022a73fe5d74bec96bac55848d048b7e61390bd0167e1449f69934",
+  "idle_timeout": 900,
+  "task_timeout": 2400,
+  "memory_limit_mb": 2048,
+  "started_at": "2026-09-18T17:38:00.695001+00:00",
+  "attempt_id": "8b08980032c7457f0ff67966",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 46395,
+  "updated_at": "2026-09-18T17:38:00.695141+00:00",
+  "pid": 46395
+}
