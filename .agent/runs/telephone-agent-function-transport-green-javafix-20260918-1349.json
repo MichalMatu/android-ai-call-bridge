@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-function-transport-green-javafix-20260918-1349",
+  "task_digest": "134cbd2b1f00e07f3932e7c6d1c78eeb2e7a2f748fe402a52ef6e62538491925",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T11:49:53.794292+00:00",
+  "attempt_id": "21ca9516a6809375dbb48ddb",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 24806,
+  "updated_at": "2026-09-18T11:49:53.794455+00:00",
+  "pid": 24806
+}
