@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "pre-api-final-s22-presence-20260918-3370",
   "task_digest": "471dd4b7efd708ad6b377273122ea726e473ded2b8022cb505b4135f91f4be59",
-  "idle_timeout": 180,
-  "task_timeout": 300,
-  "memory_limit_mb": 1024,
-  "started_at": "2026-09-18T18:10:44.763387+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-18T18:10:48.000400+00:00",
   "attempt_id": "c8a4d71459a6684248728f55",
   "daemon_version": "4.18.22",
   "daemon_pid": 13394,
-  "updated_at": "2026-09-18T18:10:44.763548+00:00",
+  "updated_at": "2026-09-18T18:10:48.215250+00:00",
   "pid": 13394
 }
