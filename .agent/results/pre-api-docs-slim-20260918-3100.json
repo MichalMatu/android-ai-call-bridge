@@ -1,9 +1,0 @@
-{
-  "id": "pre-api-docs-slim-20260918-3100",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "started_at": null,
-  "finished_at": "2026-09-18T17:18:52.367509+00:00",
-  "daemon_version": "4.18.22",
-  "error": "JSONDecodeError: Invalid control character at: line 13 column 1341 (char 1674)"
-}
