@@ -1,0 +1,61 @@
+{
+  "id": "telephone-agent-offcall-smoke-host-20260918-1045",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "started_at": "2026-09-18T08:31:48.783029+00:00",
+  "command_timeout": 1200,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; test \"$(git rev-parse HEAD)\" = \"2522356e05e775bdbd22334745acc7ed95428652\"; test -z \"$(git status --porcelain)\"; ./gradlew :app:testDebugUnitTest :app:assembleDebug --no-daemon; python3 -m unittest discover -s scripts -p 'test_*.py'; grep -A6 -F 'android:name=\".DiagnosticProbeActivity\"' app/src/main/AndroidManifest.xml | grep -F 'android:permission=\"android.permission.DUMP\"'; ! grep -F 'run_production_media_off_call_smoke' app/src/main/kotlin/pl/michalmatu/aicallbridge/MainActivity.kt; test -z \"$(git status --porcelain)\"; echo offcall_smoke_host_green=true",
+      "exit_code": 1,
+      "output": "/bin/sh: ./gradlew: No such file or directory\n",
+      "elapsed_seconds": 0.332,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 5.12,
+      "output_policy": "stream",
+      "captured_output_chars": 46,
+      "output_truncated": false,
+      "current_rss_mb": 5.12,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.332
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.069
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-18T08:31:50.985810+00:00",
+  "task_digest": "b3547d0c4d0de79c257e25ffd6cf0ffa4146b0c0cf01594f97d6cac21419702b",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "attempt_id": "8644bbe62d4e1031f0f06a12",
+  "daemon_version": "4.18.22"
+}
