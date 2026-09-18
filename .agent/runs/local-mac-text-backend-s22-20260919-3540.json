@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-mac-text-backend-s22-20260919-3540",
+  "task_digest": "984c643388a90abd4aad3db53bfcc2e78331c65b1217e4a8fe45b3aa91d71845",
+  "idle_timeout": 900,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T22:14:19.301362+00:00",
+  "attempt_id": "45e6603282fac28cfbc6a030",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 3209,
+  "updated_at": "2026-09-18T22:14:19.301483+00:00",
+  "pid": 3209
+}
