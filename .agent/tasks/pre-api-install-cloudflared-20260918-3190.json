@@ -1,0 +1,13 @@
+{
+  "id": "pre-api-install-cloudflared-20260918-3190",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "idle_timeout": 900,
+  "task_timeout": 2400,
+  "memory_limit_mb": 2048,
+  "commands": ["set -euo pipefail; git fetch origin main; git checkout main; git reset --hard origin/main; if ! command -v cloudflared >/dev/null 2>&1; then /opt/homebrew/bin/brew install cloudflared; fi; command -v cloudflared; cloudflared --version; test -z \"$(git status --porcelain)\"; echo cloudflared_install_green=true"]
+}
