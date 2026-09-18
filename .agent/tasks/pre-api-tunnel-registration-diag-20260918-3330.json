@@ -1,0 +1,15 @@
+{
+  "id": "pre-api-tunnel-registration-diag-20260918-3330",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 240,
+  "idle_timeout": 240,
+  "task_timeout": 420,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set -euo pipefail; EXPECTED=b6774dd00efaab5c5272e3be196d42c3def64da5; git fetch origin main agent-control; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; git show origin/agent-control:.agent/patches/pre-api-tunnel-registration-diag.py > /tmp/pre-api-tunnel-registration-diag.py; python3 /tmp/pre-api-tunnel-registration-diag.py; test -z \"$(git status --porcelain)\"; echo tunnel_registration_diag_complete=true"
+  ]
+}
