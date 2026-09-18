@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "realtime-offcall-trace-host-green-retry-20260918-2740",
+  "task_digest": "f1f77891b0a82a770325c89b6ce7d6204abb012cb115e426654dc3fadc2b8d0d",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T15:51:12.035989+00:00",
+  "attempt_id": "7a2035673ca52a599bc983bd",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 11975,
+  "updated_at": "2026-09-18T15:51:12.036072+00:00",
+  "pid": 11975
+}
