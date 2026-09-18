@@ -1,0 +1,15 @@
+{
+  "id": "telephone-agent-confirmation-policy-red-20260918-1120",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "work/phase1-live-call-probes",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 600,
+  "idle_timeout": 240,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED=5fa6e7409f441bf0a596e20e00a2cbf42f622711; git fetch origin work/phase1-live-call-probes; git checkout work/phase1-live-call-probes; git reset --hard origin/work/phase1-live-call-probes; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; set +e; \"$GRADLE\" :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.agent.CallConfirmationPolicyTest --no-daemon > /tmp/confirmation-policy-red.log 2>&1; RC=$?; set -e; cat /tmp/confirmation-policy-red.log; test \"$RC\" -ne 0; grep -Eq 'cannot find symbol|unresolved reference|Compilation failed|compileDebugUnitTestJavaWithJavac FAILED' /tmp/confirmation-policy-red.log; test -z \"$(git status --porcelain)\"; echo confirmation_policy_red_verified=true"
+  ]
+}
