@@ -1,0 +1,15 @@
+{
+  "id": "pre-api-final-s22-presence-20260918-3370",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 180,
+  "idle_timeout": 180,
+  "task_timeout": 300,
+  "memory_limit_mb": 1024,
+  "commands": [
+    "set -euo pipefail; EXPECTED=1a99d54e1742563698b94ee612fac0d5278c6447; SERIAL=RFCT70L7E8J; git fetch origin main; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; DEVICES=$(adb devices -l || true); PRESENT=$(DEVICES=\"$DEVICES\" PYTHONPATH=scripts python3 -c 'import os; from realtime_network_smoke import is_direct_usb_target; print(1 if is_direct_usb_target(os.environ.get(\"DEVICES\", \"\"), \"RFCT70L7E8J\") else 0)'); if [ \"$PRESENT\" != 1 ]; then echo s22_direct_usb_present=false; test -z \"$(git status --porcelain)\"; exit 0; fi; echo s22_direct_usb_present=true; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); echo call_state=$CALL_STATE; test \"$CALL_STATE\" = 0; CONFIG=$(adb -s \"$SERIAL\" shell run-as pl.michalmatu.aicallbridge sh -c 'test -e files/realtime-network-smoke.json; echo $?' | tr -d '\\r'); if [ \"$CONFIG\" = 0 ]; then echo one_shot_config_absent=false; exit 1; fi; echo one_shot_config_absent=true; HELPER=$(adb -s \"$SERIAL\" shell pidof pl.michalmatu.aicallbridge:call_media 2>/dev/null || true); test -z \"$HELPER\"; echo media_helper_absent=true; test -z \"$(git status --porcelain)\"; echo s22_pre_api_direct_usb_ready=true"
+  ]
+}
