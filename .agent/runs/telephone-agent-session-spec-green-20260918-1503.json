@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "telephone-agent-session-spec-green-20260918-1503",
+  "task_digest": "54492698ee896025d709a4daeaa3a3421e4add9e8e53298fa842cb7ede65277b",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-18T12:23:29.666694+00:00",
+  "attempt_id": "35ef4ffa7cdb5495033792e2",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 58163,
+  "updated_at": "2026-09-18T12:23:29.666831+00:00",
+  "pid": 58163
+}
