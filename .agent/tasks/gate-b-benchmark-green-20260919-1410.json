@@ -1,0 +1,15 @@
+{
+  "id": "gate-b-benchmark-green-20260919-1410",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/gate-b-text-benchmark",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -eu; EXPECTED_MAIN=b5206079f509351cd3ec4095ef353ab98ba04738; EXPECTED_BRANCH=fb6330576a07c98047e064d14ca00d781dc31892; git fetch origin main agent/gate-b-text-benchmark; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git checkout -B agent/gate-b-text-benchmark origin/agent/gate-b-text-benchmark; test \"$(git rev-parse HEAD)\" = \"$EXPECTED_BRANCH\"; python3 -m unittest discover -s scripts -p 'test_text_model_benchmark.py'; python3 -m py_compile scripts/text_model_benchmark.py; git diff --check origin/main...HEAD; test -z \"$(git status --porcelain)\"; echo gate_b_benchmark_tdd_green_verified=true"
+  ]
+}
