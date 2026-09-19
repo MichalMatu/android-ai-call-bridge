@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "qwen15b-verified-flow-orange-s22-retry-20260919-3720",
+  "task_digest": "670087f038c8c188ee63a36d3435d26ed0e6d4d00029cfb2325e368b5dad89ac",
+  "idle_timeout": 600,
+  "task_timeout": 2700,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T08:57:09.373484+00:00",
+  "attempt_id": "4c395485ec60c2125c4f50c6",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 13974,
+  "updated_at": "2026-09-19T08:57:09.373562+00:00",
+  "pid": 13974
+}
