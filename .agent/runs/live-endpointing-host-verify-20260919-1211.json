@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "live-endpointing-host-verify-20260919-1211",
+  "task_digest": "422dd257e3ba40c8f5b9353c0b1dddd658fa4db6b1cf268ce415f623a1df64cb",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T10:09:57.044232+00:00",
+  "attempt_id": "bd16734cf11bd6373668433e",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 52337,
+  "updated_at": "2026-09-19T10:09:57.044283+00:00",
+  "pid": 52337
+}
