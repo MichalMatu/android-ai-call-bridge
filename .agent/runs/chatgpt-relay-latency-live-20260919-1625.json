@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-latency-live-20260919-1625",
+  "task_digest": "5b49d2aa15776f3ec520bd803b63db66aecb191c5292db7e679016140eea5e82",
+  "idle_timeout": 360,
+  "task_timeout": 720,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:15:08.691033+00:00",
+  "attempt_id": "fc9e14a7f046f33eda3de180",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 71619,
+  "updated_at": "2026-09-19T14:15:08.691168+00:00",
+  "pid": 71619
+}
