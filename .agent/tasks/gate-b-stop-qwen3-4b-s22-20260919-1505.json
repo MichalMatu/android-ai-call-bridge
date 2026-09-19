@@ -1,0 +1,15 @@
+{
+  "id": "gate-b-stop-qwen3-4b-s22-20260919-1505",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 600,
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail; EXPECTED_MAIN=7a21f68c4b0fe36e013081d43e4b667e3a4a77e8; SERIAL=RFCT70L7E8J; PORT=18115; git fetch origin main; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git checkout -B main origin/main; test \"$(adb -s \"$SERIAL\" get-state)\" = device; PIDS=$(adb -s \"$SERIAL\" shell pidof llama-server 2>/dev/null | tr -d '\\r' || true); echo gate_b_cleanup_llama_pids_before=${PIDS:-none}; for p in $PIDS; do adb -s \"$SERIAL\" shell kill -9 \"$p\" >/dev/null 2>&1 || true; done; adb -s \"$SERIAL\" forward --remove tcp:$PORT >/dev/null 2>&1 || true; sleep 5; AFTER=$(adb -s \"$SERIAL\" shell pidof llama-server 2>/dev/null | tr -d '\\r' || true); test -z \"$AFTER\"; echo gate_b_cleanup_llama_stopped=true; echo '--- memory after cleanup ---'; adb -s \"$SERIAL\" shell \"grep -E '^(MemTotal|MemFree|MemAvailable|SwapTotal|SwapFree):' /proc/meminfo; cat /proc/pressure/memory 2>/dev/null || true\"; BAT=$(adb -s \"$SERIAL\" shell dumpsys battery | sed -n 's/^[[:space:]]*temperature: *//p' | head -1 | tr -d '\\r' || true); echo gate_b_cleanup_battery_temp_tenths_c=${BAT:-unknown}; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); echo gate_b_cleanup_call_state=${CALL_STATE:-unknown}; test -z \"$(git status --porcelain)\"; echo gate_b_qwen3_4b_stopped_for_device_stability=true"
+  ]
+}
