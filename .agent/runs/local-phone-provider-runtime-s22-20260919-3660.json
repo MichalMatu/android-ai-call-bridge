@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 1,
+  "index": 2,
   "total": 4,
-  "command": "set -eu; EXPECTED=7e43a7f608e4742198e8f32e2fde939c871a35b1; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; test -x \"$GRADLE_BIN\"; git fetch origin main agent-control; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; git show origin/agent-control:.agent/patches/local-phone-provider-red-20260919.py > /tmp/local-phone-provider-red.py; python3 /tmp/local-phone-provider-red.py; if \"$GRADLE_BIN\" :app:testDebugUnitTest --tests 'pl.michalmatu.aicallbridge.runtime.CallRuntimeModeTest' --tests 'pl.michalmatu.aicallbridge.textagent.LocalOpenAiCompatibleTextBackendTest' >/tmp/local-phone-provider-red.log 2>&1; then cat /tmp/local-phone-provider-red.log; echo local_phone_provider_red_unexpected_green=true; exit 1; else tail -80 /tmp/local-phone-provider-red.log; echo local_phone_provider_red_observed=true; fi",
-  "pid": 16591,
+  "command": "set -eu; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; git show origin/agent-control:.agent/patches/local-phone-provider-green-20260919.py > /tmp/local-phone-provider-green.py; python3 /tmp/local-phone-provider-green.py; git diff --check; \"$GRADLE_BIN\" :app:testDebugUnitTest --tests 'pl.michalmatu.aicallbridge.runtime.CallRuntimeModeTest' --tests 'pl.michalmatu.aicallbridge.textagent.LocalOpenAiCompatibleTextBackendTest'; bash scripts/verify_host.sh; echo local_phone_provider_host_green=true",
+  "pid": 16714,
   "timeout": 1800,
   "idle_timeout": 600,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-19T00:14:14.725491+00:00",
-  "stage_name": "command-1",
-  "stage_index": 1,
+  "started_at": "2026-09-19T00:14:17.713016+00:00",
+  "stage_name": "command-2",
+  "stage_index": 2,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "local-phone-provider-runtime-s22-20260919-3660",
@@ -18,5 +18,5 @@
   "task_digest": "58c7e6c6ef015016dcab8f6da685966ebe40edf224197b2f3e19ddb5cfd105ad",
   "daemon_version": "4.18.22",
   "daemon_pid": 16449,
-  "updated_at": "2026-09-19T00:14:14.725640+00:00"
+  "updated_at": "2026-09-19T00:14:17.781037+00:00"
 }
