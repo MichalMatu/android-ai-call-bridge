@@ -1,0 +1,60 @@
+{
+  "id": "gate-b-cleanup-branch-20260919-1448",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-19T12:41:35.984840+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED_MAIN=7a21f68c4b0fe36e013081d43e4b667e3a4a77e8; git fetch origin main agent/gate-b-text-benchmark; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git merge-base --is-ancestor origin/agent/gate-b-text-benchmark origin/main; git push origin --delete agent/gate-b-text-benchmark; test -z \"$(git status --porcelain)\"; echo gate_b_temp_branch_deleted=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/gate-b-text-benchmark -> FETCH_HEAD\nTo https://github.com/MichalMatu/android-ai-call-bridge.git\n - [deleted]           agent/gate-b-text-benchmark\ngate_b_temp_branch_deleted=true\n",
+      "elapsed_seconds": 2.484,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 18.8,
+      "output_policy": "stream",
+      "captured_output_chars": 314,
+      "output_truncated": false,
+      "current_rss_mb": 18.8,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.484
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.073
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.072
+  },
+  "finished_at": "2026-09-19T12:41:39.965259+00:00",
+  "task_digest": "d4651bf2101d7b9040268be54a522870edb7f3091dda9bab981203d363cc31ef",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "40c8e06bdd2951a0f651e043",
+  "daemon_version": "4.18.22"
+}
