@@ -1,0 +1,15 @@
+{
+  "id": "chatgpt-relay-failed-run-cleanup-v1",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 300,
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=1ea0c22b6a93a6afc50662364ac0cd61892cb96d\nSERIAL=RFCT70L7E8J\nPACKAGE=pl.michalmatu.aicallbridge\nRELAY_BRANCH=chat-relay/orange-chatgpt-pump-v1\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\nadb devices -l | grep -F \"$SERIAL\" | grep -F 'device ' | grep -F 'model:SM_S906B'\nadb -s \"$SERIAL\" shell am force-stop \"$PACKAGE\" || true\nadb -s \"$SERIAL\" shell input keyevent KEYCODE_ENDCALL || true\nsleep 1\nadb -s \"$SERIAL\" shell cmd audio adj-unmute 0 || true\nadb -s \"$SERIAL\" shell cmd bluetooth_manager enable || true\nfor i in 1 2 3 4 5 6 7 8; do BT=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on 2>/dev/null | tr -d '\\r' || true); [ \"$BT\" = 1 ] && break; sleep 0.25; done\necho bluetooth_on=${BT:-unknown}\nSTATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | sed -n 's/.*mCallState=\\([0-9]\\).*/\\1/p' | head -1 || true)\necho post_cleanup_call_state=${STATE:-unknown}\ngit push origin --delete \"$RELAY_BRANCH\" >/tmp/relay-delete.out 2>&1 || true\ncat /tmp/relay-delete.out\nLEFT=$(git ls-remote --heads origin \"refs/heads/$RELAY_BRANCH\")\ntest -z \"$LEFT\"\necho relay_transient_branch_deleted=true\nLLAMA=$(adb -s \"$SERIAL\" shell 'pidof llama-server 2>/dev/null || true' | tr -d '\\r[:space:]')\necho llama_running=$([ -n \"$LLAMA\" ] && echo true || echo false)\ntest -z \"$(git status --porcelain)\"\necho failed_relay_cleanup_complete=true"
+  ]
+}
