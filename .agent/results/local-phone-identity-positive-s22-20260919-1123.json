@@ -1,0 +1,60 @@
+{
+  "id": "local-phone-identity-positive-s22-20260919-1123",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-19T09:24:41.310485+00:00",
+  "command_timeout": 1800,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -eu; EXPECTED=deda0a88cff78d9a9156e54893546d0e4304dadb; SERIAL=RFCT70L7E8J; PKG=pl.michalmatu.aicallbridge; PORT=18115; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; git fetch origin main; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); test \"$CALL_STATE\" = 0; echo identity_positive_call_state=$CALL_STATE; adb -s \"$SERIAL\" forward --remove tcp:$PORT >/dev/null 2>&1 || true; adb -s \"$SERIAL\" forward tcp:$PORT tcp:$PORT >/dev/null; curl -fsS --max-time 5 http://127.0.0.1:$PORT/props > /tmp/identity-positive-props.json; python3 -c \"import json; p=json.load(open('/tmp/identity-positive-props.json')); assert p.get('model_alias') == 'qwen-phone-1.5b', p; assert p.get('model_path') == '/data/local/tmp/aicall-phone-llm/model-1.5b.gguf', p; print('identity_positive_props_verified=true')\"; \"$GRADLE_BIN\" :app:assembleDebug >/tmp/identity-positive-build.log 2>&1 || { cat /tmp/identity-positive-build.log; exit 1; }; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/identity-positive-install.log 2>&1 || { cat /tmp/identity-positive-install.log; exit 1; }; adb -s \"$SERIAL\" shell run-as \"$PKG\" rm -f files/local-phone-llm-speech-pipeline-report.txt 2>/dev/null || true; adb -s \"$SERIAL\" shell am force-stop \"$PKG\"; adb -s \"$SERIAL\" shell am start -W -n \"$PKG/.DiagnosticProbeActivity\" --ez run_local_phone_llm_speech_pipeline_probe true >/tmp/identity-positive-start.log; REPORT=''; for _ in $(seq 1 300); do REPORT=$(adb -s \"$SERIAL\" shell run-as \"$PKG\" cat files/local-phone-llm-speech-pipeline-report.txt 2>/dev/null | tr -d '\\r' || true); printf '%s\\n' \"$REPORT\" | grep -q '^probe_complete=true$' && break; sleep 0.5; done; echo '--- identity positive report ---'; printf '%s\\n' \"$REPORT\"; echo '--- end identity positive report ---'; printf '%s\\n' \"$REPORT\" | grep -q '^backend_config_valid=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^stt_transcript_nonblank=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^backend_complete_response=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^approved_output_pcm_nonempty=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^local_phone_llm_speech_pipeline_success=true$'; HELPER=$(adb -s \"$SERIAL\" shell pidof \"$PKG:call_media\" 2>/dev/null | tr -d '\\r' || true); test -z \"$HELPER\"; test -z \"$(git status --porcelain)\"; echo local_phone_identity_positive_proven_s22=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at deda0a88 feat: require verified qwen identity in phone provider\nidentity_positive_call_state=0\nidentity_positive_props_verified=true\n--- identity positive report ---\nprobe=local_phone_llm_speech_pipeline\ncall_required=false\nopenai_api_used=false\nbackend_location=phone_loopback\napproval_policy=application_owned\ntimestamp_utc=2026-09-19T09:24:43.530884Z\ntarget_pcm=mono,pcm16,16000\nbackend_config_valid=true\nsource_tts_pcm_bytes=90090\nstt_ready=true\npcm_eof_sent=true\nstt_text=to jest test lokalnego modelu na telefonie\nstt_transcript_nonblank=true\nbackend_complete_response=true\napproved_text=Oczywiście! Jaki test oto jest?\napproved_text_nonblank=true\noutput_tts_pcm_bytes=76170\napproved_output_pcm_nonempty=true\nlocal_phone_llm_speech_pipeline_success=true\nprobe_complete=true\n--- end identity positive report ---\nlocal_phone_identity_positive_proven_s22=true\n",
+      "elapsed_seconds": 15.346,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 9.77,
+      "output_policy": "stream",
+      "captured_output_chars": 1056,
+      "output_truncated": false,
+      "current_rss_mb": 3.11,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 15.346
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.072
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.067
+  },
+  "finished_at": "2026-09-19T09:24:58.212632+00:00",
+  "task_digest": "0837e64bbca7a1e73f60d34d99f35860e8a9d683bb2080e588870f4ecb96a1a9",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "attempt_id": "a2cda16ab5fbef22068d6eaa",
+  "daemon_version": "4.18.22"
+}
