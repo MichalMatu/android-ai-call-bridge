@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "gate-a-final-host-retry-20260919-1345",
+  "task_digest": "aea76fd8ec74e54e9a1066671a2c7c7413ab5985c698fe1d43216fd425640fee",
+  "idle_timeout": 900,
+  "task_timeout": 4200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T11:41:00.961722+00:00",
+  "attempt_id": "6a1e12797606e82095f339ee",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 26183,
+  "updated_at": "2026-09-19T11:41:00.961899+00:00",
+  "pid": 26183
+}
