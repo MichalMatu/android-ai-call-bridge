@@ -1,0 +1,15 @@
+{
+  "id": "chatgpt-relay-hardening-red-verify-20260919-1615",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=ddc8c0042454b01ce14f58a4fb32544962267594\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\nset +e\npython3 -m unittest discover -s scripts -p 'test_chatgpt_relay_live_call.py' > /tmp/chat-relay-hardening-red.log 2>&1\nRC=$?\nset -e\ncat /tmp/chat-relay-hardening-red.log\ntest $RC -ne 0\ngrep -E 'format_probe_metric_lines|delete_remote_branch_verified|2 != 1|AssertionError' /tmp/chat-relay-hardening-red.log >/dev/null\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_hardening_red_verified=true\n"
+  ]
+}
