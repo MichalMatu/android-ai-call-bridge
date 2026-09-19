@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "chatgpt-relay-lifecycle-red-v1",
   "task_digest": "562b944d2c7c4cb22759d1706109526d35a5c4b970f177529e5b4aa6677b8a6c",
-  "idle_timeout": 300,
-  "task_timeout": 900,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-19T14:53:37.663481+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-19T14:53:40.335872+00:00",
   "attempt_id": "97fb3d4481d6c1d04d04f575",
   "daemon_version": "4.18.22",
   "daemon_pid": 9528,
-  "updated_at": "2026-09-19T14:53:37.663546+00:00",
+  "updated_at": "2026-09-19T14:53:40.573024+00:00",
   "pid": 9528
 }
