@@ -1,0 +1,60 @@
+{
+  "id": "qwen15b-verified-flow-orange-s22-retry-20260919-3720",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-19T08:57:09.373522+00:00",
+  "command_timeout": 1800,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -eu; git fetch origin agent-control; git show origin/agent-control:.agent/patches/run-qwen15b-verified-flow-orange-s22.sh > /tmp/run-qwen15b-verified-flow-orange-s22.sh; chmod +x /tmp/run-qwen15b-verified-flow-orange-s22.sh; /bin/bash /tmp/run-qwen15b-verified-flow-orange-s22.sh",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              agent-control -> FETCH_HEAD\n   e0cec935..db162ee0  agent-control -> origin/agent-control\nFrom https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at 7ae1c7cd feat: improve local phone llm call quality\nqwen15b_verified_call_state_before=0\nqwen15b_verified_model_sha=true\nqwen15b_old_servers_stopped=true\nqwen15b_props_alias_verified=true\nqwen15b_props_model_path_verified=true\nqwen15b_chat_template_present=true\nqwen15b_server_pid=20523\nVmHWM:\t 2108456 kB\nVmRSS:\t 1943192 kB\nThreads:\t15\nqwen15b_verified_server_ready=true\nqwen15b_verified_math=4\nqwen15b_verified_math_latency_seconds=0.595\nqwen15b_verified_ambiguous_response=Orange to firma telekomunikacyjna.\nqwen15b_verified_ambiguous_latency_seconds=3.365\nqwen15b_direct_quality_smoke=true\n--- verified 1.5b offcall report ---\nprobe=local_phone_llm_speech_pipeline\ncall_required=false\nopenai_api_used=false\nbackend_location=phone_loopback\napproval_policy=application_owned\ntimestamp_utc=2026-09-19T08:57:26.022075Z\ntarget_pcm=mono,pcm16,16000\nbackend_config_valid=true\nsource_tts_pcm_bytes=90090\nstt_ready=true\npcm_eof_sent=true\nstt_text=to jest test lokalnego modelu na telefonie\nstt_transcript_nonblank=true\nbackend_complete_response=true\napproved_text=ok, rozumiem.\napproved_text_nonblank=true\noutput_tts_pcm_bytes=38270\napproved_output_pcm_nonempty=true\nlocal_phone_llm_speech_pipeline_success=true\nprobe_complete=true\n--- end verified 1.5b offcall report ---\nqwen15b_verified_offcall_proven_s22=true\n18115\nStarting: Intent { cmp=pl.michalmatu.aicallbridge/.DiagnosticProbeActivity (has extras) }\nStatus: ok\nLaunchState: COLD\nActivity: pl.michalmatu.aicallbridge/.DiagnosticProbeActivity\nTotalTime: 381\nWaitTime: 385\nComplete\nbluetooth_disabled_for_test=true\nallowlisted_target=510100100\ndial_requested=true\ncall_state=0\ncall_state=0\ncall_state=0\ncall_state=0\ncall_state=0\ncall_state=2\nlive_preflight=true,mode:MODE_IN_CALL,device:earpiece,muted:True\nsignal_probe=1,rms:1.751,peak:14,non_zero:753,errors:0\nsignal_probe=2,rms:3062.060,peak:16199,non_zero:3999,errors:0\norange_downlink_signal=true,rms:3062.060,peak:16199\n--- local phone live report ---\nprobe=local_phone_llm_live_call\ncall_required=true\nbackend_location=phone_loopback\napproval_policy=application_owned\ntimestamp_utc=2026-09-19T08:57:46.306347Z\ntarget_pcm=mono,pcm16,16000\nmedia_generation=1\nmedia_active=true\nstt_ready=true\ntelephony_rx_pcm_bytes=256000\nstt_pcm_eof_sent=true\nstt_text=orange  dzień dobry jestem max twój wi\nstt_transcript_nonblank=true\nstt_elapsed_ms=7975\nbackend_complete_response=true\napproved_text=dzień dobry, Max. Cześć!\napproved_text_nonblank=true\nllm_approved_elapsed_ms=11176\noutput_tts_pcm_bytes=72174\ntelephony_tx_pcm_bytes=72174\nturn_complete_elapsed_ms=13468\nlocal_phone_llm_live_call_success=true\nprobe_complete=true\n--- end local phone live report ---\nlocal_phone_llm_orange_live_turn_proven_s22=true\nhangup_requested=true\nidle_after_hangup=True\nvoice_call_unmute_cleanup_requested=true\nbluetooth_restored=true\nqwen15b_verified_orange_live_proven_s22=true\nVmHWM:\t 2108456 kB\nVmRSS:\t  760000 kB\nThreads:\t15\n",
+      "elapsed_seconds": 54.635,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 156.95,
+      "output_policy": "stream",
+      "captured_output_chars": 3275,
+      "output_truncated": false,
+      "current_rss_mb": 40.02,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 54.635
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.063
+  },
+  "finished_at": "2026-09-19T08:58:05.615427+00:00",
+  "task_digest": "670087f038c8c188ee63a36d3435d26ed0e6d4d00029cfb2325e368b5dad89ac",
+  "idle_timeout": 600,
+  "task_timeout": 2700,
+  "memory_limit_mb": 4096,
+  "attempt_id": "4c395485ec60c2125c4f50c6",
+  "daemon_version": "4.18.22"
+}
