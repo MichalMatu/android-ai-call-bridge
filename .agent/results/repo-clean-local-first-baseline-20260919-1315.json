@@ -1,0 +1,9 @@
+{
+  "id": "repo-clean-local-first-baseline-20260919-1315",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-19T11:12:57.681231+00:00",
+  "daemon_version": "4.18.22",
+  "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+}
