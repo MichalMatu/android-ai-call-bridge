@@ -1,0 +1,9 @@
+{
+  "id": "chatgpt-relay-downlink-pump-green-20260919-1645",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "started_at": null,
+  "finished_at": "2026-09-19T14:43:22.024599+00:00",
+  "daemon_version": "4.18.22",
+  "error": "JSONDecodeError: Invalid control character at: line 13 column 11804 (char 12159)"
+}
