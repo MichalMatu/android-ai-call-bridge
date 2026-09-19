@@ -1,0 +1,15 @@
+{
+  "id": "gate-a-final-host-retry-20260919-1345",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/gate-a-ready-to-dial",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 900,
+  "task_timeout": 4200,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -eu; EXPECTED_MAIN=0aadac51003540a8b56fa72eca4984c9a8271b20; EXPECTED_BRANCH=5596760ecdc21bd6361cd3e849011f24bf24a387; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export PATH=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin:$PATH\"; git fetch origin main agent/gate-a-ready-to-dial; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git checkout -B agent/gate-a-ready-to-dial origin/agent/gate-a-ready-to-dial; test \"$(git rev-parse HEAD)\" = \"$EXPECTED_BRANCH\"; git diff --check origin/main...HEAD; grep -Fq 'Status: `DONE / HOST_GREEN / PROVEN_S22` (off-call readiness)' docs/ROADMAP.md; grep -Fq 'Status: `NEXT`' docs/ROADMAP.md; grep -Fq 'Continue with **Gate B** only' docs/HANDOFF_NEXT_CHAT.md; bash scripts/verify_host.sh; test -z \"$(git status --porcelain)\"; echo gate_a_final_branch_verified=true"
+  ]
+}
