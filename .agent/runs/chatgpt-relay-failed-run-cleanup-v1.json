@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-failed-run-cleanup-v1",
+  "task_digest": "f443adb3506a07056f1e60cf96a7d56fa4dd423a31c917516c8598ed6e7870ff",
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:51:52.527892+00:00",
+  "attempt_id": "58d78a36d869663173216f58",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 7877,
+  "updated_at": "2026-09-19T14:51:52.528006+00:00",
+  "pid": 7877
+}
