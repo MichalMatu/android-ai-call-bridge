@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-downlink-pump-verify-20260919-1650",
+  "task_digest": "b523cfefbc1792bba1f12537597735a4da62e847db6d2c0910ad0b34e593c474",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:46:05.161377+00:00",
+  "attempt_id": "243927ff746ec28968e9f95f",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 2021,
+  "updated_at": "2026-09-19T14:46:05.161441+00:00",
+  "pid": 2021
+}
