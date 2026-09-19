@@ -1,9 +1,0 @@
-{
-  "id": "gate3a-readiness-and-offcall-20260918-3390",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "started_at": null,
-  "finished_at": "2026-09-18T18:28:55.125132+00:00",
-  "daemon_version": "4.18.22",
-  "error": "ValueError: resource must be canonical lowercase text: 'adb:RFCT70L7E8J'"
-}
