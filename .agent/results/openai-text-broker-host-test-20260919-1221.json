@@ -1,0 +1,60 @@
+{
+  "id": "openai-text-broker-host-test-20260919-1221",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-19T10:20:51.988625+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -eu; EXPECTED=1c43da1e5bb5e8df67fe203fa77116ed43161e5e; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; PYTHONPATH=scripts python3 -m unittest -v scripts/test_openai_text_broker.py; python3 -m py_compile scripts/openai_text_broker.py; test -z \"$(git status --porcelain)\"; echo openai_text_broker_host_test=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is behind 'origin/main' by 3 commits, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nHEAD is now at 1c43da1e test: cover OpenAI text broker boundary\ntest_build_request_uses_responses_api_and_privacy_controls (scripts.test_openai_text_broker.TextBrokerTest.test_build_request_uses_responses_api_and_privacy_controls) ... ok\ntest_client_bearer_must_be_distinct_and_never_be_openai_key (scripts.test_openai_text_broker.TextBrokerTest.test_client_bearer_must_be_distinct_and_never_be_openai_key) ... ok\ntest_client_body_is_narrow_and_bounded (scripts.test_openai_text_broker.TextBrokerTest.test_client_body_is_narrow_and_bounded) ... ok\ntest_generate_extracts_output_text_from_message_items (scripts.test_openai_text_broker.TextBrokerTest.test_generate_extracts_output_text_from_message_items) ... ok\ntest_repr_redacts_both_secrets (scripts.test_openai_text_broker.TextBrokerTest.test_repr_redacts_both_secrets) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\nopenai_text_broker_host_test=true\n",
+      "elapsed_seconds": 0.968,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 2.33,
+      "output_policy": "stream",
+      "captured_output_chars": 1218,
+      "output_truncated": false,
+      "current_rss_mb": 2.33,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.968
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.072
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.068
+  },
+  "finished_at": "2026-09-19T10:20:54.626066+00:00",
+  "task_digest": "86ddaf8c26d58267d866cb75fcb6a59ec6b726da05b5c15902246e41da3509d8",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "150d2463998b45a41f0769e1",
+  "daemon_version": "4.18.22"
+}
