@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-metrics-audit-20260919-1610",
+  "task_digest": "7814081aebae8e310762c42ebe547ecdcca038bf951e773994f09f26d1b75636",
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:40:29.816010+00:00",
+  "attempt_id": "7a3e7c752bc1a1e4136af28f",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 94148,
+  "updated_at": "2026-09-19T14:40:29.816070+00:00",
+  "pid": 94148
+}
