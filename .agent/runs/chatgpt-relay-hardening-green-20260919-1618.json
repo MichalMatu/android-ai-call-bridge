@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-hardening-green-20260919-1618",
+  "task_digest": "c08aac842059698f656d38225f3af496f85558c7be0fc64a7a1b100a36b9ac78",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:12:12.562081+00:00",
+  "attempt_id": "6289bafe50defa7664637ff1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 67275,
+  "updated_at": "2026-09-19T14:12:12.562341+00:00",
+  "pid": 67275
+}
