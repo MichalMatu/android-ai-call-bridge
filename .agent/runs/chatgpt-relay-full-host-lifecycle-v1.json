@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-full-host-lifecycle-v1",
+  "task_digest": "2d6160f9ad09861d913e94c10f6210f968cbffe1426a06fc49731025acdc8deb",
+  "idle_timeout": 300,
+  "task_timeout": 4200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:56:36.041690+00:00",
+  "attempt_id": "560f38e7a4cd183b2c593dce",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 12413,
+  "updated_at": "2026-09-19T14:56:36.041858+00:00",
+  "pid": 12413
+}
