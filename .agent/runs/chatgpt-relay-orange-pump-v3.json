@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-orange-pump-v3",
+  "task_digest": "051341133e97442ec93d03aecab139a65b3490291375af676291c81cc2d24de7",
+  "idle_timeout": 360,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T15:04:08.500177+00:00",
+  "attempt_id": "485f6f095299004f17efdc5d",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 20433,
+  "updated_at": "2026-09-19T15:04:08.500516+00:00",
+  "pid": 20433
+}
