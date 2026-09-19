@@ -1,0 +1,15 @@
+{
+  "id": "chatgpt-relay-metrics-audit-20260919-1610",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 300,
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=e040f6e2287a3ad18ae041697ff6527cf3185363\nSERIAL=RFCT70L7E8J\nPACKAGE=pl.michalmatu.aicallbridge\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\nadb devices -l | grep -F \"$SERIAL\" | grep -F 'device ' | grep -F 'model:SM_S906B'\nCALL_STATE=$(adb -s \"$SERIAL\" shell 'dumpsys telephony.registry | grep -m1 mCallState || true' | tr -d '\\r')\nBT=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on | tr -d '\\r')\nLLAMA=$(adb -s \"$SERIAL\" shell 'pidof llama-server 2>/dev/null || true' | tr -d '\\r[:space:]')\nREPORT=$(adb -s \"$SERIAL\" shell run-as \"$PACKAGE\" cat files/chat-relay-live-call-report.txt | tr -d '\\r')\nprintf '%s\\n' \"$REPORT\" | grep -E '^(probe|developer_relay|call_required|max_turns|approval_policy|endpointing|timestamp_utc|media_generation|turn_[0-9]+_(started|stt_ready|stt_ready_elapsed_ms|stt_chars|stt_elapsed_ms|approved_chars|approved_elapsed_ms|output_pcm_ready_elapsed_ms|rx_pcm_bytes|endpoint_reason|endpoint_capture_ms|speech_detected|estimated_eos_elapsed_ms|tts_pcm_duration_ms|post_tx_hold_ms|first_tx_elapsed_ms|eos_to_first_tx_ms|tx_write_wall_ms|tx_pcm_bytes|complete_elapsed_ms)|turns_completed|telephony_rx_pcm_bytes|telephony_tx_pcm_bytes|chat_relay_live_call_success|failure_reason|probe_complete)='\necho post_call_call_state=\"$CALL_STATE\"\necho post_call_bluetooth_on=\"$BT\"\necho post_call_llama_running=$([ -n \"$LLAMA\" ] && echo true || echo false)\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_metrics_audit_complete=true"
+  ]
+}
