@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-finalize-main-v1",
+  "task_digest": "c7e9b71025be0a4c3aadec0c4caaa711851ba7bbb612e33e2bdf157c36515bff",
+  "idle_timeout": 600,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T16:17:02.664906+00:00",
+  "attempt_id": "a35137aa4e621fd91b059cd1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 26259,
+  "updated_at": "2026-09-19T16:17:02.665061+00:00",
+  "pid": 26259
+}
