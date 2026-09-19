@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-tx-pacing-v2b",
+  "task_digest": "bb927a208ada2278baa505522027248ddda84a991839e7098cfd93101bebb84e",
+  "idle_timeout": 300,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T16:09:03.730644+00:00",
+  "attempt_id": "97eeccd01d1495d9395cf596",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 14777,
+  "updated_at": "2026-09-19T16:09:03.730812+00:00",
+  "pid": 14777
+}
