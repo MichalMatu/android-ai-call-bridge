@@ -1,0 +1,60 @@
+{
+  "id": "chatgpt-relay-adb-write-red-20260919-1549",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "started_at": "2026-09-19T13:49:06.457676+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=03cacd134b75b9b85c3a6a7df9e28d1eb27b301a\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\nset +e\npython3 -m unittest discover -s scripts -p 'test_chatgpt_relay_live_call.py' > /tmp/chat-relay-adb-red.log 2>&1\nRC=$?\nset -e\ncat /tmp/chat-relay-adb-red.log\ntest $RC -ne 0\ngrep -F \"'tee' not found\" /tmp/chat-relay-adb-red.log >/dev/null\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_adb_write_red_verified=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/chatgpt-relay-developer-path -> FETCH_HEAD\nSwitched to and reset branch 'agent/chatgpt-relay-developer-path'\nbranch 'agent/chatgpt-relay-developer-path' set up to track 'origin/agent/chatgpt-relay-developer-path'.\nYour branch is up to date with 'origin/agent/chatgpt-relay-developer-path'.\n...F..\n======================================================================\nFAIL: test_response_body_is_sent_over_stdin_with_run_as_tee_not_shell_redirection (test_chatgpt_relay_live_call.ChatGptRelayLiveCallTest.test_response_body_is_sent_over_stdin_with_run_as_tee_not_shell_redirection)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py\", line 1426, in patched\n    return func(*newargs, **newkeywargs)\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_chatgpt_relay_live_call.py\", line 59, in test_response_body_is_sent_over_stdin_with_run_as_tee_not_shell_redirection\n    self.assertIn(\"tee\", argv)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^\nAssertionError: 'tee' not found in ['adb', '-s', 'RFCT70L7E8J', 'shell', 'run-as', 'pl.michalmatu.aicallbridge', 'sh', '-c', 'cat > files/chat-relay/response.txt']\n\n----------------------------------------------------------------------\nRan 6 tests in 0.002s\n\nFAILED (failures=1)\nchatgpt_relay_adb_write_red_verified=true\n",
+      "elapsed_seconds": 0.976,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.05,
+      "output_policy": "stream",
+      "captured_output_chars": 1597,
+      "output_truncated": false,
+      "current_rss_mb": 3.05,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.976
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.083
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.077
+  },
+  "finished_at": "2026-09-19T13:49:09.250567+00:00",
+  "task_digest": "38d5f5fc65144a787feaf50b4f54b513f71e6eaf1ee5afdac5984395d27b30b7",
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "c6e4aff8cb9965cb006487ec",
+  "daemon_version": "4.18.22"
+}
