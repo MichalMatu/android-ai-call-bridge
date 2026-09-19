@@ -1,0 +1,15 @@
+{
+  "id": "live-endpointing-host-verify-20260919-1211",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -eu; EXPECTED=5ff3c5917a942bb3f2f9e460aebe4566d4b2b082; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export PATH=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin:$PATH\"; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; ! grep -q 'INPUT_CAPTURE_MS' app/src/main/kotlin/pl/michalmatu/aicallbridge/LocalPhoneLlmLiveCallProbe.kt; grep -q 'PcmEndOfUtteranceDetector' app/src/main/kotlin/pl/michalmatu/aicallbridge/LocalPhoneLlmLiveCallProbe.kt; grep -q 'end_of_speech_to_first_tx_ms' app/src/main/kotlin/pl/michalmatu/aicallbridge/LocalPhoneLlmLiveCallProbe.kt; ! grep -q 'fun create()' app/src/main/kotlin/pl/michalmatu/aicallbridge/textagent/LocalPhoneLlmBackendFactory.kt; bash scripts/verify_host.sh; test -z \"$(git status --porcelain)\"; echo live_endpointing_host_verify=true"
+  ]
+}
