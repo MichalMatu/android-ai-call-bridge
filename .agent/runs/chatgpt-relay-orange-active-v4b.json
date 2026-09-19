@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-orange-active-v4b",
+  "task_digest": "a1a5a1ffe0c2f92cfc3203868e6088f52f3082993911afb5e98686593b8e8457",
+  "idle_timeout": 360,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T16:02:19.395635+00:00",
+  "attempt_id": "a4498cd628c214111f03c81f",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 5075,
+  "updated_at": "2026-09-19T16:02:19.395727+00:00",
+  "pid": 5075
+}
