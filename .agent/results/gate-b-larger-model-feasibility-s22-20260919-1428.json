@@ -1,0 +1,60 @@
+{
+  "id": "gate-b-larger-model-feasibility-s22-20260919-1428",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "agent/gate-b-text-benchmark",
+  "allow_write": false,
+  "started_at": "2026-09-19T12:15:35.504856+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -eu; EXPECTED_MAIN=b5206079f509351cd3ec4095ef353ab98ba04738; EXPECTED_BRANCH=0e92ca6b09a7cdfcc6ed0b0eacb36bb48d79cbd9; SERIAL=RFCT70L7E8J; REMOTE=/data/local/tmp/aicall-phone-llm; git fetch origin main agent/gate-b-text-benchmark; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git checkout -B agent/gate-b-text-benchmark origin/agent/gate-b-text-benchmark; test \"$(git rev-parse HEAD)\" = \"$EXPECTED_BRANCH\"; test -z \"$(git status --porcelain)\"; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); test \"$CALL_STATE\" = 0; echo gate_b_feasibility_call_state=$CALL_STATE; echo '--- llama server version ---'; adb -s \"$SERIAL\" shell \"cd '$REMOTE'; export LD_LIBRARY_PATH='$REMOTE'; ./llama-server --version 2>&1 | head -20\"; echo '--- data free space ---'; adb -s \"$SERIAL\" shell \"df -k /data | tail -1\"; echo '--- meminfo ---'; adb -s \"$SERIAL\" shell \"grep -E '^(MemTotal|MemAvailable|SwapTotal|SwapFree):' /proc/meminfo\"; echo '--- current model directory ---'; adb -s \"$SERIAL\" shell \"ls -lh '$REMOTE' | head -40\"; echo '--- device abi ---'; adb -s \"$SERIAL\" shell getprop ro.product.cpu.abi; test -z \"$(git status --porcelain)\"; echo gate_b_larger_model_feasibility_s22=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/gate-b-text-benchmark -> FETCH_HEAD\nSwitched to and reset branch 'agent/gate-b-text-benchmark'\nbranch 'agent/gate-b-text-benchmark' set up to track 'origin/agent/gate-b-text-benchmark'.\nYour branch is up to date with 'origin/agent/gate-b-text-benchmark'.\ngate_b_feasibility_call_state=0\n--- llama server version ---\nversion: 0.4.1-dev (build 10976, commit 987498f45)\nbuilt with Clang 21.0.0 for Android aarch64\n--- data free space ---\n/dev/block/dm-55 235587564 112151332 123305160  48% /storage/emulated/0/Android/obb\n--- meminfo ---\nMemTotal:        7445968 kB\nMemAvailable:    2489864 kB\nSwapTotal:      12582908 kB\nSwapFree:        8847140 kB\n--- current model directory ---\ntotal 1.7M\n-rw-rw-rw- 1 shell shell  21K 2026-09-19 14:14 gate-b-qwen15b.log\n-rw-rw-rw- 1 shell shell    5 2026-09-19 14:13 gate-b-server.pid\n-rw-r--r-- 1 shell shell 7.7M 2026-09-15 09:11 libggml-base.so\n-rw-r--r-- 1 shell shell 4.5M 2026-09-15 09:11 libggml-cpu-android_armv8.0_1.so\n-rw-r--r-- 1 shell shell 4.8M 2026-09-15 09:11 libggml-cpu-android_armv8.2_1.so\n-rw-r--r-- 1 shell shell 4.8M 2026-09-15 09:12 libggml-cpu-android_armv8.2_2.so\n-rw-r--r-- 1 shell shell 4.9M 2026-09-15 09:12 libggml-cpu-android_armv8.6_1.so\n-rw-r--r-- 1 shell shell 4.9M 2026-09-15 09:12 libggml-cpu-android_armv9.0_1.so\n-rw-r--r-- 1 shell shell 4.9M 2026-09-15 09:12 libggml-cpu-android_armv9.2_1.so\n-rw-r--r-- 1 shell shell 4.9M 2026-09-15 09:12 libggml-cpu-android_armv9.2_2.so\n-rw-r--r-- 1 shell shell 6.0M 2026-09-15 09:11 libggml-rpc.so\n-rw-r--r-- 1 shell shell 4.7M 2026-09-15 09:12 libggml.so\n-rw-r--r-- 1 shell shell 632K 2026-09-15 09:16 libllama-batched-bench-impl.so\n-rw-r--r-- 1 shell shell 3.7M 2026-09-15 09:16 libllama-bench-impl.so\n-rw-r--r-- 1 shell shell 2.6M 2026-09-15 09:17 libllama-cli-impl.so\n-rw-r--r-- 1 shell shell  79M 2026-09-15 09:16 libllama-common.so\n-rw-r--r-- 1 shell shell 1.0M 2026-09-15 09:16 libllama-completion-impl.so\n-rw-r--r-- 1 shell shell 576K 2026-09-15 09:16 libllama-fit-params-impl.so\n-rw-r--r-- 1 shell shell 1.5M 2026-09-15 09:16 libllama-perplexity-impl.so\n-rw-r--r-- 1 shell shell 999K 2026-09-15 09:16 libllama-quantize-impl.so\n-rw-r--r-- 1 shell shell  57M 2026-09-15 09:16 libllama-server-impl.so\n-rw-r--r-- 1 shell shell  31M 2026-09-15 09:13 libllama.so\n-rw-r--r-- 1 shell shell  16M 2026-09-15 09:14 libmtmd.so\n-rw-rw-rw- 1 shell shell 5.9K 2026-09-19 11:51 llama-1.5b.log\n-rw-rw-rw- 1 shell shell 5.9K 2026-09-19 13:31 llama-product-runtime.log\n-rwxr-xr-x 1 shell shell 7.0K 2026-09-15 09:16 llama-server\n-rw-rw-rw- 1 shell shell 1.0G 2026-09-19 02:40 model-1.5b.gguf\n-rw-r--r-- 1 shell shell 469M 2026-09-19 01:04 model.gguf\n-rw-rw-rw- 1 shell shell 7.1K 2026-09-19 10:57 server.log\n-rw-rw-rw- 1 shell shell    6 2026-09-19 10:57 server.pid\n--- device abi ---\narm64-v8a\ngate_b_larger_model_feasibility_s22=true\n",
+      "elapsed_seconds": 1.196,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.03,
+      "output_policy": "stream",
+      "captured_output_chars": 2969,
+      "output_truncated": false,
+      "current_rss_mb": 3.03,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 1.196
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.096
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.084
+  },
+  "finished_at": "2026-09-19T12:15:38.295328+00:00",
+  "task_digest": "b069d38afe36ee520fc9b5cd3cfaeda94accfaa2ccab3f61e9dde3cc35f50367",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "09f33aa76266265a9f0470e9",
+  "daemon_version": "4.18.22"
+}
