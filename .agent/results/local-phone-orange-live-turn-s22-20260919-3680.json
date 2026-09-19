@@ -1,0 +1,60 @@
+{
+  "id": "local-phone-orange-live-turn-s22-20260919-3680",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-19T00:25:21.240507+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED=655644bbf83ca46b820bb4b7502438e5f25e1aed; SERIAL=RFCT70L7E8J; PKG=pl.michalmatu.aicallbridge; git fetch origin main; git checkout main; git reset --hard origin/main; git clean -fd; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; test -z \"$(git status --porcelain)\"; CALL_STATE_BEFORE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); test \"$CALL_STATE_BEFORE\" = 0; echo orange_live_call_state_before=$CALL_STATE_BEFORE; PYTHONPATH=scripts python3 scripts/local_phone_llm_live_call.py \"$SERIAL\" | tee /tmp/local-phone-orange-live-turn.log; grep -q '^allowlisted_target=510100100$' /tmp/local-phone-orange-live-turn.log; grep -q '^dial_requested=true$' /tmp/local-phone-orange-live-turn.log; grep -q '^local_phone_llm_orange_live_turn_proven_s22=true$' /tmp/local-phone-orange-live-turn.log; grep -q '^hangup_requested=true$' /tmp/local-phone-orange-live-turn.log; grep -q '^idle_after_hangup=True$' /tmp/local-phone-orange-live-turn.log; CALL_STATE_AFTER=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); test \"$CALL_STATE_AFTER\" = 0; echo orange_live_call_state_after=$CALL_STATE_AFTER; HELPER=$(adb -s \"$SERIAL\" shell pidof \"$PKG:call_media\" 2>/dev/null | tr -d '\\r' || true); test -z \"$HELPER\"; echo orange_live_helper_clean=true; test -z \"$(git status --porcelain)\"",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to branch 'main'\nYour branch is up to date with 'origin/main'.\nHEAD is now at 655644bb feat: add allowlisted local phone live turn\norange_live_call_state_before=0\n18115\nStarting: Intent { cmp=pl.michalmatu.aicallbridge/.DiagnosticProbeActivity (has extras) }\nStatus: ok\nLaunchState: COLD\nActivity: pl.michalmatu.aicallbridge/.DiagnosticProbeActivity\nTotalTime: 397\nWaitTime: 412\nComplete\nbluetooth_disabled_for_test=true\nallowlisted_target=510100100\ndial_requested=true\ncall_state=0\ncall_state=0\ncall_state=2\nlive_preflight=true,mode:MODE_IN_CALL,device:earpiece,muted:True\nsignal_probe=1,rms:3.239,peak:18,non_zero:2501,errors:0\nsignal_probe=2,rms:3571.408,peak:16200,non_zero:4000,errors:0\norange_downlink_signal=true,rms:3571.408,peak:16200\n--- local phone live report ---\nprobe=local_phone_llm_live_call\ncall_required=true\nbackend_location=phone_loopback\napproval_policy=application_owned\ntimestamp_utc=2026-09-19T00:25:30.257279Z\ntarget_pcm=mono,pcm16,16000\nmedia_generation=1\nmedia_active=true\nstt_ready=true\ntelephony_rx_pcm_bytes=160000\nstt_pcm_eof_sent=true\nstt_text=orange\nstt_transcript_nonblank=true\nstt_elapsed_ms=4973\nbackend_complete_response=true\napproved_text=Orange jest nowoformowana, czarne, długotrzymająca, roślona i pędzona.\napproved_text_nonblank=true\nllm_approved_elapsed_ms=7081\noutput_tts_pcm_bytes=142946\ntelephony_tx_pcm_bytes=142946\nturn_complete_elapsed_ms=11762\nlocal_phone_llm_live_call_success=true\nprobe_complete=true\n--- end local phone live report ---\nlocal_phone_llm_orange_live_turn_proven_s22=true\nhangup_requested=true\nidle_after_hangup=True\nvoice_call_unmute_cleanup_requested=true\nbluetooth_restored=true\norange_live_call_state_after=0\norange_live_helper_clean=true\n",
+      "elapsed_seconds": 22.033,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 2048,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 46.31,
+      "output_policy": "stream",
+      "captured_output_chars": 1824,
+      "output_truncated": false,
+      "current_rss_mb": 36.86,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 22.033
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.084
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.071
+  },
+  "finished_at": "2026-09-19T00:25:44.819998+00:00",
+  "task_digest": "03123f5bf2c7b433139f2084b639b9fb9dd2a1b7b19c588280ee8c145c516c6d",
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 2048,
+  "attempt_id": "5cba6ba9f279fd75229f14bc",
+  "daemon_version": "4.18.22"
+}
