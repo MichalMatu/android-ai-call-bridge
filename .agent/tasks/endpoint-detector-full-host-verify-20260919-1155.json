@@ -1,0 +1,15 @@
+{
+  "id": "endpoint-detector-full-host-verify-20260919-1155",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 1800,
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -eu; EXPECTED=de006d220f4e464318570aa8b72d9f51b0fd2214; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export PATH=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin:$PATH\"; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; bash scripts/verify_host.sh; test -z \"$(git status --porcelain)\"; echo endpoint_detector_full_host_verify=true"
+  ]
+}
