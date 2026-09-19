@@ -1,9 +1,0 @@
-{
-  "id": "local-mac-llm-capacity-audit-20260919-3580",
-  "status": "failed",
-  "failure_reason": "invalid_task_file",
-  "started_at": null,
-  "finished_at": "2026-09-18T22:37:41.201232+00:00",
-  "daemon_version": "4.18.22",
-  "error": "ValueError: resources must be declared explicitly"
-}
