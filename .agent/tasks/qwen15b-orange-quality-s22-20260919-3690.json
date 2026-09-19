@@ -1,0 +1,15 @@
+{
+  "id": "qwen15b-orange-quality-s22-20260919-3690",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": true,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 7200,
+  "idle_timeout": 1200,
+  "task_timeout": 9000,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -eu; git fetch origin agent-control; git show origin/agent-control:.agent/patches/run-qwen15b-orange-quality-s22.sh > /tmp/run-qwen15b-orange-quality-s22.sh; chmod +x /tmp/run-qwen15b-orange-quality-s22.sh; /bin/bash /tmp/run-qwen15b-orange-quality-s22.sh"
+  ]
+}
