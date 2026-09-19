@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-phone-runtime-lifecycle-s22-20260919-1151",
+  "task_digest": "27d9cde2f07dca0e02542c4a780ac184c0566fbbed7ca546835323c35ca9a567",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T09:50:46.569923+00:00",
+  "attempt_id": "c2cf6470415160cefd5ebbc7",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 944,
+  "updated_at": "2026-09-19T09:50:46.570054+00:00",
+  "pid": 944
+}
