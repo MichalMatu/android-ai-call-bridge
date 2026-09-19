@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-orange-pacing-confirm-v1",
+  "task_digest": "c9ce55753b2bfd22785dde51705bc7af9f30477c57fabcfa6bd11365ed37f8b6",
+  "idle_timeout": 360,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T16:12:52.642392+00:00",
+  "attempt_id": "8c011eed938fb7ee6bc30dc6",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 21852,
+  "updated_at": "2026-09-19T16:12:52.642510+00:00",
+  "pid": 21852
+}
