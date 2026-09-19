@@ -1,0 +1,9 @@
+{
+  "event": "invalid_task_rejected",
+  "status": "failed",
+  "failure_reason": "invalid_task_file",
+  "updated_at": "2026-09-19T14:43:25.475618+00:00",
+  "task_id": "chatgpt-relay-downlink-pump-green-20260919-1645",
+  "daemon_version": "4.18.22",
+  "pid": 98198
+}
