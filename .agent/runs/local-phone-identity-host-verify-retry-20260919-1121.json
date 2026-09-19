@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-phone-identity-host-verify-retry-20260919-1121",
+  "task_digest": "0e5504569ddf5b1bb7b27b6f2c537787f088ebb460542583615fc6cf937c5e18",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T09:21:47.784982+00:00",
+  "attempt_id": "0c19af39d0aa08d2b188afa5",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 42531,
+  "updated_at": "2026-09-19T09:21:47.785049+00:00",
+  "pid": 42531
+}
