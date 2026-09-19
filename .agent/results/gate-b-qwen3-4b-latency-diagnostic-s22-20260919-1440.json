@@ -1,0 +1,61 @@
+{
+  "id": "gate-b-qwen3-4b-latency-diagnostic-s22-20260919-1440",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "agent/gate-b-text-benchmark",
+  "allow_write": false,
+  "started_at": "2026-09-19T12:24:06.737520+00:00",
+  "command_timeout": 1200,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED_MAIN=b5206079f509351cd3ec4095ef353ab98ba04738; EXPECTED_BRANCH=0e92ca6b09a7cdfcc6ed0b0eacb36bb48d79cbd9; SERIAL=RFCT70L7E8J; REMOTE=/data/local/tmp/aicall-phone-llm; PORT=18115; MODEL_REMOTE=$REMOTE/model-qwen3-4b-instruct-2507-q4km.gguf; MODEL_SHA=2fde00ce69dd4899c70d020845e2638353015bba0fdf161b3eb965f2bca4464e; cleanup(){ PIDS=$(adb -s \"$SERIAL\" shell pidof llama-server 2>/dev/null | tr -d '\\r' || true); for p in $PIDS; do adb -s \"$SERIAL\" shell kill \"$p\" >/dev/null 2>&1 || true; done; adb -s \"$SERIAL\" forward --remove tcp:$PORT >/dev/null 2>&1 || true; }; trap cleanup EXIT; git fetch origin main agent/gate-b-text-benchmark; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git checkout -B agent/gate-b-text-benchmark origin/agent/gate-b-text-benchmark; test \"$(git rev-parse HEAD)\" = \"$EXPECTED_BRANCH\"; test \"$(adb -s \"$SERIAL\" shell sha256sum \"$MODEL_REMOTE\" | awk '{print $1}' | tr -d '\\r')\" = \"$MODEL_SHA\"; cleanup; adb -s \"$SERIAL\" shell \"rm -f '$REMOTE/gate-b-qwen3-diag.pid' '$REMOTE/gate-b-qwen3-diag.log'; cd '$REMOTE'; export LD_LIBRARY_PATH='$REMOTE'; nohup ./llama-server -m '$MODEL_REMOTE' --host 127.0.0.1 --port $PORT --alias qwen3-phone-4b-2507 -c 1024 -t 4 -np 1 > '$REMOTE/gate-b-qwen3-diag.log' 2>&1 < /dev/null & echo \\$! > '$REMOTE/gate-b-qwen3-diag.pid'\" || true; adb -s \"$SERIAL\" forward tcp:$PORT tcp:$PORT >/dev/null; READY=0; for _ in $(seq 1 120); do if curl -fsS --max-time 3 http://127.0.0.1:$PORT/health >/dev/null 2>&1; then READY=1; break; fi; sleep 1; done; test \"$READY\" = 1; PID=$(adb -s \"$SERIAL\" shell cat \"$REMOTE/gate-b-qwen3-diag.pid\" | tr -d '\\r'); echo gate_b_qwen3_diag_pid=$PID; PYTHONPATH=scripts python3 -c 'import json,time; from pathlib import Path; import text_model_benchmark as b; s=b.load_suite(Path(\"benchmarks/text_model_suite_v1.json\")); c=b.OpenAiCompatibleClient(\"http://127.0.0.1:18115/v1/\",\"qwen3-phone-4b-2507\",timeout_seconds=300); t=time.perf_counter(); x=c.complete(s.system_prompt,s.warmup_prompt); print(\"gate_b_qwen3_diag_warmup_wall_ms=\"+str(round((time.perf_counter()-t)*1000,3))); print(\"gate_b_qwen3_diag_warmup=\"+json.dumps({\"response\":x.text,\"timings\":x.timings},ensure_ascii=False,sort_keys=True)); t=time.perf_counter(); y=c.complete(s.system_prompt,\"Czy mnie Pan słyszy?\"); print(\"gate_b_qwen3_diag_simple_wall_ms=\"+str(round((time.perf_counter()-t)*1000,3))); print(\"gate_b_qwen3_diag_simple=\"+json.dumps({\"response\":y.text,\"timings\":y.timings},ensure_ascii=False,sort_keys=True))'; echo qwen3_diag_status=$(adb -s \"$SERIAL\" shell \"cat /proc/$PID/status 2>/dev/null | grep -E '^(VmRSS|VmHWM|Threads):' | tr '\\n' ';'\" | tr -d '\\r'); echo '--- qwen3 diag log tail ---'; adb -s \"$SERIAL\" shell tail -80 \"$REMOTE/gate-b-qwen3-diag.log\"; echo '--- end qwen3 diag log ---'; test -z \"$(git status --porcelain)\"; echo gate_b_qwen3_latency_diagnostic_complete=true",
+      "exit_code": 1,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/gate-b-text-benchmark -> FETCH_HEAD\nSwitched to and reset branch 'agent/gate-b-text-benchmark'\nbranch 'agent/gate-b-text-benchmark' set up to track 'origin/agent/gate-b-text-benchmark'.\nYour branch is up to date with 'origin/agent/gate-b-text-benchmark'.\ngate_b_qwen3_diag_pid=23751\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n    import json,time; from pathlib import Path; import text_model_benchmark as b; s=b.load_suite(Path(\"benchmarks/text_model_suite_v1.json\")); c=b.OpenAiCompatibleClient(\"http://127.0.0.1:18115/v1/\",\"qwen3-phone-4b-2507\",timeout_seconds=300); t=time.perf_counter(); x=c.complete(s.system_prompt,s.warmup_prompt); print(\"gate_b_qwen3_diag_warmup_wall_ms=\"+str(round((time.perf_counter()-t)*1000,3))); print(\"gate_b_qwen3_diag_warmup=\"+json.dumps({\"response\":x.text,\"timings\":x.timings},ensure_ascii=False,sort_keys=True)); t=time.perf_counter(); y=c.complete(s.system_prompt,\"Czy mnie Pan słyszy?\"); print(\"gate_b_qwen3_diag_simple_wall_ms=\"+str(round((time.perf_counter()-t)*1000,3))); print(\"gate_b_qwen3_diag_simple=\"+json.dumps({\"response\":y.text,\"timings\":y.timings},ensure_ascii=False,sort_keys=True))\n                                                                                                                                                                                                                                                                            ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/text_model_benchmark.py\", line 392, in complete\n    root = self._request_json(request)\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/text_model_benchmark.py\", line 419, in _request_json\n    with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:\n         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/urllib/request.py\", line 189, in urlopen\n    return opener.open(url, data, timeout)\n           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/urllib/request.py\", line 489, in open\n    response = self._open(req, data)\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/urllib/request.py\", line 506, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n                              '_open', req)\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/urllib/request.py\", line 466, in _call_chain\n    result = func(*args)\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/urllib/request.py\", line 1348, in http_open\n    return self.do_open(http.client.HTTPConnection, req)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/urllib/request.py\", line 1323, in do_open\n    r = h.getresponse()\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py\", line 1430, in getresponse\n    response.begin()\n    ~~~~~~~~~~~~~~^^\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py\", line 331, in begin\n    version, status, reason = self._read_status()\n                              ~~~~~~~~~~~~~~~~~^^\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py\", line 300, in _read_status\n    raise RemoteDisconnected(\"Remote end closed connection without\"\n                             \" response\")\nhttp.client.RemoteDisconnected: Remote end closed connection without response\n",
+      "elapsed_seconds": 76.767,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 31.72,
+      "output_policy": "stream",
+      "captured_output_chars": 4129,
+      "output_truncated": false,
+      "current_rss_mb": 13.91,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 76.767
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.096
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.067
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-19T12:25:24.940581+00:00",
+  "task_digest": "c2d018d3c6b8a38d0a34add680eb3f7c9a4adc9be3fb331b907cba05e4720b32",
+  "idle_timeout": 600,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "attempt_id": "1fb526c5d764ca09b052cd27",
+  "daemon_version": "4.18.22"
+}
