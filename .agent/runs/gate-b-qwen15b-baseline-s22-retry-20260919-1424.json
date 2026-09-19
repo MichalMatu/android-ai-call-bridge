@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "gate-b-qwen15b-baseline-s22-retry-20260919-1424",
+  "task_digest": "909f752a8b5a655cfcb31d5b54af5e45594ca25bba601d42b50bde2d38a70de0",
+  "idle_timeout": 600,
+  "task_timeout": 3000,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T12:13:13.960062+00:00",
+  "attempt_id": "8d492219c2ee1f7eea03a2cf",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 72948,
+  "updated_at": "2026-09-19T12:13:13.960178+00:00",
+  "pid": 72948
+}
