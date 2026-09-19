@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "gate-b-qwen3-4b-crash-diagnostic-s22-retry-20260919-1436",
   "task_digest": "64043e982fa73f0f83829a1d1e162789a29bd83f3012487ff94a361ed1b859d0",
-  "idle_timeout": 600,
-  "task_timeout": 2400,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-19T12:34:21.618735+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-19T12:34:24.236146+00:00",
   "attempt_id": "af40e9666b615651b5971065",
   "daemon_version": "4.18.22",
   "daemon_pid": 91856,
-  "updated_at": "2026-09-19T12:34:21.618931+00:00",
+  "updated_at": "2026-09-19T12:34:24.461382+00:00",
   "pid": 91856
 }
