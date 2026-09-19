@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "gate-b-gpt56-reference-verify-20260919-1443",
   "task_digest": "6d8608df53b3f9f63e78a3844679a2daa925a4eea8560fafc439c2b25b3b9666",
-  "idle_timeout": 300,
-  "task_timeout": 1200,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-19T12:38:44.761871+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-19T12:38:47.363760+00:00",
   "attempt_id": "8a846315f15436363281ae2c",
   "daemon_version": "4.18.22",
   "daemon_pid": 97074,
-  "updated_at": "2026-09-19T12:38:44.762077+00:00",
+  "updated_at": "2026-09-19T12:38:47.593160+00:00",
   "pid": 97074
 }
