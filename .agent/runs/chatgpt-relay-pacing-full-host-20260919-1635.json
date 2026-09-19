@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-pacing-full-host-20260919-1635",
+  "task_digest": "8151273569fba44dbfc6812cdbde1f9440bda4a83018bd78251cb00c9761dc3d",
+  "idle_timeout": 600,
+  "task_timeout": 5400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:22:26.367542+00:00",
+  "attempt_id": "4b026b1d3653278e116a2cbe",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 78487,
+  "updated_at": "2026-09-19T14:22:26.367736+00:00",
+  "pid": 78487
+}
