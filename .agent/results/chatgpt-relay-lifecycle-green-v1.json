@@ -1,0 +1,60 @@
+{
+  "id": "chatgpt-relay-lifecycle-green-v1",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": true,
+  "started_at": "2026-09-19T14:55:39.658542+00:00",
+  "command_timeout": 1200,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail\nexport ANDROID_HOME=\"$HOME/Library/Android/sdk\"\nexport ANDROID_SDK_ROOT=\"$ANDROID_HOME\"\nexport PATH=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin:$PATH\"\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=36236011ab278cd942f57e29bac8d5861cdfb1f1\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\npython3 scripts/apply_chat_relay_lifecycle_fix.py\nrm scripts/apply_chat_relay_lifecycle_fix.py\ngit diff --check\npython3 -m unittest discover -s scripts -p 'test_chatgpt_relay_live_call.py'\npython3 -m py_compile scripts/chatgpt_relay_live_call.py\ngit add -A\ngit commit -m 'fix: make relay live-call cleanup fail-safe'\ngit push origin HEAD:agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_lifecycle_green=true\necho relay_lifecycle_commit=$(git rev-parse HEAD)",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/chatgpt-relay-developer-path -> FETCH_HEAD\nSwitched to and reset branch 'agent/chatgpt-relay-developer-path'\nbranch 'agent/chatgpt-relay-developer-path' set up to track 'origin/agent/chatgpt-relay-developer-path'.\nYour branch is up to date with 'origin/agent/chatgpt-relay-developer-path'.\ncall_state_probe_transient_error=true\n.hangup_error=synthetic hangup failure\n..........\n----------------------------------------------------------------------\nRan 11 tests in 0.001s\n\nOK\n[agent/chatgpt-relay-developer-path 0470874d] fix: make relay live-call cleanup fail-safe\n 2 files changed, 81 insertions(+), 66 deletions(-)\n delete mode 100644 scripts/apply_chat_relay_lifecycle_fix.py\nTo https://github.com/MichalMatu/android-ai-call-bridge.git\n   36236011..0470874d  HEAD -> agent/chatgpt-relay-developer-path\nchatgpt_relay_lifecycle_green=true\nrelay_lifecycle_commit=0470874dba5f326b862358a17d97886ddcfb183f\n",
+      "elapsed_seconds": 2.848,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 20.44,
+      "output_policy": "stream",
+      "captured_output_chars": 1040,
+      "output_truncated": false,
+      "current_rss_mb": 20.44,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.848
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "finished_at": "2026-09-19T14:55:44.259174+00:00",
+  "task_digest": "54e0091f6d4f3c706e0d9884b6dd3d0a562f5160779bcd0aa4e6fafba4a6a4d2",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "attempt_id": "16716c0b58ab68f988b2a000",
+  "daemon_version": "4.18.22"
+}
