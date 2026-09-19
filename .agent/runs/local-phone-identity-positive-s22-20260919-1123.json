@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-phone-identity-positive-s22-20260919-1123",
+  "task_digest": "0837e64bbca7a1e73f60d34d99f35860e8a9d683bb2080e588870f4ecb96a1a9",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T09:24:41.310398+00:00",
+  "attempt_id": "a2cda16ab5fbef22068d6eaa",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 45499,
+  "updated_at": "2026-09-19T09:24:41.310562+00:00",
+  "pid": 45499
+}
