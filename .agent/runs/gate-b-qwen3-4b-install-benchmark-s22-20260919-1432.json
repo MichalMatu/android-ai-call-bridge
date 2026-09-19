@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "gate-b-qwen3-4b-install-benchmark-s22-20260919-1432",
+  "task_digest": "d22953df97b08c8d1828e79bc3cab1d9e6e00b9e09109fb8135cd7f6186d6a02",
+  "idle_timeout": 1800,
+  "task_timeout": 9000,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T12:16:59.172901+00:00",
+  "attempt_id": "8d7f0fe4bdc8ba382e2a833c",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 76430,
+  "updated_at": "2026-09-19T12:16:59.172953+00:00",
+  "pid": 76430
+}
