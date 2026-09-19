@@ -1,0 +1,15 @@
+{
+  "id": "chatgpt-relay-orange-live-20260919-1545",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "resources": ["adb:rfct70l7e8j"],
+  "command_timeout": 600,
+  "idle_timeout": 360,
+  "task_timeout": 720,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\nexport ANDROID_HOME=\"$HOME/Library/Android/sdk\"\nexport ANDROID_SDK_ROOT=\"$ANDROID_HOME\"\nexport PATH=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin:$PATH\"\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=e7786a36e1156d1165b9bc8188dce3f4dddbba28\nSERIAL=RFCT70L7E8J\nSESSION=orange-chatgpt-20260919-1545\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\nadb devices -l\nadb devices -l | grep -F \"$SERIAL\" | grep -F 'device ' | grep -F 'model:SM_S906B'\nLLAMA_PID=$(adb -s \"$SERIAL\" shell 'pidof llama-server 2>/dev/null || true' | tr -d '\\r[:space:]')\ntest -z \"$LLAMA_PID\"\ngradle :app:assembleDebug --no-daemon\nadb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk\npython3 scripts/chatgpt_relay_live_call.py --serial \"$SERIAL\" --session \"$SESSION\" --max-turns 2 --repo-root \"$(pwd)\"\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_orange_live_test_complete=true"
+  ]
+}
