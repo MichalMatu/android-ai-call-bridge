@@ -1,0 +1,60 @@
+{
+  "id": "gate-b-progress-docs-20260919-1446",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": true,
+  "started_at": "2026-09-19T12:40:45.721007+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED_MAIN=30ae11606913d4e4471a79fb40d66d1b4310dc0b; git fetch origin main agent-control; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git checkout -B main origin/main; git show origin/agent-control:.agent/payloads/update-gate-b-progress-docs-20260919.py > /tmp/update-gate-b-progress-docs.py; python3 /tmp/update-gate-b-progress-docs.py; git diff --check; git diff -- docs/ROADMAP.md docs/HANDOFF_NEXT_CHAT.md; test \"$(git status --short | wc -l | tr -d ' ')\" = 2; git add docs/ROADMAP.md docs/HANDOFF_NEXT_CHAT.md; git commit -m 'docs: record Gate B benchmark progress'; git push origin HEAD:main; test -z \"$(git status --porcelain)\"; echo gate_b_progress_docs_updated=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main          -> FETCH_HEAD\n * branch              agent-control -> FETCH_HEAD\n   db162ee0..f153c9c6  agent-control -> origin/agent-control\nSwitched to and reset branch 'main'\nbranch 'main' set up to track 'origin/main'.\nYour branch is up to date with 'origin/main'.\ndiff --git a/docs/HANDOFF_NEXT_CHAT.md b/docs/HANDOFF_NEXT_CHAT.md\nindex e5b28075..b85d9f77 100644\n--- a/docs/HANDOFF_NEXT_CHAT.md\n+++ b/docs/HANDOFF_NEXT_CHAT.md\n@@ -1,4 +1,4 @@\n-# Handoff — Gate A READY_TO_DIAL proven\n+# Handoff — Gate B text benchmark in progress\n \n Date: 2026-09-19\n \n@@ -133,17 +133,37 @@ Evidence:\n .agent/results/gate-a-offcall-ready-s22-20260919-1335.json\n ```\n \n-### B. Text-model quality benchmark — NEXT\n+### B. Text-model quality benchmark — IN PROGRESS\n \n-Gate A is complete. Next:\n+The deterministic text-only comparison seam is now on `main`:\n \n-- current Qwen2.5 1.5B;\n-- one larger feasible local phone model;\n-- GPT-5.6 Sol through this interactive ChatGPT conversation using Local Agent/ADB as a developer relay.\n+```text\n+benchmarks/text_model_suite_v1.json\n+scripts/text_model_benchmark.py\n+scripts/test_text_model_benchmark.py\n+```\n+\n+The harness intentionally isolates model quality from STT/TTS variability. It fixes `temperature=0`, `seed=42`, `max_tokens=96`, verifies local `/props` identity and records responses/timings/findings. Full speech/live comparisons come only after a useful text-model candidate survives this gate.\n+\n+Current evidence:\n+\n+```text\n+Harness RED:        .agent/results/gate-b-benchmark-red-20260919-1405.json\n+Harness GREEN:      .agent/results/gate-b-benchmark-green-20260919-1410.json\n+Final HOST_GREEN:   .agent/results/gate-b-benchmark-final-host-20260919-1440.json\n+Qwen2.5 1.5B S22:  .agent/results/gate-b-qwen15b-baseline-s22-retry-20260919-1424.json\n+GPT-5.6 reference:  .agent/results/gate-b-gpt56-reference-verify-20260919-1443.json\n+```\n+\n+Measured so far:\n+\n+- Qwen2.5-1.5B Q4_K_M: `6/24` deterministic-safe (`25%`) across three repeats; median request `1465.535 ms`, p95 `2690.038 ms`, warm-up `3588.515 ms`; it incorrectly accepted purchase/appointment commitments;\n+- GPT-5.6 Sol interactive reference: `8/8` deterministic-safe on one reference pass. Result is in `benchmarks/results/gpt56_sol_interactive_reference_v1.json`. It is not a production backend and its ChatGPT serving latency/RAM are not comparable to phone-local llama.cpp;\n+- Qwen3-4B-Instruct-2507 Q4_K_M is already present on the S22 with verified SHA and can reach `/health`, but its first completion disconnected after about 76 seconds. The root cause is still unproven because the next diagnostic could not start after the S22 disappeared from direct USB ADB.\n \n-Use the same scenarios, STT/TTS, endpointing and telephony path. Measure quality, hallucinations, latency, load/warm-up, RAM and resources.\n+Do not infer OOM from the disconnect alone. Resume by capturing the 4B server log, process/RSS and LMKD/OOM evidence around its first completion. If this 4B quant is not viable, choose a lower-memory but meaningfully larger local candidate and run the identical frozen suite.\n \n-The ChatGPT relay is a controlled interactive benchmark, not a production/background backend.\n+The ChatGPT relay remains controlled interactive benchmark infrastructure, never a production/background backend.\n \n ### C. CallPlan v1 — local LLM as language, not brain\n \n@@ -217,6 +237,6 @@ Preserve RX/TX attribution/order, CALL_ASSISTANT/TELEPHONY_TX routing, mono inte\n \n Continue with **Gate B** only:\n \n-> Build the deterministic text-model benchmark harness on top of the proven Gate A readiness/session seam. Keep telephony, endpointing, STT/TTS, authority and scenario inputs fixed. Benchmark the current Qwen2.5 1.5B first off-call, then one larger feasible phone-local model, and use GPT-5.6 Sol through this interactive ChatGPT + Local Agent/ADB relay as the strong reference. Measure response quality, invented/unsafe facts, fallback/escalation, inference latency, load/warm-up, RAM and thermal/resource behavior. Do not change the frozen Samsung media path and do not resume paid OpenAI API work.\n+> Fetch fresh `main` and `agent-control:.agent/status/daemon.json`. Do not rebuild the benchmark harness or rerun the proven 1.5B baseline. First check that S22 `RFCT70L7E8J` is again available over direct USB ADB. The Qwen3-4B-Instruct-2507 Q4_K_M candidate is already on the phone; reproduce its first-completion disconnect while capturing the llama-server log, process/RSS lifetime and LMKD/OOM evidence. Do not assume OOM before measuring it. If this candidate is not viable, choose a lower-memory but still meaningfully larger phone-local model and run the exact frozen `phone-call-text-v1` suite. Compare it against the existing Qwen2.5 1.5B and GPT-5.6 Sol evidence, then decide Gate B. Do not change frozen Samsung media and do not resume paid OpenAI API work.\n \n-Do not start Gate C/D/E until Gate B has comparable evidence.\n+Do not start Gate C/D/E until Gate B has comparable larger-local-model evidence.\ndiff --git a/docs/ROADMAP.md b/docs/ROADMAP.md\nindex 5dacb8b6..8adcd5c1 100644\n--- a/docs/ROADMAP.md\n+++ b/docs/ROADMAP.md\n@@ -141,7 +141,7 @@ PROVEN_S22: .agent/results/gate-a-offcall-ready-s22-20260919-1335.json\n \n ## Gate B — text-brain benchmark\n \n-Status: `NEXT`\n+Status: `IN PROGRESS / HARNESS_HOST_GREEN / QWEN15B_PROVEN_S22`\n \n Goal: isolate model quality and latency while holding telephony, endpointing, STT, TTS and task constant.\n \n@@ -153,6 +153,17 @@ Compare:\n \n The ChatGPT relay is test infrastructure, not a production autonomous backend. It requires an active interactive chat and must not be described as a background service. Raw call audio need not leave the phone; the relay can operate on bounded STT text and return bounded response text for local TTS.\n \n+Current Gate B evidence (2026-09-19):\n+\n+- frozen suite `benchmarks/text_model_suite_v1.json` contains 8 identical Polish phone-call transcript scenarios;\n+- deterministic host harness `scripts/text_model_benchmark.py` fixes generation to `temperature=0`, `seed=42`, `max_tokens=96`, verifies local model identity through `/props`, records complete responses and wall/llama.cpp timings, and applies conservative deterministic safety checks;\n+- harness TDD + final host verification: `.agent/results/gate-b-benchmark-red-20260919-1405.json`, `.agent/results/gate-b-benchmark-green-20260919-1410.json`, `.agent/results/gate-b-benchmark-final-host-20260919-1440.json`;\n+- Qwen2.5 1.5B S22 baseline: 24 samples (8 scenarios x 3), only 6/24 deterministic-safe (`25%`), median model-request wall time `1465.535 ms`, p95 `2690.038 ms`, warm-up `3588.515 ms`, and measured server `VmHWM=2087376 kB`; it incorrectly accepted purchase/appointment commitments, so it is not acceptable as an authority/reasoning brain. Evidence: `.agent/results/gate-b-qwen15b-baseline-s22-retry-20260919-1424.json`;\n+- GPT-5.6 Sol interactive reference: 8/8 deterministic-safe on one reference pass using the same frozen transcripts. This is quality/reference evidence only; interactive ChatGPT serving latency and RAM are deliberately not compared with phone-local inference. Durable result: `benchmarks/results/gpt56_sol_interactive_reference_v1.json`; verification: `.agent/results/gate-b-gpt56-reference-verify-20260919-1443.json`;\n+- larger-model candidate Qwen3-4B-Instruct-2507 Q4_K_M was copied to the S22 with exact SHA and reached `/health`, but the first completion disconnected after about 76 seconds. Root cause is not yet proven; the next crash-diagnostic attempt was blocked because the S22 disappeared from USB ADB. Do not label the 4B model as OOM until server/LMKD evidence proves it. Evidence: `.agent/results/gate-b-qwen3-4b-install-benchmark-s22-20260919-1432.json`, `.agent/results/gate-b-qwen3-4b-latency-diagnostic-s22-20260919-1440.json`, `.agent/results/gate-b-qwen3-4b-crash-diagnostic-s22-retry-20260919-1436.json`.\n+\n+Next Gate B step: when direct USB ADB to `RFCT70L7E8J` is available again, diagnose the already-present 4B model without re-downloading it. Capture server log, process lifetime/RSS and LMKD/OOM evidence around the first completion. If that quant/model is not viable, select a lower-memory but still meaningfully larger phone-local candidate and run the exact same frozen suite before any live call comparison.\n+\n Use identical benchmark scenarios and record at least:\n \n ```text\n[main 7a21f68c] docs: record Gate B benchmark progress\n 2 files changed, 42 insertions(+), 11 deletions(-)\nTo https://github.com/MichalMatu/android-ai-call-bridge.git\n   30ae1160..7a21f68c  HEAD -> main\ngate_b_progress_docs_updated=true\n",
+      "elapsed_seconds": 2.58,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 20.86,
+      "output_policy": "stream",
+      "captured_output_chars": 8725,
+      "output_truncated": false,
+      "current_rss_mb": 20.86,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 2.58
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.077
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.066
+  },
+  "finished_at": "2026-09-19T12:40:49.719576+00:00",
+  "task_digest": "41e7e3b2393c8899a6f1ae1cc747c6b3324c9a9cc5f562bf530a49a8f331a119",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "cf8ed7c6043ab305733c574b",
+  "daemon_version": "4.18.22"
+}
