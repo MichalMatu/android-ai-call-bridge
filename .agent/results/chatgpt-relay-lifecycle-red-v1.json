@@ -1,0 +1,60 @@
+{
+  "id": "chatgpt-relay-lifecycle-red-v1",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "started_at": "2026-09-19T14:53:37.663515+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=e5f58e6b5fa60099853dcbe1cd8d513759824897\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\nset +e\npython3 -m unittest discover -s scripts -p 'test_chatgpt_relay_live_call.py' > /tmp/relay-lifecycle-red.log 2>&1\nRC=$?\nset -e\ncat /tmp/relay-lifecycle-red.log\ntest $RC -ne 0\ngrep -E 'call_state_or_none|best_effort_hangup|wait_for_audio_signal_resilient' /tmp/relay-lifecycle-red.log >/dev/null\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_lifecycle_red_verified=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/chatgpt-relay-developer-path -> FETCH_HEAD\nSwitched to and reset branch 'agent/chatgpt-relay-developer-path'\nbranch 'agent/chatgpt-relay-developer-path' set up to track 'origin/agent/chatgpt-relay-developer-path'.\nYour branch is up to date with 'origin/agent/chatgpt-relay-developer-path'.\nEEE........\n======================================================================\nERROR: test_audio_signal_wait_retries_transient_registry_failure (test_chatgpt_relay_live_call.ChatGptRelayLiveCallTest.test_audio_signal_wait_retries_transient_registry_failure)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/mock.py\", line 1426, in patched\n    return func(*newargs, **newkeywargs)\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_chatgpt_relay_live_call.py\", line 127, in test_audio_signal_wait_retries_transient_registry_failure\n    self.assertIs(marker, live.wait_for_audio_signal_resilient(mock.Mock(), timeout_seconds=5.0))\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'chatgpt_relay_live_call' has no attribute 'wait_for_audio_signal_resilient'\n\n======================================================================\nERROR: test_best_effort_hangup_does_not_depend_on_call_state_probe (test_chatgpt_relay_live_call.ChatGptRelayLiveCallTest.test_best_effort_hangup_does_not_depend_on_call_state_probe)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_chatgpt_relay_live_call.py\", line 114, in test_best_effort_hangup_does_not_depend_on_call_state_probe\n    self.assertFalse(live.best_effort_hangup(adb))\n                     ^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'chatgpt_relay_live_call' has no attribute 'best_effort_hangup'\n\n======================================================================\nERROR: test_call_state_or_none_treats_transient_adb_failure_as_unknown (test_chatgpt_relay_live_call.ChatGptRelayLiveCallTest.test_call_state_or_none_treats_transient_adb_failure_as_unknown)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_chatgpt_relay_live_call.py\", line 106, in test_call_state_or_none_treats_transient_adb_failure_as_unknown\n    self.assertIsNone(live.call_state_or_none(adb))\n                      ^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'chatgpt_relay_live_call' has no attribute 'call_state_or_none'\n\n----------------------------------------------------------------------\nRan 11 tests in 0.002s\n\nFAILED (errors=3)\nchatgpt_relay_lifecycle_red_verified=true\n",
+      "elapsed_seconds": 0.985,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 3.03,
+      "output_policy": "stream",
+      "captured_output_chars": 3060,
+      "output_truncated": false,
+      "current_rss_mb": 3.03,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 0.985
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.079
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "finished_at": "2026-09-19T14:53:40.335872+00:00",
+  "task_digest": "562b944d2c7c4cb22759d1706109526d35a5c4b970f177529e5b4aa6677b8a6c",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "97fb3d4481d6c1d04d04f575",
+  "daemon_version": "4.18.22"
+}
