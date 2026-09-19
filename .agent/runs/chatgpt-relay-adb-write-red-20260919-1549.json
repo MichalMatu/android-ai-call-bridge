@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-adb-write-red-20260919-1549",
+  "task_digest": "38d5f5fc65144a787feaf50b4f54b513f71e6eaf1ee5afdac5984395d27b30b7",
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T13:49:06.457623+00:00",
+  "attempt_id": "c6e4aff8cb9965cb006487ec",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 47558,
+  "updated_at": "2026-09-19T13:49:06.457719+00:00",
+  "pid": 47558
+}
