@@ -1,0 +1,60 @@
+{
+  "id": "chatgpt-relay-orange-live-retry-20260919-1605",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "started_at": "2026-09-19T14:05:15.983789+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail\nexport ANDROID_HOME=\"$HOME/Library/Android/sdk\"\nexport ANDROID_SDK_ROOT=\"$ANDROID_HOME\"\nexport PATH=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin:$PATH\"\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=e040f6e2287a3ad18ae041697ff6527cf3185363\nSERIAL=RFCT70L7E8J\nSESSION=orange-chatgpt-20260919-1605\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\nadb devices -l | grep -F \"$SERIAL\" | grep -F 'device ' | grep -F 'model:SM_S906B'\nLLAMA_PID=$(adb -s \"$SERIAL\" shell 'pidof llama-server 2>/dev/null || true' | tr -d '\\r[:space:]')\ntest -z \"$LLAMA_PID\"\npython3 -m unittest discover -s scripts -p 'test_chatgpt_relay_live_call.py'\npython3 scripts/chatgpt_relay_live_call.py --serial \"$SERIAL\" --session \"$SESSION\" --max-turns 2 --repo-root \"$(pwd)\"\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_orange_live_retry_complete=true\n",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/chatgpt-relay-developer-path -> FETCH_HEAD\nSwitched to and reset branch 'agent/chatgpt-relay-developer-path'\nbranch 'agent/chatgpt-relay-developer-path' set up to track 'origin/agent/chatgpt-relay-developer-path'.\nYour branch is up to date with 'origin/agent/chatgpt-relay-developer-path'.\nRFCT70L7E8J            device usb:18874368X product:g0sxeea model:SM_S906B device:g0s transport_id:35\n......\n----------------------------------------------------------------------\nRan 6 tests in 0.001s\n\nOK\nStarting: Intent { cmp=pl.michalmatu.aicallbridge/.developerrelay.ChatRelayProbeActivity (has extras) }\nStatus: ok\nLaunchState: COLD\nActivity: pl.michalmatu.aicallbridge/.developerrelay.ChatRelayProbeActivity\nTotalTime: 324\nWaitTime: 327\nComplete\nrelay_session=orange-chatgpt-20260919-1605\nrelay_branch=chat-relay/orange-chatgpt-20260919-1605\nrelay_raw_text_retention=transient_branch_only\nbluetooth_disabled_for_test=true\nallowlisted_target=510100100\ndial_requested=true\ncall_state=0\ncall_state=0\ncall_state=2\nlive_preflight=true,mode:MODE_IN_CALL,device:earpiece,muted:True\nsignal_probe=1,rms:1.989,peak:15,non_zero:1070,errors:0\nsignal_probe=2,rms:2989.348,peak:14786,non_zero:4000,errors:0\norange_downlink_signal=true,rms:2989.348,peak:14786\nrelay_request_published=true,turn:1,path:relay/turn-0001/request.txt\nrelay_response_delivered=true,turn:1,chars:19\nrelay_request_published=true,turn:2,path:relay/turn-0002/request.txt\nrelay_response_delivered=true,turn:2,chars:19\nrelay_probe_complete=true,turns:2\nhangup_requested=true\nidle_after_hangup=True\nvoice_call_unmute_cleanup_requested=true\nbluetooth_restored=true\nrelay_transient_branch_cleanup_requested=true\nchatgpt_relay_orange_live_retry_complete=true\n",
+      "elapsed_seconds": 49.526,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 48.78,
+      "output_policy": "stream",
+      "captured_output_chars": 1843,
+      "output_truncated": false,
+      "current_rss_mb": 38.98,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 49.526
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.073
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.066
+  },
+  "finished_at": "2026-09-19T14:06:07.055497+00:00",
+  "task_digest": "ddd28bc0016f0ddfb5c46f670c401a0cd59555840c5371dbc60013d0b4c4be21",
+  "idle_timeout": 360,
+  "task_timeout": 720,
+  "memory_limit_mb": 4096,
+  "attempt_id": "683b99535218863852453d0b",
+  "daemon_version": "4.18.22"
+}
