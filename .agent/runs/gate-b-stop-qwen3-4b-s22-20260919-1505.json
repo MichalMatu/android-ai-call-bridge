@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "gate-b-stop-qwen3-4b-s22-20260919-1505",
+  "task_digest": "dd4fbe665b6b10ff6589be0fc057b70a3e336a0c1ad0bd9537fc601ba063718d",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T13:05:37.222488+00:00",
+  "attempt_id": "471734848819f79ea9190519",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 42713,
+  "updated_at": "2026-09-19T13:05:37.222661+00:00",
+  "pid": 42713
+}
