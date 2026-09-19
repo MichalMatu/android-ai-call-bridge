@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "endpoint-detector-host-test-20260919-1154",
+  "task_digest": "7c5703184d6850e87e726e746018f6a1d12f1b79079e430e646b678d7aa57f14",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T09:53:40.412302+00:00",
+  "attempt_id": "4587c8f1ca7f338c1519f1fd",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 10216,
+  "updated_at": "2026-09-19T09:53:40.412427+00:00",
+  "pid": 10216
+}
