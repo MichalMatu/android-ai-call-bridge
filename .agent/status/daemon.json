@@ -2,8 +2,8 @@
   "version": 1,
   "daemon_version": "4.18.22",
   "state": "idle",
-  "pid": 21297,
-  "updated_at": "2026-09-19T00:19:24.542444+00:00",
+  "pid": 30762,
+  "updated_at": "2026-09-19T00:24:40.640408+00:00",
   "self_revision": "224046066b0df92544337db0ee623e372629e726",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -23,8 +23,7 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 21297,
+  "worker_pid": 30762,
   "supervisor_pid": 65293,
-  "last_task_id": "local-phone-live-turn-implementation-s22-20260919-3670",
   "execution_variant": "parallel"
 }
