@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-core-green-20260919-1540",
+  "task_digest": "c870cb688e814bc16c94c8364662724a23a36f85b062fd5afebf75c39c7b41e1",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T13:35:02.265899+00:00",
+  "attempt_id": "f9a91348fa160ee5f8ffb6c8",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 99625,
+  "updated_at": "2026-09-19T13:35:02.265967+00:00",
+  "pid": 99625
+}
