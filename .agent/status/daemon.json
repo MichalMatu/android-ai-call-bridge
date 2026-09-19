@@ -1,9 +1,9 @@
 {
   "version": 1,
   "daemon_version": "4.18.22",
-  "state": "idle",
-  "pid": 9528,
-  "updated_at": "2026-09-19T14:53:52.872702+00:00",
+  "state": "running",
+  "pid": 11359,
+  "updated_at": "2026-09-19T14:55:36.153324+00:00",
   "self_revision": "224046066b0df92544337db0ee623e372629e726",
   "poll_seconds": 15,
   "self_update_seconds": 60,
@@ -14,7 +14,7 @@
   "task_timeout_default": 1800,
   "task_timeout_max": 21600,
   "memory_limit_mb_default": 4096,
-  "current_task_id": null,
+  "current_task_id": "chatgpt-relay-lifecycle-green-v1",
   "current_attempt_id": null,
   "current_task_digest": null,
   "repository_id": "android-ai-call-bridge",
@@ -23,8 +23,8 @@
   "default_branch": "main",
   "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
   "execution_model": "multi_repository_worker",
-  "worker_pid": 9528,
+  "worker_pid": 11359,
   "supervisor_pid": 65293,
-  "last_task_id": "chatgpt-relay-lifecycle-red-v1",
+  "active_resources": [],
   "execution_variant": "parallel"
 }
