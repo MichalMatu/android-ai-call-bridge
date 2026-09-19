@@ -1,0 +1,15 @@
+{
+  "id": "chatgpt-relay-finalize-main-v1",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": true,
+  "resources": [],
+  "command_timeout": 3600,
+  "idle_timeout": 600,
+  "task_timeout": 4800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\nexport ANDROID_HOME=\"$HOME/Library/Android/sdk\"\nexport ANDROID_SDK_ROOT=\"$ANDROID_HOME\"\nexport PATH=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin:$PATH\"\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_WORK=e1379246ba5c07993101b447fb3760183853fe40\nEXPECTED_GATE_A=5596760ecdc21bd6361cd3e849011f24bf24a387\ngit fetch origin main agent/chatgpt-relay-developer-path agent/gate-a-ready-to-dial\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_WORK\"\ntest \"$(git rev-parse origin/agent/gate-a-ready-to-dial)\" = \"$EXPECTED_GATE_A\"\ntest -z \"$(git status --porcelain)\"\ngit checkout -B main origin/main\ngit merge --squash origin/agent/chatgpt-relay-developer-path\ngit diff --check\ntest ! -e scripts/apply_chat_relay_tx_pacing_v2.py\nbash scripts/verify_host.sh\ngit diff --check\ngit add -A\ngit commit -m 'feat: add interactive ChatGPT relay benchmark path'\nFINAL_SHA=$(git rev-parse HEAD)\ngit push origin HEAD:main\ngit fetch origin main\ntest \"$(git rev-parse origin/main)\" = \"$FINAL_SHA\"\ntest -z \"$(git status --porcelain)\"\ngit merge-base --is-ancestor \"$EXPECTED_GATE_A\" origin/main\ngit push origin --delete agent/chatgpt-relay-developer-path agent/gate-a-ready-to-dial\ngit fetch --prune origin\ntest -z \"$(git ls-remote --heads origin 'refs/heads/agent/*')\"\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_finalize_main_green=true\necho final_main_sha=$FINAL_SHA"
+  ]
+}
