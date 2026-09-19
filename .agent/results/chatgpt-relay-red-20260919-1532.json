@@ -1,0 +1,61 @@
+{
+  "id": "chatgpt-relay-red-20260919-1532",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "started_at": "2026-09-19T13:31:04.167159+00:00",
+  "command_timeout": 900,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"d02bb3537be8a99762bf1264a4691ef06c7879ad\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"2f30423766ddd90a8b355c214d040b0117e05be0\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\nset +e\n./gradlew :app:testDebugUnitTest --tests pl.michalmatu.aicallbridge.developerrelay.ChatRelayBackendTest > /tmp/chat-relay-red.log 2>&1\nRC=$?\nset -e\ncat /tmp/chat-relay-red.log\ntest $RC -ne 0\ngrep -E 'Unresolved reference|unresolved reference|cannot find symbol' /tmp/chat-relay-red.log >/dev/null\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_red_verified=true",
+      "exit_code": 1,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/chatgpt-relay-developer-path -> FETCH_HEAD\nSwitched to a new branch 'agent/chatgpt-relay-developer-path'\nbranch 'agent/chatgpt-relay-developer-path' set up to track 'origin/agent/chatgpt-relay-developer-path'.\n/bin/sh: line 6: ./gradlew: No such file or directory\n",
+      "elapsed_seconds": 1.128,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 6.25,
+      "output_policy": "stream",
+      "captured_output_chars": 399,
+      "output_truncated": false,
+      "current_rss_mb": 6.25,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 1.128
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.087
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.072
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-19T13:31:07.194831+00:00",
+  "task_digest": "0a2ca01d30a90437a410d5ad3545aa291589db7a5e0b249e567510c738e2218e",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "attempt_id": "e32af69a1cf62de4726229a6",
+  "daemon_version": "4.18.22"
+}
