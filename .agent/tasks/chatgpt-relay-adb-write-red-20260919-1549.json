@@ -1,0 +1,15 @@
+{
+  "id": "chatgpt-relay-adb-write-red-20260919-1549",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 300,
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=03cacd134b75b9b85c3a6a7df9e28d1eb27b301a\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\nset +e\npython3 -m unittest discover -s scripts -p 'test_chatgpt_relay_live_call.py' > /tmp/chat-relay-adb-red.log 2>&1\nRC=$?\nset -e\ncat /tmp/chat-relay-adb-red.log\ntest $RC -ne 0\ngrep -F \"'tee' not found\" /tmp/chat-relay-adb-red.log >/dev/null\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_adb_write_red_verified=true"
+  ]
+}
