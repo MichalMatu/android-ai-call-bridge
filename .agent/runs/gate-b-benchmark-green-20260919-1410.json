@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "gate-b-benchmark-green-20260919-1410",
+  "task_digest": "6d46262afcb13681108f3a1db53e10c9bacbc0b641abf998346a6d1e6bbb58ed",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T12:05:56.651304+00:00",
+  "attempt_id": "7d085f4c6bcdd24d456dcadd",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 62905,
+  "updated_at": "2026-09-19T12:05:56.651364+00:00",
+  "pid": 62905
+}
