@@ -1,0 +1,15 @@
+{
+  "id": "chatgpt-relay-host-red-20260919-1542",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -euo pipefail\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"d02bb3537be8a99762bf1264a4691ef06c7879ad\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"0d005d820dfacc2eb584b3c7db244851a07f93d7\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\nset +e\npython3 -m unittest scripts/test_chatgpt_relay_live_call.py > /tmp/chat-relay-host-red.log 2>&1\nRC=$?\nset -e\ncat /tmp/chat-relay-host-red.log\ntest $RC -ne 0\ngrep -E 'ModuleNotFoundError|ImportError' /tmp/chat-relay-host-red.log >/dev/null\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_host_red_verified=true"
+  ]
+}
