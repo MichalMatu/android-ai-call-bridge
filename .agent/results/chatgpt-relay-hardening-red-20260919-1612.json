@@ -1,0 +1,77 @@
+{
+  "id": "chatgpt-relay-hardening-red-20260919-1612",
+  "status": "failed",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": true,
+  "started_at": "2026-09-19T14:09:21.394142+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=e040f6e2287a3ad18ae041697ff6527cf3185363\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\npython3 - <<'PY'\nfrom pathlib import Path\np = Path('scripts/test_chatgpt_relay_live_call.py')\ns = p.read_text()\ns = s.replace('''    @mock.patch(\"chatgpt_relay_live_call.subprocess.run\")\n    def test_response_body_is_sent_over_stdin_with_run_as_tee_not_shell_redirection(self, run):\n        run.return_value = subprocess.CompletedProcess([], 0, \"\", \"\")\n        mailbox = live.AdbRelayMailbox(\"RFCT70L7E8J\")\n        envelope = protocol.Envelope(\"orange-demo_1\", 1, \"To jest odpowiedź z czatu.\")\n\n        mailbox.write_response(envelope)\n\n        self.assertTrue(run.called)\n        call = run.call_args\n        argv = call.args[0]\n        self.assertNotIn(envelope.text, \" \".join(argv))\n        self.assertIn(envelope.text, call.kwargs[\"input\"])\n        self.assertIn(\"response.txt\", \" \".join(argv))\n        self.assertIn(\"tee\", argv)\n        self.assertNotIn(\"sh\", argv)\n        self.assertNotIn(\"-c\", argv)\n''', '''    @mock.patch(\"chatgpt_relay_live_call.subprocess.run\")\n    def test_response_publish_is_atomic_and_payload_stays_on_stdin(self, run):\n        run.return_value = subprocess.CompletedProcess([], 0, \"\", \"\")\n        mailbox = live.AdbRelayMailbox(\"RFCT70L7E8J\")\n        envelope = protocol.Envelope(\"orange-demo_1\", 1, \"To jest odpowiedź z czatu.\")\n\n        mailbox.write_response(envelope)\n\n        self.assertEqual(2, run.call_count)\n        write_call, publish_call = run.call_args_list\n        write_argv = write_call.args[0]\n        publish_argv = publish_call.args[0]\n        self.assertNotIn(envelope.text, \" \".join(write_argv + publish_argv))\n        self.assertIn(envelope.text, write_call.kwargs[\"input\"])\n        self.assertIn(\"tee\", write_argv)\n        self.assertIn(live.RESPONSE_PATH + \".tmp\", write_argv)\n        self.assertNotIn(\"sh\", write_argv)\n        self.assertNotIn(\"-c\", write_argv)\n        self.assertIn(\"mv\", publish_argv)\n        self.assertIn(live.RESPONSE_PATH + \".tmp\", publish_argv)\n        self.assertIn(live.RESPONSE_PATH, publish_argv)\n        self.assertIsNone(publish_call.kwargs.get(\"input\"))\n\n    def test_metric_formatter_whitelists_only_non_text_timing_fields(self):\n        report = {\n            \"turns_completed\": \"1\",\n            \"turn_1_endpoint_capture_ms\": \"1460\",\n            \"turn_1_stt_elapsed_ms\": \"1900\",\n            \"turn_1_approved_elapsed_ms\": \"4100\",\n            \"turn_1_output_pcm_ready_elapsed_ms\": \"4300\",\n            \"turn_1_eos_to_first_tx_ms\": \"3500\",\n            \"turn_1_complete_elapsed_ms\": \"5900\",\n            \"turn_1_stt_text\": \"TAJNY TRANSCRIPT\",\n            \"approved_text\": \"TAJNA ODPOWIEDZ\",\n        }\n        lines = live.format_probe_metric_lines(report)\n        joined = \"\\n\".join(lines)\n        self.assertIn(\"turn_1_endpoint_capture_ms=1460\", joined)\n        self.assertIn(\"turn_1_eos_to_first_tx_ms=3500\", joined)\n        self.assertNotIn(\"TAJNY TRANSCRIPT\", joined)\n        self.assertNotIn(\"TAJNA ODPOWIEDZ\", joined)\n        self.assertNotIn(\"stt_text\", joined)\n\n    @mock.patch(\"chatgpt_relay_live_call.subprocess.run\")\n    def test_remote_branch_cleanup_is_verified(self, run):\n        run.side_effect = [\n            subprocess.CompletedProcess([], 0, \"\", \"\"),\n            subprocess.CompletedProcess([], 2, \"\", \"\"),\n        ]\n        self.assertTrue(live.delete_remote_branch_verified(Path('.'), \"chat-relay/orange-demo_1\", attempts=1))\n        self.assertEqual(2, run.call_count)\n        self.assertIn(\"--delete\", run.call_args_list[0].args[0])\n        self.assertIn(\"ls-remote\", run.call_args_list[1].args[0])\n''')\np.write_text(s)\nPY\ngit diff --check\nset +e\npython3 -m unittest discover -s scripts -p 'test_chatgpt_relay_live_call.py' > /tmp/chat-relay-hardening-red.log 2>&1\nRC=$?\nset -e\ncat /tmp/chat-relay-hardening-red.log\ntest $RC -ne 0\ngrep -E 'format_probe_metric_lines|delete_remote_branch_verified|2 != 1|AssertionError' /tmp/chat-relay-hardening-red.log >/dev/null\ngit add scripts/test_chatgpt_relay_live_call.py\ngit commit -m 'test: harden interactive chat relay transport'\ngit push origin HEAD:agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\necho chatgpt_relay_hardening_red_verified=true\necho hardening_red_commit=$(git rev-parse HEAD)\n",
+      "exit_code": 1,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/chatgpt-relay-developer-path -> FETCH_HEAD\nSwitched to and reset branch 'agent/chatgpt-relay-developer-path'\nbranch 'agent/chatgpt-relay-developer-path' set up to track 'origin/agent/chatgpt-relay-developer-path'.\nYour branch is up to date with 'origin/agent/chatgpt-relay-developer-path'.\nE\n======================================================================\nERROR: test_chatgpt_relay_live_call (unittest.loader._FailedTest.test_chatgpt_relay_live_call)\n----------------------------------------------------------------------\nImportError: Failed to import test module: test_chatgpt_relay_live_call\nTraceback (most recent call last):\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py\", line 396, in _find_test_path\n    module = self._get_module_from_name(name)\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.9_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/unittest/loader.py\", line 339, in _get_module_from_name\n    __import__(name)\n    ~~~~~~~~~~^^^^^^\n  File \"/Users/michal/agent-workspace/repos/android-ai-call-bridge/work/scripts/test_chatgpt_relay_live_call.py\", line 81\n    joined = \"\n             ^\nSyntaxError: unterminated string literal (detected at line 81)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+      "elapsed_seconds": 0.918,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 4.39,
+      "output_policy": "stream",
+      "captured_output_chars": 1507,
+      "output_truncated": false,
+      "current_rss_mb": 4.39,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "failed",
+      "elapsed_seconds": 0.918
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": " M scripts/test_chatgpt_relay_live_call.py\n",
+    "elapsed_seconds": 0.082
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "diff --git a/scripts/test_chatgpt_relay_live_call.py b/scripts/test_chatgpt_relay_live_call.py\nindex 3c7502f5..96ea9999 100644\n--- a/scripts/test_chatgpt_relay_live_call.py\n+++ b/scripts/test_chatgpt_relay_live_call.py\n@@ -43,22 +43,59 @@ class ChatGptRelayLiveCallTest(unittest.TestCase):\n         self.assertNotIn(\"response_text\", joined)\n \n     @mock.patch(\"chatgpt_relay_live_call.subprocess.run\")\n-    def test_response_body_is_sent_over_stdin_with_run_as_tee_not_shell_redirection(self, run):\n+    def test_response_publish_is_atomic_and_payload_stays_on_stdin(self, run):\n         run.return_value = subprocess.CompletedProcess([], 0, \"\", \"\")\n         mailbox = live.AdbRelayMailbox(\"RFCT70L7E8J\")\n         envelope = protocol.Envelope(\"orange-demo_1\", 1, \"To jest odpowiedź z czatu.\")\n \n         mailbox.write_response(envelope)\n \n-        self.assertTrue(run.called)\n-        call = run.call_args\n-        argv = call.args[0]\n-        self.assertNotIn(envelope.text, \" \".join(argv))\n-        self.assertIn(envelope.text, call.kwargs[\"input\"])\n-        self.assertIn(\"response.txt\", \" \".join(argv))\n-        self.assertIn(\"tee\", argv)\n-        self.assertNotIn(\"sh\", argv)\n-        self.assertNotIn(\"-c\", argv)\n+        self.assertEqual(2, run.call_count)\n+        write_call, publish_call = run.call_args_list\n+        write_argv = write_call.args[0]\n+        publish_argv = publish_call.args[0]\n+        self.assertNotIn(envelope.text, \" \".join(write_argv + publish_argv))\n+        self.assertIn(envelope.text, write_call.kwargs[\"input\"])\n+        self.assertIn(\"tee\", write_argv)\n+        self.assertIn(live.RESPONSE_PATH + \".tmp\", write_argv)\n+        self.assertNotIn(\"sh\", write_argv)\n+        self.assertNotIn(\"-c\", write_argv)\n+        self.assertIn(\"mv\", publish_argv)\n+        self.assertIn(live.RESPONSE_PATH + \".tmp\", publish_argv)\n+        self.assertIn(live.RESPONSE_PATH, publish_argv)\n+        self.assertIsNone(publish_call.kwargs.get(\"input\"))\n+\n+    def test_metric_formatter_whitelists_only_non_text_timing_fields(self):\n+        report = {\n+            \"turns_completed\": \"1\",\n+            \"turn_1_endpoint_capture_ms\": \"1460\",\n+            \"turn_1_stt_elapsed_ms\": \"1900\",\n+            \"turn_1_approved_elapsed_ms\": \"4100\",\n+            \"turn_1_output_pcm_ready_elapsed_ms\": \"4300\",\n+            \"turn_1_eos_to_first_tx_ms\": \"3500\",\n+            \"turn_1_complete_elapsed_ms\": \"5900\",\n+            \"turn_1_stt_text\": \"TAJNY TRANSCRIPT\",\n+            \"approved_text\": \"TAJNA ODPOWIEDZ\",\n+        }\n+        lines = live.format_probe_metric_lines(report)\n+        joined = \"\n+\".join(lines)\n+        self.assertIn(\"turn_1_endpoint_capture_ms=1460\", joined)\n+        self.assertIn(\"turn_1_eos_to_first_tx_ms=3500\", joined)\n+        self.assertNotIn(\"TAJNY TRANSCRIPT\", joined)\n+        self.assertNotIn(\"TAJNA ODPOWIEDZ\", joined)\n+        self.assertNotIn(\"stt_text\", joined)\n+\n+    @mock.patch(\"chatgpt_relay_live_call.subprocess.run\")\n+    def test_remote_branch_cleanup_is_verified(self, run):\n+        run.side_effect = [\n+            subprocess.CompletedProcess([], 0, \"\", \"\"),\n+            subprocess.CompletedProcess([], 2, \"\", \"\"),\n+        ]\n+        self.assertTrue(live.delete_remote_branch_verified(Path('.'), \"chat-relay/orange-demo_1\", attempts=1))\n+        self.assertEqual(2, run.call_count)\n+        self.assertIn(\"--delete\", run.call_args_list[0].args[0])\n+        self.assertIn(\"ls-remote\", run.call_args_list[1].args[0])\n \n \n if __name__ == \"__main__\":\n",
+    "elapsed_seconds": 0.016
+  },
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-19T14:09:23.805779+00:00",
+  "workspace_checkpoint": {
+    "version": 2,
+    "task_id": "chatgpt-relay-hardening-red-20260919-1612",
+    "reason": "task-exit",
+    "created_at": "2026-09-19T14:09:24.164229+00:00",
+    "base_head": "e040f6e2287a3ad18ae041697ff6527cf3185363",
+    "work_branch": "agent/chatgpt-relay-developer-path",
+    "path": "/Users/michal/agent-workspace/repos/android-ai-call-bridge/checkpoints/chatgpt-relay-hardening-red-20260919-1612/1789826964024757000-task-exit",
+    "tracked_patch": "tracked.patch",
+    "untracked_root": "untracked",
+    "untracked_files": [],
+    "tracked_patch_bytes": 3563,
+    "untracked_bytes": 0,
+    "total_bytes": 3563,
+    "status": " M scripts/test_chatgpt_relay_live_call.py\n"
+  },
+  "task_digest": "35eb37336fe9c0103006190718a99549f17bca773f6d9ab9658e2db403516b64",
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "attempt_id": "b5486a95143269a812e6425d",
+  "daemon_version": "4.18.22"
+}
