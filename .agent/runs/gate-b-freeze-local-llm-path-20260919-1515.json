@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "gate-b-freeze-local-llm-path-20260919-1515",
   "task_digest": "6556ee99cc6bc9d1ae66947901ef336d0504e56c7a1d957ea9cb7b58ffac6db8",
-  "idle_timeout": 300,
-  "task_timeout": 1800,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-19T13:17:38.257068+00:00",
+  "status": "failed",
+  "failure_reason": "command_failed",
+  "finished_at": "2026-09-19T13:17:40.655391+00:00",
   "attempt_id": "3dd8f2ef6af8535002d5705c",
   "daemon_version": "4.18.22",
   "daemon_pid": 51202,
-  "updated_at": "2026-09-19T13:17:38.257208+00:00",
+  "updated_at": "2026-09-19T13:17:40.867163+00:00",
   "pid": 51202
 }
