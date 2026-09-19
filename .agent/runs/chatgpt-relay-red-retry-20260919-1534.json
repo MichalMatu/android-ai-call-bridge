@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-red-retry-20260919-1534",
+  "task_digest": "8349398203d2621c5ebb4a270d4346263084bfc10874f44401463b5501c61570",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T13:32:00.131420+00:00",
+  "attempt_id": "ea99d25feeed840f7e8421e1",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 87433,
+  "updated_at": "2026-09-19T13:32:00.131519+00:00",
+  "pid": 87433
+}
