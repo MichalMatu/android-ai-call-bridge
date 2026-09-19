@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "qwen15b-orange-quality-s22-20260919-3690",
+  "task_digest": "46e6ea6fba2f8790e7898b015c7a980fe4db6c4755f1eb951843276ec2dce206",
+  "idle_timeout": 1200,
+  "task_timeout": 9000,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T00:38:47.797579+00:00",
+  "attempt_id": "e4b93bb4a4d105995d4f010b",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 42418,
+  "updated_at": "2026-09-19T00:38:47.797625+00:00",
+  "pid": 42418
+}
