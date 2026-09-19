@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "gate-b-cleanup-branch-20260919-1448",
+  "task_digest": "d4651bf2101d7b9040268be54a522870edb7f3091dda9bab981203d363cc31ef",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T12:41:35.984804+00:00",
+  "attempt_id": "40c8e06bdd2951a0f651e043",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 1062,
+  "updated_at": "2026-09-19T12:41:35.984909+00:00",
+  "pid": 1062
+}
