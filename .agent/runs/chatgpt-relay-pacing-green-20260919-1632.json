@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "chatgpt-relay-pacing-green-20260919-1632",
+  "task_digest": "e418e231e7765e4dfca08ddac74b35bb1a417597aff0d4bc1e3932be662d0545",
+  "idle_timeout": 300,
+  "task_timeout": 1800,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T14:21:06.737990+00:00",
+  "attempt_id": "a9427b3475c49439d6457f74",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 77106,
+  "updated_at": "2026-09-19T14:21:06.738216+00:00",
+  "pid": 77106
+}
