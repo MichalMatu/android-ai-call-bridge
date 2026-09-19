@@ -1,0 +1,14 @@
+{
+  "event": "task_started",
+  "task_id": "local-phone-runtime-factory-host-verify-20260919-1148",
+  "task_digest": "90fa8f59b00ff6b9fb62ad5d90ab16aea0712026f38e586078e83daf7ef50616",
+  "idle_timeout": 600,
+  "task_timeout": 2400,
+  "memory_limit_mb": 4096,
+  "started_at": "2026-09-19T09:48:01.684814+00:00",
+  "attempt_id": "e3d6d718b4237dc5bd3a5d14",
+  "daemon_version": "4.18.22",
+  "daemon_pid": 91195,
+  "updated_at": "2026-09-19T09:48:01.684965+00:00",
+  "pid": 91195
+}
