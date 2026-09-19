@@ -1,16 +1,16 @@
 {
   "event": "command_started",
   "phase": "commands",
-  "index": 2,
+  "index": 3,
   "total": 4,
-  "command": "set -eu; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; git show origin/agent-control:.agent/patches/local-phone-provider-green-20260919.py > /tmp/local-phone-provider-green.py; python3 /tmp/local-phone-provider-green.py; git diff --check; \"$GRADLE_BIN\" :app:testDebugUnitTest --tests 'pl.michalmatu.aicallbridge.runtime.CallRuntimeModeTest' --tests 'pl.michalmatu.aicallbridge.textagent.LocalOpenAiCompatibleTextBackendTest'; bash scripts/verify_host.sh; echo local_phone_provider_host_green=true",
-  "pid": 16714,
+  "command": "set -eu; SERIAL=RFCT70L7E8J; PKG=pl.michalmatu.aicallbridge; PORT=18115; export ANDROID_HOME=\"$HOME/Library/Android/sdk\"; export ANDROID_SDK_ROOT=\"$ANDROID_HOME\"; export GRADLE_BIN=\"$HOME/.gradle/local-agent/gradle-9.6.0/bin/gradle\"; DEVICES=$(adb devices -l || true); PRESENT=$(DEVICES=\"$DEVICES\" PYTHONPATH=scripts python3 -c 'import os; from realtime_network_smoke import is_direct_usb_target; print(1 if is_direct_usb_target(os.environ.get(\"DEVICES\", \"\"), \"RFCT70L7E8J\") else 0)'); test \"$PRESENT\" = 1; echo local_phone_provider_direct_usb=true; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); test \"$CALL_STATE\" = 0; echo local_phone_provider_call_state_before=$CALL_STATE; adb -s \"$SERIAL\" forward --remove tcp:$PORT >/dev/null 2>&1 || true; adb -s \"$SERIAL\" forward tcp:$PORT tcp:$PORT >/dev/null; curl -fsS --max-time 3 \"http://127.0.0.1:$PORT/health\"; echo; echo local_phone_provider_server_healthy=true; \"$GRADLE_BIN\" :app:assembleDebug >/tmp/local-phone-provider-build.log 2>&1 || { cat /tmp/local-phone-provider-build.log; exit 1; }; adb -s \"$SERIAL\" install -r app/build/outputs/apk/debug/app-debug.apk >/tmp/local-phone-provider-install.log 2>&1 || { cat /tmp/local-phone-provider-install.log; exit 1; }; cat /tmp/local-phone-provider-install.log; adb -s \"$SERIAL\" shell run-as \"$PKG\" rm -f files/local-phone-llm-speech-pipeline-report.txt 2>/dev/null || true; adb -s \"$SERIAL\" shell am force-stop \"$PKG\"; adb -s \"$SERIAL\" shell am start -W -n \"$PKG/.DiagnosticProbeActivity\" --ez run_local_phone_llm_speech_pipeline_probe true; REPORT=''; for i in $(seq 1 300); do REPORT=$(adb -s \"$SERIAL\" shell run-as \"$PKG\" cat files/local-phone-llm-speech-pipeline-report.txt 2>/dev/null | tr -d '\\r' || true); if printf '%s\\n' \"$REPORT\" | grep -q '^probe_complete=true$'; then break; fi; sleep 0.5; done; echo '--- runtime provider physical report ---'; printf '%s\\n' \"$REPORT\"; echo '--- end runtime provider physical report ---'; printf '%s\\n' \"$REPORT\" | grep -q '^backend_config_valid=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^stt_transcript_nonblank=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^backend_complete_response=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^approved_output_pcm_nonempty=true$'; printf '%s\\n' \"$REPORT\" | grep -q '^local_phone_llm_speech_pipeline_success=true$'; CALL_STATE_AFTER=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); test \"$CALL_STATE_AFTER\" = 0; echo local_phone_provider_call_state_after=$CALL_STATE_AFTER; echo local_phone_provider_proven_s22=true",
+  "pid": 17616,
   "timeout": 1800,
   "idle_timeout": 600,
   "memory_limit_mb": 4096,
-  "started_at": "2026-09-19T00:14:17.713016+00:00",
-  "stage_name": "command-2",
-  "stage_index": 2,
+  "started_at": "2026-09-19T00:15:02.080693+00:00",
+  "stage_name": "command-3",
+  "stage_index": 3,
   "stage_total": 4,
   "stage_phase": "commands",
   "task_id": "local-phone-provider-runtime-s22-20260919-3660",
@@ -18,5 +18,5 @@
   "task_digest": "58c7e6c6ef015016dcab8f6da685966ebe40edf224197b2f3e19ddb5cfd105ad",
   "daemon_version": "4.18.22",
   "daemon_pid": 16449,
-  "updated_at": "2026-09-19T00:14:17.781037+00:00"
+  "updated_at": "2026-09-19T00:15:02.148536+00:00"
 }
