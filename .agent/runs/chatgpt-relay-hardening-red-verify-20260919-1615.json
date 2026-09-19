@@ -1,14 +1,13 @@
 {
-  "event": "task_started",
+  "event": "task_finished",
   "task_id": "chatgpt-relay-hardening-red-verify-20260919-1615",
   "task_digest": "dc1d645c794f1661ec3fd709d2b0609c098c75f6c15362286a6541c5eac03f4f",
-  "idle_timeout": 180,
-  "task_timeout": 600,
-  "memory_limit_mb": 4096,
-  "started_at": "2026-09-19T14:10:34.432716+00:00",
+  "status": "done",
+  "failure_reason": null,
+  "finished_at": "2026-09-19T14:10:37.077129+00:00",
   "attempt_id": "ec55325d98c4a0ef5b32ed2d",
   "daemon_version": "4.18.22",
   "daemon_pid": 64040,
-  "updated_at": "2026-09-19T14:10:34.432782+00:00",
+  "updated_at": "2026-09-19T14:10:37.291143+00:00",
   "pid": 64040
 }
