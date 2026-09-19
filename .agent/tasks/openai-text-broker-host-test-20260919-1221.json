@@ -1,0 +1,15 @@
+{
+  "id": "openai-text-broker-host-test-20260919-1221",
+  "agent_binding": "c25f88c0-4682-414c-8062-c47fa4034cb0",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "resources": [],
+  "command_timeout": 900,
+  "idle_timeout": 300,
+  "task_timeout": 1200,
+  "memory_limit_mb": 4096,
+  "commands": [
+    "set -eu; EXPECTED=1c43da1e5bb5e8df67fe203fa77116ed43161e5e; git fetch origin main; git checkout main; git reset --hard origin/main; test \"$(git rev-parse HEAD)\" = \"$EXPECTED\"; PYTHONPATH=scripts python3 -m unittest -v scripts/test_openai_text_broker.py; python3 -m py_compile scripts/openai_text_broker.py; test -z \"$(git status --porcelain)\"; echo openai_text_broker_host_test=true"
+  ]
+}
