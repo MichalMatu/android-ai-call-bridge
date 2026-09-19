@@ -1,0 +1,60 @@
+{
+  "id": "gate-b-stop-qwen3-4b-s22-20260919-1505",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "main",
+  "allow_write": false,
+  "started_at": "2026-09-19T13:05:37.222577+00:00",
+  "command_timeout": 600,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail; EXPECTED_MAIN=7a21f68c4b0fe36e013081d43e4b667e3a4a77e8; SERIAL=RFCT70L7E8J; PORT=18115; git fetch origin main; test \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"; git checkout -B main origin/main; test \"$(adb -s \"$SERIAL\" get-state)\" = device; PIDS=$(adb -s \"$SERIAL\" shell pidof llama-server 2>/dev/null | tr -d '\\r' || true); echo gate_b_cleanup_llama_pids_before=${PIDS:-none}; for p in $PIDS; do adb -s \"$SERIAL\" shell kill -9 \"$p\" >/dev/null 2>&1 || true; done; adb -s \"$SERIAL\" forward --remove tcp:$PORT >/dev/null 2>&1 || true; sleep 5; AFTER=$(adb -s \"$SERIAL\" shell pidof llama-server 2>/dev/null | tr -d '\\r' || true); test -z \"$AFTER\"; echo gate_b_cleanup_llama_stopped=true; echo '--- memory after cleanup ---'; adb -s \"$SERIAL\" shell \"grep -E '^(MemTotal|MemFree|MemAvailable|SwapTotal|SwapFree):' /proc/meminfo; cat /proc/pressure/memory 2>/dev/null || true\"; BAT=$(adb -s \"$SERIAL\" shell dumpsys battery | sed -n 's/^[[:space:]]*temperature: *//p' | head -1 | tr -d '\\r' || true); echo gate_b_cleanup_battery_temp_tenths_c=${BAT:-unknown}; CALL_STATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry | sed -n 's/.*mCallState=\\([0-9][0-9]*\\).*/\\1/p' | head -1); echo gate_b_cleanup_call_state=${CALL_STATE:-unknown}; test -z \"$(git status --porcelain)\"; echo gate_b_qwen3_4b_stopped_for_device_stability=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\nSwitched to and reset branch 'main'\nbranch 'main' set up to track 'origin/main'.\nYour branch is up to date with 'origin/main'.\ngate_b_cleanup_llama_pids_before=none\ngate_b_cleanup_llama_stopped=true\n--- memory after cleanup ---\nMemTotal:        7445968 kB\nMemFree:          475368 kB\nMemAvailable:    3101988 kB\nSwapTotal:      12582908 kB\nSwapFree:       11257648 kB\nsome avg10=0.32 avg60=1.18 avg300=16.36 total=2133276979\nfull avg10=0.15 avg60=0.41 avg300=4.27 total=960803355\ngate_b_cleanup_battery_temp_tenths_c=397\ngate_b_cleanup_call_state=0\ngate_b_qwen3_4b_stopped_for_device_stability=true\n",
+      "elapsed_seconds": 6.499,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 11.53,
+      "output_policy": "stream",
+      "captured_output_chars": 705,
+      "output_truncated": false,
+      "current_rss_mb": 11.53,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 6.499
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.07
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.064
+  },
+  "finished_at": "2026-09-19T13:05:45.156790+00:00",
+  "task_digest": "dd4fbe665b6b10ff6589be0fc057b70a3e336a0c1ad0bd9537fc601ba063718d",
+  "idle_timeout": 300,
+  "task_timeout": 900,
+  "memory_limit_mb": 4096,
+  "attempt_id": "471734848819f79ea9190519",
+  "daemon_version": "4.18.22"
+}
