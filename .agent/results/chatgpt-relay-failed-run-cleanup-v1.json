@@ -1,0 +1,60 @@
+{
+  "id": "chatgpt-relay-failed-run-cleanup-v1",
+  "status": "done",
+  "mode": "commands",
+  "work_branch": "agent/chatgpt-relay-developer-path",
+  "allow_write": false,
+  "started_at": "2026-09-19T14:51:52.527955+00:00",
+  "command_timeout": 300,
+  "edits": {},
+  "commands": [
+    {
+      "command": "set -euo pipefail\nEXPECTED_MAIN=d02bb3537be8a99762bf1264a4691ef06c7879ad\nEXPECTED_BRANCH=1ea0c22b6a93a6afc50662364ac0cd61892cb96d\nSERIAL=RFCT70L7E8J\nPACKAGE=pl.michalmatu.aicallbridge\nRELAY_BRANCH=chat-relay/orange-chatgpt-pump-v1\ngit fetch origin main agent/chatgpt-relay-developer-path\ntest \"$(git rev-parse origin/main)\" = \"$EXPECTED_MAIN\"\ntest \"$(git rev-parse origin/agent/chatgpt-relay-developer-path)\" = \"$EXPECTED_BRANCH\"\ngit checkout -B agent/chatgpt-relay-developer-path origin/agent/chatgpt-relay-developer-path\ntest -z \"$(git status --porcelain)\"\nadb devices -l | grep -F \"$SERIAL\" | grep -F 'device ' | grep -F 'model:SM_S906B'\nadb -s \"$SERIAL\" shell am force-stop \"$PACKAGE\" || true\nadb -s \"$SERIAL\" shell input keyevent KEYCODE_ENDCALL || true\nsleep 1\nadb -s \"$SERIAL\" shell cmd audio adj-unmute 0 || true\nadb -s \"$SERIAL\" shell cmd bluetooth_manager enable || true\nfor i in 1 2 3 4 5 6 7 8; do BT=$(adb -s \"$SERIAL\" shell settings get global bluetooth_on 2>/dev/null | tr -d '\\r' || true); [ \"$BT\" = 1 ] && break; sleep 0.25; done\necho bluetooth_on=${BT:-unknown}\nSTATE=$(adb -s \"$SERIAL\" shell dumpsys telephony.registry 2>/dev/null | sed -n 's/.*mCallState=\\([0-9]\\).*/\\1/p' | head -1 || true)\necho post_cleanup_call_state=${STATE:-unknown}\ngit push origin --delete \"$RELAY_BRANCH\" >/tmp/relay-delete.out 2>&1 || true\ncat /tmp/relay-delete.out\nLEFT=$(git ls-remote --heads origin \"refs/heads/$RELAY_BRANCH\")\ntest -z \"$LEFT\"\necho relay_transient_branch_deleted=true\nLLAMA=$(adb -s \"$SERIAL\" shell 'pidof llama-server 2>/dev/null || true' | tr -d '\\r[:space:]')\necho llama_running=$([ -n \"$LLAMA\" ] && echo true || echo false)\ntest -z \"$(git status --porcelain)\"\necho failed_relay_cleanup_complete=true",
+      "exit_code": 0,
+      "output": "From https://github.com/MichalMatu/android-ai-call-bridge\n * branch              main       -> FETCH_HEAD\n * branch              agent/chatgpt-relay-developer-path -> FETCH_HEAD\nSwitched to and reset branch 'agent/chatgpt-relay-developer-path'\nbranch 'agent/chatgpt-relay-developer-path' set up to track 'origin/agent/chatgpt-relay-developer-path'.\nYour branch is up to date with 'origin/agent/chatgpt-relay-developer-path'.\nRFCT70L7E8J            device usb:18874368X product:g0sxeea model:SM_S906B device:g0s transport_id:36\ncalling AudioManager.adjustStreamVolume(0, AudioManager.ADJUST_UNMUTE, 0)\nBluetoothShellCommand: Exec enable\nenable: Success\nbluetooth_on=1\npost_cleanup_call_state=0\nTo https://github.com/MichalMatu/android-ai-call-bridge.git\n - [deleted]           chat-relay/orange-chatgpt-pump-v1\nrelay_transient_branch_deleted=true\nllama_running=false\nfailed_relay_cleanup_complete=true\n",
+      "elapsed_seconds": 4.88,
+      "timed_out": false,
+      "idle_timed_out": false,
+      "memory_limit_mb": 4096,
+      "memory_limited": false,
+      "background_process_leak": false,
+      "peak_rss_mb": 18.83,
+      "output_policy": "stream",
+      "captured_output_chars": 901,
+      "output_truncated": false,
+      "current_rss_mb": 18.83,
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands"
+    }
+  ],
+  "verification": [],
+  "stages": [
+    {
+      "stage_name": "command-1",
+      "stage_index": 1,
+      "stage_total": 1,
+      "stage_phase": "commands",
+      "outcome": "passed",
+      "elapsed_seconds": 4.88
+    }
+  ],
+  "git_status": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.074
+  },
+  "git_diff": {
+    "exit_code": 0,
+    "output": "",
+    "elapsed_seconds": 0.067
+  },
+  "finished_at": "2026-09-19T14:51:58.824259+00:00",
+  "task_digest": "f443adb3506a07056f1e60cf96a7d56fa4dd423a31c917516c8598ed6e7870ff",
+  "idle_timeout": 180,
+  "task_timeout": 600,
+  "memory_limit_mb": 4096,
+  "attempt_id": "58d78a36d869663173216f58",
+  "daemon_version": "4.18.22"
+}
